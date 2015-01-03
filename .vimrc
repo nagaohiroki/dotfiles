@@ -117,9 +117,12 @@ command! Astyle :call Astyle()
 " --------------------------------------------------------------------------
 set matchtime=1
 set showtabline=2
+set laststatus=2
+set cmdheight=2
 set whichwrap=b,s,h,l,<,>,[,]
 set showcmd
 set number
+set title
 set list
 set listchars=eol:<,tab:>-,extends:<
 set shiftwidth=4
