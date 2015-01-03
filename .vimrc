@@ -23,14 +23,17 @@ let $LANG='ja'
 if !exists('$PROJECT')
 	let $PROJECT='D:\work\svn\unity_fps\trunk'
 endif
+if !exists('$DOTFILES')
+	let $DOTFILES=$HOME . '/dotfiles'
+endif
 " --------------------------------------------------------------------------
 " https://github.com/Shougo/neobundle.vim
 " --------------------------------------------------------------------------
 if has('vim_starting')
-	set runtimepath+=$VIM/bundle/neobundle.vim
+	set runtimepath+=$HOME/bundle/neobundle.vim
 endif
-call neobundle#begin(expand($VIM . '/bundle'))
-if neobundle#has_fresh_cache(expand($VIM . '/_vimrc'))
+call neobundle#begin(expand($HOME . '/bundle'))
+if neobundle#has_fresh_cache(expand($DOTFILES . '/.vimrc'))
 	NeoBundleLoadCache
 else
 	NeoBundleFetch 'Shougo/neobundle.vim'
