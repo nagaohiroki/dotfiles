@@ -3,7 +3,7 @@
 "
 "  === Unity3D argment ===
 "
-" -p --remote-tab-silent +$(Line) $(File) 
+" -p --remote-tab-silent +$(Line) "$(File)"
 "
 "  === Windows regedit setting ===
 "
@@ -20,6 +20,7 @@
 " mkdir bundle
 " git clone git://github.com/Shougo/neobundle.vim bundle\neobundle.vim
 "
+" gmcs.vim  and http://wiki.unity3d.com/index.php/Manual_Compilation_of_C_Sharp_Unity_Scripts
 " --------------------------------------------------------------------------
 " --------------------------------------------------------------------------
 " Initialize
@@ -62,8 +63,7 @@ else
 endif
 call neobundle#end()
 filetype plugin indent on
-NeoBundleCheck
-syntax on
+NeoBundleChecksyntax on
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
@@ -117,6 +117,7 @@ set title
 set list
 set listchars=eol:<,tab:>-,extends:<
 set shiftwidth=4
+set pumheight=10
 set autoindent
 set cindent
 set smartindent
@@ -132,11 +133,11 @@ set helplang=ja
 set matchpairs+=<:>
 set nrformats=hex
 set autoread
-set notimeout
 set formatoptions=q
 set completeopt=menuone
 set lazyredraw
 set ttyfast
+set notimeout
 set backup
 set backupdir=~/.cache
 set undolevels=1000
@@ -154,6 +155,9 @@ set statusline+=%=%l/%L,%c%V%8P
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
+nnoremap <MiddleMouse> <Nop>
+vnoremap <MiddleMouse> <Nop>
+inoremap <MiddleMouse> <Nop>
 nnoremap <MiddleMouse> <LeftMouse>:q<CR>
 vnoremap <MiddleMouse> <Esc><LeftMouse>:q<CR>
 inoremap <MiddleMouse> <Esc><LeftMouse>:q<CR>
@@ -175,6 +179,10 @@ nnoremap <Space>j :set lines+=20<CR>
 nnoremap <Space>k :set lines-=20<CR>
 nnoremap <Space>s :%s /\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Space>g :vim /<C-R><C-W>/**/*.*
+nnoremap <S-Left> <Nop>
+nnoremap <S-Right> <Nop>
+nnoremap <S-Up> <Nop>
+nnoremap <S-Down> <Nop>
 " ----------------------------------------------------------------------
 " AutoCommand
 " ---------------------------------------------------------------------
@@ -199,13 +207,13 @@ endif
 " ----------------------------------------------------------------------
 " ctags
 " ---------------------------------------------------------------------
-set tags+=g:project_root_path/.tags
+execute 'set tags+=' . g:project_root_path . '/.tags'
 function! CtagsEditor( opt )
 	if a:opt == 0
-		exe '!cd ' . g:project_root_path . ' & ctags -R -f .tags'
-		exe 'set tags+=' . g:project_root_path . '/.tags'
+		silent! execute '!cd ' . g:project_root_path . ' & ctags -R -f .tags'
+		execute 'set tags+=' . g:project_root_path . '/.tags'
 	elseif a:opt == 1
-		exe '!rm ' . g:project_root_path . '/.tags'
+		silent! execute '!rm ' . g:project_root_path . '/.tags'
 	endif
 endfunction
 
@@ -221,15 +229,14 @@ if has('cscope')
 
 	function! CscopeEditor( opt )
 		if a:opt == 0
-			exe '!cd ' . g:project_root_path . ' & cscope -R -b'
-			exe 'cs add ' . g:project_root_path . '/cscope.out ' . g:project_root_path
+			silent! execute '!cd ' . g:project_root_path . ' & cscope -R -b'
+			execute 'cs add ' . g:project_root_path . '/cscope.out ' . g:project_root_path
 		elseif a:opt == 1
-			exe 'cs kill 0'
-			exe '!rm ' . g:project_root_path . '/cscope.out'
+			execute 'cs kill 0'
+			silent! execute '!rm ' . g:project_root_path . '/cscope.out'
 		endif
 	endfunction
 	command! CscopeGenerate  : call CscopeEditor( 0 )
 	command! CscopeDelete    : call CscopeEditor( 1 )
-
-	
 endif
+
