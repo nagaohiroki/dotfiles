@@ -19,6 +19,4 @@ if has('multi_byte_ime') || has('xim')
 endif
 
 nnoremap <Space>u :source $MYVIMRC<CR>:source $MYGVIMRC<CR>
-if has('kaoriya')
-	autocmd MyAutoCmd FocusGained * set transparency=230
-endif
+
