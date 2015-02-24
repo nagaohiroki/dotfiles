@@ -224,7 +224,7 @@ nnoremap <C-k> :cp<CR>zz
 inoremap <expr> <C-Space> pumvisible() ? "\<C-E>"     : "\<C-N><C-P>"
 inoremap <expr> <TAB>     pumvisible() ? "\<Down>"    : "\<Tab>"
 inoremap <expr> <S-TAB>   pumvisible() ? "\<Up>"      : "\<S-Tab>"
-nnoremap <Space>w :set wrap!
+nnoremap <Space>w :set wrap!<CR>
 nnoremap <Space>u :source $MYVIMRC<CR>
 nnoremap <Space>v :tabe $MYVIMRC<CR>
 nnoremap <Space>l :set columns+=50<CR>
@@ -249,6 +249,5 @@ autocmd MyAutoCmd BufNewFile,BufRead *.xml,*.dae nnoremap <Space>x :%s/></>\r</g
 autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * if expand('%:p:h') !~ '^/tmp' | silent! lcd %:p:h | endif
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * set formatoptions-=ro
-
 
 nn <F3> $F/v0dj
