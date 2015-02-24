@@ -2,16 +2,19 @@
 set guioptions-=m
 set guioptions-=T
 set guioptions+=b
-set lines=60
-set columns=80
+if has('vim_starting')
+	set lines=80
+	set columns=100
+endif
 if has('win32')
 	set guifont=MS_Gothic:h9:cSHIFTJIS
 	set linespace=1
+	set renderoptions=type:directx
 endif
 "--------------------------------------------------------------------------
 "colorscheme
 "--------------------------------------------------------------------------
-colorscheme darkblue
+colorscheme desert
 colorscheme iceberg
 set background=dark
 if has('multi_byte_ime') || has('xim')
