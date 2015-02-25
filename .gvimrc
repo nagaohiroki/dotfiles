@@ -11,6 +11,9 @@ if has('win32')
 	set linespace=1
 	set renderoptions=type:directx
 endif
+if has('kaoriya')
+	autocmd MyAutoCmd BufNewFile,BufRead,FocusGained * set transparency=230
+endif
 "--------------------------------------------------------------------------
 "colorscheme
 "--------------------------------------------------------------------------

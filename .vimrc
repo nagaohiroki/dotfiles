@@ -1,6 +1,7 @@
 ﻿scriptencoding utf-8
 
 " --------------------------------------------------------------------------
+" memo
 "
 "  === Unity3D argment ===
 "
@@ -84,9 +85,8 @@ syntax on
 let g:unite_enable_ignore_case=1
 let g:unite_enable_start_insert=1
 nnoremap ,f :Unite file<CR>
-nnoremap ,b :Unite buffer<CR>
 nnoremap ,m :Unite file_mru<CR>
-nnoremap ,r :Unite register<CR>
+
 " --------------------------------------------------------------------------
 " neocomplete
 " --------------------------------------------------------------------------
@@ -114,18 +114,17 @@ let g:neocomplete#sources#omni#input_patterns.python='.*[^=\);]'
 " --------------------------------------------------------------------------
 " syntastic
 " --------------------------------------------------------------------------
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_check_on_open=1
+let g:syntastic_check_on_wq=0
+let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
+
 " --------------------------------------------------------------------------
 " OmniSharp
 " --------------------------------------------------------------------------
 autocmd MyAutoCmd FileType cs setlocal omnifunc=OmniSharp#Complete
 let g:OmniSharp_sln_list_index=1
-let g:OmniSharp_timeout=10
-
 
 " --------------------------------------------------------------------------
 " DoxygenToolkit
@@ -150,6 +149,7 @@ nnoremap ,g :OpenBrowserSearch<Space>
 " Align
 " ---------------------------------------------------------------------
 let g:Align_xstrlen=3
+
 " ----------------------------------------------------------------------
 " Astyle
 " ---------------------------------------------------------------------
@@ -160,6 +160,7 @@ function! Astyle()
 	call setpos('.',pos)
 endfunction
 command! Astyle :call Astyle()
+
 " --------------------------------------------------------------------------
 " Setting
 " --------------------------------------------------------------------------
@@ -208,6 +209,7 @@ set statusline=%<%f\ %m%r%h%w
 set statusline+=[%Y]%{'['.(&fenc!=''?&fenc:&enc).(&bomb?'_bom':'').']['.&fileformat.']'}
 set statusline+=%{(&wrap?'[wrap]':'')}
 set statusline+=%=%l/%L,%c%V%8P
+
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
@@ -237,12 +239,10 @@ nnoremap <S-Left>  <Nop>
 nnoremap <S-Right> <Nop>
 nnoremap <S-Up>    <Nop>
 nnoremap <S-Down>  <Nop>
+
 " ----------------------------------------------------------------------
 " AutoCommand
 " ---------------------------------------------------------------------
-if has('kaoriya')
-	autocmd MyAutoCmd BufNewFile,BufRead,FocusGained * set transparency=230
-endif
 autocmd MyAutoCmd BufNewFile,BufRead *.fcg,*.vcg,*.shader,*.cg set filetype=cg
 autocmd MyAutoCmd BufNewFile,BufRead *.fx,*.fxc,*.fxh,*.hlsl,*.pssl set filetype=hlsl
 autocmd MyAutoCmd BufNewFile,BufRead *.xml,*.dae nnoremap <Space>x :%s/></>\r</g<CR>:setf xml<CR>:normal gg=G<CR>
