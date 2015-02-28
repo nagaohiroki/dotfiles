@@ -31,6 +31,13 @@
 " ln -s ~/DropBox/dotfiles/.gvimrc ~/.gvimrc
 " --------------------------------------------------------------------------
 
+" --------------------------------------------------------------------------
+" LocalOption
+" --------------------------------------------------------------------------
+if getftype( $VIM . '/local.vim' ) != ""
+	source $VIM/local.vim
+endif
+
 " -------------------------------------------------------------------------
 " AutoCommandGroup
 " -------------------------------------------------------------------------
@@ -67,8 +74,8 @@ else
 	NeoBundle 'vim-scripts/DoxygenToolkit.vim'
 	NeoBundle 'tyru/open-browser.vim'
 	NeoBundle 'cocopon/iceberg.vim'
-	NeoBundle 'nagaohiroki/myplugin.vim'
 	NeoBundle 'nagaohiroki/cscomment.vim'
+	NeoBundle 'nagaohiroki/myplugin.vim'
 	NeoBundle 'OmniSharp/omnisharp-vim'
 	NeoBundle 'scrooloose/syntastic'
 	NeoBundle 'mattn/webapi-vim'
@@ -93,15 +100,6 @@ nnoremap ,m :Unite file_mru<CR>
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#enable_ignore_case=1
 let g:neocomplete#enable_insert_char_pre=1
-let g:neocomplete#force_overwrite_completefunc=0
-
-if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns={}
-endif
-let g:neocomplete#force_omni_input_patterns.c='[^.[:digit:] *\t]\%(\.\|->\)\w*'
-let g:neocomplete#force_omni_input_patterns.cpp='[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-let g:neocomplete#force_omni_input_patterns.cs='[^.]\.\%(\u\{2,}\)\?'
-let g:neocomplete#force_omni_input_patterns.python='\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
 
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns={}
@@ -114,6 +112,7 @@ let g:neocomplete#sources#omni#input_patterns.python='.*[^=\);]'
 " --------------------------------------------------------------------------
 " syntastic
 " --------------------------------------------------------------------------
+"let g:syntastic_mode_map={ 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_check_on_open=1
@@ -123,8 +122,12 @@ let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
 " --------------------------------------------------------------------------
 " OmniSharp
 " --------------------------------------------------------------------------
-autocmd MyAutoCmd FileType cs setlocal omnifunc=OmniSharp#Complete
-let g:OmniSharp_sln_list_index=1
+if !exists('g:config_is_omnisharp') ||  g:config_is_omnisharp == 0
+	let g:OmniSharp_loaded=1
+else
+	autocmd MyAutoCmd FileType cs setlocal omnifunc=OmniSharp#Complete
+	let g:OmniSharp_sln_list_index=1
+endif
 
 " --------------------------------------------------------------------------
 " DoxygenToolkit
@@ -149,17 +152,6 @@ nnoremap ,g :OpenBrowserSearch<Space>
 " Align
 " ---------------------------------------------------------------------
 let g:Align_xstrlen=3
-
-" ----------------------------------------------------------------------
-" Astyle
-" ---------------------------------------------------------------------
-function! Astyle()
-	let l:pos = getpos('.')
-	%!AStyle -I -A1 -t -p -D -U -k3 -W3 -J -E -xp
-	$delete
-	call setpos('.',pos)
-endfunction
-command! Astyle :call Astyle()
 
 " --------------------------------------------------------------------------
 " Setting

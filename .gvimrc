@@ -3,7 +3,7 @@ set guioptions-=m
 set guioptions-=T
 set guioptions+=b
 if has('vim_starting')
-	set lines=80
+	set lines=70
 	set columns=100
 endif
 if has('win32')
