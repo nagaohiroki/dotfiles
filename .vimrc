@@ -70,14 +70,12 @@ else
 	NeoBundle 'Align'
 	NeoBundle 'cg.vim'
 	NeoBundle 'beyondmarc/hlsl.vim'
-	NeoBundle 'vcscommand.vim'
 	NeoBundle 'vim-scripts/DoxygenToolkit.vim'
 	NeoBundle 'tyru/open-browser.vim'
 	NeoBundle 'cocopon/iceberg.vim'
 	NeoBundle 'nagaohiroki/cscomment.vim'
 	NeoBundle 'nagaohiroki/myplugin.vim'
 	NeoBundle 'OmniSharp/omnisharp-vim'
-	NeoBundle 'scrooloose/syntastic'
 	NeoBundle 'mattn/webapi-vim'
 	NeoBundle 'mattn/excitetranslate-vim'
 	NeoBundleSaveCache
@@ -93,6 +91,7 @@ let g:unite_enable_ignore_case=1
 let g:unite_enable_start_insert=1
 nnoremap ,f :Unite file<CR>
 nnoremap ,m :Unite file_mru<CR>
+nnoremap ,b :Unite buffer<CR>
 
 " --------------------------------------------------------------------------
 " neocomplete
@@ -110,20 +109,11 @@ let g:neocomplete#sources#omni#input_patterns.cs='.*[^=\);]'
 let g:neocomplete#sources#omni#input_patterns.python='.*[^=\);]'
 
 " --------------------------------------------------------------------------
-" syntastic
-" --------------------------------------------------------------------------
-"let g:syntastic_mode_map={ 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_check_on_open=1
-let g:syntastic_check_on_wq=0
-let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
-
-" --------------------------------------------------------------------------
 " OmniSharp
 " --------------------------------------------------------------------------
 if !exists('g:config_is_omnisharp') ||  g:config_is_omnisharp == 0
-	let g:OmniSharp_loaded=1
+ 	let g:OmniSharp_loaded=1
+	let g:Omnisharp_start_server = 0
 else
 	autocmd MyAutoCmd FileType cs setlocal omnifunc=OmniSharp#Complete
 	let g:OmniSharp_sln_list_index=1
@@ -242,4 +232,4 @@ autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * if expand('%:p:h') !
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * set formatoptions-=ro
 
-nn <F3> $F/v0dj
+
