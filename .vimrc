@@ -73,11 +73,11 @@ else
 	NeoBundle 'vim-scripts/DoxygenToolkit.vim'
 	NeoBundle 'tyru/open-browser.vim'
 	NeoBundle 'cocopon/iceberg.vim'
-	NeoBundle 'nagaohiroki/cscomment.vim'
 	NeoBundle 'nagaohiroki/myplugin.vim'
 	NeoBundle 'OmniSharp/omnisharp-vim'
 	NeoBundle 'mattn/webapi-vim'
 	NeoBundle 'mattn/excitetranslate-vim'
+	" NeoBundle 'scrooloose/syntastic'
 	NeoBundleSaveCache
 endif
 NeoBundleCheck
@@ -93,6 +93,15 @@ nnoremap ,f :Unite file<CR>
 nnoremap ,m :Unite file_mru<CR>
 nnoremap ,b :Unite buffer<CR>
 
+" --------------------------------------------------------------------------
+" syntastic
+" --------------------------------------------------------------------------
+" let g:syntastic_mode_map={ 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+" let g:syntastic_always_populate_loc_list=1
+" let g:syntastic_auto_loc_list=1
+" let g:syntastic_check_on_open=1
+" let g:syntastic_check_on_wq=0
+" let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
 " --------------------------------------------------------------------------
 " neocomplete
 " --------------------------------------------------------------------------
