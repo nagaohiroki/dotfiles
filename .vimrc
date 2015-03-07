@@ -192,10 +192,10 @@ set shiftwidth=4
 set showcmd
 set showtabline=2
 set smartindent
-set statusline+=%=%l/%L,%c%V%8P
+set statusline=%<%f\ %m%r%h%w
 set statusline+=%{(&wrap?'[wrap]':'')}
 set statusline+=[%Y]%{'['.(&fenc!=''?&fenc:&enc).(&bomb?'_bom':'').']['.&fileformat.']'}
-set statusline=%<%f\ %m%r%h%w
+set statusline+=%=%l/%L,%c%V%8P
 set tabstop=4
 set title
 set ttyfast
