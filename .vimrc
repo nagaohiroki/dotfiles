@@ -4,7 +4,10 @@
 " memo
 "
 "  === Unity3D argment ===
+" ver3
+" UnityExternalScriptEditorHelper.exe
 "
+" ver4~5
 " -p --remote-tab-silent +$(Line) "$(File)"
 "
 "  === Windows regedit setting ===
@@ -155,57 +158,61 @@ let g:Align_xstrlen=3
 " --------------------------------------------------------------------------
 " Setting
 " --------------------------------------------------------------------------
-set noshowmatch
-set nowrap
-set noswapfile
-set notimeout
-set nobackup
-set matchtime=1
-set showtabline=2
-set laststatus=2
+set autoindent
+set autoread
+set cindent
+set clipboard+=unnamedplus,unnamed
 set cmdheight=2
-set whichwrap=b,s,h,l,<,>,[,]
-set showcmd
-set number
-set title
+set completeopt=longest,menuone
+set foldcolumn=1
+set foldenable
+set foldmarker=region,endregion
+set foldmethod=marker
+set foldnestmax=0
+set formatoptions=q
+set helplang=ja
+set hidden
+set hlsearch
+set incsearch
+set laststatus=2
+set lazyredraw
 set list
 set listchars=eol:<,tab:>-,extends:<
-set shiftwidth=4
-set pumheight=10
-set autoindent
-set cindent
-set smartindent
-set tabstop=4
-set clipboard+=unnamedplus,unnamed
-set incsearch
-set hlsearch
-set hidden
-set helplang=ja
 set matchpairs+=<:>
+set matchtime=1
+set nobackup
+set noshowmatch
+set noswapfile
+set notimeout
+set nowrap
 set nrformats=hex
-set autoread
-set formatoptions=q
-set completeopt=longest,menuone
-set lazyredraw
-set ttyfast
-set undolevels=1000
-set undofile
-set undodir=$HOME/.cache
-set foldenable
-set foldmethod=marker
-set foldmarker=region,endregion
-set foldnestmax=0
-set foldcolumn=1
-set statusline=%<%f\ %m%r%h%w
-set statusline+=[%Y]%{'['.(&fenc!=''?&fenc:&enc).(&bomb?'_bom':'').']['.&fileformat.']'}
-set statusline+=%{(&wrap?'[wrap]':'')}
+set number
+set pumheight=10
+set shiftwidth=4
+set showcmd
+set showtabline=2
+set smartindent
 set statusline+=%=%l/%L,%c%V%8P
+set statusline+=%{(&wrap?'[wrap]':'')}
+set statusline+=[%Y]%{'['.(&fenc!=''?&fenc:&enc).(&bomb?'_bom':'').']['.&fileformat.']'}
+set statusline=%<%f\ %m%r%h%w
+set tabstop=4
+set title
+set ttyfast
+set undodir=$HOME/.cache
+set undofile
+set undolevels=1000
+set whichwrap=b,s,h,l,<,>,[,]
 
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
+nnoremap <S-Left>  <Nop>
+nnoremap <S-Right> <Nop>
+nnoremap <S-Up>    <Nop>
+nnoremap <S-Down>  <Nop>
 nnoremap <MiddleMouse> <LeftMouse>:q<CR>
-vnoremap <MiddleMouse> <Esc><LeftMouse>:q<CR>
+vnoremap <MiddleMouse> <Esc><LeftMouse>:<C-U>q<CR>
 inoremap <MiddleMouse> <Esc><LeftMouse>:q<CR>
 inoremap <C-C> <Esc>
 inoremap <C-Q> <C-R>=strftime('%Y/%m/%d %H:%M')<CR>
@@ -226,10 +233,6 @@ nnoremap <Space>j :set lines+=20<CR>
 nnoremap <Space>k :set lines-=20<CR>
 nnoremap <Space>s :%s /\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Space>g :vimgrep /<C-R><C-W>/**/*.*
-nnoremap <S-Left>  <Nop>
-nnoremap <S-Right> <Nop>
-nnoremap <S-Up>    <Nop>
-nnoremap <S-Down>  <Nop>
 
 " ----------------------------------------------------------------------
 " AutoCommand
@@ -240,5 +243,4 @@ autocmd MyAutoCmd BufNewFile,BufRead *.xml,*.dae nnoremap <Space>x :%s/></>\r</g
 autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * if expand('%:p:h') !~ '^/tmp' | silent! lcd %:p:h | endif
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * set formatoptions-=ro
-
 
