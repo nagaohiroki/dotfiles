@@ -34,12 +34,6 @@
 " ln -s ~/DropBox/dotfiles/.gvimrc ~/.gvimrc
 " --------------------------------------------------------------------------
 
-" --------------------------------------------------------------------------
-" LocalOption
-" --------------------------------------------------------------------------
-if getftype( $VIM . '/local.vim' ) != ""
-	source $VIM/local.vim
-endif
 
 " -------------------------------------------------------------------------
 " AutoCommandGroup
@@ -48,11 +42,19 @@ augroup MyAutoCmd
 	autocmd!
 augroup END
 
-" --------------------------------------------------------------------------
-" NeoBundle
-" --------------------------------------------------------------------------
+" -------------------------------------------------------------------------
+" Startup
+" -------------------------------------------------------------------------
 if has('vim_starting')
+	" LocalOption
+	if getftype( $VIM . '/local.vim' ) != ""
+		source $VIM/local.vim
+	endif
+
+	" cache folder
 	silent! call mkdir( $HOME . '/.cache' )
+
+	" bundle
 	if !exists('$MY_NEOBUNDLE_PATH')
 		if has('win32')
 			let $MY_NEOBUNDLE_PATH=$VIM . '/bundle'
@@ -60,8 +62,12 @@ if has('vim_starting')
 			let $MY_NEOBUNDLE_PATH=$HOME . '/bundle'
 		endif
 	endif
+
 	set runtimepath+=$MY_NEOBUNDLE_PATH/neobundle.vim
 endif
+" --------------------------------------------------------------------------
+" NeoBundle
+" --------------------------------------------------------------------------
 call neobundle#begin(expand($MY_NEOBUNDLE_PATH))
 if neobundle#has_fresh_cache(expand($MYVIMRC))
 	NeoBundleLoadCache
