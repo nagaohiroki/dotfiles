@@ -46,13 +46,15 @@ augroup END
 " Startup
 " -------------------------------------------------------------------------
 if has('vim_starting')
+
 	" LocalOption
 	if getftype( $VIM . '/local.vim' ) != ""
 		source $VIM/local.vim
 	endif
 
 	" cache folder
-	silent! call mkdir( $HOME . '/.cache' )
+	let $VIM_CACHE_DIR=$HOME . '/.cache'
+	silent! call mkdir( $VIM_CACHE_DIR )
 
 	" bundle
 	if !exists('$MY_NEOBUNDLE_PATH')
@@ -83,10 +85,8 @@ else
 	NeoBundle 'tyru/open-browser.vim'
 	NeoBundle 'cocopon/iceberg.vim'
 	NeoBundle 'nagaohiroki/myplugin.vim'
-	NeoBundle 'OmniSharp/omnisharp-vim'
 	NeoBundle 'mattn/webapi-vim'
 	NeoBundle 'mattn/excitetranslate-vim'
-	" NeoBundle 'scrooloose/syntastic'
 	NeoBundleSaveCache
 endif
 NeoBundleCheck
@@ -103,39 +103,11 @@ nnoremap ,m :Unite file_mru<CR>
 nnoremap ,b :Unite buffer<CR>
 
 " --------------------------------------------------------------------------
-" syntastic
-" --------------------------------------------------------------------------
-" let g:syntastic_mode_map={ 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-" let g:syntastic_always_populate_loc_list=1
-" let g:syntastic_auto_loc_list=1
-" let g:syntastic_check_on_open=1
-" let g:syntastic_check_on_wq=0
-" let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
-" --------------------------------------------------------------------------
 " neocomplete
 " --------------------------------------------------------------------------
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#enable_ignore_case=1
 let g:neocomplete#enable_insert_char_pre=1
-
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns={}
-endif
-let g:neocomplete#sources#omni#input_patterns.cpp='[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.ruby='[^. *\t]\.\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.cs='.*[^=\);]'
-let g:neocomplete#sources#omni#input_patterns.python='.*[^=\);]'
-
-" --------------------------------------------------------------------------
-" OmniSharp
-" --------------------------------------------------------------------------
-if !exists('g:config_is_omnisharp') ||  g:config_is_omnisharp == 0
- 	let g:OmniSharp_loaded=1
-	let g:Omnisharp_start_server = 0
-else
-	autocmd MyAutoCmd FileType cs setlocal omnifunc=OmniSharp#Complete
-	let g:OmniSharp_sln_list_index=1
-endif
 
 " --------------------------------------------------------------------------
 " DoxygenToolkit
@@ -205,7 +177,7 @@ set statusline+=%=%l/%L,%c%V%8P
 set tabstop=4
 set title
 set ttyfast
-set undodir=$HOME/.cache
+set undodir=$VIM_CACHE_DIR
 set undofile
 set undolevels=1000
 set whichwrap=b,s,h,l,<,>,[,]
