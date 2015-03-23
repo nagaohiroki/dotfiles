@@ -47,7 +47,7 @@ augroup END
 " -------------------------------------------------------------------------
 if has('vim_starting')
 
-	" LocalOption
+	" Local Option
 	if getftype( $VIM . '/local.vim' ) != ""
 		source $VIM/local.vim
 	endif
@@ -87,6 +87,7 @@ else
 	NeoBundle 'nagaohiroki/myplugin.vim'
 	NeoBundle 'mattn/webapi-vim'
 	NeoBundle 'mattn/excitetranslate-vim'
+	NeoBundle 'PProvost/vim-ps1'
 	"NeoBundle 'OmniSharp/omnisharp-vim'
 	"NeoBundle 'scrooloose/syntastic'
 	NeoBundleSaveCache
