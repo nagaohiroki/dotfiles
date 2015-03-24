@@ -78,18 +78,16 @@ else
 	NeoBundle 'Shougo/unite.vim'
 	NeoBundle 'Shougo/neomru.vim'
 	NeoBundle 'Shougo/neocomplete.vim'
-	NeoBundle 'Align'
 	NeoBundle 'cg.vim'
 	NeoBundle 'beyondmarc/hlsl.vim'
+	NeoBundle 'PProvost/vim-ps1'
+	NeoBundle 'Align'
 	NeoBundle 'vim-scripts/DoxygenToolkit.vim'
 	NeoBundle 'tyru/open-browser.vim'
 	NeoBundle 'cocopon/iceberg.vim'
 	NeoBundle 'nagaohiroki/myplugin.vim'
 	NeoBundle 'mattn/webapi-vim'
 	NeoBundle 'mattn/excitetranslate-vim'
-	NeoBundle 'PProvost/vim-ps1'
-	"NeoBundle 'OmniSharp/omnisharp-vim'
-	"NeoBundle 'scrooloose/syntastic'
 	NeoBundleSaveCache
 endif
 NeoBundleCheck
@@ -112,34 +110,7 @@ nnoremap ,b :Unite buffer<CR>
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#enable_ignore_case=1
 let g:neocomplete#enable_insert_char_pre=1
-"if !exists('g:neocomplete#sources#omni#input_patterns')
-"  let g:neocomplete#sources#omni#input_patterns={}
-"endif
-"let g:neocomplete#sources#omni#input_patterns.cpp='[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.ruby='[^. *\t]\.\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.cs='.*[^=\);]'
-"let g:neocomplete#sources#omni#input_patterns.python='.*[^=\);]'
 
-" --------------------------------------------------------------------------
-" OmniSharp
-" --------------------------------------------------------------------------
-"if !exists( 'g:Omnisharp_start_server' )
-"	autocmd MyAutoCmd FileType cs setlocal omnifunc=OmniSharp#Complete
-"	let g:OmniSharp_sln_list_index=1
-"
-"	let g:OmniSharp_host = "http://localhost:2000"
-"	let g:OmniSharp_typeLookupInPreview = 1
-"endif
-
-" --------------------------------------------------------------------------
-" syntastic
-" --------------------------------------------------------------------------
-"let g:syntastic_mode_map={ 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-"let g:syntastic_always_populate_loc_list=1
-"let g:syntastic_auto_loc_list=1
-"let g:syntastic_check_on_open=1
-"let g:syntastic_check_on_wq=0
-"let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
 " --------------------------------------------------------------------------
 " DoxygenToolkit
 " --------------------------------------------------------------------------
