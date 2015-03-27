@@ -199,7 +199,6 @@ inoremap <C-Q> <C-R>=strftime('%Y/%m/%d %H:%M')<CR>
 nnoremap <C-P> "0p
 vnoremap <C-P> "0p
 inoremap <C-L> <Del>
-inoremap <C-Z> <C-^>
 nnoremap <C-J> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
 inoremap <expr> <C-Space> pumvisible() ? "\<C-E>"     : "\<C-N><C-P>"
