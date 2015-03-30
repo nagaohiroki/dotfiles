@@ -213,6 +213,7 @@ nnoremap <Space>j :set lines+=20<CR>
 nnoremap <Space>k :set lines-=20<CR>
 nnoremap <Space>s :%s /\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Space>g :vimgrep /<C-R><C-W>/**/*.*
+nnoremap <Space>f :vimgrep /<C-R><C-W>/<C-R>=g:local_working_path<CR>/**/*.*
 
 " ----------------------------------------------------------------------
 " AutoCommand
