@@ -86,8 +86,6 @@ else
 	NeoBundle 'tyru/open-browser.vim'
 	NeoBundle 'cocopon/iceberg.vim'
 	NeoBundle 'nagaohiroki/myplugin.vim'
-	NeoBundle 'mattn/webapi-vim'
-	NeoBundle 'mattn/excitetranslate-vim'
 	NeoBundleSaveCache
 endif
 NeoBundleCheck
@@ -204,7 +202,6 @@ nnoremap <C-k> :cp<CR>zz
 inoremap <expr> <C-Space> pumvisible() ? "\<C-E>"     : "\<C-N><C-P>"
 inoremap <expr> <TAB>     pumvisible() ? "\<Down>"    : "\<Tab>"
 inoremap <expr> <S-TAB>   pumvisible() ? "\<Up>"      : "\<S-Tab>"
-nnoremap <Space>w :set wrap!<CR>
 nnoremap <Space>u :source $MYVIMRC<CR>
 nnoremap <Space>v :tabe $MYVIMRC<CR>
 nnoremap <Space>l :set columns+=50<CR>
@@ -213,7 +210,6 @@ nnoremap <Space>j :set lines+=20<CR>
 nnoremap <Space>k :set lines-=20<CR>
 nnoremap <Space>s :%s /\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Space>g :vimgrep /<C-R><C-W>/**/*.*
-nnoremap <Space>f :vimgrep /<C-R><C-W>/<C-R>=g:local_working_path<CR>/**/*.*
 
 " ----------------------------------------------------------------------
 " AutoCommand
