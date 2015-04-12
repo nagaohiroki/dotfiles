@@ -86,6 +86,7 @@ else
 	NeoBundle 'tyru/open-browser.vim'
 	NeoBundle 'cocopon/iceberg.vim'
 	NeoBundle 'nagaohiroki/myplugin.vim'
+	"NeoBundle 'OmniSharp/omnisharp-vim'
 	NeoBundleSaveCache
 endif
 NeoBundleCheck
