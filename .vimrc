@@ -86,13 +86,25 @@ else
 	NeoBundle 'tyru/open-browser.vim'
 	NeoBundle 'cocopon/iceberg.vim'
 	NeoBundle 'nagaohiroki/myplugin.vim'
-	"NeoBundle 'OmniSharp/omnisharp-vim'
+	NeoBundle 'nagaohiroki/omnisharp-vim'
+	NeoBundle 'scrooloose/syntastic'
 	NeoBundleSaveCache
 endif
 NeoBundleCheck
 call neobundle#end()
 filetype plugin indent on
 syntax on
+
+" --------------------------------------------------------------------------
+" syntastic
+" --------------------------------------------------------------------------
+" let g:syntastic_mode_map={ 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
+
+" --------------------------------------------------------------------------
+" omnisharp
+" --------------------------------------------------------------------------
+let g:OmniSharp_sln_list_index=1
 
 " -------------------------------------------------------------------------
 " unite
@@ -109,6 +121,7 @@ nnoremap ,b :Unite buffer<CR>
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#enable_ignore_case=1
 let g:neocomplete#enable_insert_char_pre=1
+
 
 " --------------------------------------------------------------------------
 " DoxygenToolkit
@@ -172,7 +185,6 @@ set showcmd
 set showtabline=2
 set smartindent
 set statusline=%<%f\ %m%r%h%w
-set statusline+=%{(&wrap?'[wrap]':'')}
 set statusline+=[%Y]%{'['.(&fenc!=''?&fenc:&enc).(&bomb?'_bom':'').']['.&fileformat.']'}
 set statusline+=%=%l/%L,%c%V%8P
 set tabstop=4
@@ -200,7 +212,7 @@ vnoremap <C-P> "0p
 inoremap <C-L> <Del>
 nnoremap <C-J> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
-inoremap <expr> <C-Space> pumvisible() ? "\<C-E>"     : "\<C-N><C-P>"
+inoremap <expr> <C-Space> pumvisible() ? "\<C-E>"     : "\<C-X><C-O><C-P>"
 inoremap <expr> <TAB>     pumvisible() ? "\<Down>"    : "\<Tab>"
 inoremap <expr> <S-TAB>   pumvisible() ? "\<Up>"      : "\<S-Tab>"
 nnoremap <Space>u :source $MYVIMRC<CR>
@@ -221,4 +233,15 @@ autocmd MyAutoCmd BufNewFile,BufRead *.xml,*.dae nnoremap <Space>x :%s/></>\r</g
 autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * if expand('%:p:h') !~ '^/tmp' | silent! lcd %:p:h | endif
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * set formatoptions-=ro
+autocmd MyAutoCmd Filetype cs nn <F12> :OmniSharpGotoDefinition<CR>
+autocmd MyAutoCmd Filetype cs nn <S-F12> :OmniSharpFindUsages<CR>
 
+
+function! s:messcopy()
+    redir @+>
+    silent messages
+    redir END
+    " Copy to selection too.
+    call setreg('*', getreg('+', 1), getregtype('+'))
+endfunction
+command! MessCopy call s:messcopy()
