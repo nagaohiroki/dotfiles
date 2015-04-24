@@ -85,9 +85,9 @@ else
 	NeoBundle 'vim-scripts/DoxygenToolkit.vim'
 	NeoBundle 'tyru/open-browser.vim'
 	NeoBundle 'cocopon/iceberg.vim'
+	NeoBundle 'scrooloose/syntastic'
 	NeoBundle 'nagaohiroki/myplugin.vim'
 	NeoBundle 'nagaohiroki/omnisharp-vim'
-	NeoBundle 'scrooloose/syntastic'
 	NeoBundleSaveCache
 endif
 NeoBundleCheck
@@ -100,11 +100,12 @@ syntax on
 " --------------------------------------------------------------------------
 " let g:syntastic_mode_map={ 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
-
 " --------------------------------------------------------------------------
 " omnisharp
 " --------------------------------------------------------------------------
 let g:OmniSharp_sln_list_index=1
+autocmd MyAutoCmd Filetype cs nn <F12> :OmniSharpGotoDefinition<CR>
+autocmd MyAutoCmd Filetype cs nn <S-F12> :OmniSharpFindUsages<CR>
 
 " -------------------------------------------------------------------------
 " unite
@@ -134,7 +135,7 @@ nnoremap ,d :Dox<CR>
 " --------------------------------------------------------------------------
 " cscomment
 " --------------------------------------------------------------------------
-nnoremap ,c :Cscomment<CR>
+autocmd MyAutoCmd Filetype cs nnoremap ,c :Cscomment<CR>
 
 " --------------------------------------------------------------------------
 " open-browser
@@ -233,15 +234,5 @@ autocmd MyAutoCmd BufNewFile,BufRead *.xml,*.dae nnoremap <Space>x :%s/></>\r</g
 autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * if expand('%:p:h') !~ '^/tmp' | silent! lcd %:p:h | endif
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * set formatoptions-=ro
-autocmd MyAutoCmd Filetype cs nn <F12> :OmniSharpGotoDefinition<CR>
-autocmd MyAutoCmd Filetype cs nn <S-F12> :OmniSharpFindUsages<CR>
 
 
-function! s:messcopy()
-    redir @+>
-    silent messages
-    redir END
-    " Copy to selection too.
-    call setreg('*', getreg('+', 1), getregtype('+'))
-endfunction
-command! MessCopy call s:messcopy()
