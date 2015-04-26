@@ -98,14 +98,14 @@ syntax on
 " --------------------------------------------------------------------------
 " syntastic
 " --------------------------------------------------------------------------
-" let g:syntastic_mode_map={ 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
+ let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
+
 " --------------------------------------------------------------------------
 " omnisharp
 " --------------------------------------------------------------------------
 let g:OmniSharp_sln_list_index=1
-autocmd MyAutoCmd Filetype cs nn <F12> :OmniSharpGotoDefinition<CR>
-autocmd MyAutoCmd Filetype cs nn <S-F12> :OmniSharpFindUsages<CR>
+autocmd MyAutoCmd Filetype cs nnoremap <F12> :OmniSharpGotoDefinition<CR>
+autocmd MyAutoCmd Filetype cs nnoremap <S-F12> :OmniSharpFindUsages<CR>
 
 " -------------------------------------------------------------------------
 " unite
