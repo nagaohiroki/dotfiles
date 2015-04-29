@@ -98,7 +98,7 @@ syntax on
 " --------------------------------------------------------------------------
 " syntastic
 " --------------------------------------------------------------------------
- let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
+let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
 
 " --------------------------------------------------------------------------
 " omnisharp
@@ -204,16 +204,20 @@ nnoremap <S-Left>  <Nop>
 nnoremap <S-Right> <Nop>
 nnoremap <S-Up>    <Nop>
 nnoremap <S-Down>  <Nop>
-nnoremap <MiddleMouse> <LeftMouse>:q<CR>
+vnoremap <S-Left>  <Nop>
+vnoremap <S-Right> <Nop>
+vnoremap <S-Up>    <Nop>
+vnoremap <S-Down>  <Nop>
 vnoremap <MiddleMouse> <Esc><LeftMouse>:<C-U>q<CR>
+nnoremap <MiddleMouse> <LeftMouse>:q<CR>
 inoremap <MiddleMouse> <Esc><LeftMouse>:q<CR>
 inoremap <C-C> <Esc>
 inoremap <C-Q> <C-R>=strftime('%Y/%m/%d %H:%M')<CR>
-nnoremap <C-P> "0p
-vnoremap <C-P> "0p
 inoremap <C-L> <Del>
 nnoremap <C-J> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
+nnoremap <C-P> "0p
+vnoremap <C-P> "0p
 inoremap <expr> <C-Space> pumvisible() ? "\<C-E>"     : "\<C-X><C-O><C-P>"
 inoremap <expr> <TAB>     pumvisible() ? "\<Down>"    : "\<Tab>"
 inoremap <expr> <S-TAB>   pumvisible() ? "\<Up>"      : "\<S-Tab>"
@@ -223,8 +227,8 @@ nnoremap <Space>l :set columns+=50<CR>
 nnoremap <Space>h :set columns-=50<CR>
 nnoremap <Space>j :set lines+=20<CR>
 nnoremap <Space>k :set lines-=20<CR>
-nnoremap <Space>s :%s /\<<C-R><C-W>\>//g<Left><Left>
-nnoremap <Space>g :vimgrep /<C-R><C-W>/**/*.*
+nnoremap <Space>s :%s/\<<C-R><C-W>\>//g<Left><Left>
+nnoremap <Space>g :vimgrep/<C-R><C-W>/**/*.*
 
 " ----------------------------------------------------------------------
 " AutoCommand
@@ -235,5 +239,4 @@ autocmd MyAutoCmd BufNewFile,BufRead *.xml,*.dae nnoremap <Space>x :%s/></>\r</g
 autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * if expand('%:p:h') !~ '^/tmp' | silent! lcd %:p:h | endif
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * set formatoptions-=ro
-
 
