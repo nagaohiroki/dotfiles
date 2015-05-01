@@ -110,11 +110,8 @@ autocmd MyAutoCmd Filetype cs nnoremap <S-F12> :OmniSharpFindUsages<CR>
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
-let g:unite_enable_ignore_case=1
-let g:unite_enable_start_insert=1
-nnoremap ,f :Unite file<CR>
-nnoremap ,m :Unite file_mru<CR>
-nnoremap ,b :Unite buffer<CR>
+nnoremap ,f :Unite -start-insert file<CR>
+nnoremap ,m :Unite -start-insert file_mru<CR>
 
 " --------------------------------------------------------------------------
 " neocomplete

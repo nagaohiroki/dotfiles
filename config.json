@@ -31,7 +31,8 @@
     "Use 'var' keyword",
     "Name should have prefix '_'.",
 	"Parameter can be declared with base type",
-	"Convert to.*"
+	"Convert to.*",
+	"Xml comment is not placed before a valid language element"
   ],
 
   "TestCommands": {
