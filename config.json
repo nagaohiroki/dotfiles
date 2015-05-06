@@ -31,6 +31,7 @@
     "Use 'var' keyword",
     "Name should have prefix '_'.",
 	"Parameter can be declared with base type",
+	"Parameter can be IComparable",
 	"Convert to.*",
 	"Xml comment is not placed before a valid language element"
   ],

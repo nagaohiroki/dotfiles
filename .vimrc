@@ -71,9 +71,8 @@ endif
 " NeoBundle
 " --------------------------------------------------------------------------
 call neobundle#begin(expand($MY_NEOBUNDLE_PATH))
-if neobundle#has_fresh_cache(expand($MYVIMRC))
-	NeoBundleLoadCache
-else
+
+if neobundle#load_cache(expand($MY_NEOBUNDLE_PATH))
 	NeoBundleFetch 'Shougo/neobundle.vim'
 	NeoBundle 'Shougo/unite.vim'
 	NeoBundle 'Shougo/neomru.vim'
@@ -90,6 +89,7 @@ else
 	NeoBundle 'nagaohiroki/omnisharp-vim'
 	NeoBundleSaveCache
 endif
+
 NeoBundleCheck
 call neobundle#end()
 filetype plugin indent on
@@ -114,6 +114,7 @@ let s:unite_ignore_patterns=['\.jpg','\.jpeg','\.png','\.tga','\.psd','\.tif','\
 let s:unite_ignore_patterns=['\.dae','\.fbx','\.blender','\.ma','\.mb','\.mel','\.3ds','\.max']
 let s:unite_ignore_patterns+=['\.meta','\.mat','\.unity','\.prefab','\.asset','\.flare']
 call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', join( s:unite_ignore_patterns, '\|' ) )
+call unite#custom#source('file', 'ignore_pattern', '\.meta' )
 
 nnoremap ,r :Unite -start-insert -path=<C-R>=g:local_working_path<CR> file_rec<CR>
 nnoremap ,f :Unite -start-insert file<CR>
