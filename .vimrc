@@ -113,8 +113,7 @@ autocmd MyAutoCmd Filetype cs nnoremap <S-F12> :OmniSharpFindUsages<CR>
 let s:unite_ignore_patterns=['\.jpg','\.jpeg','\.png','\.tga','\.psd','\.tif','\.gif','\.bmp','\.dds']
 let s:unite_ignore_patterns=['\.dae','\.fbx','\.blender','\.ma','\.mb','\.mel','\.3ds','\.max']
 let s:unite_ignore_patterns+=['\.meta','\.mat','\.unity','\.prefab','\.asset','\.flare']
-call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', join( s:unite_ignore_patterns, '\|' ) )
-call unite#custom#source('file', 'ignore_pattern', '\.meta' )
+call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', join( s:unite_ignore_patterns, '\|' ) )
 
 nnoremap ,r :Unite -start-insert -path=<C-R>=g:local_working_path<CR> file_rec<CR>
 nnoremap ,f :Unite -start-insert file<CR>
@@ -232,7 +231,7 @@ nnoremap <Space>h :set columns-=50<CR>
 nnoremap <Space>j :set lines+=20<CR>
 nnoremap <Space>k :set lines-=20<CR>
 nnoremap <Space>s :%s/\<<C-R><C-W>\>//g<Left><Left>
-nnoremap <Space>g :vimgrep/<C-R><C-W>/**/*.*
+nnoremap <Space>g :vimgrep/<C-R><C-W>/<C-R>=g:local_working_path<CR>/**/*.cs
 
 " ----------------------------------------------------------------------
 " AutoCommand
