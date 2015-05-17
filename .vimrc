@@ -191,7 +191,6 @@ set smartindent
 set statusline=%<%f\ %m%r%h%w
 set statusline+=[%Y]%{'['.(&fenc!=''?&fenc:&enc).(&bomb?'_bom':'').']['.&fileformat.']'}
 set statusline+=%=%l/%L,%c%V%8P
-set synmaxcol=200
 set tabstop=4
 set title
 set ttyfast
