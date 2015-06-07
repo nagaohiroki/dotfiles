@@ -14,7 +14,7 @@
 "
 " $VIM\gvim.exe" -p --remote-tab-silent "%1"
 "
-"  === Visual Studio setting ===
+"  === Visual Studio Setting ===
 "
 " $VIM\gvim.exe
 " -p --remote-tab-silent $(ItemPath)
@@ -26,8 +26,8 @@
 " git clone git://github.com/Shougo/neobundle.vim bundle/neobundle.vim
 "
 " windows
-"mklink "$VIM/.vimrc" ~/DropBox/dotfiles/.vimrc"
-"mklink "$VIM/.gvimrc" ~/DropBox/dotfiles/.gvimrc"
+"mklink "$VIM/.vimrc" "~/DropBox/dotfiles/.vimrc"
+"mklink "$VIM/.gvimrc" "~/DropBox/dotfiles/.gvimrc"
 "
 " ubuntu/mac
 " ln -s ~/DropBox/dotfiles/.vimrc ~/.vimrc
@@ -77,16 +77,18 @@ if neobundle#load_cache(expand($MY_NEOBUNDLE_PATH))
 	NeoBundle 'Shougo/unite.vim'
 	NeoBundle 'Shougo/neomru.vim'
 	NeoBundle 'Shougo/neocomplete.vim'
-	NeoBundle 'cg.vim'
-	NeoBundle 'beyondmarc/hlsl.vim'
-	NeoBundle 'PProvost/vim-ps1'
 	NeoBundle 'Align'
 	NeoBundle 'vim-scripts/DoxygenToolkit.vim'
 	NeoBundle 'tyru/open-browser.vim'
-	NeoBundle 'cocopon/iceberg.vim'
 	NeoBundle 'scrooloose/syntastic'
+	NeoBundle 'kannokanno/previm'
+	NeoBundle 'cocopon/iceberg.vim'
+	NeoBundle 'cg.vim'
+	NeoBundle 'beyondmarc/hlsl.vim'
+	NeoBundle 'PProvost/vim-ps1'
+	NeoBundle 'timcharper/textile.vim'
+	NeoBundle 'OmniSharp/omnisharp-vim'
 	NeoBundle 'nagaohiroki/myplugin.vim'
-	NeoBundle 'nagaohiroki/omnisharp-vim'
 	NeoBundleSaveCache
 endif
 
@@ -106,7 +108,6 @@ let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
 let g:OmniSharp_sln_list_index=1
 autocmd MyAutoCmd Filetype cs nnoremap <F12> :OmniSharpGotoDefinition<CR>
 autocmd MyAutoCmd Filetype cs nnoremap <S-F12> :OmniSharpFindUsages<CR>
-
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
@@ -242,3 +243,11 @@ autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * if expand('%:p:h') !
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * set formatoptions-=ro
 
+function! Test() range
+	let l:tmp=@@
+	silent normal gvy
+	let l:selected=@@
+	let @@=l:tmp
+	echo l:selected
+endfunction
+command! -range Test :call Test()
