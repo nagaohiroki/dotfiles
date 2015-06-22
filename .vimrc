@@ -88,6 +88,7 @@ if neobundle#load_cache(expand($MY_NEOBUNDLE_PATH))
 	NeoBundle 'PProvost/vim-ps1'
 	NeoBundle 'timcharper/textile.vim'
 	NeoBundle 'OmniSharp/omnisharp-vim'
+	NeoBundle 'davidhalter/jedi-vim'
 	NeoBundle 'nagaohiroki/myplugin.vim'
 	NeoBundleSaveCache
 endif
@@ -231,7 +232,7 @@ nnoremap <Space>h :set columns-=50<CR>
 nnoremap <Space>j :set lines+=20<CR>
 nnoremap <Space>k :set lines-=20<CR>
 nnoremap <Space>s :%s/\<<C-R><C-W>\>//g<Left><Left>
-nnoremap <Space>g :vimgrep/<C-R><C-W>/<C-R>=g:local_working_path<CR>/**/*.cs
+nnoremap <Space>g :vim/<C-R><C-W>/<C-R>=g:local_working_path<CR>/**/*.cs<C-B><Right><Right><Right><Right>
 
 " ----------------------------------------------------------------------
 " AutoCommand
@@ -251,3 +252,5 @@ function! Test() range
 	echo l:selected
 endfunction
 command! -range Test :call Test()
+
+
