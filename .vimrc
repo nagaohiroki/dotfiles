@@ -114,12 +114,12 @@ autocmd MyAutoCmd Filetype cs nnoremap <S-F12> :OmniSharpFindUsages<CR>
 " -------------------------------------------------------------------------
 let s:unite_ignore_patterns=['\.jpg','\.jpeg','\.png','\.tga','\.psd','\.tif','\.gif','\.bmp','\.dds']
 let s:unite_ignore_patterns=['\.dae','\.fbx','\.blender','\.ma','\.mb','\.mel','\.3ds','\.max']
-let s:unite_ignore_patterns+=['\.meta','\.mat','\.unity','\.prefab','\.asset','\.flare']
+let s:unite_ignore_patterns+=['\.meta','\.mat','\.unity','\.prefab','\.asset','\.flare','\.anim','\.exr', '\.physicsMaterial2D', '\.controller']
 call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', join( s:unite_ignore_patterns, '\|' ) )
 
-nnoremap ,r :Unite -start-insert -path=<C-R>=g:local_working_path<CR> file_rec<CR>
-nnoremap ,f :Unite -start-insert file<CR>
-nnoremap ,m :Unite -start-insert file_mru<CR>
+nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:local_working_path<CR> file_rec<CR>
+nnoremap <Space>f :Unite -start-insert file<CR>
+nnoremap <Space>m :Unite -start-insert file_mru<CR>
 
 " --------------------------------------------------------------------------
 " neocomplete
@@ -135,18 +135,17 @@ let g:neocomplete#enable_insert_char_pre=1
 let g:DoxygenToolkit_blockHeader='------------------------------------------------------------------------'
 let g:DoxygenToolkit_blockFooter='------------------------------------------------------------------------'
 let g:DoxygenToolkit_commentType='C++'
-nnoremap ,d :Dox<CR>
 
 " --------------------------------------------------------------------------
 " cscomment
 " --------------------------------------------------------------------------
-autocmd MyAutoCmd Filetype cs nnoremap ,c :Cscomment<CR>
+autocmd MyAutoCmd Filetype cs nnoremap <Space>c :Cscomment<CR>
 
 " --------------------------------------------------------------------------
 " open-browser
 " --------------------------------------------------------------------------
 nmap ,o <Plug>(openbrowser-smart-search)
-nnoremap ,g :OpenBrowserSearch<Space>
+nnoremap ,b :OpenBrowserSearch<Space>
 
 " ----------------------------------------------------------------------
 " Align
@@ -225,12 +224,12 @@ vnoremap <C-P> "0p
 inoremap <expr> <C-Space> pumvisible() ? "\<C-E>"     : "\<C-X><C-O><C-P>"
 inoremap <expr> <TAB>     pumvisible() ? "\<Down>"    : "\<Tab>"
 inoremap <expr> <S-TAB>   pumvisible() ? "\<Up>"      : "\<S-Tab>"
-nnoremap <Space>u :source $MYVIMRC<CR>
-nnoremap <Space>v :tabe $MYVIMRC<CR>
 nnoremap <Space>l :set columns+=50<CR>
 nnoremap <Space>h :set columns-=50<CR>
 nnoremap <Space>j :set lines+=20<CR>
 nnoremap <Space>k :set lines-=20<CR>
+nnoremap <Space>u :source $MYVIMRC<CR>
+nnoremap <Space>v :tabe $MYVIMRC<CR>
 nnoremap <Space>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Space>g :vim/<C-R><C-W>/<C-R>=g:local_working_path<CR>/**/*.cs<C-B><Right><Right><Right><Right>
 
@@ -244,13 +243,19 @@ autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * if expand('%:p:h') !
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * set formatoptions-=ro
 
+" ----------------------------------------------------------------------
+" kakasi test
+" ---------------------------------------------------------------------
 function! Test() range
 	let l:tmp=@@
 	silent normal gvy
 	let l:selected=@@
 	let @@=l:tmp
-	echo l:selected
+	l:selected
 endfunction
+
 command! -range Test :call Test()
+" nnoremap <Space>k :echo system('echo <C-R><C-W> \| kakasi -JH')<CR>
+
 
 
