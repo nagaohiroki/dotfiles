@@ -113,7 +113,7 @@ autocmd MyAutoCmd Filetype cs nnoremap <S-F12> :OmniSharpFindUsages<CR>
 " unite
 " -------------------------------------------------------------------------
 let s:unite_ignore_patterns=['\.jpg','\.jpeg','\.png','\.tga','\.psd','\.tif','\.gif','\.bmp','\.dds']
-let s:unite_ignore_patterns=['\.dae','\.fbx','\.blender','\.ma','\.mb','\.mel','\.3ds','\.max']
+let s:unite_ignore_patterns+=['\.dae','\.fbx','\.blender','\.ma','\.mb','\.mel','\.3ds','\.max']
 let s:unite_ignore_patterns+=['\.meta','\.mat','\.unity','\.prefab','\.asset','\.flare','\.anim','\.exr', '\.physicsMaterial2D', '\.controller']
 call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', join( s:unite_ignore_patterns, '\|' ) )
 
@@ -144,8 +144,7 @@ autocmd MyAutoCmd Filetype cs nnoremap <Space>c :Cscomment<CR>
 " --------------------------------------------------------------------------
 " open-browser
 " --------------------------------------------------------------------------
-nmap ,o <Plug>(openbrowser-smart-search)
-nnoremap ,b :OpenBrowserSearch<Space>
+nmap <Space>o <Plug>(openbrowser-smart-search)
 
 " ----------------------------------------------------------------------
 " Align
@@ -251,9 +250,9 @@ function! Test() range
 	silent normal gvy
 	let l:selected=@@
 	let @@=l:tmp
-	l:selected
+	echo l:selected
 endfunction
-
+" TODO コマンドでログを表示できるようにする
 command! -range Test :call Test()
 " nnoremap <Space>k :echo system('echo <C-R><C-W> \| kakasi -JH')<CR>
 

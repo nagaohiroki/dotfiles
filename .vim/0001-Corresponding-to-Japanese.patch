@@ -1,0 +1,108 @@
+From 1892024d23cb417550cbe0ffe9b9acecc78fe180 Mon Sep 17 00:00:00 2001
+From: nagaohiroki <zerosiseinokae@yahoo.co.jp>
+Date: Sat, 1 Aug 2015 16:27:16 +0900
+Subject: [PATCH] Corresponding to Japanese
+
+---
+ autoload/OmniSharp.vim | 15 ++++++++++++++-
+ python/OmniSharp.py    |  6 ++----
+ python/asyncrequest.py |  4 ++--
+ python/syncrequest.py  |  4 ++--
+ 4 files changed, 20 insertions(+), 9 deletions(-)
+
+diff --git a/autoload/OmniSharp.vim b/autoload/OmniSharp.vim
+index 94cbb10..c58fd8b 100644
+--- a/autoload/OmniSharp.vim
++++ b/autoload/OmniSharp.vim
+@@ -21,7 +21,7 @@ function! OmniSharp#Complete(findstart, base) abort
+     "locate the start of the word
+     let line = getline('.')
+     let start = col('.') - 1
+-    let s:textBuffer = getline(1, '$')
++	let s:textBuffer = OmniSharp#GetLineUTF8()
+     while start > 0 && line[start - 1] =~# '\v[a-zA-z0-9_]'
+       let start -= 1
+     endwhile
+@@ -611,5 +611,18 @@ function! OmniSharp#AppendCtrlPExtensions() abort
+   endif
+ endfunction
+ 
++function! OmniSharp#GetLineUTF8()
++	let l:lines = getline(1,'$')
++	let l:utf8lines = []
++	for l:line in l:lines
++		call add(l:utf8lines, iconv(l:line, &encoding, 'utf-8'))
++	endfor
++	return l:utf8lines
++endfunction
++
++function! OmniSharp#GetCurrentBufferNameUTF8()
++	return iconv(expand('%:p'), &encoding, 'utf-8')
++endfunction
++
+ let &cpo = s:save_cpo
+ unlet s:save_cpo
+diff --git a/python/OmniSharp.py b/python/OmniSharp.py
+index ee7b63d..c13cab9 100644
+--- a/python/OmniSharp.py
++++ b/python/OmniSharp.py
+@@ -18,8 +18,8 @@ def getResponse(endPoint, additional_parameters=None, timeout=None):
+     parameters = {}
+     parameters['line'] = vim.eval('line(".")')
+     parameters['column'] = vim.eval('col(".")')
+-    parameters['buffer'] = '\r\n'.join(vim.eval("getline(1,'$')")[:])
+-    parameters['filename'] = vim.current.buffer.name
++    parameters['buffer'] = '\r\n'.join(vim.eval('OmniSharp#GetLineUTF8()')[:])
++    parameters['filename'] = vim.eval('OmniSharp#GetCurrentBufferNameUTF8()')
+     if additional_parameters != None:
+         parameters.update(additional_parameters)
+ 
+@@ -109,7 +109,6 @@ def setBufferText(text):
+     lines = text.splitlines()
+ 
+     cursor = vim.current.window.cursor
+-    lines = [line.encode('utf-8') for line in lines]
+     vim.current.buffer[:] = lines
+     vim.current.window.cursor = cursor
+ 
+@@ -163,7 +162,6 @@ def renameTo():
+ 
+ def setBuffer(buffer):
+     lines = buffer.splitlines()
+-    lines = [line.encode('utf-8') for line in lines]
+     vim.current.buffer[:] = lines
+ 
+ def build():
+diff --git a/python/asyncrequest.py b/python/asyncrequest.py
+index 8ab1048..2faa250 100644
+--- a/python/asyncrequest.py
++++ b/python/asyncrequest.py
+@@ -26,8 +26,8 @@ def get_response_async(endPoint, callback, params=None, timeout=None):
+     parameters = {}
+     parameters['line'] = vim.eval('line(".")')
+     parameters['column'] = vim.eval('col(".")')
+-    parameters['buffer'] = '\r\n'.join(vim.eval("getline(1,'$')")[:])
+-    parameters['filename'] = vim.current.buffer.name
++    parameters['buffer'] = '\r\n'.join(vim.eval('OmniSharp#GetLineUTF8()')[:])
++    parameters['filename'] = vim.eval('OmniSharp#GetCurrentBufferNameUTF8()')
+ 
+     if params is not None:
+         parameters.update(params)
+diff --git a/python/syncrequest.py b/python/syncrequest.py
+index 5630ef3..b3e6d78 100644
+--- a/python/syncrequest.py
++++ b/python/syncrequest.py
+@@ -4,8 +4,8 @@ def get_response(endPoint, params=None, timeout=None):
+     parameters = {}
+     parameters['line'] = vim.eval('line(".")')
+     parameters['column'] = vim.eval('col(".")')
+-    parameters['buffer'] = '\r\n'.join(vim.eval("getline(1,'$')")[:])
+-    parameters['filename'] = vim.current.buffer.name
++    parameters['buffer'] = '\r\n'.join(vim.eval('OmniSharp#GetLineUTF8()')[:])
++    parameters['filename'] = vim.eval('OmniSharp#GetCurrentBufferNameUTF8()')
+ 
+     if params is not None:
+         parameters.update(params)
+-- 
+1.9.5.msysgit.1
+
