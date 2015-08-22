@@ -1,5 +1,4 @@
 ﻿scriptencoding utf-8
-
 " --------------------------------------------------------------------------
 " memo
 "
@@ -33,7 +32,6 @@
 " ln -s ~/DropBox/dotfiles/.vimrc ~/.vimrc
 " ln -s ~/DropBox/dotfiles/.gvimrc ~/.gvimrc
 " --------------------------------------------------------------------------
-
 
 " -------------------------------------------------------------------------
 " AutoCommandGroup
@@ -97,7 +95,6 @@ NeoBundleCheck
 call neobundle#end()
 filetype plugin indent on
 syntax on
-
 " --------------------------------------------------------------------------
 " syntastic
 " --------------------------------------------------------------------------
@@ -107,6 +104,7 @@ let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
 " omnisharp
 " --------------------------------------------------------------------------
 let g:OmniSharp_sln_list_index=1
+let g:OmniSharp_timeout=10
 autocmd MyAutoCmd Filetype cs nnoremap <F12> :OmniSharpGotoDefinition<CR>
 autocmd MyAutoCmd Filetype cs nnoremap <S-F12> :OmniSharpFindUsages<CR>
 " -------------------------------------------------------------------------
@@ -127,7 +125,6 @@ nnoremap <Space>m :Unite -start-insert file_mru<CR>
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#enable_ignore_case=1
 let g:neocomplete#enable_insert_char_pre=1
-
 
 " --------------------------------------------------------------------------
 " DoxygenToolkit
@@ -173,7 +170,7 @@ set incsearch
 set laststatus=2
 set lazyredraw
 set list
-set listchars=eol:<,tab:>-,extends:<
+set listchars=eol:<,tab:>\ ,extends:<
 set matchpairs+=<:>
 set matchtime=1
 set nobackup
@@ -213,16 +210,13 @@ vnoremap <S-Down>  <Nop>
 vnoremap <MiddleMouse> <Esc><LeftMouse>:<C-U>q<CR>
 nnoremap <MiddleMouse> <LeftMouse>:q<CR>
 inoremap <MiddleMouse> <Esc><LeftMouse>:q<CR>
-inoremap <C-C> <Esc>
-inoremap <C-Q> <C-R>=strftime('%Y/%m/%d %H:%M')<CR>
-inoremap <C-L> <Del>
-nnoremap <C-J> :cn<CR>zz
+inoremap <C-c> <Esc>
+inoremap <C-q> <C-R>=strftime('%Y/%m/%d %H:%M')<CR>
+inoremap <C-l> <Del>
+nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
-nnoremap <C-P> "0p
-vnoremap <C-P> "0p
-inoremap <expr> <C-Space> pumvisible() ? "\<C-E>"     : "\<C-X><C-O><C-P>"
-inoremap <expr> <TAB>     pumvisible() ? "\<Down>"    : "\<Tab>"
-inoremap <expr> <S-TAB>   pumvisible() ? "\<Up>"      : "\<S-Tab>"
+nnoremap <C-p> "0p
+vnoremap <C-p> "0p
 nnoremap <Space>l :set columns+=50<CR>
 nnoremap <Space>h :set columns-=50<CR>
 nnoremap <Space>j :set lines+=20<CR>
@@ -231,30 +225,15 @@ nnoremap <Space>u :source $MYVIMRC<CR>
 nnoremap <Space>v :tabe $MYVIMRC<CR>
 nnoremap <Space>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Space>g :vim/<C-R><C-W>/<C-R>=g:local_working_path<CR>/**/*.cs<C-B><Right><Right><Right><Right>
-
+inoremap <expr> <C-Space> pumvisible() ? '<C-e>' : '<C-x><C-o><C-p>'
+inoremap <expr> <TAB>     pumvisible() ? '<Down>':  '<Tab>'
+inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
 " ----------------------------------------------------------------------
 " AutoCommand
 " ---------------------------------------------------------------------
-autocmd MyAutoCmd BufNewFile,BufRead *.fcg,*.vcg,*.shader,*.cg set filetype=cg
+autocmd MyAutoCmd BufNewFile,BufRead *.fcg,*.vcg,*.shader,*.cg,*.compute set filetype=cg
 autocmd MyAutoCmd BufNewFile,BufRead *.fx,*.fxc,*.fxh,*.hlsl,*.pssl set filetype=hlsl
 autocmd MyAutoCmd BufNewFile,BufRead *.xml,*.dae nnoremap <Space>x :%s/></>\r</g<CR>:setf xml<CR>:normal gg=G<CR>
 autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * if expand('%:p:h') !~ '^/tmp' | silent! lcd %:p:h | endif
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * set formatoptions-=ro
-
-" ----------------------------------------------------------------------
-" kakasi test
-" ---------------------------------------------------------------------
-function! Test() range
-	let l:tmp=@@
-	silent normal gvy
-	let l:selected=@@
-	let @@=l:tmp
-	echo l:selected
-endfunction
-" TODO コマンドでログを表示できるようにする
-command! -range Test :call Test()
-" nnoremap <Space>k :echo system('echo <C-R><C-W> \| kakasi -JH')<CR>
-
-
-
