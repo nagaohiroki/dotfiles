@@ -52,7 +52,7 @@ if has('vim_starting')
 	set runtimepath+=$MY_NEOBUNDLE_PATH/neobundle.vim
 endif
 " --------------------------------------------------------------------------
-" NeoBundle
+" Plugin
 " --------------------------------------------------------------------------
 call neobundle#begin(expand($MY_NEOBUNDLE_PATH))
 if neobundle#load_cache(expand($MY_NEOBUNDLE_PATH))
@@ -197,9 +197,6 @@ vnoremap <S-Left>  <Nop>
 vnoremap <S-Right> <Nop>
 vnoremap <S-Up>    <Nop>
 vnoremap <S-Down>  <Nop>
-vnoremap <MiddleMouse> <Esc><LeftMouse>:<C-U>q<CR>
-nnoremap <MiddleMouse> <LeftMouse>:q<CR>
-inoremap <MiddleMouse> <Esc><LeftMouse>:q<CR>
 inoremap <C-c> <Esc>
 inoremap <C-q> <C-R>=strftime('%Y/%m/%d %H:%M')<CR>
 inoremap <C-l> <Del>
@@ -218,6 +215,10 @@ nnoremap <Space>g :vim/<C-R><C-W>/<C-R>=g:local_working_path<CR>/**/*.cs<C-B><Ri
 inoremap <expr> <C-Space> pumvisible() ? '<C-e>' : '<C-x><C-o><C-p>'
 inoremap <expr> <TAB>     pumvisible() ? '<Down>':  '<Tab>'
 inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
+vnoremap <MiddleMouse> <Esc><LeftMouse>:<C-U>q<CR>
+nnoremap <MiddleMouse> <LeftMouse>:q<CR>
+inoremap <MiddleMouse> <Esc><LeftMouse>:q<CR>
+
 " ----------------------------------------------------------------------
 " AutoCommand
 " ---------------------------------------------------------------------
@@ -226,7 +227,9 @@ autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * if expand('%:p:h') !
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * set formatoptions-=ro
 
-" PathCopy
+" ----------------------------------------------------------------------
+" Command
+" ---------------------------------------------------------------------
 command! PathCopy call setreg('*', expand('%:p'))
 command! PathLineCopy call setreg('*', expand('%:p') . ' ' . line('.'))
 
