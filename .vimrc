@@ -1,36 +1,28 @@
 ﻿scriptencoding utf-8
 " --------------------------------------------------------------------------
-" memo
-"
-"  === Unity3D argment ===
-" ver3
+" Unity3D 3
 " UnityExternalScriptEditorHelper.exe
 "
-" ver4~5
+" Unity3D 4~5
 " -p --remote-tab-silent +$(Line) "$(File)"
 "
-"  === Windows regedit setting ===
-"
+" Windows regedit
 " $VIM\gvim.exe" -p --remote-tab-silent "%1"
 "
-"  === Visual Studio Setting ===
-"
+" Visual Studio
 " $VIM\gvim.exe
 " -p --remote-tab-silent $(ItemPath)
 " $(ItemDir)
 "
 " === NeoBundle Setting ===
-"
 " mkdir bundle
 " git clone git://github.com/Shougo/neobundle.vim bundle/neobundle.vim
 "
 " windows
-"mklink "$VIM/.vimrc" "~/DropBox/dotfiles/.vimrc"
-"mklink "$VIM/.gvimrc" "~/DropBox/dotfiles/.gvimrc"
+"mklink "$VIM/.vimrc" "dotfiles/.vimrc"
 "
-" ubuntu/mac
-" ln -s ~/DropBox/dotfiles/.vimrc ~/.vimrc
-" ln -s ~/DropBox/dotfiles/.gvimrc ~/.gvimrc
+" linux/mac
+" ln -s dotfiles/.vimrc ~/.vimrc
 " --------------------------------------------------------------------------
 
 " -------------------------------------------------------------------------
@@ -44,24 +36,18 @@ augroup END
 " Startup
 " -------------------------------------------------------------------------
 if has('vim_starting')
-
+	let $VIM_CURRENT=has('win32') ? $VIM : $HOME
 	" Local Option
-	if getftype( $VIM . '/local.vim' ) != ""
-		source $VIM/local.vim
+	if getftype( $VIM_CURRENT . '/local.vim' ) != ""
+		source $VIM_CURRENT/local.vim
 	endif
 
-	" cache folder
+	" cache
 	let $VIM_CACHE_DIR=$HOME . '/.cache'
 	silent! call mkdir( $VIM_CACHE_DIR )
 
 	" bundle
-	if !exists('$MY_NEOBUNDLE_PATH')
-		if has('win32')
-			let $MY_NEOBUNDLE_PATH=$VIM . '/bundle'
-		else
-			let $MY_NEOBUNDLE_PATH=$HOME . '/bundle'
-		endif
-	endif
+	let $MY_NEOBUNDLE_PATH=$VIM_CURRENT . '/bundle'
 
 	set runtimepath+=$MY_NEOBUNDLE_PATH/neobundle.vim
 endif
@@ -69,7 +55,6 @@ endif
 " NeoBundle
 " --------------------------------------------------------------------------
 call neobundle#begin(expand($MY_NEOBUNDLE_PATH))
-
 if neobundle#load_cache(expand($MY_NEOBUNDLE_PATH))
 	NeoBundleFetch 'Shougo/neobundle.vim'
 	NeoBundle 'Shougo/unite.vim'
@@ -90,7 +75,6 @@ if neobundle#load_cache(expand($MY_NEOBUNDLE_PATH))
 	NeoBundle 'nagaohiroki/myplugin.vim'
 	NeoBundleSaveCache
 endif
-
 NeoBundleCheck
 call neobundle#end()
 filetype plugin indent on
@@ -132,6 +116,12 @@ let g:neocomplete#enable_insert_char_pre=1
 let g:DoxygenToolkit_blockHeader='------------------------------------------------------------------------'
 let g:DoxygenToolkit_blockFooter='------------------------------------------------------------------------'
 let g:DoxygenToolkit_commentType='C++'
+
+" --------------------------------------------------------------------------
+" shader syntax
+" --------------------------------------------------------------------------
+autocmd MyAutoCmd BufNewFile,BufRead *.fcg,*.vcg,*.shader,*.cg,*.compute set filetype=cg
+autocmd MyAutoCmd BufNewFile,BufRead *.fx,*.fxc,*.fxh,*.hlsl,*.pssl set filetype=hlsl
 
 " --------------------------------------------------------------------------
 " cscomment
@@ -231,9 +221,12 @@ inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
 " ----------------------------------------------------------------------
 " AutoCommand
 " ---------------------------------------------------------------------
-autocmd MyAutoCmd BufNewFile,BufRead *.fcg,*.vcg,*.shader,*.cg,*.compute set filetype=cg
-autocmd MyAutoCmd BufNewFile,BufRead *.fx,*.fxc,*.fxh,*.hlsl,*.pssl set filetype=hlsl
 autocmd MyAutoCmd BufNewFile,BufRead *.xml,*.dae nnoremap <Space>x :%s/></>\r</g<CR>:setf xml<CR>:normal gg=G<CR>
 autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * if expand('%:p:h') !~ '^/tmp' | silent! lcd %:p:h | endif
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * set formatoptions-=ro
+
+" PathCopy
+command! PathCopy call setreg('*', expand('%:p'))
+command! PathLineCopy call setreg('*', expand('%:p') . ' ' . line('.'))
+
