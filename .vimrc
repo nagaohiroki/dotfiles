@@ -89,6 +89,7 @@ let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
 " --------------------------------------------------------------------------
 let g:OmniSharp_sln_list_index=1
 let g:OmniSharp_timeout=10
+let g:OmniSharp_selector_ui='unite'
 autocmd MyAutoCmd Filetype cs nnoremap <F12> :OmniSharpGotoDefinition<CR>
 autocmd MyAutoCmd Filetype cs nnoremap <S-F12> :OmniSharpFindUsages<CR>
 " -------------------------------------------------------------------------
@@ -124,14 +125,9 @@ autocmd MyAutoCmd BufNewFile,BufRead *.fcg,*.vcg,*.shader,*.cg,*.compute set fil
 autocmd MyAutoCmd BufNewFile,BufRead *.fx,*.fxc,*.fxh,*.hlsl,*.pssl set filetype=hlsl
 
 " --------------------------------------------------------------------------
-" cscomment
-" --------------------------------------------------------------------------
-autocmd MyAutoCmd Filetype cs nnoremap <Space>c :Cscomment<CR>
-
-" --------------------------------------------------------------------------
 " open-browser
 " --------------------------------------------------------------------------
-nmap <Space>o <Plug>(openbrowser-smart-search)
+command! OB call openbrowser#_keymapping_smart_search('n')
 
 " ----------------------------------------------------------------------
 " Align
@@ -208,12 +204,12 @@ nnoremap <Space>l :set columns+=50<CR>
 nnoremap <Space>h :set columns-=50<CR>
 nnoremap <Space>j :set lines+=20<CR>
 nnoremap <Space>k :set lines-=20<CR>
-nnoremap <Space>u :source $MYVIMRC<CR>
-nnoremap <Space>v :tabe $MYVIMRC<CR>
 nnoremap <Space>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Space>g :vim/<C-R><C-W>/<C-R>=g:local_working_path<CR>/**/*.cs<C-B><Right><Right><Right><Right>
+nnoremap <Space>v :tabe $MYVIMRC<CR>
+nnoremap <Space>u :source $MYVIMRC<CR>
 inoremap <expr> <C-Space> pumvisible() ? '<C-e>' : '<C-x><C-o><C-p>'
-inoremap <expr> <TAB>     pumvisible() ? '<Down>':  '<Tab>'
+inoremap <expr> <TAB>     pumvisible() ? '<Down>': '<Tab>'
 inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
 vnoremap <MiddleMouse> <Esc><LeftMouse>:<C-U>q<CR>
 nnoremap <MiddleMouse> <LeftMouse>:q<CR>
@@ -231,5 +227,5 @@ autocmd MyAutoCmd Filetype * set formatoptions-=ro
 " Command
 " ---------------------------------------------------------------------
 command! PathCopy call setreg('*', expand('%:p'))
-command! PathLineCopy call setreg('*', expand('%:p') . ' ' . line('.'))
+command! PathCopyLine call setreg('*', expand('%:p') . ' ' . line('.'))
 
