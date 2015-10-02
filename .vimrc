@@ -73,12 +73,18 @@ if neobundle#load_cache(expand($MY_NEOBUNDLE_PATH))
 	NeoBundle 'OmniSharp/omnisharp-vim'
 	NeoBundle 'davidhalter/jedi-vim'
 	NeoBundle 'nagaohiroki/myplugin.vim'
+	NeoBundle 'thinca/vim-fontzoom'
 	NeoBundleSaveCache
 endif
 NeoBundleCheck
 call neobundle#end()
 filetype plugin indent on
 syntax on
+" --------------------------------------------------------------------------
+" Fontzoom
+" --------------------------------------------------------------------------
+nnoremap + :Fontzoom +1<CR>
+nnoremap - :Fontzoom -1<CR>
 " --------------------------------------------------------------------------
 " syntastic
 " --------------------------------------------------------------------------
@@ -92,6 +98,7 @@ let g:OmniSharp_timeout=10
 let g:OmniSharp_selector_ui='unite'
 autocmd MyAutoCmd Filetype cs nnoremap <F12> :OmniSharpGotoDefinition<CR>
 autocmd MyAutoCmd Filetype cs nnoremap <S-F12> :OmniSharpFindUsages<CR>
+command! MyOmniBuild execute '!' . $VIM . '/.vim/omni_build.bat'
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
@@ -205,6 +212,7 @@ nnoremap <Space>h :set columns-=50<CR>
 nnoremap <Space>j :set lines+=20<CR>
 nnoremap <Space>k :set lines-=20<CR>
 nnoremap <Space>s :%s/\<<C-R><C-W>\>//g<Left><Left>
+nnoremap <Space>n :%s/\<<C-R><C-W>\>//ng<CR>
 nnoremap <Space>g :vim/<C-R><C-W>/<C-R>=g:local_working_path<CR>/**/*.cs<C-B><Right><Right><Right><Right>
 nnoremap <Space>v :tabe $MYVIMRC<CR>
 nnoremap <Space>u :source $MYVIMRC<CR>
@@ -228,4 +236,3 @@ autocmd MyAutoCmd Filetype * set formatoptions-=ro
 " ---------------------------------------------------------------------
 command! PathCopy call setreg('*', expand('%:p'))
 command! PathCopyLine call setreg('*', expand('%:p') . ' ' . line('.'))
-
