@@ -29,10 +29,11 @@
     "^Keyword 'private' is redundant. This is the default modifier.$",
     ".* should not separate words with an underscore.*",
     "Use 'var' keyword",
-    "Name should have prefix '_'.",
 	"Parameter can be declared with base type",
 	"Parameter can be IComparable",
-	"Xml comment is not placed before a valid language element"
+	"Xml comment is not placed before a valid language element",
+	"Convert to 'return' statement",
+    "(Rule 'Fields')"
   ],
 
   "TestCommands": {

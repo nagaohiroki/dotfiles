@@ -14,15 +14,6 @@
 " -p --remote-tab-silent $(ItemPath)
 " $(ItemDir)
 "
-" === NeoBundle Setting ===
-" mkdir bundle
-" git clone git://github.com/Shougo/neobundle.vim bundle/neobundle.vim
-"
-" windows
-"mklink "$VIM/.vimrc" "dotfiles/.vimrc"
-"
-" linux/mac
-" ln -s dotfiles/.vimrc ~/.vimrc
 " --------------------------------------------------------------------------
 
 " -------------------------------------------------------------------------
@@ -107,7 +98,7 @@ let s:unite_ignore_patterns+=['\.dae','\.fbx','\.blender','\.ma','\.mb','\.mel',
 let s:unite_ignore_patterns+=['\.meta','\.mat','\.unity','\.prefab','\.asset','\.flare','\.anim','\.exr', '\.physicsMaterial2D', '\.controller']
 call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', join( s:unite_ignore_patterns, '\|' ) )
 
-nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:local_working_path<CR> file_rec<CR>
+nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec<CR>
 nnoremap <Space>f :Unite -start-insert file<CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
 
@@ -134,7 +125,7 @@ autocmd MyAutoCmd BufNewFile,BufRead *.fx,*.fxc,*.fxh,*.hlsl,*.pssl set filetype
 " --------------------------------------------------------------------------
 " open-browser
 " --------------------------------------------------------------------------
-command! OB call openbrowser#_keymapping_smart_search('n')
+nnoremap <Space>o :call openbrowser#_keymapping_smart_search('n')<CR>
 
 " ----------------------------------------------------------------------
 " Align
@@ -213,7 +204,7 @@ nnoremap <Space>j :set lines+=20<CR>
 nnoremap <Space>k :set lines-=20<CR>
 nnoremap <Space>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Space>n :%s/\<<C-R><C-W>\>//ng<CR>
-nnoremap <Space>g :vim/<C-R><C-W>/<C-R>=g:local_working_path<CR>/**/*.cs<C-B><Right><Right><Right><Right>
+nnoremap <Space>g :vim/<C-R><C-W>/<C-R>=g:grep_root<CR>/**/*.cs<C-B><Right><Right><Right><Right>
 nnoremap <Space>v :tabe $MYVIMRC<CR>
 nnoremap <Space>u :source $MYVIMRC<CR>
 inoremap <expr> <C-Space> pumvisible() ? '<C-e>' : '<C-x><C-o><C-p>'
