@@ -28,10 +28,6 @@ augroup END
 " -------------------------------------------------------------------------
 if has('vim_starting')
 	let $VIM_CURRENT=has('win32') ? $VIM : $HOME
-	" Local Option
-	if getftype( $VIM_CURRENT . '/local.vim' ) != ""
-		source $VIM_CURRENT/local.vim
-	endif
 
 	" cache
 	let $VIM_CACHE_DIR=$HOME . '/.cache'
@@ -39,7 +35,6 @@ if has('vim_starting')
 
 	" bundle
 	let $MY_NEOBUNDLE_PATH=$VIM_CURRENT . '/bundle'
-
 	set runtimepath+=$MY_NEOBUNDLE_PATH/neobundle.vim
 endif
 " --------------------------------------------------------------------------
@@ -65,6 +60,7 @@ if neobundle#load_cache(expand($MY_NEOBUNDLE_PATH))
 	NeoBundle 'davidhalter/jedi-vim'
 	NeoBundle 'nagaohiroki/myplugin.vim'
 	NeoBundle 'thinca/vim-fontzoom'
+	NeoBundle 'rking/ag.vim'
 	NeoBundleSaveCache
 endif
 NeoBundleCheck
@@ -89,7 +85,7 @@ let g:OmniSharp_timeout=10
 let g:OmniSharp_selector_ui='unite'
 autocmd MyAutoCmd Filetype cs nnoremap <F12> :OmniSharpGotoDefinition<CR>
 autocmd MyAutoCmd Filetype cs nnoremap <S-F12> :OmniSharpFindUsages<CR>
-command! MyOmniBuild execute '!' . $VIM . '/.vim/omni_build.bat'
+command! MyOmniBuild execute '!start ' . $VIM . '/.vim/omni_build.bat'
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
@@ -217,13 +213,14 @@ inoremap <MiddleMouse> <Esc><LeftMouse>:q<CR>
 " ----------------------------------------------------------------------
 " AutoCommand
 " ---------------------------------------------------------------------
-autocmd MyAutoCmd BufNewFile,BufRead *.xml,*.dae nnoremap <Space>x :%s/></>\r</g<CR>:setf xml<CR>:normal gg=G<CR>
-autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * if expand('%:p:h') !~ '^/tmp' | silent! lcd %:p:h | endif
+autocmd MyAutoCmd FileType xml nnoremap <Space>x :%s/></>\r</g<CR>:setf xml<CR>:normal gg=G<CR>
+autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * silent! lcd %:p:h
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
-autocmd MyAutoCmd Filetype * set formatoptions-=ro
+autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
 
 " ----------------------------------------------------------------------
 " Command
 " ---------------------------------------------------------------------
 command! PathCopy call setreg('*', expand('%:p'))
 command! PathCopyLine call setreg('*', expand('%:p') . ' ' . line('.'))
+
