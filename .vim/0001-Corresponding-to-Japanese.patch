@@ -1,33 +1,25 @@
-From 1892024d23cb417550cbe0ffe9b9acecc78fe180 Mon Sep 17 00:00:00 2001
+From a9cac915779553f67db88df116aed7bc07a72084 Mon Sep 17 00:00:00 2001
 From: nagaohiroki <zerosiseinokae@yahoo.co.jp>
-Date: Sat, 1 Aug 2015 16:27:16 +0900
-Subject: [PATCH] Corresponding to Japanese
+Date: Fri, 30 Oct 2015 22:02:06 +0900
+Subject: [PATCH] FixJapanese
 
 ---
- autoload/OmniSharp.vim | 15 ++++++++++++++-
+ autoload/OmniSharp.vim | 13 +++++++++++++
  python/OmniSharp.py    |  6 ++----
  python/asyncrequest.py |  4 ++--
  python/syncrequest.py  |  4 ++--
- 4 files changed, 20 insertions(+), 9 deletions(-)
+ 4 files changed, 19 insertions(+), 8 deletions(-)
 
 diff --git a/autoload/OmniSharp.vim b/autoload/OmniSharp.vim
-index 94cbb10..c58fd8b 100644
+index 406b197..4796b5e 100644
 --- a/autoload/OmniSharp.vim
 +++ b/autoload/OmniSharp.vim
-@@ -21,7 +21,7 @@ function! OmniSharp#Complete(findstart, base) abort
-     "locate the start of the word
-     let line = getline('.')
-     let start = col('.') - 1
--    let s:textBuffer = getline(1, '$')
-+	let s:textBuffer = OmniSharp#GetLineUTF8()
-     while start > 0 && line[start - 1] =~# '\v[a-zA-z0-9_]'
-       let start -= 1
-     endwhile
-@@ -611,5 +611,18 @@ function! OmniSharp#AppendCtrlPExtensions() abort
+@@ -569,6 +569,19 @@ function! OmniSharp#AppendCtrlPExtensions() abort
+     let g:ctrlp_extensions += ['findtype', 'findsymbols', 'findcodeactions']
    endif
  endfunction
- 
-+function! OmniSharp#GetLineUTF8()
++ 
++function! OmniSharp#GetLineUTF8() abort
 +	let l:lines = getline(1,'$')
 +	let l:utf8lines = []
 +	for l:line in l:lines
@@ -36,12 +28,12 @@ index 94cbb10..c58fd8b 100644
 +	return l:utf8lines
 +endfunction
 +
-+function! OmniSharp#GetCurrentBufferNameUTF8()
++function! OmniSharp#GetCurrentBufferNameUTF8() abort
 +	return iconv(expand('%:p'), &encoding, 'utf-8')
 +endfunction
-+
- let &cpo = s:save_cpo
- unlet s:save_cpo
+ 
+ function! s:find_solution_files() abort
+   "get the path for the current buffer
 diff --git a/python/OmniSharp.py b/python/OmniSharp.py
 index ee7b63d..c13cab9 100644
 --- a/python/OmniSharp.py
