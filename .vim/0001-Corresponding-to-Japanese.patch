@@ -1,24 +1,32 @@
-From a9cac915779553f67db88df116aed7bc07a72084 Mon Sep 17 00:00:00 2001
+From 30047f046303f4a91da0713dfb0a0593f727fc96 Mon Sep 17 00:00:00 2001
 From: nagaohiroki <zerosiseinokae@yahoo.co.jp>
-Date: Fri, 30 Oct 2015 22:02:06 +0900
+Date: Fri, 30 Oct 2015 22:12:33 +0900
 Subject: [PATCH] FixJapanese
 
 ---
- autoload/OmniSharp.vim | 13 +++++++++++++
+ autoload/OmniSharp.vim | 15 ++++++++++++++-
  python/OmniSharp.py    |  6 ++----
  python/asyncrequest.py |  4 ++--
  python/syncrequest.py  |  4 ++--
- 4 files changed, 19 insertions(+), 8 deletions(-)
+ 4 files changed, 20 insertions(+), 9 deletions(-)
 
 diff --git a/autoload/OmniSharp.vim b/autoload/OmniSharp.vim
-index 406b197..4796b5e 100644
+index 406b197..d36e3c5 100644
 --- a/autoload/OmniSharp.vim
 +++ b/autoload/OmniSharp.vim
-@@ -569,6 +569,19 @@ function! OmniSharp#AppendCtrlPExtensions() abort
-     let g:ctrlp_extensions += ['findtype', 'findsymbols', 'findcodeactions']
+@@ -19,7 +19,7 @@ function! OmniSharp#Complete(findstart, base) abort
+     "locate the start of the word
+     let line = getline('.')
+     let start = col('.') - 1
+-    let s:textBuffer = getline(1, '$')
++    let s:textBuffer = OmniSharp#GetLineUTF8()
+     while start > 0 && line[start - 1] =~# '\v[a-zA-z0-9_]'
+       let start -= 1
+     endwhile
+@@ -570,6 +570,19 @@ function! OmniSharp#AppendCtrlPExtensions() abort
    endif
  endfunction
-+ 
+ 
 +function! OmniSharp#GetLineUTF8() abort
 +	let l:lines = getline(1,'$')
 +	let l:utf8lines = []
@@ -31,9 +39,10 @@ index 406b197..4796b5e 100644
 +function! OmniSharp#GetCurrentBufferNameUTF8() abort
 +	return iconv(expand('%:p'), &encoding, 'utf-8')
 +endfunction
- 
++
  function! s:find_solution_files() abort
    "get the path for the current buffer
+   let dir = expand('%:p:h')
 diff --git a/python/OmniSharp.py b/python/OmniSharp.py
 index ee7b63d..c13cab9 100644
 --- a/python/OmniSharp.py
