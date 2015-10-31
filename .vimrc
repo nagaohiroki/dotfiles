@@ -7,11 +7,10 @@
 " -p --remote-tab-silent +$(Line) "$(File)"
 "
 " Windows regedit
-" $VIM\gvim.exe" -p --remote-tab-silent "%1"
+" "gvim" -p --remote-tab-silent "%1"
 "
 " Visual Studio
-" $VIM\gvim.exe
-" -p --remote-tab-silent $(ItemPath)
+" "gvim" -p --remote-tab-silent $(ItemPath)
 " $(ItemDir)
 "
 " --------------------------------------------------------------------------
@@ -60,7 +59,6 @@ if neobundle#load_cache(expand($MY_NEOBUNDLE_PATH))
 	NeoBundle 'davidhalter/jedi-vim'
 	NeoBundle 'nagaohiroki/myplugin.vim'
 	NeoBundle 'thinca/vim-fontzoom'
-	NeoBundle 'rking/ag.vim'
 	NeoBundleSaveCache
 endif
 NeoBundleCheck
