@@ -1,8 +1,5 @@
-﻿scriptencoding utf-8
+scriptencoding utf-8
 " --------------------------------------------------------------------------
-" Unity3D 3
-" UnityExternalScriptEditorHelper.exe
-"
 " Unity3D 4~5
 " -p --remote-tab-silent +$(Line) "$(File)"
 "
@@ -11,10 +8,10 @@
 "
 " Visual Studio
 " "gvim" -p --remote-tab-silent $(ItemPath)
-" $(ItemDir)
 "
 " --------------------------------------------------------------------------
-
+set encoding=utf-8
+set fileencodings=utf-8,iso-2022-jp,euc-jp,cp932,sjis,utf-16le
 " -------------------------------------------------------------------------
 " AutoCommandGroup
 " -------------------------------------------------------------------------
@@ -221,4 +218,3 @@ autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
 " ---------------------------------------------------------------------
 command! PathCopy call setreg('*', expand('%:p'))
 command! PathCopyLine call setreg('*', expand('%:p') . ' ' . line('.'))
-
