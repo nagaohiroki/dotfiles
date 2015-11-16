@@ -1,5 +1,4 @@
-scriptencoding utf-8
-" --------------------------------------------------------------------------
+﻿" --------------------------------------------------------------------------
 " Unity3D 4~5
 " -p --remote-tab-silent +$(Line) "$(File)"
 "
@@ -10,8 +9,12 @@ scriptencoding utf-8
 " "gvim" -p --remote-tab-silent $(ItemPath)
 "
 " --------------------------------------------------------------------------
-set encoding=utf-8
-set fileencodings=utf-8,iso-2022-jp,euc-jp,cp932,sjis,utf-16le
+scriptencoding utf-8
+" set encoding=utf-8
+" set fileencoding=utf-8
+" set fileencodings=ucs-boms,utf-8,iso-2022-jp,euc-jp,cp932,sjis,utf-16le
+" set fileformat=unix
+" set fileformats=unix,dos,mac
 " -------------------------------------------------------------------------
 " AutoCommandGroup
 " -------------------------------------------------------------------------
