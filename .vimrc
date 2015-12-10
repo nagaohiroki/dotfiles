@@ -10,11 +10,6 @@
 "
 " --------------------------------------------------------------------------
 scriptencoding utf-8
-" set encoding=utf-8
-" set fileencoding=utf-8
-" set fileencodings=ucs-boms,utf-8,iso-2022-jp,euc-jp,cp932,sjis,utf-16le
-" set fileformat=unix
-" set fileformats=unix,dos,mac
 " -------------------------------------------------------------------------
 " AutoCommandGroup
 " -------------------------------------------------------------------------
@@ -27,12 +22,7 @@ augroup END
 " -------------------------------------------------------------------------
 if has('vim_starting')
 	let $VIM_CURRENT=has('win32') ? $VIM : $HOME
-
-	" cache
 	let $VIM_CACHE_DIR=$HOME . '/.cache'
-	silent! call mkdir( $VIM_CACHE_DIR )
-
-	" bundle
 	let $MY_NEOBUNDLE_PATH=$VIM_CURRENT . '/bundle'
 	set runtimepath+=$MY_NEOBUNDLE_PATH/neobundle.vim
 endif
@@ -45,20 +35,21 @@ if neobundle#load_cache(expand($MY_NEOBUNDLE_PATH))
 	NeoBundle 'Shougo/unite.vim'
 	NeoBundle 'Shougo/neomru.vim'
 	NeoBundle 'Shougo/neocomplete.vim'
+	NeoBundle 'Shougo/vimfiler.vim'
 	NeoBundle 'Align'
 	NeoBundle 'vim-scripts/DoxygenToolkit.vim'
 	NeoBundle 'tyru/open-browser.vim'
 	NeoBundle 'scrooloose/syntastic'
 	NeoBundle 'kannokanno/previm'
+	NeoBundle 'OmniSharp/omnisharp-vim'
+	NeoBundle 'davidhalter/jedi-vim'
+	NeoBundle 'nagaohiroki/myplugin.vim'
+	NeoBundle 'thinca/vim-fontzoom'
 	NeoBundle 'cocopon/iceberg.vim'
 	NeoBundle 'cg.vim'
 	NeoBundle 'beyondmarc/hlsl.vim'
 	NeoBundle 'PProvost/vim-ps1'
 	NeoBundle 'timcharper/textile.vim'
-	NeoBundle 'OmniSharp/omnisharp-vim'
-	NeoBundle 'davidhalter/jedi-vim'
-	NeoBundle 'nagaohiroki/myplugin.vim'
-	NeoBundle 'thinca/vim-fontzoom'
 	NeoBundleSaveCache
 endif
 NeoBundleCheck
@@ -95,7 +86,10 @@ call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', join( s:uni
 nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec<CR>
 nnoremap <Space>f :Unite -start-insert file<CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
-
+" --------------------------------------------------------------------------
+" vimfiler
+" --------------------------------------------------------------------------
+nnoremap <C-F> :VimFilerExplorer<CR>
 " --------------------------------------------------------------------------
 " neocomplete
 " --------------------------------------------------------------------------
@@ -125,6 +119,23 @@ nnoremap <Space>o :call openbrowser#_keymapping_smart_search('n')<CR>
 " Align
 " ---------------------------------------------------------------------
 let g:Align_xstrlen=3
+
+" ----------------------------------------------------------------------
+" function
+" ---------------------------------------------------------------------
+function! Enc()
+	set encoding=utf-8
+	set fileencoding=utf-8
+	set fileencodings=ucs-boms,utf-8,iso-2022-jp,euc-jp,cp932,sjis,utf-16le
+	set fileformat=unix
+	set fileformats=unix,dos,mac
+endfunction
+
+function! GoSetting()
+	command! GoRun !go run %
+	command! GoFmt !start go fmt %
+	command! GoBuild !start go build %
+endfunction
 
 " --------------------------------------------------------------------------
 " Setting
@@ -215,9 +226,12 @@ autocmd MyAutoCmd FileType xml nnoremap <Space>x :%s/></>\r</g<CR>:setf xml<CR>:
 autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * silent! lcd %:p:h
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
+autocmd MyAutoCmd FileType go call GoSetting()
 
 " ----------------------------------------------------------------------
 " Command
 " ---------------------------------------------------------------------
+command! Enc call Enc() | e!
 command! PathCopy call setreg('*', expand('%:p'))
 command! PathCopyLine call setreg('*', expand('%:p') . ' ' . line('.'))
+
