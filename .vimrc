@@ -39,6 +39,7 @@ if neobundle#load_cache(expand($MY_NEOBUNDLE_PATH))
 	NeoBundle 'Align'
 	NeoBundle 'vim-scripts/DoxygenToolkit.vim'
 	NeoBundle 'tyru/open-browser.vim'
+	NeoBundle 'thinca/vim-quickrun'
 	NeoBundle 'scrooloose/syntastic'
 	NeoBundle 'kannokanno/previm'
 	NeoBundle 'OmniSharp/omnisharp-vim'
@@ -107,13 +108,13 @@ let g:DoxygenToolkit_commentType='C++'
 " --------------------------------------------------------------------------
 " shader syntax
 " --------------------------------------------------------------------------
-autocmd MyAutoCmd BufNewFile,BufRead *.fcg,*.vcg,*.shader,*.cg,*.compute set filetype=cg
+autocmd MyAutoCmd BufNewFile,BufRead *.fcg,*.vcg,*.shader,*.cg,*.compute,*.cginc set filetype=cg
 autocmd MyAutoCmd BufNewFile,BufRead *.fx,*.fxc,*.fxh,*.hlsl,*.pssl set filetype=hlsl
 
 " --------------------------------------------------------------------------
 " open-browser
 " --------------------------------------------------------------------------
-nnoremap <Space>o :call openbrowser#_keymapping_smart_search('n')<CR>
+nmap <Space>o <Plug>(openbrowser-smart-search)
 
 " ----------------------------------------------------------------------
 " Align
@@ -188,14 +189,22 @@ set whichwrap=b,s,h,l,<,>,[,]
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
-nnoremap <S-Left>  <Nop>
-nnoremap <S-Right> <Nop>
-nnoremap <S-Up>    <Nop>
-nnoremap <S-Down>  <Nop>
-vnoremap <S-Left>  <Nop>
-vnoremap <S-Right> <Nop>
 vnoremap <S-Up>    <Nop>
 vnoremap <S-Down>  <Nop>
+vnoremap <S-Left>  <Nop>
+vnoremap <S-Right> <Nop>
+vnoremap <C-Up>    <Nop>
+vnoremap <C-Down>  <Nop>
+vnoremap <C-Left>  <Nop>
+vnoremap <C-Right> <Nop>
+nnoremap <S-Up>    :set lines-=10<CR>
+nnoremap <S-Down>  :set lines+=10<CR>
+nnoremap <S-Left>  :set columns-=10<CR>
+nnoremap <S-Right> :set columns+=10<CR>
+nnoremap <C-Up>    <C-W>-
+nnoremap <C-Down>  <C-W>+
+nnoremap <C-Left>  <C-W><
+nnoremap <C-Right> <C-W>>
 inoremap <C-c> <Esc>
 inoremap <C-q> <C-R>=strftime('%Y/%m/%d %H:%M')<CR>
 inoremap <C-l> <Del>
@@ -203,10 +212,6 @@ nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
-nnoremap <Space>l :set columns+=50<CR>
-nnoremap <Space>h :set columns-=50<CR>
-nnoremap <Space>j :set lines+=20<CR>
-nnoremap <Space>k :set lines-=20<CR>
 nnoremap <Space>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Space>n :%s/\<<C-R><C-W>\>//ng<CR>
 nnoremap <Space>g :vim/<C-R><C-W>/<C-R>=g:grep_root<CR>/**/*.cs<C-B><Right><Right><Right><Right>
@@ -234,4 +239,3 @@ autocmd MyAutoCmd FileType go call GoSetting()
 command! Enc call Enc() | e!
 command! PathCopy call setreg('*', expand('%:p'))
 command! PathCopyLine call setreg('*', expand('%:p') . ' ' . line('.'))
-
