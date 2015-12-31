@@ -73,8 +73,14 @@ let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
 let g:OmniSharp_sln_list_index=1
 let g:OmniSharp_timeout=10
 let g:OmniSharp_selector_ui='unite'
-autocmd MyAutoCmd Filetype cs nnoremap <F12> :OmniSharpGotoDefinition<CR>
-autocmd MyAutoCmd Filetype cs nnoremap <S-F12> :OmniSharpFindUsages<CR>
+
+function! OmniSharpSetting()
+	nnoremap <F12> :OmniSharpGotoDefinition<CR>
+	nnoremap <S-F12> :OmniSharpFindUsages<CR>
+	nnoremap <C-F12> :OmniSharpReloadSolution<CR>
+endfunction
+autocmd MyAutoCmd Filetype cs call OmniSharpSetting()
+
 command! MyOmniBuild execute '!start ' . $VIM . '/.vim/omni_build.bat'
 " -------------------------------------------------------------------------
 " unite
