@@ -35,11 +35,9 @@ if neobundle#load_cache(expand($MY_NEOBUNDLE_PATH))
 	NeoBundle 'Shougo/unite.vim'
 	NeoBundle 'Shougo/neomru.vim'
 	NeoBundle 'Shougo/neocomplete.vim'
-	NeoBundle 'Shougo/vimfiler.vim'
 	NeoBundle 'Align'
 	NeoBundle 'vim-scripts/DoxygenToolkit.vim'
 	NeoBundle 'tyru/open-browser.vim'
-	NeoBundle 'thinca/vim-quickrun'
 	NeoBundle 'scrooloose/syntastic'
 	NeoBundle 'kannokanno/previm'
 	NeoBundle 'OmniSharp/omnisharp-vim'
@@ -73,11 +71,10 @@ let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
 let g:OmniSharp_sln_list_index=1
 let g:OmniSharp_timeout=10
 let g:OmniSharp_selector_ui='unite'
-
 function! OmniSharpSetting()
 	nnoremap <F12> :OmniSharpGotoDefinition<CR>
 	nnoremap <S-F12> :OmniSharpFindUsages<CR>
-	nnoremap <C-F12> :OmniSharpReloadSolution<CR>
+	nnoremap <C-F12> :OmniSharpReloadSolution \| OmniSharpHighlightTypes<CR>
 endfunction
 autocmd MyAutoCmd Filetype cs call OmniSharpSetting()
 
@@ -93,10 +90,7 @@ call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', join( s:uni
 nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec<CR>
 nnoremap <Space>f :Unite -start-insert file<CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
-" --------------------------------------------------------------------------
-" vimfiler
-" --------------------------------------------------------------------------
-nnoremap <C-F> :VimFilerExplorer<CR>
+
 " --------------------------------------------------------------------------
 " neocomplete
 " --------------------------------------------------------------------------
