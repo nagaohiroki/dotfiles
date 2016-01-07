@@ -26,13 +26,10 @@
   ],*/
 
   "IgnoredCodeIssues": [
-    "^Keyword 'private' is redundant. This is the default modifier.$",
     ".* should not separate words with an underscore.*",
-    "Use 'var' keyword",
-	"Parameter can be declared with base type",
-	"Parameter can be IComparable",
-	"Xml comment is not placed before a valid language element",
+	"Parameter can be",
 	"Convert to 'return' statement",
+	"Xml comment is not placed before a valid language element",
     "(Rule 'Fields')"
   ],
 

@@ -34,6 +34,7 @@ if neobundle#load_cache(expand($MY_NEOBUNDLE_PATH))
 	NeoBundleFetch 'Shougo/neobundle.vim'
 	NeoBundle 'Shougo/unite.vim'
 	NeoBundle 'Shougo/neomru.vim'
+	NeoBundle 'Shougo/vimfiler.vim'
 	NeoBundle 'Shougo/neocomplete.vim'
 	NeoBundle 'Align'
 	NeoBundle 'vim-scripts/DoxygenToolkit.vim'
@@ -77,7 +78,6 @@ function! OmniSharpSetting()
 	nnoremap <C-F12> :OmniSharpReloadSolution \| OmniSharpHighlightTypes<CR>
 endfunction
 autocmd MyAutoCmd Filetype cs call OmniSharpSetting()
-
 command! MyOmniBuild execute '!start ' . $VIM . '/.vim/omni_build.bat'
 " -------------------------------------------------------------------------
 " unite
@@ -90,7 +90,10 @@ call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', join( s:uni
 nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec<CR>
 nnoremap <Space>f :Unite -start-insert file<CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
-
+" --------------------------------------------------------------------------
+" vimfiler
+" --------------------------------------------------------------------------
+nnoremap <C-F> :VimFilerExplorer<CR>
 " --------------------------------------------------------------------------
 " neocomplete
 " --------------------------------------------------------------------------
@@ -132,11 +135,15 @@ function! Enc()
 	set fileformats=unix,dos,mac
 endfunction
 
+" ----------------------------------------------------------------------
+" go
+" ---------------------------------------------------------------------
 function! GoSetting()
 	command! GoRun !go run %
 	command! GoFmt !start go fmt %
 	command! GoBuild !start go build %
 endfunction
+autocmd MyAutoCmd FileType go call GoSetting()
 
 " --------------------------------------------------------------------------
 " Setting
@@ -231,7 +238,6 @@ autocmd MyAutoCmd FileType xml nnoremap <Space>x :%s/></>\r</g<CR>:setf xml<CR>:
 autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * silent! lcd %:p:h
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
-autocmd MyAutoCmd FileType go call GoSetting()
 
 " ----------------------------------------------------------------------
 " Command
