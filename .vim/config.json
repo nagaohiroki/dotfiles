@@ -30,7 +30,7 @@
 	"Parameter can be",
 	"Convert to 'return' statement",
 	"Xml comment is not placed before a valid language element",
-    "(Rule 'Fields')"
+    "(Rule '.*')"
   ],
 
   "TestCommands": {

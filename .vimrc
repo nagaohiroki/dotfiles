@@ -223,6 +223,7 @@ nnoremap <Space>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Space>n :%s/\<<C-R><C-W>\>//ng<CR>
 nnoremap <Space>g :vim/<C-R><C-W>/<C-R>=g:grep_root<CR>/**/*.cs<C-B><Right><Right><Right><Right>
 nnoremap <Space>v :tabe $MYVIMRC<CR>
+nnoremap <Space>l :tabe $VIM/vimrc_local.vim<CR>
 nnoremap <Space>u :source $MYVIMRC<CR>
 inoremap <expr> <C-Space> pumvisible() ? '<C-e>' : '<C-x><C-o><C-p>'
 inoremap <expr> <TAB>     pumvisible() ? '<Down>': '<Tab>'
