@@ -7,7 +7,6 @@
 "
 " Visual Studio
 " "gvim" -p --remote-tab-silent $(ItemPath)
-"
 " --------------------------------------------------------------------------
 scriptencoding utf-8
 " -------------------------------------------------------------------------
@@ -90,6 +89,12 @@ call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', join( s:uni
 nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec<CR>
 nnoremap <Space>f :Unite -start-insert file<CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
+nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+if executable('jvgrep')
+    let g:unite_source_grep_command = 'jvgrep'
+    let g:unite_source_grep_default_opts = '-r'
+    let g:unite_source_grep_recursive_opt = '-R'
+endif
 " --------------------------------------------------------------------------
 " vimfiler
 " --------------------------------------------------------------------------
@@ -135,13 +140,19 @@ function! Enc()
 	set fileformats=unix,dos,mac
 endfunction
 
+function! XmlFmt()
+	%s/></>\r</g
+	normal gg=G
+endfunction
+
 " ----------------------------------------------------------------------
 " go
 " ---------------------------------------------------------------------
 function! GoSetting()
-	command! GoRun !go run %
-	command! GoFmt !start go fmt %
-	command! GoBuild !start go build %
+	command! Run !go run %
+	command! Build !start go build
+	exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+	exe "set rtp+=".globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
 endfunction
 autocmd MyAutoCmd FileType go call GoSetting()
 
@@ -214,7 +225,7 @@ nnoremap <C-Left>  <C-W><
 nnoremap <C-Right> <C-W>>
 inoremap <C-c> <Esc>
 inoremap <C-q> <C-R>=strftime('%Y/%m/%d %H:%M')<CR>
-inoremap <C-l> <Del>
+inoremap <C-d> <Del>
 nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
@@ -235,14 +246,14 @@ inoremap <MiddleMouse> <Esc><LeftMouse>:q<CR>
 " ----------------------------------------------------------------------
 " AutoCommand
 " ---------------------------------------------------------------------
-autocmd MyAutoCmd FileType xml nnoremap <Space>x :%s/></>\r</g<CR>:setf xml<CR>:normal gg=G<CR>
 autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * silent! lcd %:p:h
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
-
 " ----------------------------------------------------------------------
 " Command
 " ---------------------------------------------------------------------
 command! Enc call Enc() | e!
 command! PathCopy call setreg('*', expand('%:p'))
 command! PathCopyLine call setreg('*', expand('%:p') . ' ' . line('.'))
+command! XmlFmt call XmlFmt()
+
