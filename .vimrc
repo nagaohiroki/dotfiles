@@ -49,6 +49,7 @@ if neobundle#load_cache(expand($MY_NEOBUNDLE_PATH))
 	NeoBundle 'beyondmarc/hlsl.vim'
 	NeoBundle 'PProvost/vim-ps1'
 	NeoBundle 'timcharper/textile.vim'
+	NeoBundle "aklt/plantuml-syntax"
 	NeoBundleSaveCache
 endif
 NeoBundleCheck
@@ -135,7 +136,7 @@ let g:Align_xstrlen=3
 function! Enc()
 	set encoding=utf-8
 	set fileencoding=utf-8
-	set fileencodings=ucs-boms,utf-8,iso-2022-jp,euc-jp,cp932,sjis,utf-16le
+	set fileencodings=ucs-boms,iso-2022-jp,euc-jp,cp932,sjis,utf-16le,utf-8
 	set fileformat=unix
 	set fileformats=unix,dos,mac
 endfunction
@@ -155,6 +156,11 @@ function! GoSetting()
 	exe "set rtp+=".globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
 endfunction
 autocmd MyAutoCmd FileType go call GoSetting()
+
+" ----------------------------------------------------------------------
+" plantuml
+" ---------------------------------------------------------------------
+autocmd MyAutoCmd BufWritePost *.pu silent! make
 
 " --------------------------------------------------------------------------
 " Setting
@@ -256,4 +262,3 @@ command! Enc call Enc() | e!
 command! PathCopy call setreg('*', expand('%:p'))
 command! PathCopyLine call setreg('*', expand('%:p') . ' ' . line('.'))
 command! XmlFmt call XmlFmt()
-
