@@ -1,5 +1,6 @@
-﻿" --------------------------------------------------------------------------
-" Unity3D 4~5
+﻿scriptencoding utf-8
+" --------------------------------------------------------------------------
+" Unity
 " -p --remote-tab-silent +$(Line) "$(File)"
 "
 " Windows regedit
@@ -8,7 +9,6 @@
 " Visual Studio
 " "gvim" -p --remote-tab-silent $(ItemPath)
 " --------------------------------------------------------------------------
-scriptencoding utf-8
 " -------------------------------------------------------------------------
 " AutoCommandGroup
 " -------------------------------------------------------------------------
@@ -22,38 +22,38 @@ augroup END
 if has('vim_starting')
 	let $VIM_CURRENT=has('win32') ? $VIM : $HOME
 	let $VIM_CACHE_DIR=$HOME . '/.cache'
-	let $MY_NEOBUNDLE_PATH=$VIM_CURRENT . '/bundle'
-	set runtimepath+=$MY_NEOBUNDLE_PATH/neobundle.vim
+	let $MY_PLUGIN_PATH=$VIM_CURRENT . '/bundle'
+	let g:dein#install_process_timeout=3000
+	set runtimepath+=$MY_PLUGIN_PATH/dein.vim
 endif
 " --------------------------------------------------------------------------
-" Plugin
+" Plugin 
 " --------------------------------------------------------------------------
-call neobundle#begin(expand($MY_NEOBUNDLE_PATH))
-if neobundle#load_cache(expand($MY_NEOBUNDLE_PATH))
-	NeoBundleFetch 'Shougo/neobundle.vim'
-	NeoBundle 'Shougo/unite.vim'
-	NeoBundle 'Shougo/neomru.vim'
-	NeoBundle 'Shougo/vimfiler.vim'
-	NeoBundle 'Shougo/neocomplete.vim'
-	NeoBundle 'Align'
-	NeoBundle 'vim-scripts/DoxygenToolkit.vim'
-	NeoBundle 'tyru/open-browser.vim'
-	NeoBundle 'scrooloose/syntastic'
-	NeoBundle 'kannokanno/previm'
-	NeoBundle 'OmniSharp/omnisharp-vim'
-	NeoBundle 'davidhalter/jedi-vim'
-	NeoBundle 'nagaohiroki/myplugin.vim'
-	NeoBundle 'thinca/vim-fontzoom'
-	NeoBundle 'cocopon/iceberg.vim'
-	NeoBundle 'cg.vim'
-	NeoBundle 'beyondmarc/hlsl.vim'
-	NeoBundle 'PProvost/vim-ps1'
-	NeoBundle 'timcharper/textile.vim'
-	NeoBundle "aklt/plantuml-syntax"
-	NeoBundleSaveCache
+call dein#begin(expand($MY_PLUGIN_PATH))
+if dein#load_cache()
+	call dein#add('Shougo/dein.vim')
+	call dein#add('Shougo/unite.vim')
+	call dein#add('Shougo/neomru.vim')
+	call dein#add('Shougo/vimfiler.vim')
+	call dein#add('Shougo/neocomplete.vim')
+	call dein#add('Align')
+	call dein#add('vim-scripts/DoxygenToolkit.vim')
+	call dein#add('tyru/open-browser.vim')
+	call dein#add('scrooloose/syntastic')
+	call dein#add('kannokanno/previm')
+	call dein#add('davidhalter/jedi-vim')
+	call dein#add('nagaohiroki/myplugin.vim')
+	call dein#add('thinca/vim-fontzoom')
+	call dein#add('cocopon/iceberg.vim')
+	call dein#add('cg.vim')
+	call dein#add('beyondmarc/hlsl.vim')
+	call dein#add('PProvost/vim-ps1')
+	call dein#add('timcharper/textile.vim')
+	call dein#add('aklt/plantuml-syntax')
+	call dein#add('OmniSharp/omnisharp-vim')
+	call dein#save_cache()
 endif
-NeoBundleCheck
-call neobundle#end()
+call dein#end()
 filetype plugin indent on
 syntax on
 " --------------------------------------------------------------------------
@@ -70,8 +70,10 @@ let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
 " omnisharp
 " --------------------------------------------------------------------------
 let g:OmniSharp_sln_list_index=1
-let g:OmniSharp_timeout=10
+let g:OmniSharp_timeout=30
 let g:OmniSharp_selector_ui='unite'
+let g:Omnisharp_server_config_name=$VIM . ".vim/config.json"
+let g:OmniSharp_server_type='v1'
 function! OmniSharpSetting()
 	nnoremap <F12> :OmniSharpGotoDefinition<CR>
 	nnoremap <S-F12> :OmniSharpFindUsages<CR>
@@ -79,6 +81,7 @@ function! OmniSharpSetting()
 endfunction
 autocmd MyAutoCmd Filetype cs call OmniSharpSetting()
 command! MyOmniBuild execute '!start ' . $VIM . '/.vim/omni_build.bat'
+
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
@@ -145,7 +148,6 @@ function! XmlFmt()
 	%s/></>\r</g
 	normal gg=G
 endfunction
-
 " ----------------------------------------------------------------------
 " go
 " ---------------------------------------------------------------------
@@ -156,11 +158,6 @@ function! GoSetting()
 	exe "set rtp+=".globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
 endfunction
 autocmd MyAutoCmd FileType go call GoSetting()
-
-" ----------------------------------------------------------------------
-" plantuml
-" ---------------------------------------------------------------------
-autocmd MyAutoCmd BufWritePost *.pu silent! make
 
 " --------------------------------------------------------------------------
 " Setting
@@ -209,7 +206,6 @@ set undodir=$VIM_CACHE_DIR
 set undofile
 set undolevels=1000
 set whichwrap=b,s,h,l,<,>,[,]
-
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
@@ -225,10 +221,6 @@ nnoremap <S-Up>    :set lines-=10<CR>
 nnoremap <S-Down>  :set lines+=10<CR>
 nnoremap <S-Left>  :set columns-=10<CR>
 nnoremap <S-Right> :set columns+=10<CR>
-nnoremap <C-Up>    <C-W>-
-nnoremap <C-Down>  <C-W>+
-nnoremap <C-Left>  <C-W><
-nnoremap <C-Right> <C-W>>
 inoremap <C-c> <Esc>
 inoremap <C-q> <C-R>=strftime('%Y/%m/%d %H:%M')<CR>
 inoremap <C-d> <Del>
@@ -245,9 +237,6 @@ nnoremap <Space>u :source $MYVIMRC<CR>
 inoremap <expr> <C-Space> pumvisible() ? '<C-e>' : '<C-x><C-o><C-p>'
 inoremap <expr> <TAB>     pumvisible() ? '<Down>': '<Tab>'
 inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
-vnoremap <MiddleMouse> <Esc><LeftMouse>:<C-U>q<CR>
-nnoremap <MiddleMouse> <LeftMouse>:q<CR>
-inoremap <MiddleMouse> <Esc><LeftMouse>:q<CR>
 
 " ----------------------------------------------------------------------
 " AutoCommand

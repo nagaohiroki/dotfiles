@@ -1,6 +1,6 @@
 set BUNDLE_DIR=%VIM%/bundle
 mkdir "%BUNDLE_DIR%"
-cd "%BUNDLE_DIR%"
-git clone git://github.com/Shougo/neobundle.vim
+cd /d "%BUNDLE_DIR%"
+git clone https://github.com/Shougo/dein.vim.git
 pause
 

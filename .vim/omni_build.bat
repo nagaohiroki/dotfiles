@@ -1,9 +1,5 @@
-set DOT_VIM=%VIM%\.vim
-
-cd /d %VIM%/bundle/omnisharp-vim
-git submodule foreach git pull origin master
-
-cd /d server
-git submodule foreach git pull origin master
+cd /d "%VIM%/bundle/repos/github.com/OmniSharp/omnisharp-vim"
+git submodule update --init --recursive
+cd  server
 msbuild
-copy "%DOT_VIM%\config.json" "OmniSharp/bin/Debug"
+copy "%VIM%\.vim\config.json" "%VIM%\bundle\.dein\server\OmniSharp\bin\Debug\config.json"
