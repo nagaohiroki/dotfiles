@@ -1,5 +1,3 @@
-cd /d "%VIM%/bundle/repos/github.com/OmniSharp/omnisharp-vim"
-git submodule update --init --recursive
-cd  server
+cd /d "%VIM%\bundle\omnisharp-vim\server"
 msbuild
-copy "%VIM%\.vim\config.json" "%VIM%\bundle\.dein\server\OmniSharp\bin\Debug\config.json"
+copy "%VIM%\.vim\config.json" "OmniSharp\bin\Debug\config.json"

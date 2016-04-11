@@ -2,12 +2,10 @@
 " --------------------------------------------------------------------------
 " Unity
 " -p --remote-tab-silent +$(Line) "$(File)"
-"
 " Windows regedit
 " "gvim" -p --remote-tab-silent "%1"
-"
 " Visual Studio
-" "gvim" -p --remote-tab-silent $(ItemPath)
+" "gvim" -p --remote-tab-silent +$(CurLine) $(ItemPath)
 " --------------------------------------------------------------------------
 " -------------------------------------------------------------------------
 " AutoCommandGroup
@@ -15,7 +13,6 @@
 augroup MyAutoCmd
 	autocmd!
 augroup END
-
 " -------------------------------------------------------------------------
 " Startup
 " -------------------------------------------------------------------------
@@ -23,37 +20,32 @@ if has('vim_starting')
 	let $VIM_CURRENT=has('win32') ? $VIM : $HOME
 	let $VIM_CACHE_DIR=$HOME . '/.cache'
 	let $MY_PLUGIN_PATH=$VIM_CURRENT . '/bundle'
-	let g:dein#install_process_timeout=3000
-	set runtimepath+=$MY_PLUGIN_PATH/dein.vim
+	set runtimepath^=$MY_PLUGIN_PATH/neobundle.vim/
+	let g:neobundle#install_process_timeout=3000
 endif
 " --------------------------------------------------------------------------
 " Plugin 
 " --------------------------------------------------------------------------
-call dein#begin(expand($MY_PLUGIN_PATH))
-if dein#load_cache()
-	call dein#add('Shougo/dein.vim')
-	call dein#add('Shougo/unite.vim')
-	call dein#add('Shougo/neomru.vim')
-	call dein#add('Shougo/vimfiler.vim')
-	call dein#add('Shougo/neocomplete.vim')
-	call dein#add('Align')
-	call dein#add('vim-scripts/DoxygenToolkit.vim')
-	call dein#add('tyru/open-browser.vim')
-	call dein#add('scrooloose/syntastic')
-	call dein#add('kannokanno/previm')
-	call dein#add('davidhalter/jedi-vim')
-	call dein#add('nagaohiroki/myplugin.vim')
-	call dein#add('thinca/vim-fontzoom')
-	call dein#add('cocopon/iceberg.vim')
-	call dein#add('cg.vim')
-	call dein#add('beyondmarc/hlsl.vim')
-	call dein#add('PProvost/vim-ps1')
-	call dein#add('timcharper/textile.vim')
-	call dein#add('aklt/plantuml-syntax')
-	call dein#add('OmniSharp/omnisharp-vim')
-	call dein#save_cache()
-endif
-call dein#end()
+call neobundle#begin(expand($MY_PLUGIN_PATH))
+NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'Align'
+NeoBundle 'vim-scripts/DoxygenToolkit.vim'
+NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'davidhalter/jedi-vim'
+NeoBundle 'nagaohiroki/myplugin.vim'
+NeoBundle 'thinca/vim-fontzoom'
+NeoBundle 'cocopon/iceberg.vim'
+NeoBundle 'cg.vim'
+NeoBundle 'beyondmarc/hlsl.vim'
+NeoBundle 'PProvost/vim-ps1'
+NeoBundle 'timcharper/textile.vim'
+NeoBundle 'aklt/plantuml-syntax'
+NeoBundle 'OmniSharp/omnisharp-vim'
+call neobundle#end()
 filetype plugin indent on
 syntax on
 " --------------------------------------------------------------------------
@@ -65,7 +57,7 @@ nnoremap - :Fontzoom -1<CR>
 " syntastic
 " --------------------------------------------------------------------------
 let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
-
+let g:syntastic_python_checkers = ['flake8']
 " --------------------------------------------------------------------------
 " omnisharp
 " --------------------------------------------------------------------------
@@ -81,7 +73,6 @@ function! OmniSharpSetting()
 endfunction
 autocmd MyAutoCmd Filetype cs call OmniSharpSetting()
 command! MyOmniBuild execute '!start ' . $VIM . '/.vim/omni_build.bat'
-
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
@@ -89,20 +80,9 @@ let s:unite_ignore_patterns=['\.jpg','\.jpeg','\.png','\.tga','\.psd','\.tif','\
 let s:unite_ignore_patterns+=['\.dae','\.fbx','\.blender','\.ma','\.mb','\.mel','\.3ds','\.max']
 let s:unite_ignore_patterns+=['\.meta','\.mat','\.unity','\.prefab','\.asset','\.flare','\.anim','\.exr', '\.physicsMaterial2D', '\.controller']
 call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', join( s:unite_ignore_patterns, '\|' ) )
-
 nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec<CR>
 nnoremap <Space>f :Unite -start-insert file<CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
-nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-if executable('jvgrep')
-    let g:unite_source_grep_command = 'jvgrep'
-    let g:unite_source_grep_default_opts = '-r'
-    let g:unite_source_grep_recursive_opt = '-R'
-endif
-" --------------------------------------------------------------------------
-" vimfiler
-" --------------------------------------------------------------------------
-nnoremap <C-F> :VimFilerExplorer<CR>
 " --------------------------------------------------------------------------
 " neocomplete
 " --------------------------------------------------------------------------
@@ -116,23 +96,19 @@ let g:neocomplete#enable_insert_char_pre=1
 let g:DoxygenToolkit_blockHeader='------------------------------------------------------------------------'
 let g:DoxygenToolkit_blockFooter='------------------------------------------------------------------------'
 let g:DoxygenToolkit_commentType='C++'
-
 " --------------------------------------------------------------------------
 " shader syntax
 " --------------------------------------------------------------------------
 autocmd MyAutoCmd BufNewFile,BufRead *.fcg,*.vcg,*.shader,*.cg,*.compute,*.cginc set filetype=cg
 autocmd MyAutoCmd BufNewFile,BufRead *.fx,*.fxc,*.fxh,*.hlsl,*.pssl set filetype=hlsl
-
 " --------------------------------------------------------------------------
 " open-browser
 " --------------------------------------------------------------------------
 nmap <Space>o <Plug>(openbrowser-smart-search)
-
 " ----------------------------------------------------------------------
 " Align
 " ---------------------------------------------------------------------
 let g:Align_xstrlen=3
-
 " ----------------------------------------------------------------------
 " function
 " ---------------------------------------------------------------------
@@ -151,14 +127,19 @@ endfunction
 " ----------------------------------------------------------------------
 " go
 " ---------------------------------------------------------------------
+command! Fmt Astyle
 function! GoSetting()
 	command! Run !go run %
 	command! Build !start go build
 	exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
 	exe "set rtp+=".globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
 endfunction
-autocmd MyAutoCmd FileType go call GoSetting()
 
+ function! PythonSetting()
+	command! Fmt silent %!autopep8 -
+endfunction
+autocmd MyAutoCmd FileType go call GoSetting()
+autocmd MyAutoCmd FileType python call PythonSetting()
 " --------------------------------------------------------------------------
 " Setting
 " --------------------------------------------------------------------------
@@ -206,6 +187,7 @@ set undodir=$VIM_CACHE_DIR
 set undofile
 set undolevels=1000
 set whichwrap=b,s,h,l,<,>,[,]
+
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
@@ -237,7 +219,6 @@ nnoremap <Space>u :source $MYVIMRC<CR>
 inoremap <expr> <C-Space> pumvisible() ? '<C-e>' : '<C-x><C-o><C-p>'
 inoremap <expr> <TAB>     pumvisible() ? '<Down>': '<Tab>'
 inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
-
 " ----------------------------------------------------------------------
 " AutoCommand
 " ---------------------------------------------------------------------
@@ -248,6 +229,9 @@ autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
 " Command
 " ---------------------------------------------------------------------
 command! Enc call Enc() | e!
+command! XmlFmt call XmlFmt()
 command! PathCopy call setreg('*', expand('%:p'))
 command! PathCopyLine call setreg('*', expand('%:p') . ' ' . line('.'))
-command! XmlFmt call XmlFmt()
+command! Cmd !start cmd
+" set encoding=utf8
+command! TexConvert argdo :%s/generation:\ [1-9]/generation:\ 0/g | :%s/textureFormat:\ [0-9]\{1,2\}/textureFormat:\ -1/g | update
