@@ -29,8 +29,11 @@ endif
 call neobundle#begin(expand($MY_PLUGIN_PATH))
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
+NeoBundle "Shougo/unite-outline"
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'Shougo/neoinclude.vim'
+NeoBundle 'justmao945/vim-clang'
 NeoBundle 'Align'
 NeoBundle 'vim-scripts/DoxygenToolkit.vim'
 NeoBundle 'tyru/open-browser.vim'
@@ -44,10 +47,17 @@ NeoBundle 'beyondmarc/hlsl.vim'
 NeoBundle 'PProvost/vim-ps1'
 NeoBundle 'timcharper/textile.vim'
 NeoBundle 'aklt/plantuml-syntax'
+if has('python')
 NeoBundle 'OmniSharp/omnisharp-vim'
+endif
 call neobundle#end()
 filetype plugin indent on
 syntax on
+" --------------------------------------------------------------------------
+" vim-clang
+" --------------------------------------------------------------------------
+let g:clang_c_options='-std=c11'
+let g:clang_cpp_options='-std=c++1z -stdlib=libc++ --pedantic-errors'
 " --------------------------------------------------------------------------
 " Fontzoom
 " --------------------------------------------------------------------------
@@ -61,18 +71,20 @@ let g:syntastic_python_checkers = ['flake8']
 " --------------------------------------------------------------------------
 " omnisharp
 " --------------------------------------------------------------------------
-let g:OmniSharp_sln_list_index=1
-let g:OmniSharp_timeout=30
-let g:OmniSharp_selector_ui='unite'
-let g:Omnisharp_server_config_name=$VIM . ".vim/config.json"
-let g:OmniSharp_server_type='v1'
-function! OmniSharpSetting()
-	nnoremap <F12> :OmniSharpGotoDefinition<CR>
-	nnoremap <S-F12> :OmniSharpFindUsages<CR>
-	nnoremap <C-F12> :OmniSharpReloadSolution \| OmniSharpHighlightTypes<CR>
-endfunction
-autocmd MyAutoCmd Filetype cs call OmniSharpSetting()
-command! MyOmniBuild execute '!start ' . $VIM . '/.vim/omni_build.bat'
+if has('python')
+	let g:OmniSharp_sln_list_index=1
+	let g:OmniSharp_timeout=30
+	let g:OmniSharp_selector_ui='unite'
+	let g:Omnisharp_server_config_name=$VIM . ".vim/config.json"
+	let g:OmniSharp_server_type='v1'
+	function! OmniSharpSetting()
+		nnoremap <F12> :OmniSharpGotoDefinition<CR>
+		nnoremap <S-F12> :OmniSharpFindUsages<CR>
+		nnoremap <C-F12> :OmniSharpReloadSolution \| OmniSharpHighlightTypes<CR>
+	endfunction
+	autocmd MyAutoCmd Filetype cs call OmniSharpSetting()
+	command! MyOmniBuild execute '!start ' . $VIM . '/.vim/omni_build.bat'
+endif
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
@@ -80,15 +92,19 @@ let s:unite_ignore_patterns=['\.jpg','\.jpeg','\.png','\.tga','\.psd','\.tif','\
 let s:unite_ignore_patterns+=['\.dae','\.fbx','\.blender','\.ma','\.mb','\.mel','\.3ds','\.max']
 let s:unite_ignore_patterns+=['\.meta','\.mat','\.unity','\.prefab','\.asset','\.flare','\.anim','\.exr', '\.physicsMaterial2D', '\.controller']
 call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', join( s:unite_ignore_patterns, '\|' ) )
-nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec<CR>
+nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec
 nnoremap <Space>f :Unite -start-insert file<CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
+command! Out Unite -start-insert outline
 " --------------------------------------------------------------------------
 " neocomplete
 " --------------------------------------------------------------------------
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#enable_ignore_case=1
 let g:neocomplete#enable_insert_char_pre=1
+" let g:neocomplete#force_overwrite_completefunc = 1
+" let g:neocomplete#force_omni_input_patterns.c='[^.[:digit:] *\t]\%(\.\|->\)\w*'
+" let g:neocomplete#force_omni_input_patterns.cpp='[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
 " --------------------------------------------------------------------------
 " DoxygenToolkit
@@ -212,7 +228,7 @@ nnoremap <C-p> "0p
 vnoremap <C-p> "0p
 nnoremap <Space>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Space>n :%s/\<<C-R><C-W>\>//ng<CR>
-nnoremap <Space>g :vim/<C-R><C-W>/<C-R>=g:grep_root<CR>/**/*.cs<C-B><Right><Right><Right><Right>
+nnoremap <Space>g :vim/<C-R><C-W>/<C-R>=g:grep_root<CR>/**/*.*<C-B><Right><Right><Right><Right>
 nnoremap <Space>v :tabe $MYVIMRC<CR>
 nnoremap <Space>l :tabe $VIM/vimrc_local.vim<CR>
 nnoremap <Space>u :source $MYVIMRC<CR>
@@ -230,8 +246,8 @@ autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
 " ---------------------------------------------------------------------
 command! Enc call Enc() | e!
 command! XmlFmt call XmlFmt()
-command! PathCopy call setreg('*', expand('%:p'))
 command! PathCopyLine call setreg('*', expand('%:p') . ' ' . line('.'))
 command! Cmd !start cmd
+nnoremap <Space>x yi":silent! !start cmd /c "<C-R>0"<CR>
 " set encoding=utf8
 command! TexConvert argdo :%s/generation:\ [1-9]/generation:\ 0/g | :%s/textureFormat:\ [0-9]\{1,2\}/textureFormat:\ -1/g | update
