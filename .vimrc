@@ -13,6 +13,7 @@
 augroup MyAutoCmd
 	autocmd!
 augroup END
+filetype off
 " -------------------------------------------------------------------------
 " Startup
 " -------------------------------------------------------------------------
@@ -28,38 +29,29 @@ endif
 " --------------------------------------------------------------------------
 call neobundle#begin(expand($MY_PLUGIN_PATH))
 NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'cocopon/iceberg.vim'
 NeoBundle 'Shougo/unite.vim'
-NeoBundle "Shougo/unite-outline"
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'Shougo/neoinclude.vim'
-NeoBundle 'justmao945/vim-clang'
+NeoBundle 'nagaohiroki/myplugin.vim'
+NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'Align'
 NeoBundle 'vim-scripts/DoxygenToolkit.vim'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'davidhalter/jedi-vim'
-NeoBundle 'nagaohiroki/myplugin.vim'
-NeoBundle 'thinca/vim-fontzoom'
-NeoBundle 'cocopon/iceberg.vim'
-NeoBundle 'cg.vim'
-NeoBundle 'beyondmarc/hlsl.vim'
-NeoBundle 'PProvost/vim-ps1'
-NeoBundle 'timcharper/textile.vim'
-NeoBundle 'aklt/plantuml-syntax'
+NeoBundleLazy 'scrooloose/syntastic'
+NeoBundleLazy 'cg.vim'
+NeoBundleLazy 'beyondmarc/hlsl.vim'
+NeoBundleLazy 'PProvost/vim-ps1'
+NeoBundleLazy 'aklt/plantuml-syntax'
+NeoBundleLazy 'davidhalter/jedi-vim', { 'autoload': { 'filetypes': ['python'] } }
 if has('python')
-NeoBundle 'OmniSharp/omnisharp-vim'
+NeoBundleLazy 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': ['cs'] } }
 endif
+NeoBundleLazy 'justmao945/vim-clang', { 'autoload': { 'filetypes': ['cpp'] } }
 call neobundle#end()
 filetype plugin indent on
 syntax on
 colorscheme iceberg
 set background=dark
-" --------------------------------------------------------------------------
-" vim-clang
-" --------------------------------------------------------------------------
-let g:clang_c_options='-std=c11'
-let g:clang_cpp_options='-std=c++1z -stdlib=libc++ --pedantic-errors'
 " --------------------------------------------------------------------------
 " Fontzoom
 " --------------------------------------------------------------------------
@@ -97,16 +89,12 @@ call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', join( s:uni
 nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec
 nnoremap <Space>f :Unite -start-insert file<CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
-command! Out Unite -start-insert outline
 " --------------------------------------------------------------------------
 " neocomplete
 " --------------------------------------------------------------------------
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#enable_ignore_case=1
 let g:neocomplete#enable_insert_char_pre=1
-" let g:neocomplete#force_overwrite_completefunc = 1
-" let g:neocomplete#force_omni_input_patterns.c='[^.[:digit:] *\t]\%(\.\|->\)\w*'
-" let g:neocomplete#force_omni_input_patterns.cpp='[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
 " --------------------------------------------------------------------------
 " DoxygenToolkit
@@ -169,7 +157,7 @@ set cmdheight=2
 set completeopt=longest,menuone
 set foldcolumn=1
 set foldenable
-set foldmarker=region,endregion
+" set foldmarker=region,endregion
 set foldmethod=marker
 set foldnestmax=0
 set formatoptions=q
@@ -178,7 +166,6 @@ set hidden
 set hlsearch
 set incsearch
 set laststatus=2
-set lazyredraw
 set list
 set listchars=eol:<,tab:>\ ,extends:<
 set matchpairs+=<:>
@@ -200,12 +187,14 @@ set statusline+=[%Y]%{'['.(&fenc!=''?&fenc:&enc).(&bomb?'_bom':'').']['.&filefor
 set statusline+=%=%l/%L,%c%V%8P
 set tabstop=4
 set title
-set ttyfast
 set undodir=$VIM_CACHE_DIR
 set undofile
 set undolevels=1000
 set whichwrap=b,s,h,l,<,>,[,]
-
+set grepprg=jvgrep
+set lazyredraw
+set ttyfast
+" execute 'set tags=' . g:grep_root . '/tags'
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
@@ -219,8 +208,8 @@ vnoremap <C-Left>  <Nop>
 vnoremap <C-Right> <Nop>
 nnoremap <S-Up>    :set lines-=10<CR>
 nnoremap <S-Down>  :set lines+=10<CR>
-nnoremap <S-Left>  :set columns-=10<CR>
-nnoremap <S-Right> :set columns+=10<CR>
+nnoremap <S-Left>  :set columns-=100<CR>
+nnoremap <S-Right> :set columns+=100<CR>
 inoremap <C-c> <Esc>
 inoremap <C-q> <C-R>=strftime('%Y/%m/%d %H:%M')<CR>
 inoremap <C-d> <Del>
@@ -230,13 +219,13 @@ nnoremap <C-p> "0p
 vnoremap <C-p> "0p
 nnoremap <Space>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Space>n :%s/\<<C-R><C-W>\>//ng<CR>
-nnoremap <Space>g :vim/<C-R><C-W>/<C-R>=g:grep_root<CR>/**/*.*<C-B><Right><Right><Right><Right>
+nnoremap <Space>g :grep "<C-R><C-W>" <C-R>=g:grep_root<CR>/**/*.*<C-B><Right><Right><Right><Right>
 nnoremap <Space>v :tabe $MYVIMRC<CR>
-nnoremap <Space>l :tabe $VIM/vimrc_local.vim<CR>
 nnoremap <Space>u :source $MYVIMRC<CR>
 inoremap <expr> <C-Space> pumvisible() ? '<C-e>' : '<C-x><C-o><C-p>'
 inoremap <expr> <TAB>     pumvisible() ? '<Down>': '<Tab>'
 inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
+
 " ----------------------------------------------------------------------
 " AutoCommand
 " ---------------------------------------------------------------------
@@ -251,5 +240,5 @@ command! XmlFmt call XmlFmt()
 command! PathCopyLine call setreg('*', expand('%:p') . ' ' . line('.'))
 command! Cmd !start cmd
 nnoremap <Space>x yi":silent! !start cmd /c "<C-R>0"<CR>
-" set encoding=utf8
+set encoding=utf8
 command! TexConvert argdo :%s/generation:\ [1-9]/generation:\ 0/g | :%s/textureFormat:\ [0-9]\{1,2\}/textureFormat:\ -1/g | update
