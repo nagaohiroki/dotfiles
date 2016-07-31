@@ -1,4 +1,6 @@
 ﻿scriptencoding utf-8
+set encoding=utf8
+set fileencodings=euc-jp,cp932,sjis,iso-2022-jp,ucs-bom,utf-8
 " --------------------------------------------------------------------------
 " Unity
 " -p --remote-tab-silent +$(Line) "$(File)"
@@ -24,39 +26,54 @@ if has('vim_starting')
 	set runtimepath^=$MY_PLUGIN_PATH/neobundle.vim/
 	let g:neobundle#install_process_timeout=3000
 endif
+
+" -------------------------------------------------------------------------
+" Project
+" -------------------------------------------------------------------------
+function! InitProject(project_paths)
+	for p in a:project_paths
+		execute 'set tags+=' . p . '/tags'
+		execute 'set path+=' . p
+	endfor
+	let g:grep_root=a:project_paths[0]
+endfunction
+
+if exists('g:project_paths')
+	call InitProject(g:project_paths)
+endif
 " --------------------------------------------------------------------------
 " Plugin 
 " --------------------------------------------------------------------------
 call neobundle#begin(expand($MY_PLUGIN_PATH))
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'cocopon/iceberg.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'nagaohiroki/myplugin.vim'
+NeoBundle 'cocopon/iceberg.vim'
 NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'Align'
 NeoBundle 'vim-scripts/DoxygenToolkit.vim'
-NeoBundleLazy 'scrooloose/syntastic'
-NeoBundleLazy 'cg.vim'
-NeoBundleLazy 'beyondmarc/hlsl.vim'
-NeoBundleLazy 'PProvost/vim-ps1'
-NeoBundleLazy 'aklt/plantuml-syntax'
-NeoBundleLazy 'davidhalter/jedi-vim', { 'autoload': { 'filetypes': ['python'] } }
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'cg.vim'
+NeoBundle 'beyondmarc/hlsl.vim'
+NeoBundle 'PProvost/vim-ps1'
+NeoBundle 'aklt/plantuml-syntax'
+NeoBundle 'vim-scripts/Tagbar'
+NeoBundle 'Align'
+NeoBundle 'davidhalter/jedi-vim', { 'autoload': { 'filetypes': ['python'] } }
 if has('python')
-NeoBundleLazy 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': ['cs'] } }
+NeoBundle 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': ['cs'] } }
 endif
-NeoBundleLazy 'justmao945/vim-clang', { 'autoload': { 'filetypes': ['cpp'] } }
 call neobundle#end()
 filetype plugin indent on
 syntax on
 colorscheme iceberg
 set background=dark
 " --------------------------------------------------------------------------
-" Fontzoom
+" Tagbar
 " --------------------------------------------------------------------------
-nnoremap + :Fontzoom +1<CR>
-nnoremap - :Fontzoom -1<CR>
+nnoremap <F8> :TagbarToggle<CR>
+let g:Align_xstrlen=3
 " --------------------------------------------------------------------------
 " syntastic
 " --------------------------------------------------------------------------
@@ -86,7 +103,7 @@ let s:unite_ignore_patterns=['\.jpg','\.jpeg','\.png','\.tga','\.psd','\.tif','\
 let s:unite_ignore_patterns+=['\.dae','\.fbx','\.blender','\.ma','\.mb','\.mel','\.3ds','\.max']
 let s:unite_ignore_patterns+=['\.meta','\.mat','\.unity','\.prefab','\.asset','\.flare','\.anim','\.exr', '\.physicsMaterial2D', '\.controller']
 call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', join( s:unite_ignore_patterns, '\|' ) )
-nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec
+nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec<CR>
 nnoremap <Space>f :Unite -start-insert file<CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
 " --------------------------------------------------------------------------
@@ -115,37 +132,6 @@ nmap <Space>o <Plug>(openbrowser-smart-search)
 " Align
 " ---------------------------------------------------------------------
 let g:Align_xstrlen=3
-" ----------------------------------------------------------------------
-" function
-" ---------------------------------------------------------------------
-function! Enc()
-	set encoding=utf-8
-	set fileencoding=utf-8
-	set fileencodings=ucs-boms,iso-2022-jp,euc-jp,cp932,sjis,utf-16le,utf-8
-	set fileformat=unix
-	set fileformats=unix,dos,mac
-endfunction
-
-function! XmlFmt()
-	%s/></>\r</g
-	normal gg=G
-endfunction
-" ----------------------------------------------------------------------
-" go
-" ---------------------------------------------------------------------
-command! Fmt Astyle
-function! GoSetting()
-	command! Run !go run %
-	command! Build !start go build
-	exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
-	exe "set rtp+=".globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
-endfunction
-
- function! PythonSetting()
-	command! Fmt silent %!autopep8 -
-endfunction
-autocmd MyAutoCmd FileType go call GoSetting()
-autocmd MyAutoCmd FileType python call PythonSetting()
 " --------------------------------------------------------------------------
 " Setting
 " --------------------------------------------------------------------------
@@ -155,11 +141,7 @@ set cindent
 set clipboard+=unnamedplus,unnamed
 set cmdheight=2
 set completeopt=longest,menuone
-set foldcolumn=1
-set foldenable
-" set foldmarker=region,endregion
-set foldmethod=marker
-set foldnestmax=0
+set nofoldenable
 set formatoptions=q
 set helplang=ja
 set hidden
@@ -170,6 +152,7 @@ set list
 set listchars=eol:<,tab:>\ ,extends:<
 set matchpairs+=<:>
 set matchtime=1
+set backupdir=$VIM_CACHE_DIR
 set nobackup
 set noshowmatch
 set noswapfile
@@ -191,21 +174,15 @@ set undodir=$VIM_CACHE_DIR
 set undofile
 set undolevels=1000
 set whichwrap=b,s,h,l,<,>,[,]
-set grepprg=jvgrep
+set grepprg=jvgrep\ -i\ -I
 set lazyredraw
 set ttyfast
-" execute 'set tags=' . g:grep_root . '/tags'
+set diffopt=filler,context:1000000 
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
-vnoremap <S-Up>    <Nop>
-vnoremap <S-Down>  <Nop>
-vnoremap <S-Left>  <Nop>
-vnoremap <S-Right> <Nop>
-vnoremap <C-Up>    <Nop>
-vnoremap <C-Down>  <Nop>
-vnoremap <C-Left>  <Nop>
-vnoremap <C-Right> <Nop>
+nnoremap <C-Up>    [c
+nnoremap <C-Down>  ]c
 nnoremap <S-Up>    :set lines-=10<CR>
 nnoremap <S-Down>  :set lines+=10<CR>
 nnoremap <S-Left>  :set columns-=100<CR>
@@ -218,8 +195,7 @@ nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
 nnoremap <Space>s :%s/\<<C-R><C-W>\>//g<Left><Left>
-nnoremap <Space>n :%s/\<<C-R><C-W>\>//ng<CR>
-nnoremap <Space>g :grep "<C-R><C-W>" <C-R>=g:grep_root<CR>/**/*.*<C-B><Right><Right><Right><Right>
+nnoremap <Space>g :vim/<C-R><C-W>/<C-R>=g:grep_root<CR>/**/*.*
 nnoremap <Space>v :tabe $MYVIMRC<CR>
 nnoremap <Space>u :source $MYVIMRC<CR>
 inoremap <expr> <C-Space> pumvisible() ? '<C-e>' : '<C-x><C-o><C-p>'
@@ -232,13 +208,65 @@ inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
 autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * silent! lcd %:p:h
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
+
+" ----------------------------------------------------------------------
+" Astyle
+" ---------------------------------------------------------------------
+function! Astyle()
+	let l:pos = getpos('.')
+	%!AStyle -I -n -A1 -t -p -D -U -j
+	call setpos('.',pos)
+endfunction
+command! Astyle call Astyle()
+
+" ----------------------------------------------------------------------
+" xml
+" ---------------------------------------------------------------------
+function! XmlFmt()
+	%s/></>\r</g
+	normal gg=G
+endfunction
+command! XmlFmt call XmlFmt()
+
+" ----------------------------------------------------------------------
+" cpp
+" ---------------------------------------------------------------------
+function! SwitchSourceHeader()
+  "update!
+  if (expand ("%:e") == "cpp")
+    find %:t:r.h
+  else
+    find %:t:r.cpp
+  endif
+endfunction
+
+function! CppSetting()
+	nnoremap <Space>h :call SwitchSourceHeader()<CR>
+endfunction
+autocmd MyAutoCmd FileType cpp call CppSetting()
+" ----------------------------------------------------------------------
+" go
+" ---------------------------------------------------------------------
+function! GoSetting()
+	command! Run !go run %
+	command! Build !start go build
+	exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+	exe "set rtp+=".globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
+endfunction
+autocmd MyAutoCmd FileType go call GoSetting()
+
+" ----------------------------------------------------------------------
+" python
+" ---------------------------------------------------------------------
+ function! PythonSetting()
+	command! Fmt silent %!autopep8 -
+endfunction
+autocmd MyAutoCmd FileType python call PythonSetting()
+
 " ----------------------------------------------------------------------
 " Command
 " ---------------------------------------------------------------------
-command! Enc call Enc() | e!
-command! XmlFmt call XmlFmt()
 command! PathCopyLine call setreg('*', expand('%:p') . ' ' . line('.'))
 command! Cmd !start cmd
-nnoremap <Space>x yi":silent! !start cmd /c "<C-R>0"<CR>
-set encoding=utf8
-command! TexConvert argdo :%s/generation:\ [1-9]/generation:\ 0/g | :%s/textureFormat:\ [0-9]\{1,2\}/textureFormat:\ -1/g | update
+
+

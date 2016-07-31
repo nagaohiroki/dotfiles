@@ -10,7 +10,6 @@ if has('win32')
 	" set guifont=MS_Gothic:h9:cSHIFTJIS
 	set guifont=Ricty_Diminished:h11:cSHIFTJIS
 	set linespace=1
-	" set renderoptions=type:directx
 endif
 if has('kaoriya')
 	autocmd MyAutoCmd BufNewFile,BufRead,FocusGained * set transparency=220
