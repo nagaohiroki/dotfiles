@@ -106,7 +106,6 @@ if has('python')
 		nnoremap <C-F12> :OmniSharpReloadSolution \| OmniSharpHighlightTypes<CR>
 	endfunction
 	autocmd MyAutoCmd Filetype cs call OmniSharpSetting()
-	command! MyOmniBuild execute '!start ' . $HOME . '/.vim/omni_build.bat'
 endif
 " -------------------------------------------------------------------------
 " unite
