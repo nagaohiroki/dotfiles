@@ -65,7 +65,11 @@ NeoBundle 'davidhalter/jedi-vim', { 'autoload': { 'filetypes': ['python'] } }
 if has('python')
 NeoBundle 'nagaohiroki/omnisharp-vim', { 
 			\'autoload': { 'filetypes': ['cs'] },
-			\'build': {'windows' : 'msbuild server/OmniSharp.sln /p:Platform="Any CPU"'} 
+			\   'build': {
+			\     'windows': 'MSBuild.exe server/OmniSharp.sln /p:Platform="Any CPU"',
+			\     'mac': 'xbuild server/OmniSharp.sln',
+			\     'unix': 'xbuild server/OmniSharp.sln',
+			\   }
 			\}
 endif
 call neobundle#end()
