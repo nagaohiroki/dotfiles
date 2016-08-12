@@ -63,7 +63,10 @@ NeoBundle 'vim-scripts/Tagbar'
 NeoBundle 'Align'
 NeoBundle 'davidhalter/jedi-vim', { 'autoload': { 'filetypes': ['python'] } }
 if has('python')
-NeoBundle 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': ['cs'] } }
+NeoBundle 'nagaohiroki/omnisharp-vim', { 
+			\'autoload': { 'filetypes': ['cs'] },
+			\'build': {'windows' : 'msbuild server/OmniSharp.sln /p:Platform="Any CPU"'} 
+			\}
 endif
 call neobundle#end()
 filetype plugin indent on
