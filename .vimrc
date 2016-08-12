@@ -49,6 +49,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'nagaohiroki/myplugin.vim'
 NeoBundle 'cocopon/iceberg.vim'
 NeoBundle 'tyru/open-browser.vim'
@@ -73,6 +74,10 @@ set background=dark
 " Tagbar
 " --------------------------------------------------------------------------
 nnoremap <F8> :TagbarToggle<CR>
+" --------------------------------------------------------------------------
+" VimFiler
+" --------------------------------------------------------------------------
+nnoremap <F7> :VimFiler -simple -split -toggle -winwidth=30 -no-quit<CR>
 let g:Align_xstrlen=3
 " --------------------------------------------------------------------------
 " syntastic
@@ -86,7 +91,7 @@ if has('python')
 	let g:OmniSharp_sln_list_index=1
 	let g:OmniSharp_timeout=30
 	let g:OmniSharp_selector_ui='unite'
-	let g:Omnisharp_server_config_name=$VIM . ".vim/config.json"
+	let g:OmniSharp_server_config_name=$HOME . "/.vim/config.json"
 	let g:OmniSharp_server_type='v1'
 	function! OmniSharpSetting()
 		nnoremap <F12> :OmniSharpGotoDefinition<CR>
@@ -94,7 +99,7 @@ if has('python')
 		nnoremap <C-F12> :OmniSharpReloadSolution \| OmniSharpHighlightTypes<CR>
 	endfunction
 	autocmd MyAutoCmd Filetype cs call OmniSharpSetting()
-	command! MyOmniBuild execute '!start ' . $VIM . '/.vim/omni_build.bat'
+	command! MyOmniBuild execute '!start ' . $HOME . '/.vim/omni_build.bat'
 endif
 " -------------------------------------------------------------------------
 " unite
@@ -266,7 +271,7 @@ autocmd MyAutoCmd FileType python call PythonSetting()
 " ----------------------------------------------------------------------
 " Command
 " ---------------------------------------------------------------------
-command! PathCopyLine call setreg('*', expand('%:p') . ' ' . line('.'))
+command! CopyPath call setreg('*', expand('%:p') . ' ' . line('.'))
 command! Cmd !start cmd
 
 

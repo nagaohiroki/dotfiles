@@ -1,35 +1,51 @@
-From 3809b8ff0af0ea3d3d719bc8d9326f6b2fde17c6 Mon Sep 17 00:00:00 2001
+From 4220ecf04397294a7c4f5cd1c138e1fa073fc909 Mon Sep 17 00:00:00 2001
 From: nagaohiroki <zerosiseinokae@yahoo.co.jp>
-Date: Wed, 30 Dec 2015 23:45:58 +0900
-Subject: [PATCH 28/28] FixJapanese
+Date: Fri, 12 Aug 2016 12:27:41 +0900
+Subject: [PATCH] windows10 japanese fix
 
 ---
- python/Completion.py   |  6 +++---
+ autoload/OmniSharp.vim |  8 +++++---
+ python/Completion.py   |  4 ++++
  python/OmniSharp.py    | 14 ++++++++++----
  python/asyncrequest.py |  7 ++-----
  python/syncrequest.py  |  7 ++-----
- 4 files changed, 17 insertions(+), 17 deletions(-)
+ 5 files changed, 23 insertions(+), 17 deletions(-)
 
+diff --git a/autoload/OmniSharp.vim b/autoload/OmniSharp.vim
+index c75ebce..dea4b37 100644
+--- a/autoload/OmniSharp.vim
++++ b/autoload/OmniSharp.vim
+@@ -498,10 +498,12 @@ endfunction
+ 
+ function! OmniSharp#ResolveLocalConfig(solutionPath) abort
+   let result = ''
+-  let configPath = fnamemodify(a:solutionPath, ':p:h')
+-  \ . s:dir_separator
+-  \ . g:OmniSharp_server_config_name
++ " let configPath = fnamemodify(a:solutionPath, ':p:h')
++ " \ . s:dir_separator
++ " \ . g:OmniSharp_server_config_name
+ 
++  let configPath = g:OmniSharp_server_config_name
++  echo configPath
+   if filereadable(configPath)
+     let result = ' -config ' . shellescape(configPath, 1)
+   endif
 diff --git a/python/Completion.py b/python/Completion.py
-index 45d863f..74352c2 100644
+index 1b99149..9e9e79c 100644
 --- a/python/Completion.py
 +++ b/python/Completion.py
-@@ -8,12 +8,12 @@ class Completion:
+@@ -8,6 +8,10 @@ class Completion:
          parameters['WantDocumentationForEveryCompletionResult'] = \
              bool(int(vim.eval('g:omnicomplete_fetch_full_documentation')))
  
--        parameters['buffer'] = '\r\n'.join(vim.eval('s:textBuffer')[:])
--
 +        textBuffer = '\r\n'.join(vim.eval('s:textBuffer')[:])
 +        enc = vim.eval('&encoding')
 +        parameters['buffer'] = textBuffer.decode(enc).encode("utf-8")
-         response = syncrequest.get_response('/autocomplete', parameters)
++        response = syncrequest.get_response('/autocomplete', parameters)
+         want_snippet = \
+             bool(int(vim.eval('g:OmniSharp_want_snippet')))
  
- 
--        enc = vim.eval('&encoding')
-         vim_completions = []
-         if response is not None:
-             for completion in response:
 diff --git a/python/OmniSharp.py b/python/OmniSharp.py
 index 3fe8ab9..a5be181 100644
 --- a/python/OmniSharp.py

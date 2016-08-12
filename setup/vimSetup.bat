@@ -1,5 +1,5 @@
 set DOT_DIR=%DROPBOX%/dotfiles
-mklink "%VIM%\.vimrc"  "%DOT_DIR%\.vimrc"
-mklink "%VIM%\.gvimrc" "%DOT_DIR%\.gvimrc"
-mklink /J "%VIM%\.vim" "%DOT_DIR%\.vim"
+mklink "%HOMEPATH%\.vimrc"  "%DOT_DIR%\.vimrc"
+mklink "%HOMEPATH%\.gvimrc" "%DOT_DIR%\.gvimrc"
+mklink /J "%HOMEPATH%\.vim" "%DOT_DIR%\.vim"
 pause
