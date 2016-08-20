@@ -20,9 +20,7 @@ filetype off
 " Startup
 " -------------------------------------------------------------------------
 if has('vim_starting')
-	let $VIM_CURRENT=has('win32') ? $VIM : $HOME
-	let $VIM_CACHE_DIR=$HOME . '/.cache'
-	let $MY_PLUGIN_PATH=$VIM_CURRENT . '/bundle'
+	let $MY_PLUGIN_PATH=$HOME . '/bundle'
 	set runtimepath^=$MY_PLUGIN_PATH/neobundle.vim/
 	let g:neobundle#install_process_timeout=3000
 endif
@@ -63,14 +61,7 @@ NeoBundle 'vim-scripts/Tagbar'
 NeoBundle 'Align'
 NeoBundle 'davidhalter/jedi-vim', { 'autoload': { 'filetypes': ['python'] } }
 if has('python')
-NeoBundle 'nagaohiroki/omnisharp-vim', { 
-			\'autoload': { 'filetypes': ['cs'] },
-			\   'build': {
-			\     'windows': 'MSBuild.exe server/OmniSharp.sln /p:Platform="Any CPU"',
-			\     'mac': 'xbuild server/OmniSharp.sln',
-			\     'unix': 'xbuild server/OmniSharp.sln',
-			\   }
-			\}
+NeoBundle 'nagaohiroki/omnisharp-vim', { 'autoload': { 'filetypes': ['cs'] }}
 endif
 call neobundle#end()
 filetype plugin indent on
@@ -106,6 +97,7 @@ if has('python')
 		nnoremap <C-F12> :OmniSharpReloadSolution \| OmniSharpHighlightTypes<CR>
 	endfunction
 	autocmd MyAutoCmd Filetype cs call OmniSharpSetting()
+	command! OmniBuild execute '!start msbuild ' . $MY_PLUGIN_PATH . '/omnisharp-vim/server/OmniSharp.sln'
 endif
 " -------------------------------------------------------------------------
 " unite
@@ -163,13 +155,12 @@ set list
 set listchars=eol:<,tab:>\ ,extends:<
 set matchpairs+=<:>
 set matchtime=1
-set backupdir=$VIM_CACHE_DIR
-set nobackup
 set noshowmatch
 set noswapfile
 set notimeout
 set nowrap
 set nrformats=hex
+set nobackup
 set number
 set pumheight=10
 set shiftwidth=4
@@ -181,9 +172,9 @@ set statusline+=[%Y]%{'['.(&fenc!=''?&fenc:&enc).(&bomb?'_bom':'').']['.&filefor
 set statusline+=%=%l/%L,%c%V%8P
 set tabstop=4
 set title
-set undodir=$VIM_CACHE_DIR
-set undofile
 set undolevels=1000
+set undodir=$HOME/.cache
+set undofile
 set whichwrap=b,s,h,l,<,>,[,]
 set grepprg=jvgrep\ -i\ -I
 set lazyredraw
