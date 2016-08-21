@@ -85,26 +85,29 @@ let g:syntastic_python_checkers = ['flake8']
 " --------------------------------------------------------------------------
 " omnisharp
 " --------------------------------------------------------------------------
-if has('python')
+function! SetupOmniSharp()
 	let g:OmniSharp_sln_list_index=1
 	let g:OmniSharp_timeout=30
 	let g:OmniSharp_selector_ui='unite'
 	let g:OmniSharp_server_config_name=$HOME . "/.vim/config.json"
 	let g:OmniSharp_server_type='v1'
-	function! OmniSharpSetting()
-		nnoremap <F12> :OmniSharpGotoDefinition<CR>
-		nnoremap <S-F12> :OmniSharpFindUsages<CR>
-		nnoremap <C-F12> :OmniSharpReloadSolution \| OmniSharpHighlightTypes<CR>
-	endfunction
-	autocmd MyAutoCmd Filetype cs call OmniSharpSetting()
-	command! OmniBuild execute '!start msbuild ' . $MY_PLUGIN_PATH . '/omnisharp-vim/server/OmniSharp.sln'
+	nnoremap <F12> :OmniSharpGotoDefinition<CR>
+	nnoremap <S-F12> :OmniSharpFindUsages<CR>
+	nnoremap <C-F12> :OmniSharpReloadSolution \| OmniSharpHighlightTypes<CR>
+	let g:csharp_compiler=has('win32') ? 'msbuild' : 'xbuild'
+	command! OmniBuild execute '!' . g:csharp_compiler . ' ' . $MY_PLUGIN_PATH . '/omnisharp-vim/server/OmniSharp.sln
+endfunction
+if has('python')
+	autocmd MyAutoCmd Filetype cs call SetupOmniSharp()
 endif
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
-let s:unite_ignore_patterns=['\.jpg','\.jpeg','\.png','\.tga','\.psd','\.tif','\.gif','\.bmp','\.dds']
-let s:unite_ignore_patterns+=['\.dae','\.fbx','\.blender','\.ma','\.mb','\.mel','\.3ds','\.max']
-let s:unite_ignore_patterns+=['\.meta','\.mat','\.unity','\.prefab','\.asset','\.flare','\.anim','\.exr', '\.physicsMaterial2D', '\.controller']
+let s:unite_ignore_patterns=['\.jpg','\.jpeg','\.png','\.tga','\.psd',
+			\'\.tif','\.gif','\.bmp','\.dds', '\.dae','\.fbx','\.blender',
+			\'\.ma','\.mb','\.mel','\.3ds','\.max', '\.meta','\.mat',
+			\'\.unity','\.prefab','\.asset','\.flare','\.anim','\.exr',
+			\'\.physicsMaterial2D', '\.controller']
 call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', join( s:unite_ignore_patterns, '\|' ) )
 nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec<CR>
 nnoremap <Space>f :Unite -start-insert file<CR>
