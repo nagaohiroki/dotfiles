@@ -274,4 +274,16 @@ autocmd MyAutoCmd FileType python call PythonSetting()
 command! CopyPath call setreg('*', expand('%:p') . ' ' . line('.'))
 command! Cmd !start cmd
 
+" ----------------------------------------------------------------------
+" Command
+" ---------------------------------------------------------------------
+function! OldRev()
+	if(&diff == 1)
+		diffoff
+		return
+	endif
+	pyfile $HOME/.vim/old_rev.py
+	VDsplit tmp.cpp
+endfunction
+nnoremap<F6> :call OldRev()<CR>
 
