@@ -7,7 +7,7 @@ set BUNDLE_DIR="bundle"
 )
 set DOT_DIR=%HOMEPATH%\dotfiles
 @if not exist %DOT_DIR% (  
-	exit 1
+	git clone https://github.com/nagaohiroki/dotfiles
 )
 mklink ".vimrc"  "%DOT_DIR%\.vimrc"
 mklink ".gvimrc" "%DOT_DIR%\.gvimrc"
