@@ -94,20 +94,16 @@ function! SetupOmniSharp()
 	nnoremap <F12> :OmniSharpGotoDefinition<CR>
 	nnoremap <S-F12> :OmniSharpFindUsages<CR>
 	nnoremap <C-F12> :OmniSharpReloadSolution \| OmniSharpHighlightTypes<CR>
-	let g:csharp_compiler=has('win32') ? 'msbuild' : 'xbuild'
-	command! OmniBuild execute '!' . g:csharp_compiler . ' ' . $MY_PLUGIN_PATH . '/omnisharp-vim/server/OmniSharp.sln
 endfunction
 if has('python')
 	autocmd MyAutoCmd Filetype cs call SetupOmniSharp()
 endif
+let g:csharp_compiler=has('win32') ? 'msbuild' : 'xbuild'
+command! OmniBuild execute '!' . g:csharp_compiler . ' ' . $MY_PLUGIN_PATH . '/omnisharp-vim/server/OmniSharp.sln'
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
-let s:unite_ignore_patterns=['\.jpg','\.jpeg','\.png','\.tga','\.psd',
-			\'\.tif','\.gif','\.bmp','\.dds', '\.dae','\.fbx','\.blender',
-			\'\.ma','\.mb','\.mel','\.3ds','\.max', '\.meta','\.mat',
-			\'\.unity','\.prefab','\.asset','\.flare','\.anim','\.exr',
-			\'\.physicsMaterial2D', '\.controller']
+let s:unite_ignore_patterns=['meta']
 call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', join( s:unite_ignore_patterns, '\|' ) )
 nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec<CR>
 nnoremap <Space>f :Unite -start-insert file<CR>
@@ -279,11 +275,10 @@ command! Cmd !start cmd
 " ---------------------------------------------------------------------
 function! OldRev()
 	if(&diff == 1)
-		diffoff
+		diffoff!
 		return
 	endif
 	pyfile $HOME/.vim/old_rev.py
-	VDsplit tmp.cpp
 endfunction
 nnoremap<F6> :call OldRev()<CR>
 
