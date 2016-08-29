@@ -281,4 +281,5 @@ function! OldRev()
 endfunction
 nnoremap<F6> :call OldRev()<CR>
 
-command! DotPull execute '!git -C ' . $HOME . '/dotfiles pull'
+command! DotPull execute '!cd ' . $HOME . '/dotfiles & git pull .'
+command! DotPush execute '!cd ' . $HOME . '/dotfiles & git commit -m "update dotfiles" & git push'
