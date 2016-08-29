@@ -281,3 +281,4 @@ function! OldRev()
 endfunction
 nnoremap<F6> :call OldRev()<CR>
 
+command! DotPull execute '!git -C ' . $HOME . '/dotfiles pull'
