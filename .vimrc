@@ -280,6 +280,3 @@ function! OldRev()
 	pyfile $HOME/.vim/old_rev.py
 endfunction
 nnoremap<F6> :call OldRev()<CR>
-
-command! DotPull execute '!cd ' . $HOME . '\dotfiles & git pull .'
-command! DotPush execute '!cd ' . $HOME . '\dotfiles & git commit -m "update dotfiles" & git push'
