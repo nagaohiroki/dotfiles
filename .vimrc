@@ -51,14 +51,15 @@ NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'nagaohiroki/myplugin.vim'
 NeoBundle 'cocopon/iceberg.vim'
 NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'vim-scripts/DoxygenToolkit.vim'
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'cg.vim'
 NeoBundle 'beyondmarc/hlsl.vim'
 NeoBundle 'PProvost/vim-ps1'
 NeoBundle 'aklt/plantuml-syntax'
-NeoBundle 'vim-scripts/Tagbar'
+NeoBundle 'DoxygenToolkit.vim'
+NeoBundle 'cg.vim'
+NeoBundle 'Tagbar'
 NeoBundle 'Align'
+NeoBundle 'gtags.vim'
 NeoBundle 'davidhalter/jedi-vim', { 'autoload': { 'filetypes': ['python'] } }
 if has('python')
 NeoBundle 'nagaohiroki/omnisharp-vim', { 'autoload': { 'filetypes': ['cs'] }}
