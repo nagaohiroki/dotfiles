@@ -132,6 +132,7 @@ let g:DoxygenToolkit_commentType='C++'
 " --------------------------------------------------------------------------
 autocmd MyAutoCmd BufNewFile,BufRead *.fcg,*.vcg,*.shader,*.cg,*.compute,*.cginc set filetype=cg
 autocmd MyAutoCmd BufNewFile,BufRead *.fx,*.fxc,*.fxh,*.hlsl,*.pssl set filetype=hlsl
+autocmd MyAutoCmd BufNewFile,BufRead *.txt set filetype=markdown
 " --------------------------------------------------------------------------
 " open-browser
 " --------------------------------------------------------------------------
@@ -185,6 +186,7 @@ set grepprg=jvgrep\ -i\ -I
 set lazyredraw
 set ttyfast
 set diffopt=filler,context:1000000 
+set autochdir
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
@@ -208,11 +210,10 @@ nnoremap <Space>u :source $MYVIMRC<CR>
 inoremap <expr> <C-Space> pumvisible() ? '<C-e>' : '<C-x><C-o><C-p>'
 inoremap <expr> <TAB>     pumvisible() ? '<Down>': '<Tab>'
 inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
-
 " ----------------------------------------------------------------------
 " AutoCommand
 " ---------------------------------------------------------------------
-autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * silent! lcd %:p:h
+" autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * silent! lcd %:p:h
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
 
