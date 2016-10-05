@@ -186,7 +186,7 @@ set grepprg=jvgrep\ -i\ -I
 set lazyredraw
 set ttyfast
 set diffopt=filler,context:1000000 
-set autochdir
+" set autochdir
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
@@ -215,6 +215,7 @@ inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
 " ---------------------------------------------------------------------
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
+autocmd MyAutoCmd BufEnter * execute ":lcd " . substitute(expand("%:p:h")," ","\\\\ ","g")
 
 " ----------------------------------------------------------------------
 " Astyle
