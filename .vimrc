@@ -62,7 +62,7 @@ NeoBundle 'Align'
 NeoBundle 'gtags.vim'
 NeoBundle 'davidhalter/jedi-vim', { 'autoload': { 'filetypes': ['python'] } }
 if has('python')
-NeoBundle 'nagaohiroki/omnisharp-vim', { 'autoload': { 'filetypes': ['cs'] }}
+NeoBundle 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': ['cs'] }}
 endif
 call neobundle#end()
 filetype plugin indent on
@@ -95,7 +95,7 @@ function! SetupOmniSharp()
 	let g:OmniSharp_sln_list_index=1
 	let g:OmniSharp_timeout=30
 	let g:OmniSharp_selector_ui='unite'
-	let g:OmniSharp_server_config_name=$HOME . "/.vim/config.json"
+	let g:OmniSharp_server_config_name='config.json'
 	let g:OmniSharp_server_type='v1'
 	nnoremap <F12> :OmniSharpGotoDefinition<CR>
 	nnoremap <S-F12> :OmniSharpFindUsages<CR>
@@ -186,7 +186,6 @@ set grepprg=jvgrep\ -i\ -I
 set lazyredraw
 set ttyfast
 set diffopt=filler,context:1000000 
-" set autochdir
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
