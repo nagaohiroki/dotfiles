@@ -11,6 +11,9 @@ if has('win32')
 	set guifont=Ricty_Diminished:h11:cSHIFTJIS
 	set linespace=1
 endif
+if has('mac')
+	set guifont=Osaka-Mono:h11
+endif
 if has('kaoriya')
 	if has('win32')
 		autocmd MyAutoCmd BufNewFile,BufRead,FocusGained * set transparency=220
