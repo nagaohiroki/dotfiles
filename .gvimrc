@@ -12,7 +12,11 @@ if has('win32')
 	set linespace=1
 endif
 if has('kaoriya')
-	autocmd MyAutoCmd BufNewFile,BufRead,FocusGained * set transparency=220
+	if has('win32')
+		autocmd MyAutoCmd BufNewFile,BufRead,FocusGained * set transparency=220
+	else
+		autocmd MyAutoCmd BufNewFile,BufRead,FocusGained * set transparency=90
+	endif
 endif
 "--------------------------------------------------------------------------
 "colorscheme
