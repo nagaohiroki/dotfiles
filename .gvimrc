@@ -15,7 +15,7 @@ if has('kaoriya')
 	if has('win32')
 		autocmd MyAutoCmd BufNewFile,BufRead,FocusGained * set transparency=220
 	else
-		autocmd MyAutoCmd BufNewFile,BufRead,FocusGained * set transparency=90
+		autocmd MyAutoCmd BufNewFile,BufRead,FocusGained * set transparency=10
 	endif
 endif
 "--------------------------------------------------------------------------
