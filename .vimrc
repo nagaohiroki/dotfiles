@@ -284,6 +284,6 @@ function! OldRev()
 		diffoff!
 		return
 	endif
-	pyfile $HOME/.vim/old_rev.py
+	pyfile $HOME/dotfiles/.vim/old_rev.py
 endfunction
 nnoremap<F6> :call OldRev()<CR>
