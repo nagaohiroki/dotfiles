@@ -274,7 +274,14 @@ autocmd MyAutoCmd FileType python call PythonSetting()
 " Command
 " ---------------------------------------------------------------------
 command! CopyPath call setreg('*', expand('%:p') . ' ' . line('.'))
-command! Cmd !start cmd
+
+if has('win32')
+	command! Term !start cmd
+endif
+if has('mac')
+	command! Term !open -a Terminal
+	command! Finder !open .
+endif
 
 " ----------------------------------------------------------------------
 " Command
