@@ -132,7 +132,6 @@ let g:DoxygenToolkit_commentType='C++'
 " --------------------------------------------------------------------------
 autocmd MyAutoCmd BufNewFile,BufRead *.fcg,*.vcg,*.shader,*.cg,*.compute,*.cginc set filetype=cg
 autocmd MyAutoCmd BufNewFile,BufRead *.fx,*.fxc,*.fxh,*.hlsl,*.pssl set filetype=hlsl
-autocmd MyAutoCmd BufNewFile,BufRead *.txt set filetype=markdown
 " --------------------------------------------------------------------------
 " open-browser
 " --------------------------------------------------------------------------
