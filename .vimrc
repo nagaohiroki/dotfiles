@@ -213,7 +213,7 @@ inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
 " ---------------------------------------------------------------------
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
-autocmd MyAutoCmd BufEnter * execute ":cd " . substitute(expand("%:p:h")," ","\\\\ ","g")
+autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * execute ":cd " . substitute(expand("%:p:h")," ","\\\\ ","g")
 
 " ----------------------------------------------------------------------
 " Astyle
