@@ -195,7 +195,6 @@ nnoremap <S-Down>  :set lines+=10<CR>
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
 inoremap <C-c> <Esc>
-inoremap <C-q> <C-R>=strftime('%Y/%m/%d %H:%M')<CR>
 inoremap <C-d> <Del>
 nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
@@ -205,7 +204,7 @@ nnoremap <Space>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Space>g :vim/<C-R><C-W>/<C-R>=g:grep_root<CR>/**/*.*
 nnoremap <Space>v :tabe $MYVIMRC<CR>
 nnoremap <Space>u :source $MYVIMRC<CR>
-inoremap <expr> <C-TAB> pumvisible() ? '<C-e>' : '<C-x><C-o><C-p>'
+inoremap <expr> <C-Q> pumvisible() ? '<C-e>' : '<C-x><C-o><C-p>'
 inoremap <expr> <TAB>     pumvisible() ? '<Down>': '<Tab>'
 inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
 " ----------------------------------------------------------------------
@@ -273,7 +272,6 @@ autocmd MyAutoCmd FileType python call PythonSetting()
 " Command
 " ---------------------------------------------------------------------
 command! CopyPath call setreg('*', expand('%:p') . ' ' . line('.'))
-
 if has('win32')
 	command! Term !start cmd
 endif
