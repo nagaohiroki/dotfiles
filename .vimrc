@@ -275,11 +275,11 @@ autocmd MyAutoCmd FileType python call PythonSetting()
 " ---------------------------------------------------------------------
 command! CopyPath call setreg('*', expand('%:p') . ' ' . line('.'))
 if has('win32')
-	command! Term !start cmd
+	command! Term !start cmd /k cd %:p:h
 	command! Wex echo system('explorer /select,' . expand('%:p'))
 endif
 if has('mac')
-	command! Term !open -a Terminal
+	command! Term !open -a Terminal %:p:h
 	command! Wex execute '!open ' .  expand('%:p:h')
 endif
 
