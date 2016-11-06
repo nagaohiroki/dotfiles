@@ -61,7 +61,7 @@ NeoBundle 'Tagbar'
 NeoBundle 'Align'
 NeoBundle 'gtags.vim'
 NeoBundle 'cohama/agit.vim'
-NeoBundle 'vcscommand.vim'
+NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'davidhalter/jedi-vim', { 'autoload': { 'filetypes': ['python'] } }
 if has('python')
 NeoBundle 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': ['cs'] }}
@@ -114,15 +114,15 @@ command! OmniBuild execute '!' . g:csharp_compiler . ' ' . $MY_PLUGIN_PATH . '/o
 let s:unite_ignore_patterns=['meta']
 call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', join( s:unite_ignore_patterns, '\|' ) )
 nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec<CR>
-nnoremap <Space>f :Unite -start-insert file<CR>
+nnoremap <Space>f :Unite -start-insert file -path=<C-R>=expand('%:p:h')<CR><CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
 " --------------------------------------------------------------------------
 " neocomplete
 " --------------------------------------------------------------------------
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#enable_ignore_case=1
-let g:neocomplete#enable_insert_char_pre=1
-
+let g:neocomplete#enable_insert_char_pre=2
+let g:neocomplete#lock_iminsert=1
 " --------------------------------------------------------------------------
 " DoxygenToolkit
 " --------------------------------------------------------------------------
@@ -214,7 +214,7 @@ inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
 " ---------------------------------------------------------------------
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
-autocmd MyAutoCmd BufEnter * execute ':lcd ' . expand("%:p:h")
+" autocmd MyAutoCmd BufEnter * execute ':lcd ' . expand("%:p:h")
 
 " ----------------------------------------------------------------------
 " Astyle
@@ -276,10 +276,11 @@ autocmd MyAutoCmd FileType python call PythonSetting()
 command! CopyPath call setreg('*', expand('%:p') . ' ' . line('.'))
 if has('win32')
 	command! Term !start cmd
+	command! Wex echo system('explorer /select,' . expand('%:p'))
 endif
 if has('mac')
 	command! Term !open -a Terminal
-	command! Wex !open .
+	command! Wex execute '!open ' .  expand('%:p:h')
 endif
 
 " ----------------------------------------------------------------------
@@ -294,11 +295,3 @@ function! OldRev()
 endfunction
 nnoremap<F6> :call OldRev()<CR>
 
-function! DiffHead()
-	if(&diff == 1)
-		diffoff!
-		return
-	endif
-	VCSVimDiff
-endfunction
-nnoremap <Space>d :call DiffHead()<CR>
