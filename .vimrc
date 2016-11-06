@@ -61,7 +61,7 @@ NeoBundle 'Tagbar'
 NeoBundle 'Align'
 NeoBundle 'gtags.vim'
 NeoBundle 'cohama/agit.vim'
-NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'vcscommand.vim'
 NeoBundle 'davidhalter/jedi-vim', { 'autoload': { 'filetypes': ['python'] } }
 if has('python')
 NeoBundle 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': ['cs'] }}
@@ -204,7 +204,7 @@ nnoremap <C-p> "0p
 vnoremap <C-p> "0p
 nnoremap <Space>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Space>g :vim/<C-R><C-W>/<C-R>=g:grep_root<CR>/**/*.*
-nnoremap <Space>v :tabe $MYVIMRC<CR>
+nnoremap <Space>v :tabe ~/dotfiles/.vimrc<CR>
 nnoremap <Space>u :source $MYVIMRC<CR>
 inoremap <expr> <C-Q> pumvisible() ? '<C-e>' : '<C-x><C-o><C-p>'
 inoremap <expr> <TAB>     pumvisible() ? '<Down>': '<Tab>'
@@ -214,7 +214,7 @@ inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
 " ---------------------------------------------------------------------
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
-autocmd MyAutoCmd FocusGained,BufNewFile,BufRead,BufEnter * execute ":cd " . substitute(expand("%:p:h")," ","\\\\ ","g")
+autocmd MyAutoCmd BufEnter * execute ':lcd ' . expand("%:p:h")
 
 " ----------------------------------------------------------------------
 " Astyle
@@ -293,3 +293,12 @@ function! OldRev()
 	pyfile $HOME/dotfiles/.vim/old_rev.py
 endfunction
 nnoremap<F6> :call OldRev()<CR>
+
+function! DiffHead()
+	if(&diff == 1)
+		diffoff!
+		return
+	endif
+	VCSVimDiff
+endfunction
+nnoremap <Space>d :call DiffHead()<CR>
