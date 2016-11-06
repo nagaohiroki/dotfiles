@@ -60,6 +60,8 @@ NeoBundle 'cg.vim'
 NeoBundle 'Tagbar'
 NeoBundle 'Align'
 NeoBundle 'gtags.vim'
+NeoBundle 'cohama/agit.vim'
+NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'davidhalter/jedi-vim', { 'autoload': { 'filetypes': ['python'] } }
 if has('python')
 NeoBundle 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': ['cs'] }}
@@ -277,7 +279,7 @@ if has('win32')
 endif
 if has('mac')
 	command! Term !open -a Terminal
-	command! Finder !open .
+	command! Wex !open .
 endif
 
 " ----------------------------------------------------------------------
