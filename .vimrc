@@ -83,7 +83,7 @@ nnoremap <F7> :VimFiler -simple -split -toggle -winwidth=30 -no-quit<CR>
 " --------------------------------------------------------------------------
 " gtags
 " --------------------------------------------------------------------------
-nnoremap <F11> :GtagsCursor<CR>
+nnoremap <F11> :CdCurrent<CR>:GtagsCursor<CR>
 
 " --------------------------------------------------------------------------
 " syntastic
