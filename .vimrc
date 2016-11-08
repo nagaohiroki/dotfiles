@@ -78,7 +78,7 @@ nnoremap <F8> :TagbarToggle<CR>
 " --------------------------------------------------------------------------
 " VimFiler
 " --------------------------------------------------------------------------
-nnoremap <F7> :VimFiler -simple -split -toggle -winwidth=30 -no-quit<CR>
+nnoremap <F7> :VimFiler -simple -split -toggle -winwidth=30 -no-quit <C-R>=expand('%:p:h')<CR><CR>
 
 " --------------------------------------------------------------------------
 " gtags
