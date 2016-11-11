@@ -149,7 +149,6 @@ set autoindent
 set autoread
 set cindent
 set clipboard+=unnamedplus,unnamed
-set cmdheight=2
 set completeopt=longest,menuone
 set nofoldenable
 set formatoptions=q
