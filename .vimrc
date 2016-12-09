@@ -186,7 +186,6 @@ set grepprg=jvgrep\ -i\ -I
 set lazyredraw
 set ttyfast
 set diffopt=filler,context:1000000 
-set iminsert=2
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
