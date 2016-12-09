@@ -291,7 +291,11 @@ function! OldRev()
 		diffoff!
 		return
 	endif
+	CdCurrent
 	pyfile $HOME/dotfiles/.vim/old_rev.py
 endfunction
 nnoremap<F6> :call OldRev()<CR>
 
+nnoremap <F3> gg<C-v>G$y
+nnoremap <F4> :Align </name><CR>:Align </detail><CR>
+nnoremap <F5> gg<C-v>GI\|<ESC>
