@@ -69,8 +69,8 @@ endif
 call neobundle#end()
 filetype plugin indent on
 syntax on
-colorscheme iceberg
 set background=dark
+colorscheme iceberg
 " --------------------------------------------------------------------------
 " Tagbar
 " --------------------------------------------------------------------------
@@ -186,6 +186,7 @@ set grepprg=jvgrep\ -i\ -I
 set lazyredraw
 set ttyfast
 set diffopt=filler,context:1000000 
+set mouse=a
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
