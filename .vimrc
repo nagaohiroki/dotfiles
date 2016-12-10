@@ -214,7 +214,6 @@ inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
 " ---------------------------------------------------------------------
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
-" autocmd MyAutoCmd BufEnter * execute ':lcd ' . expand("%:p:h")
 
 " ----------------------------------------------------------------------
 " Astyle
