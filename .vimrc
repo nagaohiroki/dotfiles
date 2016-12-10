@@ -278,7 +278,7 @@ if has('win32')
 	command! Wex echo system('explorer /select,' . expand('%:p'))
 endif
 if has('mac')
-	command! Term !open -a Terminal %:p:h
+	command! Term !open -a iTerm %:p:h
 	command! Wex execute '!open ' .  expand('%:p:h')
 endif
 
