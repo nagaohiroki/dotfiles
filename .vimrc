@@ -92,7 +92,6 @@ nnoremap <F11> :CdCurrent<CR>:GtagsCursor<CR>
 let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_mode_map={'passive_filetypes': ['cpp']}
-let g:syntastic_cpp_compiler = "g++"
 " --------------------------------------------------------------------------
 " omnisharp
 " --------------------------------------------------------------------------
