@@ -75,6 +75,7 @@ colorscheme iceberg
 " Tagbar
 " --------------------------------------------------------------------------
 nnoremap <F8> :TagbarToggle<CR>
+let g:tagbar_sort=0
 " --------------------------------------------------------------------------
 " VimFiler
 " --------------------------------------------------------------------------
@@ -89,7 +90,9 @@ nnoremap <F11> :CdCurrent<CR>:GtagsCursor<CR>
 " syntastic
 " --------------------------------------------------------------------------
 let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
-let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_checkers=['flake8']
+let g:syntastic_mode_map={'passive_filetypes': ['cpp']}
+let g:syntastic_cpp_compiler = "g++"
 " --------------------------------------------------------------------------
 " omnisharp
 " --------------------------------------------------------------------------
