@@ -55,10 +55,10 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'beyondmarc/hlsl.vim'
 NeoBundle 'PProvost/vim-ps1'
 NeoBundle 'aklt/plantuml-syntax'
+NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'DoxygenToolkit.vim'
 NeoBundle 'cg.vim'
 NeoBundle 'Tagbar'
-NeoBundle 'Align'
 NeoBundle 'gtags.vim'
 NeoBundle 'cohama/agit.vim'
 NeoBundle 'tpope/vim-fugitive'
@@ -140,10 +140,6 @@ autocmd MyAutoCmd BufNewFile,BufRead *.fx,*.fxc,*.fxh,*.hlsl,*.pssl set filetype
 " open-browser
 " --------------------------------------------------------------------------
 nmap <Space>o <Plug>(openbrowser-smart-search)
-" ----------------------------------------------------------------------
-" Align
-" ---------------------------------------------------------------------
-let g:Align_xstrlen=3
 " --------------------------------------------------------------------------
 " Setting
 " --------------------------------------------------------------------------
