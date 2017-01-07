@@ -16,14 +16,6 @@ augroup MyAutoCmd
 	autocmd!
 augroup END
 filetype off
-" -------------------------------------------------------------------------
-" Startup
-" -------------------------------------------------------------------------
-if has('vim_starting')
-	let $MY_PLUGIN_PATH=$HOME . '/bundle'
-	set runtimepath^=$MY_PLUGIN_PATH/neobundle.vim/
-	let g:neobundle#install_process_timeout=3000
-endif
 
 " -------------------------------------------------------------------------
 " Project
@@ -39,34 +31,46 @@ endfunction
 if exists('g:project_paths')
 	call InitProject(g:project_paths)
 endif
-" --------------------------------------------------------------------------
-" Plugin 
-" --------------------------------------------------------------------------
-call neobundle#begin(expand($MY_PLUGIN_PATH))
-NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'nagaohiroki/myplugin.vim'
-NeoBundle 'cocopon/iceberg.vim'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'beyondmarc/hlsl.vim'
-NeoBundle 'PProvost/vim-ps1'
-NeoBundle 'aklt/plantuml-syntax'
-NeoBundle 'h1mesuke/vim-alignta'
-NeoBundle 'DoxygenToolkit.vim'
-NeoBundle 'cg.vim'
-NeoBundle 'Tagbar'
-NeoBundle 'gtags.vim'
-NeoBundle 'cohama/agit.vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'davidhalter/jedi-vim', { 'autoload': { 'filetypes': ['python'] } }
-if has('python')
-NeoBundle 'OmniSharp/omnisharp-vim', { 'autoload': { 'filetypes': ['cs'] }}
+
+function! InstallVimPlug(plug_dir)
+	if !isdirectory(a:plug_dir)
+		call mkdir(a:plug_dir, 'p')
+	endif
+	call system('git clone https://github.com/junegunn/vim-plug.git ' . a:plug_dir . '/autoload')
+endfunction
+command! InstallVimPlug call InstallVimPlug(expand('~/vim-plug'))
+" -------------------------------------------------------------------------
+" Plugins
+" -------------------------------------------------------------------------
+if has('vim_starting')
+	set runtimepath^=~/vim-plug
 endif
-call neobundle#end()
+
+filetype plugin indent off
+syntax off
+call plug#begin('~/vim-plug')
+Plug 'junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/vimfiler.vim'
+Plug 'nagaohiroki/myplugin.vim'
+Plug 'cocopon/iceberg.vim'
+Plug 'tyru/open-browser.vim'
+Plug 'scrooloose/syntastic'
+Plug 'beyondmarc/hlsl.vim'
+Plug 'PProvost/vim-ps1'
+Plug 'aklt/plantuml-syntax'
+Plug 'h1mesuke/vim-alignta'
+Plug 'DoxygenToolkit.vim'
+Plug 'cg.vim'
+Plug 'Tagbar'
+Plug 'gtags.vim'
+Plug 'cohama/agit.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'davidhalter/jedi-vim', { 'for':['python']}
+Plug 'OmniSharp/omnisharp-vim', { 'for':['cs']}
+call plug#end()
 filetype plugin indent on
 syntax on
 set background=dark
@@ -109,7 +113,7 @@ if has('python')
 	autocmd MyAutoCmd Filetype cs call SetupOmniSharp()
 endif
 let g:csharp_compiler=has('win32') ? 'msbuild' : 'xbuild'
-command! OmniBuild execute '!' . g:csharp_compiler . ' ' . $MY_PLUGIN_PATH . '/omnisharp-vim/server/OmniSharp.sln'
+command! OmniBuild execute '!' . g:csharp_compiler . ' ' . expand('~/vim-plug/omnisharp-vim/server/OmniSharp.sln')
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
