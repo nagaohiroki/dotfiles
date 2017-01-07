@@ -103,15 +103,12 @@ function! SetupOmniSharp()
 	let g:OmniSharp_sln_list_index=1
 	let g:OmniSharp_timeout=30
 	let g:OmniSharp_selector_ui='unite'
-	let g:OmniSharp_server_config_name='config.json'
 	let g:OmniSharp_server_type='v1'
 	nnoremap <F12> :OmniSharpGotoDefinition<CR>
 	nnoremap <S-F12> :OmniSharpFindUsages<CR>
 	nnoremap <C-F12> :OmniSharpReloadSolution \| OmniSharpHighlightTypes<CR>
 endfunction
-if has('python')
-	autocmd MyAutoCmd Filetype cs call SetupOmniSharp()
-endif
+autocmd MyAutoCmd Filetype cs call SetupOmniSharp()
 let g:csharp_compiler=has('win32') ? 'msbuild' : 'xbuild'
 command! OmniBuild execute '!' . g:csharp_compiler . ' ' . expand('~/vim-plug/omnisharp-vim/server/OmniSharp.sln')
 " -------------------------------------------------------------------------
