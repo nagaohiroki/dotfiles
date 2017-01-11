@@ -44,7 +44,7 @@ command! InstallVimPlug call InstallVimPlug(expand('~/vim-plug'))
 if has('vim_starting')
 	set runtimepath^=~/vim-plug
 endif
-
+let g:plug_url_format='https://github.com/%s.git'
 filetype plugin indent off
 syntax off
 call plug#begin('~/vim-plug')
@@ -54,7 +54,6 @@ Plug 'Shougo/unite-outline'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/vimfiler.vim'
-Plug 'nagaohiroki/myplugin.vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'scrooloose/syntastic'
@@ -70,6 +69,7 @@ Plug 'cohama/agit.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'davidhalter/jedi-vim', { 'for':['python']}
 Plug 'OmniSharp/omnisharp-vim', { 'for':['cs']}
+Plug 'nagaohiroki/myplugin.vim'
 call plug#end()
 filetype plugin indent on
 syntax on
