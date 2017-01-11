@@ -16,7 +16,6 @@ augroup MyAutoCmd
 	autocmd!
 augroup END
 filetype off
-
 " -------------------------------------------------------------------------
 " Project
 " -------------------------------------------------------------------------
@@ -31,7 +30,9 @@ endfunction
 if exists('g:project_paths')
 	call InitProject(g:project_paths)
 endif
-
+" -------------------------------------------------------------------------
+" Plugins
+" -------------------------------------------------------------------------
 function! InstallVimPlug(plug_dir)
 	if !isdirectory(a:plug_dir)
 		call mkdir(a:plug_dir, 'p')
@@ -39,9 +40,7 @@ function! InstallVimPlug(plug_dir)
 	call system('git clone https://github.com/junegunn/vim-plug.git ' . a:plug_dir . '/autoload')
 endfunction
 command! InstallVimPlug call InstallVimPlug(expand('~/vim-plug'))
-" -------------------------------------------------------------------------
-" Plugins
-" -------------------------------------------------------------------------
+
 if has('vim_starting')
 	set runtimepath^=~/vim-plug
 endif
@@ -49,7 +48,9 @@ endif
 filetype plugin indent off
 syntax off
 call plug#begin('~/vim-plug')
+Plug 'junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
 Plug 'Shougo/unite.vim'
+Plug 'Shougo/unite-outline'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/vimfiler.vim'
@@ -83,12 +84,10 @@ let g:tagbar_sort=0
 " VimFiler
 " --------------------------------------------------------------------------
 nnoremap <F7> :VimFiler -simple -split -toggle -winwidth=30 -no-quit <C-R>=expand('%:p:h')<CR><CR>
-
 " --------------------------------------------------------------------------
 " gtags
 " --------------------------------------------------------------------------
 nnoremap <F11> :CdCurrent<CR>:GtagsCursor<CR>
-
 " --------------------------------------------------------------------------
 " syntastic
 " --------------------------------------------------------------------------
@@ -118,6 +117,7 @@ call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', join( s:uni
 nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec<CR>
 nnoremap <Space>f :Unite -start-insert file -path=<C-R>=expand('%:p:h')<CR><CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
+nnoremap <Space>c :Unite -start-insert outline<CR>
 " --------------------------------------------------------------------------
 " neocomplete
 " --------------------------------------------------------------------------
@@ -212,7 +212,28 @@ inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
 " ---------------------------------------------------------------------
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
-
+" ----------------------------------------------------------------------
+" Command
+" ---------------------------------------------------------------------
+command! CopyPath call setreg('*', expand('%:p') . ' ' . line('.'))
+command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
+if has('win32')
+	command! Term !start cmd /k cd %:p:h
+	command! Wex echo system('explorer /select,' . expand('%:p'))
+endif
+if has('mac')
+	command! Term !open -a iTerm %:p:h
+	command! Wex execute '!open ' .  expand('%:p:h')
+endif
+function! OldRev()
+	if(&diff == 1)
+		diffoff!
+		return
+	endif
+	CdCurrent
+	pyfile $HOME/dotfiles/.vim/old_rev.py
+endfunction
+command! OldRev call OldRev()
 " ----------------------------------------------------------------------
 " Astyle
 " ---------------------------------------------------------------------
@@ -222,7 +243,6 @@ function! Astyle()
 	call setpos('.',pos)
 endfunction
 command! Astyle call Astyle()
-
 " ----------------------------------------------------------------------
 " xml
 " ---------------------------------------------------------------------
@@ -231,7 +251,6 @@ function! XmlFmt()
 	normal gg=G
 endfunction
 command! XmlFmt call XmlFmt()
-
 " ----------------------------------------------------------------------
 " cpp
 " ---------------------------------------------------------------------
@@ -258,7 +277,6 @@ function! GoSetting()
 	exe "set rtp+=".globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
 endfunction
 autocmd MyAutoCmd FileType go call GoSetting()
-
 " ----------------------------------------------------------------------
 " python
 " ---------------------------------------------------------------------
@@ -266,30 +284,3 @@ autocmd MyAutoCmd FileType go call GoSetting()
 	command! Fmt silent %!autopep8 -
 endfunction
 autocmd MyAutoCmd FileType python call PythonSetting()
-
-" ----------------------------------------------------------------------
-" Command
-" ---------------------------------------------------------------------
-command! CopyPath call setreg('*', expand('%:p') . ' ' . line('.'))
-command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
-if has('win32')
-	command! Term !start cmd /k cd %:p:h
-	command! Wex echo system('explorer /select,' . expand('%:p'))
-endif
-if has('mac')
-	command! Term !open -a iTerm %:p:h
-	command! Wex execute '!open ' .  expand('%:p:h')
-endif
-
-" ----------------------------------------------------------------------
-" Command
-" ---------------------------------------------------------------------
-function! OldRev()
-	if(&diff == 1)
-		diffoff!
-		return
-	endif
-	CdCurrent
-	pyfile $HOME/dotfiles/.vim/old_rev.py
-endfunction
-nnoremap<F6> :call OldRev()<CR>
