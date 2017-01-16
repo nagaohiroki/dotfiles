@@ -1,6 +1,6 @@
 ﻿scriptencoding utf-8
 set encoding=utf8
-set fileencodings=euc-jp,cp932,sjis,iso-2022-jp,ucs-bom,utf-8
+set fileencodings=ucs-bom,cp932,utf-8
 " --------------------------------------------------------------------------
 " Unity
 " -p --remote-tab-silent +$(Line) "$(File)"
