@@ -70,6 +70,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'davidhalter/jedi-vim', { 'for':['python']}
 Plug 'OmniSharp/omnisharp-vim', { 'for':['cs']}
 Plug 'fatih/vim-go'
+Plug 'kana/vim-altr'
 Plug 'nagaohiroki/myplugin.vim'
 call plug#end()
 filetype plugin indent on
@@ -89,6 +90,14 @@ nnoremap <F7> :VimFiler -simple -split -toggle -winwidth=30 -no-quit <C-R>=expan
 " gtags
 " --------------------------------------------------------------------------
 nnoremap <F11> :CdCurrent<CR>:GtagsCursor<CR>
+" --------------------------------------------------------------------------
+" open-browser
+" --------------------------------------------------------------------------
+nmap <Space>o <Plug>(openbrowser-smart-search)
+" ----------------------------------------------------------------------
+" artr
+" ---------------------------------------------------------------------
+nmap <Space>h <Plug>(altr-forward)
 " --------------------------------------------------------------------------
 " syntastic
 " --------------------------------------------------------------------------
@@ -138,10 +147,6 @@ let g:DoxygenToolkit_commentType='C++'
 " --------------------------------------------------------------------------
 autocmd MyAutoCmd BufNewFile,BufRead *.fcg,*.vcg,*.shader,*.cg,*.compute,*.cginc set filetype=cg
 autocmd MyAutoCmd BufNewFile,BufRead *.fx,*.fxc,*.fxh,*.hlsl,*.pssl set filetype=hlsl
-" --------------------------------------------------------------------------
-" open-browser
-" --------------------------------------------------------------------------
-nmap <Space>o <Plug>(openbrowser-smart-search)
 " --------------------------------------------------------------------------
 " Setting
 " --------------------------------------------------------------------------
@@ -249,19 +254,3 @@ command! Astyle call Astyle()
 " xml
 " ---------------------------------------------------------------------
 command! XmlFmt %!xmllint --format -
-" ----------------------------------------------------------------------
-" cpp
-" ---------------------------------------------------------------------
-function! SwitchSourceHeader()
-  "update!
-  if (expand ("%:e") == "cpp")
-    find %:t:r.h
-  else
-    find %:t:r.cpp
-  endif
-endfunction
-
-function! CppSetting()
-	nnoremap <Space>h :call SwitchSourceHeader()<CR>
-endfunction
-autocmd MyAutoCmd FileType cpp call CppSetting()
