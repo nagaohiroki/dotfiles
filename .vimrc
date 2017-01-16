@@ -69,6 +69,7 @@ Plug 'cohama/agit.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'davidhalter/jedi-vim', { 'for':['python']}
 Plug 'OmniSharp/omnisharp-vim', { 'for':['cs']}
+Plug 'fatih/vim-go'
 Plug 'nagaohiroki/myplugin.vim'
 call plug#end()
 filetype plugin indent on
@@ -93,6 +94,7 @@ nnoremap <F11> :CdCurrent<CR>:GtagsCursor<CR>
 " --------------------------------------------------------------------------
 let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
 let g:syntastic_python_checkers=['flake8']
+let g:syntastic_go_checkers=['go', 'gofmt', 'golint', 'govet']
 let g:syntastic_mode_map={'passive_filetypes': ['cpp']}
 " --------------------------------------------------------------------------
 " omnisharp
@@ -263,20 +265,3 @@ function! CppSetting()
 	nnoremap <Space>h :call SwitchSourceHeader()<CR>
 endfunction
 autocmd MyAutoCmd FileType cpp call CppSetting()
-" ----------------------------------------------------------------------
-" go
-" ---------------------------------------------------------------------
-function! GoSetting()
-	command! Run !go run %
-	command! Build !start go build
-	exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
-	exe "set rtp+=".globpath($GOPATH, "src/github.com/golang/lint/misc/vim")
-endfunction
-autocmd MyAutoCmd FileType go call GoSetting()
-" ----------------------------------------------------------------------
-" python
-" ---------------------------------------------------------------------
- function! PythonSetting()
-	command! Fmt silent %!autopep8 -
-endfunction
-autocmd MyAutoCmd FileType python call PythonSetting()
