@@ -2,7 +2,7 @@
 set encoding=utf8
 set fileencodings=ucs-bom,cp932,utf-8
 " --------------------------------------------------------------------------
-" Unity
+" Unity(windows only)
 " -p --remote-tab-silent +$(Line) "$(File)"
 " Windows regedit
 " "gvim" -p --remote-tab-silent "%1"
@@ -67,9 +67,9 @@ Plug 'Tagbar'
 Plug 'gtags.vim'
 Plug 'cohama/agit.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'davidhalter/jedi-vim', { 'for':['python']}
-Plug 'OmniSharp/omnisharp-vim', { 'for':['cs']}
-Plug 'fatih/vim-go'
+Plug 'davidhalter/jedi-vim', {'for': ['python']}
+Plug 'OmniSharp/omnisharp-vim', {'for': ['cs']}
+Plug 'fatih/vim-go', {'for': ['go']}
 Plug 'kana/vim-altr'
 Plug 'nagaohiroki/myplugin.vim'
 call plug#end()
@@ -232,6 +232,9 @@ if has('mac')
 	command! Term !open -a iTerm %:p:h
 	command! Wex execute '!open ' .  expand('%:p:h')
 endif
+" ----------------------------------------------------------------------
+" OldRev
+" ---------------------------------------------------------------------
 function! OldRev()
 	if(&diff == 1)
 		diffoff!
