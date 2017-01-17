@@ -1,10 +1,10 @@
-#!/usr/bin/python2
-# coding:utf-8
+#! /usr/bin/python
+# -*- coding:utf-8 -*-
 from __future__ import print_function
 from __future__ import division
 from __future__ import unicode_literals
 from __future__ import absolute_import
-from xml.etree.ElementTree import xt
+import xml.etree.ElementTree as ET
 import sys
 import os
 import subprocess
@@ -19,7 +19,7 @@ except ImportError:
 
 def svn_add_revfile(file_path):
     out = subprocess.check_output('svn log --quiet --xml ' + file_path)
-    elem = xt.fromstring(out)
+    elem = ET.fromstring(out)
     logentry = elem.findall('logentry')
     mini = sys.maxint
     for l in logentry:
