@@ -1,6 +1,6 @@
 ﻿scriptencoding utf-8
 set encoding=utf8
-set fileencodings=ucs-bom,cp932,utf-8
+set fileencodings=ucs-bom,iso-2022-jp-3,euc-jisx0213,euc-jp,cp932,utf-8
 " --------------------------------------------------------------------------
 " Unity(windows only)
 " -p --remote-tab-silent +$(Line) "$(File)"
@@ -225,7 +225,7 @@ autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
 command! CopyPath call setreg('*', expand('%:p') . ' ' . line('.'))
 command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
 if has('win32')
-	command! Term !start cmd /k cd /d "%:p:h"
+	command! Term !start ConEmu64 -Dir "%:p:h"
 	command! Wex echo system('explorer /select,' . expand('%:p'))
 endif
 if has('mac')
