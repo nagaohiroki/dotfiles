@@ -225,7 +225,7 @@ autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
 command! CopyPath call setreg('*', expand('%:p') . ' ' . line('.'))
 command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
 if has('win32')
-	command! Term !start ConEmu64 -Dir "%:p:h"
+	command! Term !start ConEmu64 /cmd cmd /k cd "%:p:h"
 	command! Wex echo system('explorer /select,' . expand('%:p'))
 endif
 if has('mac')
