@@ -218,7 +218,6 @@ inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
 " AutoCommand
 " ---------------------------------------------------------------------
 autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
-autocmd MyAutoCmd Filetype * setlocal formatoptions-=ro
 " ----------------------------------------------------------------------
 " Command
 " ---------------------------------------------------------------------
