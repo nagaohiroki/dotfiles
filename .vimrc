@@ -134,8 +134,6 @@ nnoremap <Space>c :Unite -start-insert outline<CR>
 " --------------------------------------------------------------------------
 let g:neocomplete#enable_at_startup=1
 let g:neocomplete#enable_ignore_case=1
-let g:neocomplete#lock_iminsert=1
-let g:neocomplete#auto_completion_start_length=3
 " --------------------------------------------------------------------------
 " DoxygenToolkit
 " --------------------------------------------------------------------------
