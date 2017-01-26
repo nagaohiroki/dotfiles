@@ -67,10 +67,11 @@ Plug 'Tagbar'
 Plug 'gtags.vim'
 Plug 'cohama/agit.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'juneedahamed/svnj.vim'
+Plug 'kana/vim-altr'
 Plug 'davidhalter/jedi-vim', {'for': ['python']}
 Plug 'OmniSharp/omnisharp-vim', {'for': ['cs']}
 Plug 'fatih/vim-go', {'for': ['go']}
-Plug 'kana/vim-altr'
 Plug 'nagaohiroki/myplugin.vim'
 call plug#end()
 filetype plugin indent on
@@ -193,14 +194,11 @@ set mouse=a
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
-nnoremap <C-Up>    [c
-nnoremap <C-Down>  ]c
 nnoremap <S-Up>    :set lines-=10<CR>
 nnoremap <S-Down>  :set lines+=10<CR>
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
 inoremap <C-c> <Esc>
-inoremap <C-d> <Del>
 nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
