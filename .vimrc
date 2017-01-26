@@ -124,8 +124,7 @@ command! OmniBuild execute '!' . g:csharp_compiler . ' ' . expand('~/vim-plug/om
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
-let s:unite_ignore_patterns=['meta']
-call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', join( s:unite_ignore_patterns, '\|' ) )
+call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', '\.meta$' )
 nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec<CR>
 nnoremap <Space>f :Unite -start-insert file -path=<C-R>=expand('%:p:h')<CR><CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
