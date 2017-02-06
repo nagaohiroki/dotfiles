@@ -6,10 +6,12 @@ doskey pwd=echo %CD%
 doskey mv=move $*
 doskey tree=tree /f $b more
 doskey cat=type $*
-doskey h=doskey /history
-doskey history=doskey /history
+doskey h=doskey /history $*
+doskey history=doskey /history $*
 doskey ex=explorer %CD%
-doskey pull=git pull
-doskey push=git push
-doskey st=git status
+doskey vi=gvim $*
+doskey vim=gvim $*
+doskey gvim=gvim $*
+doskey ps=powershell $*
+doskey dot=cd /d %USERPROFILE%\dotfiles
 @echo on
