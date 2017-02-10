@@ -1,10 +1,10 @@
 @echo off
-doskey ls=dir /w $*
-doskey ll=dir /ad $*
+doskey ls=dir /w /d /b $*
+doskey ll=dir /ad /d /b $*
 doskey cp=copy $*
 doskey pwd=echo %CD%
 doskey mv=move $*
-doskey tree=tree /f $b more
+doskey tree=tree /f $*
 doskey cat=type $*
 doskey h=doskey /history $*
 doskey history=doskey /history $*
