@@ -69,6 +69,7 @@ Plug 'cohama/agit.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'juneedahamed/svnj.vim'
 Plug 'kana/vim-altr'
+Plug 'kannokanno/previm'
 Plug 'davidhalter/jedi-vim', {'for': ['python']}
 Plug 'OmniSharp/omnisharp-vim', {'for': ['cs']}
 Plug 'fatih/vim-go', {'for': ['go']}
