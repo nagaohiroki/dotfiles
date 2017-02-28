@@ -21,8 +21,8 @@ filetype off
 " -------------------------------------------------------------------------
 function! InitProject(project_paths)
 	for p in a:project_paths
-		execute 'set tags+=' . p . '/tags'
-		execute 'set path+=' . p
+		execute 'set tags+=' . expand(p) . '/tags'
+		execute 'set path+=' . expand(p)
 	endfor
 	let g:grep_root=a:project_paths[0]
 endfunction
@@ -252,3 +252,17 @@ command! Astyle call Astyle()
 " xml
 " ---------------------------------------------------------------------
 command! XmlFmt %!xmllint --format -
+
+function! UE4Sync(ue4_home)
+	execute 'cd ' . a:ue4_home
+	set makeprg=msbuild
+	make /p:Configuration="Development Editor" /p:Platform="Win64" /nologo /v:q /m /p:GenerateFullPaths=true 
+	let qflist = getqflist()
+	for i in qflist
+		let i.text = iconv(i.text, 'cp932', &encoding)
+	endfor
+	call setqflist(qflist)
+	cwindow
+endfunction
+command! UE4Sync call UE4Sync(g:ue4_home)
+nnoremap <F7> :UE4Sync<CR>
