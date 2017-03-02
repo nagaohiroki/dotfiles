@@ -70,6 +70,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'juneedahamed/svnj.vim'
 Plug 'kana/vim-altr'
 Plug 'kannokanno/previm'
+Plug 'timcharper/textile.vim'
 Plug 'davidhalter/jedi-vim', {'for': ['python']}
 Plug 'OmniSharp/omnisharp-vim', {'for': ['cs']}
 Plug 'fatih/vim-go', {'for': ['go']}
@@ -257,11 +258,14 @@ function! UE4Sync(ue4_home)
 	execute 'cd ' . a:ue4_home
 	set makeprg=msbuild
 	make /p:Configuration="Development Editor" /p:Platform="Win64" /nologo /v:q /m /p:GenerateFullPaths=true 
-	let qflist = getqflist()
-	for i in qflist
-		let i.text = iconv(i.text, 'cp932', &encoding)
-	endfor
-	call setqflist(qflist)
+
+	if has('win32')
+		let qflist = getqflist()
+		for i in qflist
+			let i.text = iconv(i.text, 'cp932', &encoding)
+		endfor
+		call setqflist(qflist)
+	endif
 	cwindow
 endfunction
 command! UE4Sync call UE4Sync(g:ue4_home)
