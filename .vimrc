@@ -188,8 +188,6 @@ set undodir=$HOME/.cache
 set undofile
 set whichwrap=b,s,h,l,<,>,[,]
 set grepprg=jvgrep\ -i\ -I
-set lazyredraw
-set ttyfast
 set diffopt=filler,context:1000000 
 set mouse=a
 " ----------------------------------------------------------------------
