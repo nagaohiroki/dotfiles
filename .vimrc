@@ -121,7 +121,7 @@ function! SetupOmniSharp()
 	nnoremap <C-F12> :OmniSharpReloadSolution \| OmniSharpHighlightTypes<CR>
 endfunction
 autocmd MyAutoCmd Filetype cs call SetupOmniSharp()
-let g:csharp_compiler=has('win32') ? 'msbuild' : 'xbuild'
+let g:csharp_compiler=has('win32') ? 'C:/Windows/Microsoft.NET\Framework/v4.0.30319/msbuild' : 'xbuild'
 command! OmniBuild execute '!' . g:csharp_compiler . ' ' . expand('~/vim-plug/omnisharp-vim/server/OmniSharp.sln')
 " -------------------------------------------------------------------------
 " unite
