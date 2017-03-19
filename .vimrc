@@ -178,6 +178,8 @@ set shiftwidth=4
 set showcmd
 set showtabline=2
 set smartindent
+set smartcase
+set ignorecase
 set statusline=%<%f\ %m%r%h%w
 set statusline+=[%Y]%{'['.(&fenc!=''?&fenc:&enc).(&bomb?'_bom':'').']['.&fileformat.']'}
 set statusline+=%=%l/%L,%c%V%8P
