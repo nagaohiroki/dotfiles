@@ -192,6 +192,7 @@ set whichwrap=b,s,h,l,<,>,[,]
 set grepprg=jvgrep\ -i\ -I
 set diffopt=filler,context:1000000 
 set mouse=a
+set visualbell t_vb=
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------

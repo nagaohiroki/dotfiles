@@ -1,5 +1,4 @@
-﻿set visualbell t_vb=
-set guioptions-=m
+﻿set guioptions-=m
 set guioptions-=T
 set guioptions+=b
 if has('vim_starting')
