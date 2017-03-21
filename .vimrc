@@ -230,18 +230,6 @@ if has('mac')
 	command! Wex execute '!open ' .  expand('%:p:h')
 endif
 " ----------------------------------------------------------------------
-" OldRev
-" ---------------------------------------------------------------------
-function! OldRev()
-	if(&diff == 1)
-		diffoff!
-		return
-	endif
-	CdCurrent
-	pyfile $HOME/dotfiles/.vim/old_rev.py
-endfunction
-command! OldRev call OldRev()
-" ----------------------------------------------------------------------
 " Astyle
 " ---------------------------------------------------------------------
 function! Astyle()
