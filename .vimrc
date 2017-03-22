@@ -53,24 +53,23 @@ Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-outline'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/neocomplete.vim'
-Plug 'Shougo/vimfiler.vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'scrooloose/syntastic'
-Plug 'beyondmarc/hlsl.vim'
-Plug 'PProvost/vim-ps1'
 Plug 'aklt/plantuml-syntax'
 Plug 'h1mesuke/vim-alignta'
 Plug 'DoxygenToolkit.vim'
+Plug 'beyondmarc/hlsl.vim'
+Plug 'PProvost/vim-ps1'
+Plug 'timcharper/textile.vim'
 Plug 'cg.vim'
 Plug 'Tagbar'
 Plug 'gtags.vim'
 Plug 'cohama/agit.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'juneedahamed/svnj.vim'
-Plug 'kana/vim-altr'
 Plug 'kannokanno/previm'
-Plug 'timcharper/textile.vim'
+Plug 'kana/vim-altr'
 Plug 'davidhalter/jedi-vim', {'for': ['python']}
 Plug 'OmniSharp/omnisharp-vim', {'for': ['cs']}
 Plug 'fatih/vim-go', {'for': ['go']}
@@ -85,10 +84,6 @@ colorscheme iceberg
 " --------------------------------------------------------------------------
 nnoremap <F8> :TagbarToggle<CR>
 let g:tagbar_sort=0
-" --------------------------------------------------------------------------
-" VimFiler
-" --------------------------------------------------------------------------
-nnoremap <F7> :VimFiler -simple -split -toggle -winwidth=30 -no-quit <C-R>=expand('%:p:h')<CR><CR>
 " --------------------------------------------------------------------------
 " gtags
 " --------------------------------------------------------------------------
