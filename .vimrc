@@ -233,7 +233,3 @@ function! Astyle()
 	call setpos('.',pos)
 endfunction
 command! Astyle call Astyle()
-" ----------------------------------------------------------------------
-" xml
-" ---------------------------------------------------------------------
-command! XmlFmt %!xmllint --format -
