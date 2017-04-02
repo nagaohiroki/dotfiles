@@ -1,14 +1,6 @@
 ﻿scriptencoding utf-8
 set encoding=utf8
 set fileencodings=ucs-bom,iso-2022-jp-3,euc-jisx0213,euc-jp,cp932,utf-8
-" --------------------------------------------------------------------------
-" Unity(windows only)
-" -p --remote-tab-silent +$(Line) "$(File)"
-" Windows regedit
-" "gvim" -p --remote-tab-silent "%1"
-" Visual Studio
-" "gvim" -p --remote-tab-silent +$(CurLine) $(ItemPath)
-" --------------------------------------------------------------------------
 " -------------------------------------------------------------------------
 " AutoCommandGroup
 " -------------------------------------------------------------------------
