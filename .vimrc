@@ -13,8 +13,8 @@ filetype off
 " -------------------------------------------------------------------------
 function! InitProject(project_paths)
 	for p in a:project_paths
-		execute 'set tags+=' . expand(p) . '/tags'
-		execute 'set path+=' . expand(p)
+		execute 'set tags+=' . fnameescape(expand(p)) . '/tags'
+		execute 'set path+=' . fnameescape(expand(p))
 	endfor
 	let g:grep_root=a:project_paths[0]
 endfunction
@@ -108,14 +108,14 @@ function! SetupOmniSharp()
 	nnoremap <C-F12> :OmniSharpReloadSolution \| OmniSharpHighlightTypes<CR>
 endfunction
 autocmd MyAutoCmd Filetype cs call SetupOmniSharp()
-let g:csharp_compiler=has('win32') ? 'C:/Windows/Microsoft.NET\Framework/v4.0.30319/msbuild' : 'xbuild'
+let g:csharp_compiler=has('win32') ? 'C:/Windows/Microsoft.NET/Framework/v4.0.30319/msbuild' : 'xbuild'
 command! OmniBuild execute '!' . g:csharp_compiler . ' ' . expand('~/vim-plug/omnisharp-vim/server/OmniSharp.sln')
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
 call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', '\.meta$' )
 nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec<CR>
-nnoremap <Space>f :Unite -start-insert file -path=<C-R>=expand('%:p:h')<CR><CR>
+nnoremap <Space>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
 nnoremap <Space>c :Unite -start-insert outline<CR>
 " --------------------------------------------------------------------------
@@ -208,7 +208,7 @@ command! CopyPath call setreg('*', expand('%:p') . ' ' . line('.'))
 command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
 if has('win32')
 	command! Term !start cmd /k cd /d "%:p:h"
-	command! Wex echo system('explorer /select,' . expand('%:p'))
+	command! Wex echo system('explorer /select,' . fnameescape(expand('%:p')))
 endif
 if has('mac')
 	command! Term !open -a iTerm %:p:h
