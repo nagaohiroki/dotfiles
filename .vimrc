@@ -70,7 +70,11 @@ call plug#end()
 filetype plugin indent on
 syntax on
 set background=dark
-colorscheme iceberg
+if &t_Co < 256
+	colorscheme desert
+else
+	colorscheme iceberg
+endif
 " --------------------------------------------------------------------------
 " Tagbar
 " --------------------------------------------------------------------------
