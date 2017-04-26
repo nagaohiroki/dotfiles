@@ -13,10 +13,11 @@ filetype off
 " -------------------------------------------------------------------------
 function! InitProject(project_paths)
 	for p in a:project_paths
-		execute 'set tags+=' . fnameescape(expand(p)) . '/tags'
-		execute 'set path+=' . fnameescape(expand(p))
+		let l:proj=fnameescape(expand(p))
+		execute 'set tags+=' . l:proj . '/tags'
+		execute 'set path+=' . l:proj
 	endfor
-	let g:grep_root=a:project_paths[0]
+	let g:grep_root=fnameescape(expand(a:project_paths[0]))
 endfunction
 
 if exists('g:project_paths')
@@ -70,11 +71,7 @@ call plug#end()
 filetype plugin indent on
 syntax on
 set background=dark
-if &t_Co < 256
-	colorscheme desert
-else
-	colorscheme iceberg
-endif
+colorscheme iceberg
 " --------------------------------------------------------------------------
 " Tagbar
 " --------------------------------------------------------------------------
