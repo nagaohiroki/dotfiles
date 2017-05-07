@@ -224,3 +224,17 @@ function! Astyle()
 	call setpos('.',pos)
 endfunction
 command! Astyle call Astyle()
+" ----------------------------------------------------------------------
+" UE4
+" ---------------------------------------------------------------------
+function! UE4Build()
+	set makeprg=~/dotfiles/setup/ue4build.bat
+	make
+	let qflist = getqflist()
+   for i in qflist
+	  let i.text=iconv(i.text, "cp932", "utf-8")
+   endfor
+   call setqflist(qflist)
+   cwindow
+endfunction
+
