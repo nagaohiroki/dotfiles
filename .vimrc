@@ -19,6 +19,13 @@ function! InitProject(project_paths)
 	endfor
 	let g:grep_root=fnameescape(expand(a:project_paths[0]))
 endfunction
+function! GenerateCtags(project_paths)
+	for p in a:project_paths
+		let l:proj=fnameescape(expand(p))
+		execute '!cd /d ' . l:proj . ' && ctags -R'
+	endfor
+endfunction
+command! GenerateCtags call GenerateCtags(g:project_paths)
 
 if exists('g:project_paths')
 	call InitProject(g:project_paths)
@@ -228,7 +235,7 @@ command! Astyle call Astyle()
 " UE4
 " ---------------------------------------------------------------------
 function! UE4Build()
-	set makeprg=~/dotfiles/setup/ue4build.bat
+	set makeprg=~/ue4build.bat
 	make
 	let qflist = getqflist()
    for i in qflist
