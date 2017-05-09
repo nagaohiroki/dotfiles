@@ -22,7 +22,11 @@ endfunction
 function! GenerateCtags(project_paths)
 	for p in a:project_paths
 		let l:proj=fnameescape(expand(p))
-		execute '!cd /d ' . l:proj . ' && ctags -R'
+		if has('win32')
+			execute '!start cd /d ' . l:proj . ' && ctags -R'
+		else
+			execute 'cd ' . l:proj . ' && ctags -R'
+		endif
 	endfor
 endfunction
 command! GenerateCtags call GenerateCtags(g:project_paths)
