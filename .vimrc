@@ -142,6 +142,10 @@ let g:DoxygenToolkit_blockHeader='----------------------------------------------
 let g:DoxygenToolkit_blockFooter='------------------------------------------------------------------------'
 let g:DoxygenToolkit_commentType='C++'
 " --------------------------------------------------------------------------
+" altr
+" --------------------------------------------------------------------------
+call altr#define('Private/%.cpp', 'Public/%.h')
+" --------------------------------------------------------------------------
 " shader syntax
 " --------------------------------------------------------------------------
 autocmd MyAutoCmd BufNewFile,BufRead *.fcg,*.vcg,*.shader,*.cg,*.compute,*.cginc set filetype=cg
@@ -238,8 +242,8 @@ command! Astyle call Astyle()
 " ----------------------------------------------------------------------
 " UE4
 " ---------------------------------------------------------------------
-function! UE4Build()
-	set makeprg=~/ue4build.bat
+function! UE4Build(build_bat)
+	execute 'set makeprg=' . a:build_bat
 	make
 	let qflist = getqflist()
    for i in qflist
@@ -249,3 +253,4 @@ function! UE4Build()
    cwindow
 endfunction
 
+command! UE4Build call UE4Build('~/ue4build.bat')
