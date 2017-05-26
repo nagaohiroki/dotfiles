@@ -14,8 +14,8 @@ filetype off
 function! InitProject(project_paths)
 	for p in a:project_paths
 		let l:proj=fnameescape(expand(p))
-		execute 'set tags+=' . l:proj . '/tags'
-		execute 'set path+=' . l:proj
+		" execute 'set tags+=' . l:proj . '/tags'
+		" execute 'set path+=' . l:proj
 	endfor
 	let g:grep_root=fnameescape(expand(a:project_paths[0]))
 endfunction
@@ -260,5 +260,13 @@ function! UE4Build(build_bat)
    call setqflist(qflist)
    cwindow
 endfunction
-
 command! UE4Build call UE4Build('~/ue4build.bat')
+" ----------------------------------------------------------------------
+" python
+" ---------------------------------------------------------------------
+function! SetupPython()
+	let g:jedi#goto_definitions_command='<F12>'
+	let g:jedi#documentation_command='<F11>'
+	python sys.path.append("C:/Program Files/Autodesk/3ds Max 2015")
+endfunction
+autocmd MyAutoCmd Filetype python call SetupPython()
