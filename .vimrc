@@ -14,8 +14,8 @@ filetype off
 function! InitProject(project_paths)
 	for p in a:project_paths
 		let l:proj=fnameescape(expand(p))
-		" execute 'set tags+=' . l:proj . '/tags'
-		" execute 'set path+=' . l:proj
+		execute 'set tags+=' . l:proj . '/tags'
+		execute 'set path+=' . l:proj
 	endfor
 	let g:grep_root=fnameescape(expand(a:project_paths[0]))
 endfunction
