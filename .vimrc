@@ -264,12 +264,3 @@ function! UE4Build(build_bat)
    cwindow
 endfunction
 command! UE4Build call UE4Build('~/ue4build.bat')
-" ----------------------------------------------------------------------
-" python
-" ---------------------------------------------------------------------
-function! SetupPython()
-	let g:jedi#goto_definitions_command='<F12>'
-	let g:jedi#documentation_command='<F11>'
-	python sys.path.append("C:/Program Files/Autodesk/3ds Max 2015")
-endfunction
-autocmd MyAutoCmd Filetype python call SetupPython()
