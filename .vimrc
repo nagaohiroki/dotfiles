@@ -17,7 +17,6 @@ function! InitProject(project_paths)
 		execute 'set tags+=' . l:proj . '/tags'
 		execute 'set path+=' . l:proj
 	endfor
-	let g:grep_root=fnameescape(expand(a:project_paths[0]))
 endfunction
 function! GenerateCtags(project_paths)
 	for p in a:project_paths
@@ -60,7 +59,6 @@ Plug 'Shougo/neocomplete.vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'scrooloose/syntastic'
-Plug 'aklt/plantuml-syntax'
 Plug 'h1mesuke/vim-alignta'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'beyondmarc/hlsl.vim'
@@ -68,7 +66,6 @@ Plug 'PProvost/vim-ps1'
 Plug 'timcharper/textile.vim'
 Plug 'vim-scripts/cg.vim'
 Plug 'vim-scripts/Tagbar'
-Plug 'vim-scripts/gtags.vim'
 Plug 'cohama/agit.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'juneedahamed/svnj.vim'
@@ -88,10 +85,6 @@ colorscheme iceberg
 " --------------------------------------------------------------------------
 nnoremap <F8> :TagbarToggle<CR>
 let g:tagbar_sort=0
-" --------------------------------------------------------------------------
-" gtags
-" --------------------------------------------------------------------------
-nnoremap <F11> :CdCurrent<CR>:GtagsCursor<CR>
 " --------------------------------------------------------------------------
 " open-browser
 " --------------------------------------------------------------------------
@@ -126,7 +119,6 @@ command! OmniBuild execute '!' . g:csharp_compiler . ' ' . expand('~/vim-plug/om
 " unite
 " -------------------------------------------------------------------------
 call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', '\.meta$' )
-nnoremap <Space>r :Unite -start-insert -path=<C-R>=g:grep_root<CR> file_rec<CR>
 nnoremap <Space>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
 nnoremap <Space>m :Unite -start-insert file_mru<CR>
 nnoremap <Space>c :Unite -start-insert outline<CR>
@@ -210,7 +202,7 @@ nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
 nnoremap <Space>s :%s/\<<C-R><C-W>\>//g<Left><Left>
-nnoremap <Space>g :vim/<C-R><C-W>/<C-R>=g:grep_root<CR>/**/*.*
+nnoremap <Space>g :vim/<C-R><C-W>/%:h/**/*.*
 nnoremap <Space>v :tabe ~/dotfiles/.vimrc<CR>
 nnoremap <Space>u :source $MYVIMRC<CR>
 inoremap <expr> <C-Space> pumvisible() ? '<C-e>' : '<C-x><C-o><C-p>'
@@ -250,17 +242,3 @@ function! Astyle()
 	call setpos('.',pos)
 endfunction
 command! Astyle call Astyle()
-" ----------------------------------------------------------------------
-" UE4
-" ---------------------------------------------------------------------
-function! UE4Build(build_bat)
-	execute 'set makeprg=' . a:build_bat
-	make
-	let qflist = getqflist()
-   for i in qflist
-	  let i.text=iconv(i.text, "cp932", "utf-8")
-   endfor
-   call setqflist(qflist)
-   cwindow
-endfunction
-command! UE4Build call UE4Build('~/ue4build.bat')
