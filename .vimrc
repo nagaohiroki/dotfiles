@@ -227,11 +227,11 @@ command! CopyPath call setreg('*', expand('%:p') . ' ' . line('.'))
 command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
 if has('win32')
 	command! Term !start cmd /k cd /d "%:p:h"
-	command! Wex echo system('explorer /select,"' . expand('%:p') . '"')
+	command! Wex !start explorer /select,"%:p"
 endif
 if has('mac')
 	command! Term !open -a iTerm %:p:h
-	command! Wex execute '!open ' .  expand('%:p:h')
+	command! Wex !open %:p:h
 endif
 " ----------------------------------------------------------------------
 " Astyle
