@@ -147,7 +147,6 @@ autocmd MyAutoCmd BufNewFile,BufRead *.fx,*.fxc,*.fxh,*.hlsl,*.pssl set filetype
 " --------------------------------------------------------------------------
 set autoindent
 set autoread
-set cindent
 set clipboard+=unnamedplus,unnamed
 set completeopt=longest,menuone
 set formatoptions=q
