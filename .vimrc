@@ -150,7 +150,6 @@ set autoread
 set cindent
 set clipboard+=unnamedplus,unnamed
 set completeopt=longest,menuone
-set nofoldenable
 set formatoptions=q
 set helplang=ja
 set hidden
@@ -171,7 +170,6 @@ set number
 set pumheight=10
 set shiftwidth=4
 set showcmd
-set showtabline=2
 set smartindent
 set smartcase
 set ignorecase
