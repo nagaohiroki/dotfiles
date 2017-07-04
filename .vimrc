@@ -194,6 +194,7 @@ inoremap <C-c> <Esc>
 nnoremap <F1> <Esc>
 inoremap <F1> <Esc>
 vnoremap <F1> <Esc>
+vnoremap <F3> y:!start "<C-R>0"<CR>
 nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
