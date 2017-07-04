@@ -1,5 +1,9 @@
 ﻿set guioptions-=m
 set guioptions-=T
+set guioptions-=r
+set guioptions-=R
+set guioptions-=l
+set guioptions-=L
 set visualbell t_vb=
 if has('vim_starting')
 	set lines=60

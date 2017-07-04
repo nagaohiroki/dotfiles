@@ -165,7 +165,6 @@ set notimeout
 set nowrap
 set nrformats=hex
 set nobackup
-set number
 set pumheight=10
 set shiftwidth=4
 set showcmd
