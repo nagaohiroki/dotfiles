@@ -159,6 +159,7 @@ set list
 set listchars=eol:<,tab:>\ ,extends:<
 set matchpairs+=<:>
 set matchtime=1
+set number
 set noshowmatch
 set noswapfile
 set notimeout
