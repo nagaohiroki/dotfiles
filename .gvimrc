@@ -1,9 +1,5 @@
 ﻿set guioptions-=m
 set guioptions-=T
-set guioptions-=r
-set guioptions-=R
-set guioptions-=l
-set guioptions-=L
 set visualbell t_vb=
 set cmdheight=1
 if has('vim_starting')
