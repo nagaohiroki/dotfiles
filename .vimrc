@@ -240,3 +240,20 @@ function! Astyle()
 	call setpos('.',pos)
 endfunction
 command! Astyle call Astyle()
+
+function! ToggleSimple()
+	if &nu
+		set nonumber
+		set go-=r
+		set go-=R
+		set go-=l
+		set go-=L
+		return
+	endif
+	set number
+	set go+=r
+	set go+=R
+	set go+=l
+	set go+=L
+endfunction
+command! Simple call ToggleSimple()
