@@ -190,7 +190,6 @@ nnoremap <S-Up>    :set lines-=10<CR>
 nnoremap <S-Down>  :set lines+=10<CR>
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
-inoremap <C-c> <Esc>
 nnoremap <F1> <Esc>
 inoremap <F1> <Esc>
 vnoremap <F1> <Esc>
@@ -231,16 +230,6 @@ if has('mac')
 	command! Term !open -a iTerm %:p:h
 	command! Wex !open %:p:h
 endif
-" ----------------------------------------------------------------------
-" Astyle
-" ---------------------------------------------------------------------
-function! Astyle()
-	let l:pos = getpos('.')
-	%!AStyle -I -n -A1 -t -p -D -U -j
-	call setpos('.',pos)
-endfunction
-command! Astyle call Astyle()
-
 function! ToggleSimple()
 	if &nu
 		set nonumber
@@ -257,3 +246,12 @@ function! ToggleSimple()
 	set go+=L
 endfunction
 command! Simple call ToggleSimple()
+" ----------------------------------------------------------------------
+" Astyle
+" ---------------------------------------------------------------------
+function! Astyle()
+	let l:pos = getpos('.')
+	%!AStyle -I -n -A1 -t -p -D -U -j
+	call setpos('.',pos)
+endfunction
+command! Astyle call Astyle()
