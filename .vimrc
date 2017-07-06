@@ -8,6 +8,7 @@ augroup MyAutoCmd
 	autocmd!
 augroup END
 filetype off
+let mapleader="\<Space>"
 " -------------------------------------------------------------------------
 " Project
 " -------------------------------------------------------------------------
@@ -88,11 +89,11 @@ let g:tagbar_sort=0
 " --------------------------------------------------------------------------
 " open-browser
 " --------------------------------------------------------------------------
-nmap <Space>o <Plug>(openbrowser-smart-search)
+nmap <Leader>o <Plug>(openbrowser-smart-search)
 " ----------------------------------------------------------------------
 " artr
 " ---------------------------------------------------------------------
-nmap <Space>h <Plug>(altr-forward)
+nmap <Leader>h <Plug>(altr-forward)
 " --------------------------------------------------------------------------
 " syntastic
 " --------------------------------------------------------------------------
@@ -119,9 +120,9 @@ command! OmniBuild execute '!' . g:csharp_compiler . ' ' . expand('~/vim-plug/om
 " unite
 " -------------------------------------------------------------------------
 call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', '\.meta$' )
-nnoremap <Space>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
-nnoremap <Space>m :Unite -start-insert file_mru<CR>
-nnoremap <Space>c :Unite -start-insert outline<CR>
+nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
+nnoremap <Leader>m :Unite -start-insert file_mru<CR>
+nnoremap <Leader>c :Unite -start-insert outline<CR>
 " --------------------------------------------------------------------------
 " neocomplete
 " --------------------------------------------------------------------------
@@ -198,10 +199,10 @@ nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
-nnoremap <Space>s :%s/\<<C-R><C-W>\>//g<Left><Left>
-nnoremap <Space>g :vim/<C-R><C-W>/%:h/**/*.*
-nnoremap <Space>v :tabe ~/dotfiles/.vimrc<CR>
-nnoremap <Space>u :source $MYVIMRC<CR>
+nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
+nnoremap <Leader>g :vim/<C-R><C-W>/%:h/**/*.*
+nnoremap <Leader>v :tabe ~/dotfiles/.vimrc<CR>
+nnoremap <Leader>u :source $MYVIMRC<CR>
 inoremap <expr> <C-Space> pumvisible() ? '<C-e>' : '<C-x><C-o><C-p>'
 inoremap <expr> <TAB>     pumvisible() ? '<Down>': '<Tab>'
 inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
