@@ -173,9 +173,9 @@ set showcmd
 set smartindent
 set smartcase
 set ignorecase
-set statusline=%<%f\ %m%r%h%w
-set statusline+=[%Y]%{'['.(&fenc!=''?&fenc:&enc).(&bomb?'_bom':'').']['.&fileformat.']'}
-set statusline+=%=%l/%L,%c%V%8P
+set statusline=%<%f%m%r%h%w
+set statusline+=%=%y%{'['.(&fenc?&fenc:&enc).(&bomb?'_bom':'').']['.&ff.']'}
+set statusline+=%c,%l/%L
 set tabstop=4
 set title
 set undolevels=1000
