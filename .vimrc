@@ -65,6 +65,7 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'beyondmarc/hlsl.vim'
 Plug 'PProvost/vim-ps1'
 Plug 'timcharper/textile.vim'
+Plug 'thinca/vim-fontzoom'
 Plug 'vim-scripts/cg.vim'
 Plug 'vim-scripts/Tagbar'
 Plug 'cohama/agit.vim'
@@ -86,6 +87,12 @@ colorscheme iceberg
 " --------------------------------------------------------------------------
 nnoremap <F8> :TagbarToggle<CR>
 let g:tagbar_sort=0
+" --------------------------------------------------------------------------
+" FontZoom
+" --------------------------------------------------------------------------
+nnoremap <F9> :Fontzoom +1<CR>
+nnoremap <S-F9> :Fontzoom -1<CR>
+nnoremap <C-S-F9> :Fontzoom!<CR>
 " --------------------------------------------------------------------------
 " open-browser
 " --------------------------------------------------------------------------
