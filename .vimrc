@@ -127,7 +127,7 @@ command! OmniBuild execute '!' . g:csharp_compiler . ' ' . expand('~/vim-plug/om
 " unite
 " -------------------------------------------------------------------------
 call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', '\.meta$' )
-nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
+nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR><CR>
 nnoremap <Leader>m :Unite -start-insert file_mru<CR>
 nnoremap <Leader>c :Unite -start-insert outline<CR>
 " --------------------------------------------------------------------------
