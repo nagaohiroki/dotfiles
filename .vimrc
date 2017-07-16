@@ -107,7 +107,12 @@ let g:syntastic_mode_map={'passive_filetypes': ['cpp']}
 " --------------------------------------------------------------------------
 " omnisharp
 " --------------------------------------------------------------------------
-command! CopyOmnisharpConfig execute '!copy "' . expand('~/dotfiles/setup/config.json') . '" "' . expand('~/vim-plug/YouCompleteMe/third_party/ycmd/third_party/OmniSharpServer/OmniSharp/bin/Release/config.json') . '"'
+function! CopyOmnisharpConfig()
+	let dst=expand('~/dotfiles/setup/config.json')
+	let src=expand('~/vim-plug/YouCompleteMe/third_party/ycmd/third_party/OmniSharpServer/OmniSharp/bin/Release/config.json')
+	execute has('win32') ? '!copy' : '!cp' . ' "' . dst . '" "' . dst . '"'
+endfunction
+command! CopyOmnisharpConfig call CopyOmnisharpConfig()
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
