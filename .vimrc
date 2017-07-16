@@ -114,7 +114,7 @@ function! CopyOmnisharpConfig()
 	execute copy . ' "' . dst . '" "' . dst . '"'
 endfunction
 command! CopyOmnisharpConfig call CopyOmnisharpConfig()
-nnoremap <F12> :YcmCompleter GotoDefinition<CR>
+nnoremap <F12> :YcmCompleter GoToDefinition<CR>
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
