@@ -44,7 +44,6 @@ function! InstallVimPlug(plug_dir)
 	call system('git clone https://github.com/junegunn/vim-plug.git ' . a:plug_dir . '/autoload')
 endfunction
 command! InstallVimPlug call InstallVimPlug(expand('~/vim-plug'))
-
 if has('vim_starting')
 	set runtimepath^=~/vim-plug
 endif
@@ -56,7 +55,6 @@ Plug 'junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/unite-outline'
 Plug 'Shougo/neomru.vim'
-Plug 'Shougo/neocomplete.vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'scrooloose/syntastic'
@@ -73,9 +71,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'juneedahamed/svnj.vim'
 Plug 'kannokanno/previm'
 Plug 'kana/vim-altr'
-Plug 'davidhalter/jedi-vim', {'for': ['python']}
-Plug 'OmniSharp/omnisharp-vim', {'for': ['cs']}
-Plug 'fatih/vim-go', {'for': ['go']}
+Plug 'Valloric/YouCompleteMe'
 Plug 'nagaohiroki/myplugin.vim'
 call plug#end()
 filetype plugin indent on
@@ -111,18 +107,7 @@ let g:syntastic_mode_map={'passive_filetypes': ['cpp']}
 " --------------------------------------------------------------------------
 " omnisharp
 " --------------------------------------------------------------------------
-function! SetupOmniSharp()
-	let g:OmniSharp_sln_list_index=1
-	let g:OmniSharp_timeout=30
-	let g:OmniSharp_selector_ui='unite'
-	let g:OmniSharp_server_type='v1'
-	nnoremap <F12> :OmniSharpGotoDefinition<CR>
-	nnoremap <S-F12> :OmniSharpFindUsages<CR>
-	nnoremap <C-F12> :OmniSharpReloadSolution \| OmniSharpHighlightTypes<CR>
-endfunction
-autocmd MyAutoCmd Filetype cs call SetupOmniSharp()
-let g:csharp_compiler=has('win32') ? 'C:/Windows/Microsoft.NET/Framework/v4.0.30319/msbuild' : 'xbuild'
-command! OmniBuild execute '!' . g:csharp_compiler . ' ' . expand('~/vim-plug/omnisharp-vim/server/OmniSharp.sln')
+command! CopyOmnisharpConfig execute '!copy "' . expand('~/dotfiles/setup/config.json') . '" "' . expand('~/vim-plug/YouCompleteMe/third_party/ycmd/third_party/OmniSharpServer/OmniSharp/bin/Release/config.json') . '"'
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
@@ -130,11 +115,6 @@ call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', '\.meta$' )
 nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR><CR>
 nnoremap <Leader>m :Unite -start-insert file_mru<CR>
 nnoremap <Leader>c :Unite -start-insert outline<CR>
-" --------------------------------------------------------------------------
-" neocomplete
-" --------------------------------------------------------------------------
-let g:neocomplete#enable_at_startup=1
-let g:neocomplete#enable_ignore_case=1
 " --------------------------------------------------------------------------
 " DoxygenToolkit
 " --------------------------------------------------------------------------
@@ -211,9 +191,6 @@ nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Leader>g :vim/<C-R><C-W>/%:h/**/*.*
 nnoremap <Leader>v :tabe ~/dotfiles/.vimrc<CR>
 nnoremap <Leader>u :source $MYVIMRC<CR>
-inoremap <expr> <C-Space> pumvisible() ? '<C-e>' : '<C-x><C-o><C-p>'
-inoremap <expr> <TAB>     pumvisible() ? '<Down>': '<Tab>'
-inoremap <expr> <S-TAB>   pumvisible() ? '<Up>'  : '<S-Tab>'
 " ----------------------------------------------------------------------
 " change terminal cursol size
 " ---------------------------------------------------------------------
