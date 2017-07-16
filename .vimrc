@@ -110,9 +110,11 @@ let g:syntastic_mode_map={'passive_filetypes': ['cpp']}
 function! CopyOmnisharpConfig()
 	let dst=expand('~/dotfiles/setup/config.json')
 	let src=expand('~/vim-plug/YouCompleteMe/third_party/ycmd/third_party/OmniSharpServer/OmniSharp/bin/Release/config.json')
-	execute has('win32') ? '!copy' : '!cp' . ' "' . dst . '" "' . dst . '"'
+	let copy=has('win32') ? '!copy' : '!cp'
+	execute copy . ' "' . dst . '" "' . dst . '"'
 endfunction
 command! CopyOmnisharpConfig call CopyOmnisharpConfig()
+nnoremap <F12> :YcmCompleter GotoDefinition<CR>
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
@@ -184,9 +186,6 @@ nnoremap <S-Up>    :set lines-=10<CR>
 nnoremap <S-Down>  :set lines+=10<CR>
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
-nnoremap <F1> <Esc>
-inoremap <F1> <Esc>
-vnoremap <F1> <Esc>
 vnoremap <F3> y:!start "<C-R>0"<CR>
 nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
