@@ -96,11 +96,11 @@ nnoremap <Leader>c :Unite -start-insert outline<CR>
 " --------------------------------------------------------------------------
 " DoxygenToolkit
 " --------------------------------------------------------------------------
-let g:DoxygenToolkit_blockHeader='------------------------------------------------------------------------'
+let g:DoxygenToolkit_blockHeader=repeat('-', 72)
 let g:DoxygenToolkit_blockFooter=g:DoxygenToolkit_blockHeader
 let g:DoxygenToolkit_commentType='C++'
 " --------------------------------------------------------------------------
-" altr
+" altr for Unreal C++
 " --------------------------------------------------------------------------
 call altr#define('Private/%.cpp', 'Public/%.h')
 " --------------------------------------------------------------------------
