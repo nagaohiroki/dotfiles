@@ -9,18 +9,7 @@ augroup MyAutoCmd
 augroup END
 filetype off
 let mapleader="\<Space>"
-" -------------------------------------------------------------------------
-" Project
-" -------------------------------------------------------------------------
-function! InitProject(project_paths)
-	for p in a:project_paths
-		let l:proj=fnameescape(expand(p))
-		execute 'set tags+=' . l:proj . '/tags'
-	endfor
-endfunction
-if exists('g:project_paths')
-	call InitProject(g:project_paths)
-endif
+autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 " -------------------------------------------------------------------------
 " Plugins
 " -------------------------------------------------------------------------
@@ -161,6 +150,7 @@ set whichwrap=b,s,h,l,<,>,[,]
 set mouse=a
 set visualbell t_vb=
 set colorcolumn=80
+set tags+=tags;
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
@@ -186,10 +176,6 @@ if !has('win32')
 	inoremap <Esc> <Esc>
 endif
 " ----------------------------------------------------------------------
-" AutoCommand
-" ---------------------------------------------------------------------
-autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
-" ----------------------------------------------------------------------
 " Command
 " ---------------------------------------------------------------------
 command! CopyPath call setreg('*', expand('%:p'))
@@ -202,20 +188,6 @@ if has('mac')
 	command! Term !open -a iTerm %:p:h
 	command! Wex !open %:p:h
 endif
-" ----------------------------------------------------------------------
-" Ctags
-" ---------------------------------------------------------------------
-function! GenerateCtags(project_paths)
-	for p in a:project_paths
-		let l:proj=fnameescape(expand(p))
-		if has('win32')
-			execute '!start cd /d ' . l:proj . ' && ctags -R'
-		else
-			execute 'cd ' . l:proj . ' && ctags -R'
-		endif
-	endfor
-endfunction
-command! GenerateCtags call GenerateCtags(g:project_paths)
 " ----------------------------------------------------------------------
 " Astyle
 " ---------------------------------------------------------------------
