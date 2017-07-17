@@ -16,10 +16,8 @@ function! InitProject(project_paths)
 	for p in a:project_paths
 		let l:proj=fnameescape(expand(p))
 		execute 'set tags+=' . l:proj . '/tags'
-		execute 'set path+=' . l:proj
 	endfor
 endfunction
-
 if exists('g:project_paths')
 	call InitProject(g:project_paths)
 endif
@@ -49,16 +47,12 @@ Plug 'tyru/open-browser.vim'
 Plug 'scrooloose/syntastic'
 Plug 'h1mesuke/vim-alignta'
 Plug 'vim-scripts/DoxygenToolkit.vim'
-Plug 'beyondmarc/hlsl.vim'
-Plug 'PProvost/vim-ps1'
-Plug 'timcharper/textile.vim'
 Plug 'thinca/vim-fontzoom'
+Plug 'beyondmarc/hlsl.vim'
 Plug 'vim-scripts/cg.vim'
 Plug 'vim-scripts/Tagbar'
 Plug 'cohama/agit.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'juneedahamed/svnj.vim'
-Plug 'kannokanno/previm'
 Plug 'kana/vim-altr'
 Plug 'Valloric/YouCompleteMe'
 Plug 'nagaohiroki/myplugin.vim'
@@ -198,7 +192,7 @@ autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 " ----------------------------------------------------------------------
 " Command
 " ---------------------------------------------------------------------
-command! CopyPath call setreg('*', expand('%:p') . ' ' . line('.'))
+command! CopyPath call setreg('*', expand('%:p'))
 command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
 if has('win32')
 	command! Term !start cmd /k cd /d "%:p:h"
@@ -208,22 +202,6 @@ if has('mac')
 	command! Term !open -a iTerm %:p:h
 	command! Wex !open %:p:h
 endif
-function! ToggleSimple()
-	if &nu
-		set nonumber
-		set go-=r
-		set go-=R
-		set go-=l
-		set go-=L
-		return
-	endif
-	set number
-	set go+=r
-	set go+=R
-	set go+=l
-	set go+=L
-endfunction
-command! Simple call ToggleSimple()
 " ----------------------------------------------------------------------
 " Ctags
 " ---------------------------------------------------------------------
