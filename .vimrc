@@ -108,6 +108,36 @@ call altr#define('Private/%.cpp', 'Public/%.h')
 " --------------------------------------------------------------------------
 autocmd MyAutoCmd BufNewFile,BufRead *.shader,*.cg,*.compute,*.cginc set filetype=cg
 autocmd MyAutoCmd BufNewFile,BufRead *.fx,*.hlsl set filetype=hlsl
+" ----------------------------------------------------------------------
+" Astyle
+" ---------------------------------------------------------------------
+function! Astyle()
+	let l:pos = getpos('.')
+	%!AStyle -I -n -A1 -t -p -D -U -j
+	call setpos('.',pos)
+endfunction
+command! Astyle call Astyle()
+" ----------------------------------------------------------------------
+" change terminal cursol size
+" ---------------------------------------------------------------------
+if !has('win32')
+	let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+	inoremap <Esc> <Esc>
+endif
+" ----------------------------------------------------------------------
+" Utility Command
+" ---------------------------------------------------------------------
+command! CopyPath call setreg('*', expand('%:p'))
+command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
+if has('win32')
+	command! Term !start cmd /k cd /d "%:p:h"
+	command! Wex !start explorer /select,"%:p"
+endif
+if has('mac')
+	command! Term !open -a iTerm %:p:h
+	command! Wex !open %:p:h
+endif
 " --------------------------------------------------------------------------
 " Setting
 " --------------------------------------------------------------------------
@@ -167,33 +197,3 @@ nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Leader>g :vim/<C-R><C-W>/%:h/**/*.*
 nnoremap <Leader>v :tabe ~/dotfiles/.vimrc<CR>
 nnoremap <Leader>u :source $MYVIMRC<CR>
-" ----------------------------------------------------------------------
-" change terminal cursol size
-" ---------------------------------------------------------------------
-if !has('win32')
-	let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-	inoremap <Esc> <Esc>
-endif
-" ----------------------------------------------------------------------
-" Command
-" ---------------------------------------------------------------------
-command! CopyPath call setreg('*', expand('%:p'))
-command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
-if has('win32')
-	command! Term !start cmd /k cd /d "%:p:h"
-	command! Wex !start explorer /select,"%:p"
-endif
-if has('mac')
-	command! Term !open -a iTerm %:p:h
-	command! Wex !open %:p:h
-endif
-" ----------------------------------------------------------------------
-" Astyle
-" ---------------------------------------------------------------------
-function! Astyle()
-	let l:pos = getpos('.')
-	%!AStyle -I -n -A1 -t -p -D -U -j
-	call setpos('.',pos)
-endfunction
-command! Astyle call Astyle()
