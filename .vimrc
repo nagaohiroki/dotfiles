@@ -133,10 +133,12 @@ command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
 if has('win32')
 	command! Term !start cmd /k cd /d "%:p:h"
 	command! Wex !start explorer /select,"%:p"
+	vnoremap <F3> y:!start "<C-R>0"<CR>
 endif
 if has('mac')
-	command! Term !open -a iTerm %:p:h
-	command! Wex !open %:p:h
+	command! Term !open -a iTerm "%:p:h"
+	command! Wex !open "%:p:h"
+	vnoremap <F3> y:!open "<C-R>0"<CR>
 endif
 " --------------------------------------------------------------------------
 " Setting
@@ -188,7 +190,6 @@ nnoremap <S-Up>    :set lines-=10<CR>
 nnoremap <S-Down>  :set lines+=10<CR>
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
-vnoremap <F3> y:!start "<C-R>0"<CR>
 nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
