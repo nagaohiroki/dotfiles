@@ -19,17 +19,6 @@ function! InitProject(project_paths)
 		execute 'set path+=' . l:proj
 	endfor
 endfunction
-function! GenerateCtags(project_paths)
-	for p in a:project_paths
-		let l:proj=fnameescape(expand(p))
-		if has('win32')
-			execute '!start cd /d ' . l:proj . ' && ctags -R'
-		else
-			execute 'cd ' . l:proj . ' && ctags -R'
-		endif
-	endfor
-endfunction
-command! GenerateCtags call GenerateCtags(g:project_paths)
 
 if exists('g:project_paths')
 	call InitProject(g:project_paths)
@@ -110,8 +99,7 @@ let g:syntastic_mode_map={'passive_filetypes': ['cpp']}
 function! CopyOmnisharpConfig()
 	let dst=expand('~/dotfiles/setup/config.json')
 	let src=expand('~/vim-plug/YouCompleteMe/third_party/ycmd/third_party/OmniSharpServer/OmniSharp/bin/Release/config.json')
-	let copy=has('win32') ? '!copy' : '!cp'
-	execute copy . ' "' . dst . '" "' . dst . '"'
+	echo system(has('win32') ? 'copy' : 'cp' . ' "' . src . '" "' . dst . '"')
 endfunction
 command! CopyOmnisharpConfig call CopyOmnisharpConfig()
 nnoremap <F12> :YcmCompleter GoToDefinition<CR>
@@ -126,7 +114,7 @@ nnoremap <Leader>c :Unite -start-insert outline<CR>
 " DoxygenToolkit
 " --------------------------------------------------------------------------
 let g:DoxygenToolkit_blockHeader='------------------------------------------------------------------------'
-let g:DoxygenToolkit_blockFooter='------------------------------------------------------------------------'
+let g:DoxygenToolkit_blockFooter=g:DoxygenToolkit_blockHeader
 let g:DoxygenToolkit_commentType='C++'
 " --------------------------------------------------------------------------
 " altr
@@ -135,8 +123,8 @@ call altr#define('Private/%.cpp', 'Public/%.h')
 " --------------------------------------------------------------------------
 " shader syntax
 " --------------------------------------------------------------------------
-autocmd MyAutoCmd BufNewFile,BufRead *.fcg,*.vcg,*.shader,*.cg,*.compute,*.cginc set filetype=cg
-autocmd MyAutoCmd BufNewFile,BufRead *.fx,*.fxc,*.fxh,*.hlsl,*.pssl set filetype=hlsl
+autocmd MyAutoCmd BufNewFile,BufRead *.shader,*.cg,*.compute,*.cginc set filetype=cg
+autocmd MyAutoCmd BufNewFile,BufRead *.fx,*.hlsl set filetype=hlsl
 " --------------------------------------------------------------------------
 " Setting
 " --------------------------------------------------------------------------
@@ -168,7 +156,7 @@ set smartindent
 set smartcase
 set ignorecase
 set statusline=%<%f%m%r%h%w
-set statusline+=%y%{'['.(&fenc!=''?&fenc:&enc).(&bomb?'_bom':'').']['.&ff.']'}
+set statusline+=%y%{'['.(&fenc!=''?&fenc:'e:'.&enc).(&bomb?'_bom':'').']['.&ff.']'}
 set statusline+=%=%c,%l/%L
 set tabstop=4
 set title
@@ -236,6 +224,20 @@ function! ToggleSimple()
 	set go+=L
 endfunction
 command! Simple call ToggleSimple()
+" ----------------------------------------------------------------------
+" Ctags
+" ---------------------------------------------------------------------
+function! GenerateCtags(project_paths)
+	for p in a:project_paths
+		let l:proj=fnameescape(expand(p))
+		if has('win32')
+			execute '!start cd /d ' . l:proj . ' && ctags -R'
+		else
+			execute 'cd ' . l:proj . ' && ctags -R'
+		endif
+	endfor
+endfunction
+command! GenerateCtags call GenerateCtags(g:project_paths)
 " ----------------------------------------------------------------------
 " Astyle
 " ---------------------------------------------------------------------
