@@ -45,7 +45,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'kana/vim-altr'
 Plug 'Valloric/YouCompleteMe'
 Plug 'nagaohiroki/myplugin.vim'
-Plug 'junegunn/fzf'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -199,10 +198,3 @@ nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Leader>g :vim/<C-R><C-W>/%:h/**/*.*
 nnoremap <Leader>v :tabe ~/dotfiles/.vimrc<CR>
 nnoremap <Leader>u :source $MYVIMRC<CR>
-command! FZFMru call fzf#run({
-\  'source':  v:oldfiles,
-\  'sink':    'e',
-\  'options': '-m -x +s',
-\  'down':    '40%'})
-nnoremap <Leader>f  :FZF <C-R>=fnameescape(expand('%:p:h'))<CR><CR>
-nnoremap <Leader>m  :FZFMru<CR>
