@@ -14,9 +14,7 @@ autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
 " Plugins
 " -------------------------------------------------------------------------
 function! InstallVimPlug(plug_dir)
-	if !isdirectory(a:plug_dir)
-		call mkdir(a:plug_dir, 'p')
-	endif
+	call mkdir(a:plug_dir, 'p')
 	call system('git clone https://github.com/junegunn/vim-plug.git ' . a:plug_dir . '/autoload')
 endfunction
 command! InstallVimPlug call InstallVimPlug(expand('~/vim-plug'))
@@ -55,12 +53,6 @@ colorscheme iceberg
 " --------------------------------------------------------------------------
 nnoremap <F8> :TagbarToggle<CR>
 let g:tagbar_sort=0
-" --------------------------------------------------------------------------
-" FontZoom
-" --------------------------------------------------------------------------
-nnoremap <F10> :Fontzoom +1<CR>
-nnoremap <S-F10> :Fontzoom -1<CR>
-nnoremap <C-S-F10> :Fontzoom!<CR>
 " --------------------------------------------------------------------------
 " open-browser
 " --------------------------------------------------------------------------
