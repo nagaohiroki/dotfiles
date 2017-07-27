@@ -36,7 +36,6 @@ Plug 'h1mesuke/vim-alignta'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'thinca/vim-fontzoom'
 Plug 'beyondmarc/hlsl.vim'
-Plug 'vim-scripts/cg.vim'
 Plug 'vim-scripts/Tagbar'
 Plug 'cohama/agit.vim'
 Plug 'tpope/vim-fugitive'
@@ -98,8 +97,7 @@ call altr#define('Private/%.cpp', 'Public/%.h')
 " --------------------------------------------------------------------------
 " shader syntax
 " --------------------------------------------------------------------------
-autocmd MyAutoCmd BufNewFile,BufRead *.shader,*.cg,*.compute,*.cginc set filetype=cg
-autocmd MyAutoCmd BufNewFile,BufRead *.fx,*.hlsl set filetype=hlsl
+autocmd MyAutoCmd BufNewFile,BufRead *.fx set filetype=hlsl
 " ----------------------------------------------------------------------
 " Astyle
 " ---------------------------------------------------------------------
