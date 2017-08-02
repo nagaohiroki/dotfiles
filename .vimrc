@@ -176,6 +176,7 @@ set tags+=tags;
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
+inoremap <ESC> <ESC>:set iminsert=0<CR>
 nnoremap <S-Up>    :set lines-=10<CR>
 nnoremap <S-Down>  :set lines+=10<CR>
 nnoremap <S-Left>  :set columns-=100<CR>
