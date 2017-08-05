@@ -2,8 +2,8 @@
 set guioptions-=T
 set visualbell t_vb=
 if has('vim_starting')
-	set lines=60
-	set columns=100
+	set lines=50
+	set columns=90
 endif
 if has('win32')
 	" set guifont=MS_Gothic:h9:cSHIFTJIS
