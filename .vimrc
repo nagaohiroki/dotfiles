@@ -129,6 +129,7 @@ if has('mac')
 	command! Term !open -a iTerm "%:p:h"
 	command! Wex !open "%:p:h"
 	vnoremap <F3> y:!open "<C-R>0"<CR>
+	nnoremap <S-F12> :!open -a unity<CR>
 endif
 " --------------------------------------------------------------------------
 " Setting
