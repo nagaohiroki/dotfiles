@@ -121,15 +121,15 @@ endif
 command! CopyPath call setreg('*', expand('%:p'))
 command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
 if has('win32')
-	command! Term !start cmd /k cd /d "%:p:h"
-	command! Wex !start explorer /select,"%:p"
-	vnoremap <F3> y:!start "<C-R>0"<CR>
+	command! Term silent !start cmd /k cd /d "%:p:h"
+	command! Wex silent !start explorer /select,"%:p"
+	vnoremap <F3> y:silent !start "<C-R>0"<CR>
 endif
 if has('mac')
-	command! Term !open -a iTerm "%:p:h"
-	command! Wex !open "%:p:h"
-	vnoremap <F3> y:!open "<C-R>0"<CR>
-	nnoremap <S-F12> :!open -a unity<CR>
+	command! Term silent !open -a iTerm "%:p:h"
+	command! Wex silent !open "%:p:h"
+	vnoremap <F3> y:silent !open "<C-R>0"<CR>
+	nnoremap <S-F12> :silent !open -a unity<CR>
 endif
 " --------------------------------------------------------------------------
 " Setting
