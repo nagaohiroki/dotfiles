@@ -2,7 +2,7 @@
 set guioptions-=T
 set visualbell t_vb=
 if has('vim_starting')
-	set lines=50
+	set lines=55
 	set columns=90
 endif
 if has('win32')
