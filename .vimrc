@@ -66,7 +66,6 @@ nmap <Leader>h <Plug>(altr-forward)
 let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_go_checkers=['go', 'gofmt', 'golint', 'govet']
-let g:syntastic_mode_map={'passive_filetypes': ['cpp']}
 " --------------------------------------------------------------------------
 " omnisharp
 " --------------------------------------------------------------------------
