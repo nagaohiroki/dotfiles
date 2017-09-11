@@ -49,7 +49,7 @@ colorscheme iceberg
 " --------------------------------------------------------------------------
 " Tagbar
 " --------------------------------------------------------------------------
-nnoremap <F8> :TagbarToggle<CR>
+nnoremap <Leader>t :TagbarToggle<CR>
 let g:tagbar_sort=0
 " --------------------------------------------------------------------------
 " open-browser
@@ -74,7 +74,7 @@ function! CopyOmnisharpConfig()
 	echo system(has('win32') ? 'copy' : 'cp' . ' "' . src . '" "' . dst . '"')
 endfunction
 command! CopyOmnisharpConfig call CopyOmnisharpConfig()
-nnoremap <F12> :YcmCompleter GoToDefinition<CR>
+nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 " -------------------------------------------------------------------------
 " youcompleteme(cpp)
 " -------------------------------------------------------------------------
@@ -122,13 +122,12 @@ command! RcUpdate source ~/dotfiles/.vimrc
 if has('win32')
 	command! Term silent !start cmd /k cd /d "%:p:h"
 	command! Wex silent !start explorer /select,"%:p"
-	vnoremap <F3> y:silent !start "<C-R>0"<CR>
+	vnoremap <Leader>x y:silent !start "<C-R>0"<CR>
 endif
 if has('mac')
 	command! Term silent !open -a iTerm "%:p:h"
 	command! Wex silent !open "%:p:h"
-	vnoremap <F3> y:silent !open "<C-R>0"<CR>
-	nnoremap <S-F12> :silent !open -a unity<CR>
+	vnoremap <Leader>x y:silent !open "<C-R>0"<CR>
 endif
 " --------------------------------------------------------------------------
 " Setting
@@ -186,4 +185,4 @@ nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
-nnoremap <Leader>g :vim/<C-R><C-W>/%:h/**/*.*
+nnoremap <Leader>v :vim/<C-R><C-W>/%:h/**/*.*
