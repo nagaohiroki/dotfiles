@@ -6,7 +6,7 @@ if has('vim_starting')
 	set columns=90
 endif
 if has('win32')
-	" set guifont=MS_Gothic:h9:cSHIFTJIS
+	" set guifont=MS_Gothic:h10:cSHIFTJIS
 	" git clone https://github.com/edihbrandon/RictyDiminished
 	set guifont=Ricty_Diminished:h11:cSHIFTJIS
 	set rop=type:directx
@@ -31,4 +31,4 @@ set background=dark
 if has('multi_byte_ime') || has('xim')
 	hi CursorIM guibg=Red guifg=NONE
 endif
-nnoremap <Space>u :source $MYVIMRC<CR>:source $MYGVIMRC<CR>
+command! RcUpdate source ~/dotfiles/.vimrc | source ~/dotfiles/.gvimrc

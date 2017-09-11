@@ -27,7 +27,6 @@ syntax off
 call plug#begin('~/vim-plug')
 Plug 'junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
 Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite-outline'
 Plug 'Shougo/neomru.vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'tyru/open-browser.vim'
@@ -77,12 +76,15 @@ endfunction
 command! CopyOmnisharpConfig call CopyOmnisharpConfig()
 nnoremap <F12> :YcmCompleter GoToDefinition<CR>
 " -------------------------------------------------------------------------
+" youcompleteme(cpp)
+" -------------------------------------------------------------------------
+let g:ycm_global_ycm_extra_conf='~/vim-plug/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+" -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
 call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', '\.meta$' )
 nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
 nnoremap <Leader>m :Unite -start-insert file_mru<CR>
-nnoremap <Leader>c :Unite -start-insert outline<CR>
 " --------------------------------------------------------------------------
 " DoxygenToolkit
 " --------------------------------------------------------------------------
@@ -93,10 +95,6 @@ let g:DoxygenToolkit_commentType='C++'
 " altr for Unreal C++
 " --------------------------------------------------------------------------
 call altr#define('Private/%.cpp', 'Public/%.h')
-" --------------------------------------------------------------------------
-" shader syntax
-" --------------------------------------------------------------------------
-autocmd MyAutoCmd BufNewFile,BufRead *.fx set filetype=hlsl
 " ----------------------------------------------------------------------
 " Astyle
 " ---------------------------------------------------------------------
@@ -119,6 +117,8 @@ endif
 " ---------------------------------------------------------------------
 command! CopyPath call setreg('*', expand('%:p'))
 command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
+command! Rc tabe ~/dotfiles/.vimrc
+command! RcUpdate source ~/dotfiles/.vimrc
 if has('win32')
 	command! Term silent !start cmd /k cd /d "%:p:h"
 	command! Wex silent !start explorer /select,"%:p"
@@ -187,5 +187,3 @@ nnoremap <C-p> "0p
 vnoremap <C-p> "0p
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <Leader>g :vim/<C-R><C-W>/%:h/**/*.*
-nnoremap <Leader>v :tabe ~/dotfiles/.vimrc<CR>
-nnoremap <Leader>u :source $MYVIMRC<CR>
