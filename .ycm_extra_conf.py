@@ -87,8 +87,11 @@ flags = [
 
 def ue4_include(ue4_path):
     includes = []
+    proj_path = os.path.join(ue4_path, 'Intermediate/ProjectFiles')
+    if not os.path.exists(proj_path):
+        return []
     cur = os.getcwd()
-    os.chdir(os.path.join(ue4_path, 'Intermediate/ProjectFiles'))
+    os.chdir(proj_path)
     ns = '{http://schemas.microsoft.com/developer/msbuild/2003}'
     tags = './/' + ns + 'NMakeIncludeSearchPath'
     for vcx in glob.glob('*.vcxproj'):
