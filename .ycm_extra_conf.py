@@ -97,9 +97,10 @@ def ue4_include(ue4_path):
         elems = root.find(tags)
         for i in elems.text.split(';'):
             path = os.path.abspath(i)
-            if os.path.exists(path):
-                if path not in includes:
-                    includes.append(path)
+            rep_path = path.replace(os.sep, '/')
+            if os.path.exists(rep_path):
+                if rep_path not in includes:
+                    includes.append(rep_path)
     os.chdir(cur)
     result = []
     for i in includes:
@@ -107,7 +108,7 @@ def ue4_include(ue4_path):
     return result
 
 
-flags += ue4_include('')
+flags += ue4_include('D:/work/UnrealEngine/Engine')
 
 # Set this to the absolute path to the folder (NOT the file!) containing the
 # compile_commands.json file to use that instead of 'flags'. See here for

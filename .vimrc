@@ -78,7 +78,7 @@ nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 " -------------------------------------------------------------------------
 " youcompleteme(cpp)
 " -------------------------------------------------------------------------
-let g:ycm_global_ycm_extra_conf='~/vim-plug/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/dotfiles/.ycm_extra_conf.py'
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
