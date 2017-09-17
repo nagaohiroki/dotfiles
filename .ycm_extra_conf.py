@@ -30,8 +30,12 @@
 
 import os
 import ycm_core
-import xml.etree.ElementTree as ET
-import glob
+import sys
+cur_dir = os.path.dirname(os.path.abspath(__file__))
+if cur_dir not in sys.path:
+    sys.path.append(cur_dir)
+from UE4Setting import UE4Setting
+
 
 # These are the compilation flags that will be used in case there's no
 # compilation database set (by default, one is not set).
@@ -83,36 +87,7 @@ flags = [
 '-isystem',
 './tests/gmock/include',
 ]
-
-
-def ue4_include(ue4_path):
-    includes = []
-    proj_path = os.path.join(ue4_path, 'Intermediate/ProjectFiles')
-    if not os.path.exists(proj_path):
-        return []
-    cur = os.getcwd()
-    os.chdir(proj_path)
-    ns = '{http://schemas.microsoft.com/developer/msbuild/2003}'
-    tags = './/' + ns + 'NMakeIncludeSearchPath'
-    for vcx in glob.glob('*.vcxproj'):
-        tree = ET.parse(vcx)
-        root = tree.getroot()
-        elems = root.find(tags)
-        for i in elems.text.split(';'):
-            path = os.path.abspath(i)
-            rep_path = path.replace(os.sep, '/')
-            if os.path.exists(rep_path):
-                if rep_path not in includes:
-                    includes.append(rep_path)
-    os.chdir(cur)
-    result = []
-    for i in includes:
-        result += ['-I', i]
-    return result
-
-
-flags += ue4_include('D:/work/UnrealEngine/Engine')
-
+flags += UE4Setting.ue4_flags('D:/work/UnrealEngine/Engine')
 # Set this to the absolute path to the folder (NOT the file!) containing the
 # compile_commands.json file to use that instead of 'flags'. See here for
 # more details: http://clang.llvm.org/docs/JSONCompilationDatabase.html
