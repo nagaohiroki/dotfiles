@@ -28,7 +28,6 @@ call plug#begin('~/vim-plug')
 Plug 'junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
-Plug 'cocopon/iceberg.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'scrooloose/syntastic'
 Plug 'h1mesuke/vim-alignta'
@@ -40,6 +39,7 @@ Plug 'cohama/agit.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'kana/vim-altr'
 Plug 'Valloric/YouCompleteMe'
+Plug 'flazz/vim-colorschemes'
 Plug 'nagaohiroki/myplugin.vim'
 call plug#end()
 filetype plugin indent on
