@@ -41,6 +41,7 @@ Plug 'kana/vim-altr'
 Plug 'Valloric/YouCompleteMe'
 Plug 'flazz/vim-colorschemes'
 Plug 'nagaohiroki/myplugin.vim'
+Plug 'junegunn/fzf'
 call plug#end()
 filetype plugin indent on
 syntax on
