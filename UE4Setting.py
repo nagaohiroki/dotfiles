@@ -9,7 +9,10 @@ import xml.etree.ElementTree as ET
 import glob
 import os
 
-ue4_dirs = ['']
+ue4_dirs = [
+        'D:/work/UnrealEngine/Engine',
+        'D:/work/UnrealEngine/MyProject',
+        ]
 
 
 class UE4Setting:
@@ -19,7 +22,7 @@ class UE4Setting:
         for d in ue4_dirs:
             intermdiate = os.path.join(d, 'Intermediate')
             result += UE4Setting.ue4_flags_dir_def(intermdiate)
-            result += UE4Setting.ue4_flags_include(intermdiate)
+            # result += UE4Setting.ue4_flags_include(intermdiate)
         return result
 
     @staticmethod

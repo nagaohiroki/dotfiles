@@ -120,7 +120,7 @@ endif
 command! CopyPath call setreg('*', expand('%:p'))
 command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
 command! Rc tabe ~/dotfiles/.vimrc
-command! RcUpdate source ~/dotfiles/.vimrc
+command! RcUpdate source ~/dotfiles/.vimrc | YcmRestartServer
 if has('win32')
 	command! Term silent !start cmd /k cd /d "%:p:h"
 	command! Wex silent !start explorer /select,"%:p"
