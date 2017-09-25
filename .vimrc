@@ -41,7 +41,6 @@ Plug 'kana/vim-altr'
 Plug 'Valloric/YouCompleteMe'
 Plug 'flazz/vim-colorschemes'
 Plug 'nagaohiroki/myplugin.vim'
-Plug 'vim-airline/vim-airline'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -81,10 +80,6 @@ nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 " youcompleteme(cpp)
 " -------------------------------------------------------------------------
 let g:ycm_global_ycm_extra_conf='~/dotfiles/.ycm_extra_conf.py'
-" -------------------------------------------------------------------------
-" airline
-" -------------------------------------------------------------------------
-let g:airline_section_warning=''
 " -------------------------------------------------------------------------
 " unite
 " -------------------------------------------------------------------------
@@ -175,6 +170,9 @@ set mouse=a
 set visualbell t_vb=
 set colorcolumn=80
 set tags+=tags;
+set statusline=%<%f%m%r%h%w
+set statusline+=%y%{'['.(&fenc!=''?&fenc:'e:'.&enc).(&bomb?'_bom':'').']['.&ff.']'}
+set statusline+=%=%c,%l/%L
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
