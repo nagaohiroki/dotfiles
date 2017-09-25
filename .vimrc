@@ -41,7 +41,7 @@ Plug 'kana/vim-altr'
 Plug 'Valloric/YouCompleteMe'
 Plug 'flazz/vim-colorschemes'
 Plug 'nagaohiroki/myplugin.vim'
-Plug 'junegunn/fzf'
+Plug 'vim-airline/vim-airline'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -161,9 +161,6 @@ set showcmd
 set smartindent
 set smartcase
 set ignorecase
-set statusline=%<%f%m%r%h%w
-set statusline+=%y%{'['.(&fenc!=''?&fenc:'e:'.&enc).(&bomb?'_bom':'').']['.&ff.']'}
-set statusline+=%=%c,%l/%L
 set tabstop=4
 set title
 set undolevels=1000
