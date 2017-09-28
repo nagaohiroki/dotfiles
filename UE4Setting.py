@@ -10,8 +10,8 @@ import glob
 import os
 
 ue4_dirs = [
-        'D:/work/UnrealEngine/Engine',
-        'D:/work/UnrealEngine/MyProject',
+        'E:/NRTR/Stm4Merge/Engine',
+        'E:/NRTR/Stm4Merge/Stm4',
         ]
 
 

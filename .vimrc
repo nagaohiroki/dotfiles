@@ -30,7 +30,6 @@ Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'scrooloose/syntastic'
-Plug 'h1mesuke/vim-alignta'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'thinca/vim-fontzoom'
 Plug 'beyondmarc/hlsl.vim'
@@ -41,6 +40,7 @@ Plug 'kana/vim-altr'
 Plug 'Valloric/YouCompleteMe'
 Plug 'flazz/vim-colorschemes'
 Plug 'nagaohiroki/myplugin.vim'
+Plug 'godlygeek/tabular'
 call plug#end()
 filetype plugin indent on
 syntax on
