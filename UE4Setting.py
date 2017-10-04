@@ -11,7 +11,6 @@ import os
 
 ue4_dirs = [
         '',
-        '',
         ]
 
 

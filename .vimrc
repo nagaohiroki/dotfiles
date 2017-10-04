@@ -4,12 +4,9 @@ set fileencodings=ucs-bom,iso-2022-jp-3,euc-jisx0213,euc-jp,cp932,utf-8
 " -------------------------------------------------------------------------
 " AutoCommandGroup
 " -------------------------------------------------------------------------
-augroup MyAutoCmd
-	autocmd!
-augroup END
 filetype off
 let mapleader="\<Space>"
-autocmd MyAutoCmd QuickFixCmdPost *grep* cwindow
+autocmd QuickFixCmdPost *grep* cwindow
 " -------------------------------------------------------------------------
 " Plugins
 " -------------------------------------------------------------------------
@@ -145,8 +142,6 @@ set incsearch
 set laststatus=2
 set list
 set listchars=eol:<,tab:>\ ,extends:<
-set matchpairs+=<:>
-set matchtime=1
 set number
 set noshowmatch
 set noswapfile
@@ -154,7 +149,6 @@ set notimeout
 set nowrap
 set nrformats=hex
 set nobackup
-set pumheight=10
 set shiftwidth=4
 set showcmd
 set smartindent
@@ -171,14 +165,12 @@ set visualbell t_vb=
 set colorcolumn=80
 set tags+=tags;
 set statusline=%<%f%m%r%h%w
-set statusline+=%y%{'['.(&fenc!=''?&fenc:'e:'.&enc).(&bomb?'_bom':'').']['.&ff.']'}
+set statusline+=%y%{'['.&fenc.(&bomb?'_bom':'').']['.&ff.']'}
 set statusline+=%=%c,%l/%L
 " ----------------------------------------------------------------------
 " mapping
 " ----------------------------------------------------------------------
 inoremap <ESC> <ESC>:set iminsert=0<CR>
-nnoremap <S-Up>    :set lines-=10<CR>
-nnoremap <S-Down>  :set lines+=10<CR>
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
 nnoremap <C-j> :cn<CR>zz
@@ -186,4 +178,3 @@ nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
-nnoremap <Leader>v :vim/<C-R><C-W>/%:h/**/*.*

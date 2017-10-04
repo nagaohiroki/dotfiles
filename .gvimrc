@@ -16,10 +16,10 @@ if has('mac')
 endif
 if has('kaoriya')
 	if has('win32')
-		autocmd MyAutoCmd BufNewFile,BufRead,FocusGained * set transparency=220
+		autocmd BufNewFile,BufRead,FocusGained * set transparency=220
 	endif
 	if has('mac')
-		autocmd MyAutoCmd GUIEnter * set transparency=10
+		autocmd GUIEnter * set transparency=10
 	endif
 endif
 "--------------------------------------------------------------------------
