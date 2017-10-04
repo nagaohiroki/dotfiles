@@ -132,9 +132,7 @@ endif
 " --------------------------------------------------------------------------
 set autoindent
 set autoread
-set clipboard+=unnamedplus,unnamed
-set completeopt=longest,menuone
-set formatoptions=q
+set clipboard=unnamedplus,unnamed
 set helplang=ja
 set hidden
 set hlsearch
