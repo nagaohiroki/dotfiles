@@ -10,7 +10,7 @@ import glob
 import os
 
 ue4_dirs = [
-        'E:/NRTR/Stm4Merge/Engine',
+        '',
         ]
 
 
