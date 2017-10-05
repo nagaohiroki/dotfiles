@@ -8,21 +8,30 @@ from __future__ import nested_scopes
 import xml.etree.ElementTree as ET
 import glob
 import os
-
-ue4_dirs = [
-        '',
-        ]
+import codecs
+import json
 
 
 class UE4Setting:
     @staticmethod
     def ue4_flags():
+        json_path = os.path.join(os.path.dirname(__file__), 'ue4path.json')
+        ue4_dirs = UE4Setting.load_dirs(json_path)
         result = []
+        if not ue4_dirs:
+            return result
         for d in ue4_dirs:
             intermdiate = os.path.join(d, 'Intermediate')
             result += UE4Setting.ue4_flags_dir_def(intermdiate)
             # result += UE4Setting.ue4_flags_include(intermdiate)
         return result
+
+    @staticmethod
+    def load_dirs(json_path):
+        if not os.path.exists(json_path):
+            return
+        with codecs.open(json_path, 'r', 'utf-8_sig') as json_file:
+            return json.load(json_file)
 
     @staticmethod
     def ue4_flags_dir_def(ue4_dir):
