@@ -1,14 +1,9 @@
 ﻿scriptencoding utf-8
 set encoding=utf8
 set fileencodings=ucs-bom,iso-2022-jp-3,euc-jisx0213,euc-jp,cp932,utf-8
-" -------------------------------------------------------------------------
-" AutoCommandGroup
-" -------------------------------------------------------------------------
-filetype off
 let mapleader="\<Space>"
-autocmd QuickFixCmdPost *grep* cwindow
 " -------------------------------------------------------------------------
-" Plugins
+" vim-plug
 " -------------------------------------------------------------------------
 function! InstallVimPlug(plug_dir)
 	call mkdir(a:plug_dir, 'p')
@@ -56,16 +51,17 @@ nmap <Leader>o <Plug>(openbrowser-smart-search)
 " ----------------------------------------------------------------------
 " artr
 " ---------------------------------------------------------------------
-nmap <Leader>h <Plug>(altr-forward)
+nmap <Leader>a <Plug>(altr-forward)
 " --------------------------------------------------------------------------
 " syntastic
 " --------------------------------------------------------------------------
 let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_go_checkers=['go', 'gofmt', 'golint', 'govet']
-" --------------------------------------------------------------------------
-" omnisharp
-" --------------------------------------------------------------------------
+" -------------------------------------------------------------------------
+" youcompleteme
+" -------------------------------------------------------------------------
+let g:ycm_global_ycm_extra_conf='~/dotfiles/.ycm_extra_conf.py'
 function! CopyOmnisharpConfig()
 	let dst=expand('~/dotfiles/setup/config.json')
 	let src=expand('~/vim-plug/YouCompleteMe/third_party/ycmd/third_party/OmniSharpServer/OmniSharp/bin/Release/config.json')
@@ -74,11 +70,7 @@ endfunction
 command! CopyOmnisharpConfig call CopyOmnisharpConfig()
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 " -------------------------------------------------------------------------
-" youcompleteme(cpp)
-" -------------------------------------------------------------------------
-let g:ycm_global_ycm_extra_conf='~/dotfiles/.ycm_extra_conf.py'
-" -------------------------------------------------------------------------
-" unite
+" unite(neomru)
 " -------------------------------------------------------------------------
 call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', '\.meta$' )
 nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
@@ -103,16 +95,14 @@ function! Astyle()
 endfunction
 command! Astyle call Astyle()
 " ----------------------------------------------------------------------
-" change terminal cursol size
+" Utility Setting(not plugins setting)
 " ---------------------------------------------------------------------
+autocmd QuickFixCmdPost *grep* cwindow
 if !has('win32')
 	let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 	inoremap <Esc> <Esc>
 endif
-" ----------------------------------------------------------------------
-" Utility Command
-" ---------------------------------------------------------------------
 command! CopyPath call setreg('*', expand('%:p'))
 command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
 command! Rc tabe ~/dotfiles/.vimrc
@@ -127,9 +117,6 @@ if has('mac')
 	command! Wex silent !open "%:p:h"
 	vnoremap <Leader>x y:silent !open "<C-R>0"<CR>
 endif
-" --------------------------------------------------------------------------
-" Setting
-" --------------------------------------------------------------------------
 set autoindent
 set autoread
 set clipboard=unnamedplus,unnamed
@@ -154,7 +141,6 @@ set smartcase
 set ignorecase
 set tabstop=4
 set title
-set undolevels=1000
 set undodir=$HOME/.cache
 set undofile
 set whichwrap=b,s,h,l,<,>,[,]
@@ -165,9 +151,6 @@ set tags+=tags;
 set statusline=%<%f%m%r%h%w
 set statusline+=%y%{'['.&fenc.(&bomb?'_bom':'').']['.&ff.']'}
 set statusline+=%=%c,%l/%L
-" ----------------------------------------------------------------------
-" mapping
-" ----------------------------------------------------------------------
 inoremap <ESC> <ESC>:set iminsert=0<CR>
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
