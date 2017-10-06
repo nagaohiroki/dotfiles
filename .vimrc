@@ -44,6 +44,7 @@ colorscheme iceberg
 nnoremap <Leader>t :TagbarToggle<CR>
 let g:tagbar_sort=0
 let g:tagbar_left=1
+let g:tagbar_autoclose=1
 " --------------------------------------------------------------------------
 " open-browser
 " --------------------------------------------------------------------------
@@ -62,12 +63,6 @@ let g:syntastic_go_checkers=['go', 'gofmt', 'golint', 'govet']
 " youcompleteme
 " -------------------------------------------------------------------------
 let g:ycm_global_ycm_extra_conf='~/dotfiles/.ycm_extra_conf.py'
-function! CopyOmnisharpConfig()
-	let dst=expand('~/dotfiles/setup/config.json')
-	let src=expand('~/vim-plug/YouCompleteMe/third_party/ycmd/third_party/OmniSharpServer/OmniSharp/bin/Release/config.json')
-	echo system(has('win32') ? 'copy' : 'cp' . ' "' . src . '" "' . dst . '"')
-endfunction
-command! CopyOmnisharpConfig call CopyOmnisharpConfig()
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 " -------------------------------------------------------------------------
 " unite(neomru)
@@ -154,6 +149,8 @@ set statusline+=%=%c,%l/%L
 inoremap <ESC> <ESC>:set iminsert=0<CR>
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
+nnoremap <S-Up>    :set lines-=10<CR>
+nnoremap <S-Down>  :set lines+=10<CR>
 nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
