@@ -115,6 +115,7 @@ endif
 set autoindent
 set autoread
 set clipboard=unnamedplus,unnamed
+set completeopt=menuone
 set helplang=ja
 set hidden
 set hlsearch
