@@ -22,10 +22,11 @@ Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'scrooloose/syntastic'
+Plug 'scrooloose/nerdtree'
 Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'vim-scripts/Tagbar'
 Plug 'thinca/vim-fontzoom'
 Plug 'sheerun/vim-polyglot'
-Plug 'vim-scripts/Tagbar'
 Plug 'cohama/agit.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'kana/vim-altr'
@@ -33,11 +34,19 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'flazz/vim-colorschemes'
 Plug 'nagaohiroki/myplugin.vim'
 Plug 'godlygeek/tabular'
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 filetype plugin indent on
 syntax on
 set background=dark
 colorscheme iceberg
+" --------------------------------------------------------------------------
+" UtilSnips
+" --------------------------------------------------------------------------
+let g:UltiSnipsExpandTrigger='<C-s>'
+nnoremap <Leader>n :NERDTreeToggle<CR>
 " --------------------------------------------------------------------------
 " Tagbar
 " --------------------------------------------------------------------------
