@@ -37,6 +37,7 @@ Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
+Plug 'xuyuanp/nerdtree-git-plugin'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -46,7 +47,7 @@ colorscheme iceberg
 " UtilSnips
 " --------------------------------------------------------------------------
 let g:UltiSnipsExpandTrigger='<C-s>'
-nnoremap <Leader>n :NERDTreeToggle<CR>
+nnoremap <Leader>n :NERDTreeFind<CR>
 " --------------------------------------------------------------------------
 " Tagbar
 " --------------------------------------------------------------------------
