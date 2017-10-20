@@ -20,6 +20,7 @@ call plug#begin('~/vim-plug')
 Plug 'junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
+Plug 'tsukkee/unite-tag'
 Plug 'tyru/open-browser.vim'
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree'
@@ -27,8 +28,9 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'vim-scripts/Tagbar'
 Plug 'thinca/vim-fontzoom'
 Plug 'sheerun/vim-polyglot'
-Plug 'cohama/agit.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'cohama/agit.vim'
+Plug 'airblade/vim-gitgutter'
 Plug 'kana/vim-altr'
 Plug 'Valloric/YouCompleteMe'
 Plug 'flazz/vim-colorschemes'
@@ -36,7 +38,6 @@ Plug 'nagaohiroki/myplugin.vim'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
-Plug 'airblade/vim-gitgutter'
 Plug 'xuyuanp/nerdtree-git-plugin'
 call plug#end()
 filetype plugin indent on
@@ -50,8 +51,8 @@ let g:UltiSnipsExpandTrigger='<C-s>'
 " --------------------------------------------------------------------------
 " NERDTree
 " --------------------------------------------------------------------------
-let g:NERDTreeShowBookmarks=1
 nnoremap <Leader>n :NERDTreeFind<CR>
+let g:NERDTreeShowBookmarks=1
 " --------------------------------------------------------------------------
 " Tagbar
 " --------------------------------------------------------------------------
@@ -78,11 +79,12 @@ let g:syntastic_go_checkers=['go', 'gofmt', 'golint', 'govet']
 let g:ycm_global_ycm_extra_conf='~/dotfiles/.ycm_extra_conf.py'
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 " -------------------------------------------------------------------------
-" unite(neomru)
+" unite(neomru and unite-tag)
 " -------------------------------------------------------------------------
 call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', '\.meta$' )
 nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
 nnoremap <Leader>m :Unite -start-insert file_mru<CR>
+nnoremap <Leader>j :UniteWithCursorWord tag<CR>
 " --------------------------------------------------------------------------
 " DoxygenToolkit
 " --------------------------------------------------------------------------
