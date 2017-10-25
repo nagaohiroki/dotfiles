@@ -162,6 +162,7 @@ set tags+=tags;
 set statusline=%<%f%m%r%h%w
 set statusline+=%y%{'['.&fenc.(&bomb?'_bom':'').']['.&ff.']'}
 set statusline+=%=%c,%l/%L
+set grepprg=jvgrep
 inoremap <ESC> <ESC>:set iminsert=0<CR>
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
