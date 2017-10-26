@@ -38,21 +38,12 @@ Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 Plug 'xuyuanp/nerdtree-git-plugin'
-Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'beyondmarc/hlsl.vim'
 call plug#end()
 filetype plugin indent on
 syntax on
 set background=dark
 colorscheme iceberg
-" --------------------------------------------------------------------------
-" vim-cpp-enhanced-highlight
-" --------------------------------------------------------------------------
-let g:cpp_class_scope_highlight=1
-let g:cpp_class_decl_highlight=1
-let g:cpp_experimental_simple_template_highlight=1
-let g:cpp_experimental_template_highlight=1
-let g:cpp_concepts_highlight=1
 " --------------------------------------------------------------------------
 " UtilSnips
 " --------------------------------------------------------------------------
@@ -141,6 +132,7 @@ set autoindent
 set autoread
 set clipboard=unnamedplus,unnamed
 set completeopt=menuone
+set pumheight=15
 set helplang=ja
 set hidden
 set hlsearch

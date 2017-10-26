@@ -45,6 +45,11 @@ class UE4Setting:
         for vcx in glob.glob('*.vcxproj'):
             tree = ET.parse(vcx)
             root = tree.getroot()
+            define_tag = 'NMakePreprocessorDefinitions'
+            define_values = UE4Setting.elem_to_values(root, ns + define_tag)
+            for define in define_values:
+                if define not in flags:
+                    flags += ['-D', define]
             include_tag = 'NMakeIncludeSearchPath'
             include_values = UE4Setting.elem_to_values(root, ns + include_tag)
             for i in include_values:
@@ -53,11 +58,6 @@ class UE4Setting:
                     if path not in flags:
                         flags += ['-I', path]
 
-            define_tag = 'NMakePreprocessorDefinitions'
-            define_values = UE4Setting.elem_to_values(root, ns + define_tag)
-            for define in define_values:
-                if define not in flags:
-                    flags += ['-D', define]
         os.chdir(cur)
         return flags
 
