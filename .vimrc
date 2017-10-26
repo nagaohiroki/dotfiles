@@ -39,11 +39,13 @@ Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'beyondmarc/hlsl.vim'
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 filetype plugin indent on
 syntax on
 set background=dark
 colorscheme iceberg
+let g:polyglot_disabled=['py']
 " --------------------------------------------------------------------------
 " UtilSnips
 " --------------------------------------------------------------------------
