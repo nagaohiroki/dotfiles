@@ -37,7 +37,6 @@ Plug 'nagaohiroki/myplugin.vim'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
-Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'beyondmarc/hlsl.vim'
 Plug 'sheerun/vim-polyglot'
 call plug#end()
