@@ -86,7 +86,7 @@ nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', '\.meta$' )
 nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
 nnoremap <Leader>m :Unite -start-insert file_mru<CR>
-nnoremap <Leader>j :UniteWithCursorWord tag<CR>
+nnoremap <C-]> :UniteWithCursorWord tag<CR>
 " --------------------------------------------------------------------------
 " DoxygenToolkit
 " --------------------------------------------------------------------------
