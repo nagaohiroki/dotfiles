@@ -44,7 +44,7 @@ filetype plugin indent on
 syntax on
 set background=dark
 colorscheme iceberg
-let g:polyglot_disabled=['py']
+let g:polyglot_disabled=['python']
 " --------------------------------------------------------------------------
 " UtilSnips
 " --------------------------------------------------------------------------
