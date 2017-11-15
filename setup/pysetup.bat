@@ -8,3 +8,4 @@ pip install autopep8
 pip install pyflakes
 pip install flake8
 pip install pyinstaller
+pip install neovim
