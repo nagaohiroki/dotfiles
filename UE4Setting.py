@@ -6,7 +6,6 @@ from __future__ import with_statement
 from __future__ import print_function
 from __future__ import nested_scopes
 import xml.etree.ElementTree as ET
-import glob
 import os
 import codecs
 import json
@@ -16,15 +15,13 @@ class UE4Setting:
     @staticmethod
     def ue4_flags():
         json_path = os.path.join(os.path.dirname(__file__), 'ue4path.json')
-        ue4_dirs = UE4Setting.load_dirs(json_path)
-        result = []
-        if not ue4_dirs:
-            return result
-        for d in ue4_dirs:
-            intermdiate = os.path.join(d, 'Intermediate')
-            result += UE4Setting.ue4_flags_dir_def(intermdiate)
-            # result += UE4Setting.ue4_flags_include(intermdiate)
-        return result
+        projects = UE4Setting.load_dirs(json_path)
+        return UE4Setting.ue4_flags_dir_def(projects)
+
+    @staticmethod
+    def elem_to_values(root, tag):
+        define_elems = root.find(tag)
+        return define_elems.text.split(';')
 
     @staticmethod
     def load_dirs(json_path):
@@ -34,15 +31,14 @@ class UE4Setting:
             return json.load(json_file)
 
     @staticmethod
-    def ue4_flags_dir_def(ue4_dir):
-        proj_path = os.path.join(ue4_dir, 'ProjectFiles')
-        if not os.path.exists(proj_path):
-            return []
-        cur = os.getcwd()
-        os.chdir(proj_path)
-        ns = './/{http://schemas.microsoft.com/developer/msbuild/2003}'
+    def ue4_flags_dir_def(projects):
+        if not projects:
+            return
         flags = []
-        for vcx in glob.glob('*.vcxproj'):
+        for vcx in projects:
+            if not os.path.exists(vcx):
+                continue
+            ns = './/{http://schemas.microsoft.com/developer/msbuild/2003}'
             tree = ET.parse(vcx)
             root = tree.getroot()
             define_tag = 'NMakePreprocessorDefinitions'
@@ -52,33 +48,12 @@ class UE4Setting:
                     flags += ['-D', define]
             include_tag = 'NMakeIncludeSearchPath'
             include_values = UE4Setting.elem_to_values(root, ns + include_tag)
+            dirname = os.path.dirname(vcx)
             for i in include_values:
-                path = os.path.abspath(i)
+                path = os.path.join(dirname, i)
                 if os.path.exists(path):
                     if path not in flags:
                         flags += ['-I', path]
-
-        os.chdir(cur)
-        return flags
-
-    @staticmethod
-    def elem_to_values(root, tag):
-        define_elems = root.find(tag)
-        return define_elems.text.split(';')
-
-    @staticmethod
-    def ue4_flags_include(ue4_dir):
-        proj_path = os.path.join(ue4_dir, 'Build')
-        flags = []
-        for root, _, files in os.walk(proj_path):
-            for f in files:
-                if not f.endswith('.h'):
-                    continue
-                full = os.path.abspath(os.path.join(root, f))
-                if not os.path.exists(full):
-                    continue
-                if full not in flags:
-                    flags += ['-macros', full]
         return flags
 
 
