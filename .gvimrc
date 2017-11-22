@@ -31,4 +31,4 @@ set background=dark
 if has('multi_byte_ime') || has('xim')
 	hi CursorIM guibg=Red guifg=NONE
 endif
-command! RcUpdate source ~/dotfiles/.vimrc | source ~/dotfiles/.gvimrc | YcmRestartServer
+command! RcUpdate source ~/dotfiles/.vimrc | source ~/dotfiles/.gvimrc
