@@ -108,11 +108,6 @@ command! Astyle call Astyle()
 " Utility Setting(not plugins setting)
 " ---------------------------------------------------------------------
 autocmd QuickFixCmdPost *grep* cwindow
-if !has('win32')
-	let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-	inoremap <Esc> <Esc>
-endif
 command! CopyPath call setreg('*', expand('%:p'))
 command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
 command! Rc tabe ~/dotfiles/.vimrc
