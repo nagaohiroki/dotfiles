@@ -79,7 +79,10 @@ let g:syntastic_go_checkers=['go', 'gofmt', 'golint', 'govet']
 " -------------------------------------------------------------------------
 " youcompleteme
 " -------------------------------------------------------------------------
-let g:ycm_global_ycm_extra_conf='~/dotfiles/.ycm_extra_conf.py'
+function! InitializeCpp()
+	let g:ycm_global_ycm_extra_conf='~/dotfiles/.ycm_extra_conf.py'
+endfunction
+autocmd Filetype cpp call InitializeCpp()
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 " -------------------------------------------------------------------------
 " unite(neomru and unite-tag)
