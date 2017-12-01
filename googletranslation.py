@@ -14,7 +14,6 @@ def GoogleTranslation(before, after, word):
     url = '''
     https://translate.google.co.jp/?um=1&ie=UTF-8&hl=ja&client=tw-ob#{0}/{1}/{2}
     '''.format(before, after, urllib.quote(word.encode('utf-8')))
-    print(url)
     webbrowser.open(url)
 
 
