@@ -69,7 +69,7 @@ nmap <Leader>o <Plug>(openbrowser-smart-search)
 " artr for Unreal C++
 " ---------------------------------------------------------------------
 nmap <Leader>a <Plug>(altr-forward)
-call altr#define('Private/%.cpp', 'Public/%.h')
+call altr#define('Private/%.cpp', 'Public/%.h', 'Classes/%.h')
 " --------------------------------------------------------------------------
 " syntastic
 " --------------------------------------------------------------------------
