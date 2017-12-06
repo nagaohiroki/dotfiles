@@ -58,7 +58,9 @@ class UE4Setting:
 
 
 def main():
-    print('\n'.join(UE4Setting.ue4_flags()))
+    flags = UE4Setting.ue4_flags()
+    if flags:
+        print('\n'.join(flags))
 
 
 if __name__ == '__main__':

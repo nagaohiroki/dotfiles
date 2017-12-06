@@ -36,7 +36,8 @@ import sys
 cur_dir = os.path.dirname(os.path.abspath(__file__))
 if cur_dir not in sys.path:
     sys.path.append(cur_dir)
-from UE4Setting import UE4Setting
+if cur_dir in sys.path:
+    from UE4Setting import UE4Setting
 
 
 # These are the compilation flags that will be used in case there's no
@@ -82,7 +83,9 @@ get_python_inc(),
 '-isystem',
 './benchmarks/benchmark/include',
 ]
-flags += UE4Setting.ue4_flags()
+ue4flags = UE4Setting.ue4_flags()
+if ue4flags:
+    flags += ue4flags
 # Clang automatically sets the '-std=' flag to 'c++14' for MSVC 2015 or later,
 # which is required for compiling the standard library, and to 'c++11' for older
 # versions.
