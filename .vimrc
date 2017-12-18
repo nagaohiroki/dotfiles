@@ -170,3 +170,4 @@ nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
+nnoremap <F5> :!start E:/NRTR/Stm4Merge/ue4build.bat<CR>

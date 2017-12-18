@@ -6,10 +6,7 @@ if has('vim_starting')
 	set columns=90
 endif
 if has('win32')
-	" set guifont=MS_Gothic:h10:cSHIFTJIS
-	" git clone https://github.com/edihbrandon/RictyDiminished
-	set guifont=Ricty_Diminished:h11:cSHIFTJIS
-	" set rop=type:directx
+	set guifont=Migu_1M:h10
 endif
 if has('mac')
 	set guifont=Osaka-Mono:h11
@@ -25,7 +22,6 @@ endif
 "--------------------------------------------------------------------------
 "colorscheme
 "--------------------------------------------------------------------------
-" colorscheme desert
 colorscheme iceberg
 set background=dark
 if has('multi_byte_ime') || has('xim')
