@@ -2,14 +2,14 @@
 set guioptions-=T
 set visualbell t_vb=
 if has('vim_starting')
-	set lines=70
+	set lines=65
 	set columns=90
 endif
 if has('win32')
 	set guifont=Migu_1M:h10
 endif
 if has('mac')
-	set guifont=Osaka-Mono:h13
+	set guifont=Osaka-Mono:h14
 endif
 if has('kaoriya')
 	if has('win32')
