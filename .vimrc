@@ -141,6 +141,8 @@ set number
 set noshowmatch
 set noswapfile
 set notimeout
+set ttimeout
+set timeoutlen=100
 set nowrap
 set nrformats=hex
 set nobackup
@@ -162,7 +164,7 @@ set statusline=%<%f%m%r%h%w
 set statusline+=%y%{'['.&fenc.(&bomb?'_bom':'').']['.&ff.']'}
 set statusline+=%=%c,%l/%L
 set grepprg=jvgrep
-inoremap <ESC> <ESC>:set iminsert=0<CR>
+set cmdheight=2
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
 nnoremap <S-Up>    :set lines-=10<CR>
