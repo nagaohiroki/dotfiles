@@ -91,7 +91,6 @@ call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', '\.meta$' )
 nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
 nnoremap <Leader>m :Unite -start-insert file_mru<CR>
 nnoremap <C-]> :execute 'cd ' . expand('%:h') \| UniteWithCursorWord tag<CR>
-let g:neomru#file_mru_limit=50
 " --------------------------------------------------------------------------
 " DoxygenToolkit
 " --------------------------------------------------------------------------
