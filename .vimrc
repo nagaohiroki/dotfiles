@@ -102,7 +102,7 @@ let g:DoxygenToolkit_commentType='C++'
 " ---------------------------------------------------------------------
 function! Astyle()
 	let l:pos = getpos('.')
-	%!AStyle -I -n -A1 -t -p -D -U -j
+	%!AStyle -I -n -A1 -t -p -U -j
 	call setpos('.',pos)
 endfunction
 command! Astyle call Astyle()
