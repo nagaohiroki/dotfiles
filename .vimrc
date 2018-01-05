@@ -102,7 +102,7 @@ let g:DoxygenToolkit_commentType='C++'
 " ---------------------------------------------------------------------
 function! Astyle()
 	let l:pos = getpos('.')
-	%!AStyle --ascii --suffix=none --style=ansi --indent=tab --pad-oper --unpad-paren --add-brackets --delete-empty-lines
+	%!AStyle --options=$HOME/dotfiles/astylerc
 	call setpos('.',pos)
 endfunction
 command! Astyle call Astyle()

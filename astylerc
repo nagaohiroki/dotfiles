@@ -1,0 +1,8 @@
+suffix=none
+style=ansi
+indent=tab
+pad-oper
+unpad-paren
+add-brackets
+delete-empty-lines
+indent-col1-comments
