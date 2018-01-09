@@ -25,7 +25,6 @@ Plug 'tyru/open-browser.vim'
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-scripts/DoxygenToolkit.vim'
-Plug 'vim-scripts/Tagbar'
 Plug 'thinca/vim-fontzoom'
 Plug 'tpope/vim-fugitive'
 Plug 'cohama/agit.vim'
@@ -55,12 +54,6 @@ let g:UltiSnipsExpandTrigger='<C-s>'
 nnoremap <Leader>n :NERDTreeFind<CR>
 let g:NERDTreeShowBookmarks=1
 let g:NERDTreeQuitOnOpen=1
-" --------------------------------------------------------------------------
-" Tagbar
-" --------------------------------------------------------------------------
-nnoremap <Leader>t :TagbarToggle<CR>
-let g:tagbar_sort=0
-let g:tagbar_autoclose=1
 " --------------------------------------------------------------------------
 " open-browser
 " --------------------------------------------------------------------------
@@ -122,6 +115,10 @@ if has('mac')
 	command! Wex silent !open "%:p:h"
 	vnoremap <Leader>x y:silent !open "<C-R>0"<CR>
 endif
+set noshowmatch
+set noswapfile
+set nowrap
+set nobackup
 set autoindent
 set autoread
 set clipboard=unnamedplus,unnamed
@@ -135,14 +132,9 @@ set laststatus=2
 set list
 set listchars=eol:<,tab:>\ ,extends:<
 set number
-set noshowmatch
-set noswapfile
-set notimeout
 set ttimeout
 set timeoutlen=100
-set nowrap
 set nrformats=hex
-set nobackup
 set shiftwidth=4
 set showcmd
 set smartindent
@@ -160,7 +152,6 @@ set tags+=tags;
 set statusline=%<%f%m%r%h%w
 set statusline+=%y%{'['.&fenc.(&bomb?'_bom':'').']['.&ff.']'}
 set statusline+=%=%c,%l/%L
-set grepprg=jvgrep
 set cmdheight=2
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
