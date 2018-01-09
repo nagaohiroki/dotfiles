@@ -40,14 +40,11 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 Plug 'sheerun/vim-polyglot'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
 call plug#end()
 filetype plugin indent on
 syntax on
 set background=dark
 colorscheme iceberg
-let g:polyglot_disabled=['python']
 " --------------------------------------------------------------------------
 " UtilSnips
 " --------------------------------------------------------------------------
