@@ -133,7 +133,7 @@ set list
 set listchars=eol:<,tab:>\ ,extends:<
 set number
 set ttimeout
-set timeoutlen=100
+set ttimeoutlen=100
 set nrformats=hex
 set shiftwidth=4
 set showcmd
