@@ -104,11 +104,12 @@ command! CopyPath call setreg('*', expand('%:p'))
 command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
 command! Rc tabe ~/dotfiles/.vimrc
 command! RcUpdate source ~/dotfiles/.vimrc
+command! CdCurrent execute 'cd ' . fnameescape(expand('%:h'))
 if has('win32')
 	command! Term silent !start cmd /k cd /d "%:p:h"
 	command! Wex silent !start explorer /select,"%:p"
 	vnoremap <Leader>x y:silent !start "<C-R>0"<CR>
-	command! VSOpen execute '!start ' . $HOME . '/dotfiles/vsopen.bat' expand('%:p')
+	command! VSOpen execute '!start ' . $HOME . '/dotfiles/vsopen.bat ' . fnameescape(expand('%:p'))
 endif
 if has('mac')
 	command! Term silent !open -a iTerm "%:p:h"
