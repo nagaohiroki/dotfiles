@@ -18,6 +18,8 @@ filetype plugin indent off
 syntax off
 call plug#begin('~/vim-plug')
 Plug 'junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'tsukkee/unite-tag'
@@ -156,7 +158,6 @@ set statusline+=%y%{'['.&fenc.(&bomb?'_bom':'').']['.&ff.']'}
 set statusline+=%=%c,%l/%L
 set cmdheight=2
 set grepprg=jvgrep
-set helplang=ja,en
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
 nnoremap <S-Up>    :set lines-=10<CR>
