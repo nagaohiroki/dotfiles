@@ -18,8 +18,6 @@ filetype plugin indent off
 syntax off
 call plug#begin('~/vim-plug')
 Plug 'junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'tsukkee/unite-tag'
