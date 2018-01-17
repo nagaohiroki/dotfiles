@@ -39,6 +39,7 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 Plug 'sheerun/vim-polyglot'
+Plug 'vim-jp/vimdoc-ja'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -155,6 +156,7 @@ set statusline+=%y%{'['.&fenc.(&bomb?'_bom':'').']['.&ff.']'}
 set statusline+=%=%c,%l/%L
 set cmdheight=2
 set grepprg=jvgrep
+set helplang=ja,en
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
 nnoremap <S-Up>    :set lines-=10<CR>
