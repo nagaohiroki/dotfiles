@@ -50,7 +50,8 @@ class UE4Setting:
             include_values = UE4Setting.elem_to_values(root, ns + include_tag)
             dirname = os.path.dirname(vcx)
             for i in include_values:
-                path = os.path.join(dirname, i)
+                path = os.path.abspath(os.path.join(dirname, i))
+                path = path.replace('\\', '/')
                 if os.path.exists(path):
                     if path not in flags:
                         flags += ['-I', path]
