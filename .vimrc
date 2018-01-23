@@ -70,9 +70,6 @@ call altr#define('Private/%.cpp', 'Public/%.h', 'Classes/%.h')
 let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_go_checkers=['go', 'gofmt', 'golint', 'govet']
-" let g:ycm_show_diagnostics_ui=0
-" let g:syntastic_cpp_checkers=['cppcheck']
-" let g:syntastic_cppcheck_config_file='~/dotfiles/cppcheck.cfg'
 " -------------------------------------------------------------------------
 " youcompleteme
 " -------------------------------------------------------------------------
