@@ -123,6 +123,7 @@ set nowrap
 set nobackup
 set autoindent
 set autoread
+set backspace=indent,eol,start
 set clipboard=unnamedplus,unnamed
 set completeopt=menuone
 set pumheight=15
