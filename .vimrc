@@ -40,6 +40,8 @@ Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-jp/vimdoc-ja'
+Plug 'mattn/vimtweak'
+Plug 'mattn/transparency-windows-vim'
 call plug#end()
 filetype plugin indent on
 syntax on
