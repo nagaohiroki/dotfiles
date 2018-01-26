@@ -110,20 +110,17 @@ command! Rc tabe ~/dotfiles/.vimrc
 command! RcUpdate source ~/dotfiles/.vimrc
 command! CdCurrent execute 'cd ' . fnameescape(expand('%:h'))
 if has('win32')
-	command! Term silent !start cmd /k cd /d "%:p:h"
 	command! Wex silent !start explorer /select,"%:p"
-	vnoremap <Leader>x y:silent !start "<C-R>0"<CR>
 	command! VSOpen execute '!start ' . $HOME . '/dotfiles/vsopen.bat ' . fnameescape(expand('%:p'))
 endif
 if has('mac')
-	command! Term silent !open -a iTerm "%:p:h"
 	command! Wex silent !open "%:p:h"
-	vnoremap <Leader>x y:silent !open "<C-R>0"<CR>
 endif
 set noshowmatch
 set noswapfile
 set nowrap
 set nobackup
+set nofixeol 
 set autoindent
 set autoread
 set backspace=indent,eol,start
@@ -160,7 +157,6 @@ set statusline+=%y%{'['.&fenc.(&bomb?'_bom':'').']['.&ff.']'}
 set statusline+=%=%c,%l/%L
 set cmdheight=2
 set grepprg=jvgrep
-set nofixeol 
 set ambiwidth=double
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
