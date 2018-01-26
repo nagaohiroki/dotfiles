@@ -161,6 +161,7 @@ set statusline+=%=%c,%l/%L
 set cmdheight=2
 set grepprg=jvgrep
 set nofixeol 
+set ambiwidth=double
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
 nnoremap <S-Up>    :set lines-=10<CR>
