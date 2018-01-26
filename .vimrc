@@ -1,6 +1,6 @@
 ﻿scriptencoding utf-8
 set encoding=utf8
-set fileencodings=ucs-bom,iso-2022-jp-3,euc-jisx0213,euc-jp,cp932,utf-8
+set fileencodings=ucs-bom,iso-2022-jp-3,euc-jisx0213,cp932,sjis,euc-jp,utf-8
 let mapleader="\<Space>"
 " -------------------------------------------------------------------------
 " vim-plug
