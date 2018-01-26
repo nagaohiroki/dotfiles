@@ -103,6 +103,7 @@ command! Astyle call Astyle()
 " Utility Setting(not plugins setting)
 " ---------------------------------------------------------------------
 autocmd QuickFixCmdPost *grep* cwindow
+autocmd BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 command! CopyPath call setreg('*', expand('%:p'))
 command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
 command! Rc tabe ~/dotfiles/.vimrc
