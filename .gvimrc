@@ -19,11 +19,6 @@ if has('kaoriya')
 		autocmd GUIEnter * set transparency=10
 	endif
 endif
-"--------------------------------------------------------------------------
-"colorscheme
-"--------------------------------------------------------------------------
-colorscheme iceberg
-set background=dark
 if has('multi_byte_ime') || has('xim')
 	hi CursorIM guibg=Red guifg=NONE
 endif
