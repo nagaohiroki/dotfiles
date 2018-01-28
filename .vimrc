@@ -20,6 +20,7 @@ call plug#begin('~/vim-plug')
 Plug 'junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
+Plug 'Shougo/neoyank.vim'
 Plug 'tsukkee/unite-tag'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-syntastic/syntastic'
