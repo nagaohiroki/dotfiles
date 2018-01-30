@@ -107,7 +107,7 @@ autocmd QuickFixCmdPost *grep* cwindow
 autocmd BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 command! CopyPath call setreg('*', expand('%:p'))
 command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
-command! Rc tabe ~/dotfiles/.vimrc
+command! Rc e ~/dotfiles/.vimrc
 command! RcUpdate source ~/dotfiles/.vimrc
 command! CdCurrent execute 'cd ' . fnameescape(expand('%:h'))
 if has('win32')
@@ -168,3 +168,4 @@ nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
+inoremap <ESC> <ESC>:set iminsert=0<CR>
