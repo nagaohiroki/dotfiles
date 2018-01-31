@@ -168,4 +168,3 @@ nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
-inoremap <ESC> <ESC>:set iminsert=0<CR>
