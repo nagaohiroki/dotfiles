@@ -20,7 +20,6 @@ call plug#begin('~/vim-plug')
 Plug 'junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
-Plug 'Shougo/neoyank.vim'
 Plug 'tsukkee/unite-tag'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-syntastic/syntastic'
@@ -103,8 +102,11 @@ command! Astyle call Astyle()
 " ----------------------------------------------------------------------
 " Utility Setting(not plugins setting)
 " ---------------------------------------------------------------------
-autocmd QuickFixCmdPost *grep* cwindow
-autocmd BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+augroup vimrc_loading
+	autocmd!
+	autocmd QuickFixCmdPost *grep* cwindow
+	autocmd BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+augroup END
 command! CopyPath call setreg('*', expand('%:p'))
 command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
 command! Rc e ~/dotfiles/.vimrc
@@ -159,13 +161,11 @@ set statusline+=%=%c,%l/%L
 set cmdheight=2
 set grepprg=jvgrep
 set ambiwidth=double
+nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
-nnoremap <S-Up>    :set lines-=10<CR>
-nnoremap <S-Down>  :set lines+=10<CR>
 nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
-nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 inoremap <ESC> <ESC>:set iminsert=0<CR>
