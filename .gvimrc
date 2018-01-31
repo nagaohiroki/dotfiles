@@ -11,14 +11,14 @@ endif
 if has('mac')
 	set guifont=Osaka-Mono:h14
 endif
-if has('kaoriya')
-	if has('win32')
-		autocmd BufNewFile,BufRead,FocusGained * set transparency=220
+augroup gvimrc_loading
+	autocmd!
+	if has('kaoriya')
+		if has('mac')
+			autocmd GUIEnter * set transparency=10
+		endif
 	endif
-	if has('mac')
-		autocmd GUIEnter * set transparency=10
-	endif
-endif
+augroup END
 if has('multi_byte_ime') || has('xim')
 	hi CursorIM guibg=Red guifg=NONE
 endif
