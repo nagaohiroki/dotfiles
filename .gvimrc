@@ -25,3 +25,4 @@ endif
 command! RcUpdate source ~/dotfiles/.vimrc | source ~/dotfiles/.gvimrc
 set background=dark
 colorscheme iceberg
+inoremap <ESC> <ESC>:set iminsert=0<CR>
