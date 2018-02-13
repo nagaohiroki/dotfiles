@@ -26,3 +26,5 @@ command! RcUpdate source ~/dotfiles/.vimrc | source ~/dotfiles/.gvimrc
 set background=dark
 colorscheme iceberg
 inoremap <ESC> <ESC>:set iminsert=0<CR>
+nnoremap <S-Left>  :set columns-=100<CR>
+nnoremap <S-Right> :set columns+=100<CR>

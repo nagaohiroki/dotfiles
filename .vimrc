@@ -162,8 +162,6 @@ set cmdheight=2
 set grepprg=jvgrep
 set ambiwidth=double
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
-nnoremap <S-Left>  :set columns-=100<CR>
-nnoremap <S-Right> :set columns+=100<CR>
 nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
