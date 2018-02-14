@@ -19,9 +19,6 @@ augroup gvimrc_loading
 		endif
 	endif
 augroup END
-if has('multi_byte_ime') || has('xim')
-	hi CursorIM guibg=Red guifg=NONE
-endif
 command! RcUpdate source ~/dotfiles/.vimrc | source ~/dotfiles/.gvimrc
 set background=dark
 colorscheme iceberg
