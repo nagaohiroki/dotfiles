@@ -129,6 +129,7 @@ set autoread
 set backspace=indent,eol,start
 set clipboard=unnamedplus,unnamed
 set completeopt=menuone
+set foldmethod=marker
 set pumheight=15
 set helplang=ja
 set hidden
