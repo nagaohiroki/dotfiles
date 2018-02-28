@@ -24,3 +24,6 @@ set background=dark
 colorscheme iceberg
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
+if has('multi_byte_ime')
+    highlight CursorIM guifg=NONE guibg=Red
+endif
