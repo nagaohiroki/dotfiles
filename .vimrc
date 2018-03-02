@@ -139,8 +139,6 @@ set laststatus=2
 set list
 set listchars=eol:<,tab:>\ ,extends:<
 set number
-set ttimeout
-set ttimeoutlen=100
 set nrformats=hex
 set shiftwidth=4
 set showcmd
