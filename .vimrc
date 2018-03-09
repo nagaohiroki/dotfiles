@@ -42,11 +42,17 @@ Plug 'vim-jp/vimdoc-ja'
 Plug 'mattn/vimtweak'
 Plug 'mattn/transparency-windows-vim'
 Plug 'kannokanno/previm'
+Plug 'majutsushi/tagbar'
 call plug#end()
 filetype plugin indent on
 syntax on
 set background=dark
 colorscheme iceberg
+" --------------------------------------------------------------------------
+" tagbar
+" --------------------------------------------------------------------------
+let g:tagbar_sort=0
+nnoremap <F8> :TagbarToggle<CR>
 " --------------------------------------------------------------------------
 " UtilSnips
 " --------------------------------------------------------------------------
