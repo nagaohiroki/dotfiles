@@ -9,6 +9,7 @@ import xml.etree.ElementTree as ET
 import os
 import codecs
 import json
+import glob
 
 
 class UE4Setting:
@@ -56,6 +57,17 @@ class UE4Setting:
                     if path not in flags:
                         flags += ['-I', path]
         return flags
+
+    @staticmethod
+    def find_uproject(filename):
+        filepath = os.path.abspath(filename)
+        while True:
+            head, tail = os.path.split(filepath)
+            if not head:
+                return
+            uprojects = glob.glob(head, '*.uproject')
+            if uprojects:
+                return uprojects[0]
 
 
 def main():

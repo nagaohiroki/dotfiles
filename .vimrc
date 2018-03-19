@@ -118,7 +118,7 @@ command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
 command! Rc e ~/dotfiles/.vimrc
 command! RcUpdate source ~/dotfiles/.vimrc
 command! CdCurrent execute 'cd ' . fnameescape(expand('%:h'))
-command! -nargs=? VDSplit vertical diffsplit <f-args>
+command! -nargs=1 -complete=file VDsplit vertical diffsplit <args>
 if has('win32')
 	command! Wex silent !start explorer /select,"%:p"
 	command! VSOpen execute '!start ' . $HOME . '/dotfiles/vsopen.bat ' . fnameescape(expand('%:p'))
