@@ -61,8 +61,6 @@ let g:UltiSnipsExpandTrigger='<C-s>'
 " NERDTree
 " --------------------------------------------------------------------------
 nnoremap <Leader>n :NERDTreeFind<CR>
-let g:NERDTreeShowBookmarks=1
-let g:NERDTreeQuitOnOpen=1
 " --------------------------------------------------------------------------
 " open-browser
 " --------------------------------------------------------------------------
