@@ -17,9 +17,11 @@ filetype plugin indent off
 syntax off
 call plug#begin('~/vim-plug')
 Plug 'https://github.com/junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
-Plug 'https://github.com/Shougo/unite.vim'
-Plug 'https://github.com/Shougo/neomru.vim'
-Plug 'https://github.com/tsukkee/unite-tag'
+"Plug 'https://github.com/Shougo/unite.vim'
+"Plug 'https://github.com/Shougo/neomru.vim'
+"Plug 'https://github.com/tsukkee/unite-tag'
+Plug 'https://github.com/kien/ctrlp.vim'
+Plug 'https://github.com/ivalkeen/vim-ctrlp-tjump'
 Plug 'https://github.com/tyru/open-browser.vim'
 Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/scrooloose/nerdtree'
@@ -42,8 +44,6 @@ Plug 'https://github.com/mattn/vimtweak'
 Plug 'https://github.com/mattn/transparency-windows-vim'
 Plug 'https://github.com/kannokanno/previm'
 Plug 'https://github.com/majutsushi/tagbar'
-Plug 'https://github.com/junegunn/fzf'
-Plug 'https://github.com/junegunn/fzf.vim'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -85,10 +85,18 @@ nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 " -------------------------------------------------------------------------
 " unite(neomru and unite-tag)
 " -------------------------------------------------------------------------
-call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', '\.meta$' )
-nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
-nnoremap <Leader>m :Unite -start-insert file_mru<CR>
-nnoremap <C-]> :execute 'cd ' . expand('%:h') \| UniteWithCursorWord tag<CR>
+" call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', '\.meta$' )
+" nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
+" nnoremap <Leader>m :Unite -start-insert file_mru<CR>
+" nnoremap <C-]> :execute 'cd ' . expand('%:h') \| UniteWithCursorWord tag<CR>
+" -------------------------------------------------------------------------
+" CtrlP
+" -------------------------------------------------------------------------
+let g:ctrlp_map=''
+nnoremap <Leader>m :CtrlPMRU<CR>
+nnoremap <Leader>f :CtrlP<CR>
+nnoremap <c-]> :execute 'cd ' . expand('%:h') \| CtrlPtjump<cr>
+vnoremap <c-]> :execute 'cd ' . expand('%:h') \| CtrlPtjumpVisual<cr>
 " --------------------------------------------------------------------------
 " DoxygenToolkit
 " --------------------------------------------------------------------------
@@ -166,6 +174,7 @@ set statusline+=%=%c,%l/%L
 set cmdheight=2
 set grepprg=jvgrep
 set ambiwidth=double
+set wildignore=*.meta
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
