@@ -17,9 +17,6 @@ filetype plugin indent off
 syntax off
 call plug#begin('~/vim-plug')
 Plug 'https://github.com/junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
-"Plug 'https://github.com/Shougo/unite.vim'
-"Plug 'https://github.com/Shougo/neomru.vim'
-"Plug 'https://github.com/tsukkee/unite-tag'
 Plug 'https://github.com/kien/ctrlp.vim'
 Plug 'https://github.com/ivalkeen/vim-ctrlp-tjump'
 Plug 'https://github.com/tyru/open-browser.vim'
@@ -83,17 +80,10 @@ let g:syntastic_go_checkers=['go', 'gofmt', 'golint', 'govet']
 let g:ycm_global_ycm_extra_conf='~/dotfiles/.ycm_extra_conf.py'
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 " -------------------------------------------------------------------------
-" unite(neomru and unite-tag)
-" -------------------------------------------------------------------------
-" call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', '\.meta$' )
-" nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
-" nnoremap <Leader>m :Unite -start-insert file_mru<CR>
-" nnoremap <C-]> :execute 'cd ' . expand('%:h') \| UniteWithCursorWord tag<CR>
-" -------------------------------------------------------------------------
 " CtrlP
 " -------------------------------------------------------------------------
 let g:ctrlp_map=''
-let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+let g:ctrlp_cache_dir=$HOME.'/.cache/ctrlp'
 let g:ctrlp_clear_cache_on_exit=0
 nnoremap <Leader>m :CtrlPMRU<CR>
 nnoremap <Leader>f :CtrlP<CR>
