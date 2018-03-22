@@ -17,8 +17,9 @@ filetype plugin indent off
 syntax off
 call plug#begin('~/vim-plug')
 Plug 'https://github.com/junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
-Plug 'https://github.com/ivalkeen/vim-ctrlp-tjump'
-Plug 'https://github.com/ctrlpvim/ctrlp.vim'
+Plug 'https://github.com/Shougo/unite.vim'
+Plug 'https://github.com/Shougo/neomru.vim'
+Plug 'https://github.com/tsukkee/unite-tag'
 Plug 'https://github.com/tyru/open-browser.vim'
 Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/scrooloose/nerdtree'
@@ -80,13 +81,12 @@ let g:syntastic_go_checkers=['go', 'gofmt', 'golint', 'govet']
 let g:ycm_global_ycm_extra_conf='~/dotfiles/.ycm_extra_conf.py'
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 " -------------------------------------------------------------------------
-" CtrlP
+" unite(neomru and unite-tag)
 " -------------------------------------------------------------------------
-let g:ctrlp_map=''
-nnoremap <Leader>m :CtrlPMRU<CR>
-nnoremap <Leader>f :CtrlP<CR>
-nnoremap <c-]> :execute 'cd ' . expand('%:h') \| CtrlPtjump<cr>
-vnoremap <c-]> :execute 'cd ' . expand('%:h') \| CtrlPtjumpVisual<cr>
+call unite#custom#source('file_mru,file,file_rec', 'ignore_pattern', '\.meta$' )
+nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
+nnoremap <Leader>m :Unite -start-insert file_mru<CR>
+nnoremap <C-]> :execute 'cd ' . expand('%:h') \| UniteWithCursorWord tag<CR>
 " --------------------------------------------------------------------------
 " DoxygenToolkit
 " --------------------------------------------------------------------------
