@@ -17,8 +17,8 @@ filetype plugin indent off
 syntax off
 call plug#begin('~/vim-plug')
 Plug 'https://github.com/junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
-Plug 'https://github.com/kien/ctrlp.vim'
 Plug 'https://github.com/ivalkeen/vim-ctrlp-tjump'
+Plug 'https://github.com/ctrlpvim/ctrlp.vim'
 Plug 'https://github.com/tyru/open-browser.vim'
 Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/scrooloose/nerdtree'
@@ -83,8 +83,6 @@ nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 " CtrlP
 " -------------------------------------------------------------------------
 let g:ctrlp_map=''
-let g:ctrlp_cache_dir=$HOME.'/.cache/ctrlp'
-let g:ctrlp_clear_cache_on_exit=0
 nnoremap <Leader>m :CtrlPMRU<CR>
 nnoremap <Leader>f :CtrlP<CR>
 nnoremap <c-]> :execute 'cd ' . expand('%:h') \| CtrlPtjump<cr>
