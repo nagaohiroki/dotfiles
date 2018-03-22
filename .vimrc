@@ -93,6 +93,8 @@ nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 " CtrlP
 " -------------------------------------------------------------------------
 let g:ctrlp_map=''
+let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+let g:ctrlp_clear_cache_on_exit=0
 nnoremap <Leader>m :CtrlPMRU<CR>
 nnoremap <Leader>f :CtrlP<CR>
 nnoremap <c-]> :execute 'cd ' . expand('%:h') \| CtrlPtjump<cr>
