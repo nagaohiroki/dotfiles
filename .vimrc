@@ -42,7 +42,7 @@ Plug 'https://github.com/mattn/vimtweak'
 Plug 'https://github.com/mattn/transparency-windows-vim'
 Plug 'https://github.com/kannokanno/previm'
 Plug 'https://github.com/majutsushi/tagbar'
-Plug 'https://github.com/airblade/vim-gitgutter'
+Plug 'https://github.com/mhinz/vim-signify'
 call plug#end()
 filetype plugin indent on
 syntax on
