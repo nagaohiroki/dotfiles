@@ -49,6 +49,10 @@ syntax on
 set background=dark
 colorscheme iceberg
 " --------------------------------------------------------------------------
+" vim-signify(for perforce)
+" --------------------------------------------------------------------------
+let g:signify_vcs_cmds_diffmode={'perforce': 'p4 print %f'}
+" --------------------------------------------------------------------------
 " tagbar
 " --------------------------------------------------------------------------
 let g:tagbar_sort=0
@@ -116,6 +120,7 @@ command! Rc e ~/dotfiles/.vimrc
 command! RcUpdate source ~/dotfiles/.vimrc
 command! CdCurrent execute 'cd ' . fnameescape(expand('%:h'))
 command! -nargs=1 -complete=file VDsplit vertical diffsplit <args>
+command! CppCheck SyntasticCheck cppcheck | Errors
 if has('win32')
 	command! Wex silent !start explorer /select,"%:p"
 	command! VSOpen execute '!start ' . $HOME . '/dotfiles/vsopen.bat ' . fnameescape(expand('%:p'))
