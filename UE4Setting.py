@@ -42,11 +42,18 @@ class UE4Setting:
             ns = './/{http://schemas.microsoft.com/developer/msbuild/2003}'
             tree = ET.parse(vcx)
             root = tree.getroot()
+            # define
             define_tag = 'NMakePreprocessorDefinitions'
             define_values = UE4Setting.elem_to_values(root, ns + define_tag)
             for define in define_values:
-                if define not in flags:
-                    flags += ['-D', define]
+                if define == '$({0})'.format(define_tag):
+                    continue
+                if define in flags:
+                    continue
+                if '/' in define:
+                    continue
+                flags += ['-D', define]
+            # include
             include_tag = 'NMakeIncludeSearchPath'
             include_values = UE4Setting.elem_to_values(root, ns + include_tag)
             dirname = os.path.dirname(vcx)
