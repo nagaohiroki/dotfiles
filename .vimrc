@@ -77,6 +77,7 @@ call altr#define('Private/%.cpp', 'Public/%.h', 'Classes/%.h')
 let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_go_checkers=['go', 'gofmt', 'golint', 'govet']
+command! CppCheck SyntasticCheck cppcheck | Errors
 " -------------------------------------------------------------------------
 " youcompleteme
 " -------------------------------------------------------------------------
@@ -117,7 +118,6 @@ command! Rc e ~/dotfiles/.vimrc
 command! RcUpdate source ~/dotfiles/.vimrc
 command! CdCurrent execute 'cd ' . fnameescape(expand('%:h'))
 command! -nargs=1 -complete=file VDsplit vertical diffsplit <args>
-command! CppCheck SyntasticCheck cppcheck | Errors
 if has('win32')
 	command! Wex silent !start explorer /select,"%:p"
 	command! VSOpen execute '!start ' . $HOME . '/dotfiles/vsopen.bat ' . fnameescape(expand('%:p'))
