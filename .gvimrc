@@ -13,10 +13,8 @@ if has('mac')
 endif
 augroup gvimrc_loading
 	autocmd!
-	if has('kaoriya')
-		if has('mac')
-			autocmd GUIEnter * set transparency=10
-		endif
+	if has('mac')
+		autocmd GUIEnter * set transparency=10
 	endif
 augroup END
 command! RcUpdate source ~/dotfiles/.vimrc | source ~/dotfiles/.gvimrc
