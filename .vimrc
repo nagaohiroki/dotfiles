@@ -27,7 +27,7 @@ Plug 'https://github.com/cohama/agit.vim'
 Plug 'https://github.com/honza/vim-snippets'
 Plug 'https://github.com/idbrii/vim-unreal'
 Plug 'https://github.com/kana/vim-altr'
-Plug 'https://github.com/kannokanno/previm'
+Plug 'https://github.com/previm/previm'
 Plug 'https://github.com/majutsushi/tagbar'
 Plug 'https://github.com/mattn/transparency-windows-vim'
 Plug 'https://github.com/mattn/vimtweak'
@@ -80,7 +80,6 @@ command! CppCheck SyntasticCheck cppcheck | Errors
 " -------------------------------------------------------------------------
 " youcompleteme
 " -------------------------------------------------------------------------
-let g:ycm_global_ycm_extra_conf='~/dotfiles/.ycm_extra_conf.py'
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 " -------------------------------------------------------------------------
 " unite(neomru and unite-tag)

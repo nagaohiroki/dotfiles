@@ -22,6 +22,8 @@ set background=dark
 colorscheme iceberg
 nnoremap <S-Left>  :set columns-=100<CR>
 nnoremap <S-Right> :set columns+=100<CR>
+nnoremap <S-Up>  :set lines-=10<CR>
+nnoremap <S-Down> :set lines+=10<CR>
 inoremap <ESC> <ESC>:set iminsert=0<CR>
 nnoremap <ESC> <ESC>:set iminsert=0<CR>
 if has('multi_byte_ime')
