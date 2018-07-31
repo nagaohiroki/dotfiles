@@ -43,6 +43,8 @@ Plug 'https://github.com/tyru/open-browser.vim'
 Plug 'https://github.com/vim-jp/vimdoc-ja'
 Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Plug 'https://github.com/vim-syntastic/syntastic'
+Plug 'https://github.com/junegunn/fzf'
+Plug 'https://github.com/junegunn/fzf.vim'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -87,6 +89,12 @@ nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
 nnoremap <Leader>m :Unite -start-insert file_mru<CR>
 nnoremap <C-]> :execute 'cd ' . expand('%:h') \| UniteWithCursorWord tag<CR>
+" -------------------------------------------------------------------------
+" fzf
+" -------------------------------------------------------------------------
+nnoremap <C-]> :execute 'cd ' . expand('%:h') \| Tags <C-R><C-W><CR>
+nnoremap <Leader>f :Files %:h<CR>
+nnoremap <Leader>m :History<CR>
 " --------------------------------------------------------------------------
 " DoxygenToolkit
 " --------------------------------------------------------------------------
@@ -115,7 +123,6 @@ command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
 command! Rc e ~/dotfiles/.vimrc
 command! RcUpdate source ~/dotfiles/.vimrc
 command! CdCurrent execute 'cd ' . fnameescape(expand('%:h'))
-command! -nargs=1 -complete=file VDsplit vertical diffsplit <args>
 if has('win32')
 	command! Wex silent !start explorer /select,"%:p"
 	command! VSOpen execute '!start ' . $HOME . '/dotfiles/vsopen.bat ' . fnameescape(expand('%:p'))
