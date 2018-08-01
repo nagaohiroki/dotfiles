@@ -43,8 +43,6 @@ Plug 'https://github.com/tyru/open-browser.vim'
 Plug 'https://github.com/vim-jp/vimdoc-ja'
 Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Plug 'https://github.com/vim-syntastic/syntastic'
-Plug 'https://github.com/junegunn/fzf'
-Plug 'https://github.com/junegunn/fzf.vim'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -89,12 +87,6 @@ nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
 nnoremap <Leader>m :Unite -start-insert file_mru<CR>
 nnoremap <C-]> :execute 'cd ' . expand('%:h') \| UniteWithCursorWord tag<CR>
-" -------------------------------------------------------------------------
-" fzf
-" -------------------------------------------------------------------------
-nnoremap <C-]> :execute 'cd ' . expand('%:h') \| Tags <C-R><C-W><CR>
-nnoremap <Leader>f :Files %:h<CR>
-nnoremap <Leader>m :History<CR>
 " --------------------------------------------------------------------------
 " DoxygenToolkit
 " --------------------------------------------------------------------------
