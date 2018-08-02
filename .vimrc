@@ -22,7 +22,6 @@ Plug 'https://github.com/Shougo/unite.vim'
 Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/Valloric/YouCompleteMe'
 Plug 'https://github.com/beyondmarc/hlsl.vim'
-Plug 'https://github.com/cocopon/iceberg.vim'
 Plug 'https://github.com/cohama/agit.vim'
 Plug 'https://github.com/honza/vim-snippets'
 Plug 'https://github.com/idbrii/vim-unreal'
@@ -43,6 +42,7 @@ Plug 'https://github.com/tyru/open-browser.vim'
 Plug 'https://github.com/vim-jp/vimdoc-ja'
 Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Plug 'https://github.com/vim-syntastic/syntastic'
+Plug 'https://github.com/flazz/vim-colorschemes'
 call plug#end()
 filetype plugin indent on
 syntax on
