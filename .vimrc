@@ -43,6 +43,7 @@ Plug 'https://github.com/vim-jp/vimdoc-ja'
 Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/flazz/vim-colorschemes'
+Plug 'https://github.com/jremmen/vim-ripgrep'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -161,7 +162,6 @@ set statusline=%<%f%m%r%h%w
 set statusline+=%y%{'['.&fenc.(&bomb?'_bom':'').']['.&ff.']'}
 set statusline+=%=%c,%l/%L
 set cmdheight=2
-set grepprg=jvgrep
 set ambiwidth=double
 set wildignore=*.meta
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
