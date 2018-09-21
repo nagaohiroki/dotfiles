@@ -82,6 +82,7 @@ command! CppCheck SyntasticCheck cppcheck | Errors
 " youcompleteme
 " -------------------------------------------------------------------------
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
+let g:ycm_global_ycm_extra_conf='~/dotfiles/.ycm_extra_conf.py'
 " -------------------------------------------------------------------------
 " unite(neomru and unite-tag)
 " -------------------------------------------------------------------------
