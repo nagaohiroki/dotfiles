@@ -66,15 +66,25 @@ class UE4Setting:
         return flags
 
     @staticmethod
-    def find_uproject(filename):
-        filepath = os.path.abspath(filename)
-        while True:
-            head, tail = os.path.split(filepath)
-            if not head:
-                return
-            uprojects = glob.glob(head, '*.uproject')
-            if uprojects:
-                return uprojects[0]
+    def find_ptn(filepath, ptn):
+        head, tail = os.path.split(os.path.abspath(filepath))
+        if not tail:
+            return
+        targets = glob.glob(os.path.join(head, ptn))
+        if targets:
+            return targets[0]
+        return UE4Setting.find_ptn(head, ptn)
+
+    @staticmethod
+    def find_vcxproj(filepath):
+        proj = 'Engine/Intermediate/ProjectFiles'
+        ue4 = UE4Setting.find_ptn(filepath, os.path.join(proj, 'UE4.vcxproj'))
+        proj = UE4Setting.find_ptn(filepath, '*.uproject')
+        if not proj:
+            return [ue4]
+        proj = os.path.splitext(os.path.basename(proj))[0] + '.vcxproj'
+        uproj = UE4Setting.find_ptn(filepath, os.path.join(proj, proj))
+        return [ue4, uproj]
 
 
 def main():
