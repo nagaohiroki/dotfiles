@@ -14,9 +14,11 @@ import glob
 
 class UE4Setting:
     @staticmethod
-    def ue4_flags():
-        json_path = os.path.join(os.path.dirname(__file__), 'ue4path.json')
-        projects = UE4Setting.load_dirs(json_path)
+    def ue4_flags(filename):
+        # json_path = os.path.join(os.path.dirname(__file__), 'ue4path.json')
+        # projects = UE4Setting.load_dirs(json_path)
+        projects = UE4Setting.find_vcxproj(filename)
+        print(projects)
         return UE4Setting.ue4_flags_dir_def(projects)
 
     @staticmethod
@@ -77,18 +79,18 @@ class UE4Setting:
 
     @staticmethod
     def find_vcxproj(filepath):
-        proj = 'Engine/Intermediate/ProjectFiles'
-        ue4 = UE4Setting.find_ptn(filepath, os.path.join(proj, 'UE4.vcxproj'))
+        proj_dir = 'Engine/Intermediate/ProjectFiles/{0}.vcxproj'
+        ue4 = UE4Setting.find_ptn(filepath, proj_dir.format('UE4'))
         proj = UE4Setting.find_ptn(filepath, '*.uproject')
         if not proj:
             return [ue4]
-        proj = os.path.splitext(os.path.basename(proj))[0] + '.vcxproj'
-        uproj = UE4Setting.find_ptn(filepath, os.path.join(proj, proj))
+        proj = os.path.splitext(os.path.basename(proj))[0]
+        uproj = UE4Setting.find_ptn(filepath, proj_dir.format(proj))
         return [ue4, uproj]
 
 
 def main():
-    flags = UE4Setting.ue4_flags()
+    flags = UE4Setting.ue4_flags(__file__)
     if flags:
         print('\n'.join(flags))
 

@@ -83,9 +83,6 @@ get_python_inc(),
 '-isystem',
 './benchmarks/benchmark/include',
 ]
-ue4flags = UE4Setting.ue4_flags()
-if ue4flags:
-    flags += ue4flags
 # Clang automatically sets the '-std=' flag to 'c++14' for MSVC 2015 or later,
 # which is required for compiling the standard library, and to 'c++11' for older
 # versions.
@@ -141,6 +138,10 @@ def GetCompilationInfoForFile( filename ):
 
 def FlagsForFile( filename, **kwargs ):
   if not database:
+    ue4flags = UE4Setting.ue4_flags(filename)
+    if ue4flags:
+        global flags
+        flags += ue4flags
     return {
       'flags': flags,
       'include_paths_relative_to_dir': DirectoryOfThisScript()
