@@ -84,6 +84,7 @@ command! CppCheck SyntasticCheck cppcheck | Errors
 " -------------------------------------------------------------------------
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 let g:ycm_global_ycm_extra_conf='~/dotfiles/.ycm_extra_conf.py'
+let g:ycm_max_diagnostics_to_display=3000
 " -------------------------------------------------------------------------
 " unite(neomru and unite-tag)
 " -------------------------------------------------------------------------
