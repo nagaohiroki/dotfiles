@@ -45,6 +45,7 @@ Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/flazz/vim-colorschemes'
 Plug 'https://github.com/jremmen/vim-ripgrep'
 Plug 'https://github.com/ujihisa/unite-colorscheme'
+Plug 'https://github.com/rhysd/wandbox-vim'
 call plug#end()
 filetype plugin indent on
 syntax on
