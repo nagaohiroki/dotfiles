@@ -46,6 +46,7 @@ Plug 'https://github.com/flazz/vim-colorschemes'
 Plug 'https://github.com/jremmen/vim-ripgrep'
 Plug 'https://github.com/ujihisa/unite-colorscheme'
 Plug 'https://github.com/rhysd/wandbox-vim'
+Plug 'https://github.com/vim-scripts/ShaderHighLight'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -84,7 +85,6 @@ command! CppCheck SyntasticCheck cppcheck | Errors
 " youcompleteme
 " -------------------------------------------------------------------------
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
-let g:ycm_global_ycm_extra_conf='~/dotfiles/.ycm_extra_conf.py'
 let g:ycm_max_diagnostics_to_display=3000
 " -------------------------------------------------------------------------
 " unite(neomru and unite-tag)
