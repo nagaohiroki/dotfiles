@@ -114,6 +114,8 @@ augroup vimrc_loading
 	autocmd!
 	autocmd QuickFixCmdPost *grep* cwindow
 	autocmd BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+	autocmd BufRead,BufNewFile *.usf setfiletype hlsl
+	autocmd BufRead,BufNewFile *.ush setfiletype hlsl
 augroup END
 command! CopyPath call setreg('*', expand('%:p'))
 command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
