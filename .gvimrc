@@ -14,7 +14,7 @@ endif
 augroup gvimrc_loading
 	autocmd!
 	if has('mac')
-		autocmd GUIEnter * set transparency=10
+		autocmd GUIEnter * set transparency=50
 	endif
 augroup END
 command! RcUpdate source ~/dotfiles/.vimrc | source ~/dotfiles/.gvimrc
