@@ -17,14 +17,17 @@ filetype plugin indent off
 syntax off
 call plug#begin('~/vim-plug')
 Plug 'https://github.com/junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
-Plug 'https://github.com/Shougo/neomru.vim'
-Plug 'https://github.com/Shougo/unite.vim'
+" Plug 'https://github.com/Shougo/neomru.vim'
+" Plug 'https://github.com/Shougo/unite.vim'
+" Plug 'https://github.com/idbrii/vim-unreal'
+" Plug 'https://github.com/jremmen/vim-ripgrep'
+" Plug 'https://github.com/ujihisa/unite-colorscheme'
+" Plug 'https://github.com/rhysd/wandbox-vim'
 Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/Valloric/YouCompleteMe'
 Plug 'https://github.com/beyondmarc/hlsl.vim'
 Plug 'https://github.com/cohama/agit.vim'
 Plug 'https://github.com/honza/vim-snippets'
-Plug 'https://github.com/idbrii/vim-unreal'
 Plug 'https://github.com/kana/vim-altr'
 Plug 'https://github.com/previm/previm'
 Plug 'https://github.com/majutsushi/tagbar'
@@ -43,10 +46,9 @@ Plug 'https://github.com/vim-jp/vimdoc-ja'
 Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/flazz/vim-colorschemes'
-Plug 'https://github.com/jremmen/vim-ripgrep'
-Plug 'https://github.com/ujihisa/unite-colorscheme'
-Plug 'https://github.com/rhysd/wandbox-vim'
 Plug 'https://github.com/vim-scripts/ShaderHighLight'
+Plug 'https://github.com/junegunn/fzf'
+Plug 'https://github.com/junegunn/fzf.vim'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -89,9 +91,16 @@ let g:ycm_max_diagnostics_to_display=3000
 " -------------------------------------------------------------------------
 " unite(neomru and unite-tag)
 " -------------------------------------------------------------------------
-nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
-nnoremap <Leader>m :Unite -start-insert file_mru<CR>
-nnoremap <C-]> :execute 'cd ' . expand('%:h') \| UniteWithCursorWord tag<CR>
+" nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
+" nnoremap <Leader>m :Unite -start-insert file_mru<CR>
+" nnoremap <C-]> :execute 'cd ' . expand('%:h') \| UniteWithCursorWord tag<CR>
+" -------------------------------------------------------------------------
+" fzf
+" -------------------------------------------------------------------------
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>m :History<CR>
+nnoremap <Leader>r :Rg <C-R><C-W><CR>
+nnoremap <C-]> :Tags <C-R><C-W><CR>
 " --------------------------------------------------------------------------
 " DoxygenToolkit
 " --------------------------------------------------------------------------
