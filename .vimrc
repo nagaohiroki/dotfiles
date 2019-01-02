@@ -17,12 +17,8 @@ filetype plugin indent off
 syntax off
 call plug#begin('~/vim-plug')
 Plug 'https://github.com/junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
-" Plug 'https://github.com/Shougo/neomru.vim'
-" Plug 'https://github.com/Shougo/unite.vim'
-" Plug 'https://github.com/idbrii/vim-unreal'
-" Plug 'https://github.com/jremmen/vim-ripgrep'
-" Plug 'https://github.com/ujihisa/unite-colorscheme'
-" Plug 'https://github.com/rhysd/wandbox-vim'
+Plug 'https://github.com/junegunn/fzf'
+Plug 'https://github.com/junegunn/fzf.vim'
 Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/Valloric/YouCompleteMe'
 Plug 'https://github.com/beyondmarc/hlsl.vim'
@@ -40,15 +36,12 @@ Plug 'https://github.com/scrooloose/nerdtree'
 Plug 'https://github.com/sheerun/vim-polyglot'
 Plug 'https://github.com/thinca/vim-fontzoom'
 Plug 'https://github.com/tpope/vim-fugitive'
-Plug 'https://github.com/tsukkee/unite-tag'
 Plug 'https://github.com/tyru/open-browser.vim'
 Plug 'https://github.com/vim-jp/vimdoc-ja'
 Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
+Plug 'https://github.com/vim-scripts/ShaderHighLight'
 Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/flazz/vim-colorschemes'
-Plug 'https://github.com/vim-scripts/ShaderHighLight'
-Plug 'https://github.com/junegunn/fzf'
-Plug 'https://github.com/junegunn/fzf.vim'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -88,12 +81,6 @@ command! CppCheck SyntasticCheck cppcheck | Errors
 " -------------------------------------------------------------------------
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 let g:ycm_max_diagnostics_to_display=3000
-" -------------------------------------------------------------------------
-" unite(neomru and unite-tag)
-" -------------------------------------------------------------------------
-" nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
-" nnoremap <Leader>m :Unite -start-insert file_mru<CR>
-" nnoremap <C-]> :execute 'cd ' . expand('%:h') \| UniteWithCursorWord tag<CR>
 " -------------------------------------------------------------------------
 " fzf
 " -------------------------------------------------------------------------
