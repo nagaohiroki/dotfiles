@@ -84,7 +84,7 @@ let g:ycm_max_diagnostics_to_display=3000
 " -------------------------------------------------------------------------
 " fzf
 " -------------------------------------------------------------------------
-nnoremap <Leader>f :execute 'Files ' . fnameescape(expand('%:p:h'))<CR>
+nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>m :History<CR>
 nnoremap <Leader>r :Rg <C-R><C-W><CR>
 nnoremap <C-]> :Tags <C-R><C-W><CR>
