@@ -167,6 +167,7 @@ set cmdheight=2
 set ambiwidth=double
 set wildignore=*.meta
 set noimdisable
+set viminfo='1000,
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
