@@ -17,8 +17,11 @@ filetype plugin indent off
 syntax off
 call plug#begin('~/vim-plug')
 Plug 'https://github.com/junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
-Plug 'https://github.com/junegunn/fzf'
-Plug 'https://github.com/junegunn/fzf.vim'
+Plug 'https://github.com/Shougo/neomru.vim'
+Plug 'https://github.com/Shougo/unite.vim'
+Plug 'https://github.com/tsukkee/unite-tag'
+Plug 'https://github.com/ujihisa/unite-colorscheme'
+Plug 'https://github.com/jremmen/vim-ripgrep'
 Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/Valloric/YouCompleteMe'
 Plug 'https://github.com/beyondmarc/hlsl.vim'
@@ -82,12 +85,15 @@ command! CppCheck SyntasticCheck cppcheck | Errors
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 let g:ycm_max_diagnostics_to_display=3000
 " -------------------------------------------------------------------------
-" fzf
+" Unite
 " -------------------------------------------------------------------------
-nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>m :History<CR>
+nnoremap <Leader>f :Unite -start-insert file -path=<C-R>=fnameescape(expand('%:p:h'))<CR><CR>
+nnoremap <Leader>m :Unite -start-insert file_mru<CR>
+nnoremap <C-]> :execute 'cd ' . expand('%:h') \| UniteWithCursorWord tag<CR>
+" -------------------------------------------------------------------------
+" RipGrep
+" -------------------------------------------------------------------------
 nnoremap <Leader>r :Rg <C-R><C-W><CR>
-nnoremap <C-]> :Tags <C-R><C-W><CR>
 " --------------------------------------------------------------------------
 " DoxygenToolkit
 " --------------------------------------------------------------------------
