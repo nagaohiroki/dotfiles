@@ -23,7 +23,6 @@ Plug 'https://github.com/tsukkee/unite-tag'
 Plug 'https://github.com/ujihisa/unite-colorscheme'
 Plug 'https://github.com/jremmen/vim-ripgrep'
 Plug 'https://github.com/SirVer/ultisnips'
-Plug 'https://github.com/Valloric/YouCompleteMe'
 Plug 'https://github.com/beyondmarc/hlsl.vim'
 Plug 'https://github.com/cohama/agit.vim'
 Plug 'https://github.com/honza/vim-snippets'
@@ -43,8 +42,11 @@ Plug 'https://github.com/tyru/open-browser.vim'
 Plug 'https://github.com/vim-jp/vimdoc-ja'
 Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Plug 'https://github.com/vim-scripts/ShaderHighLight'
-Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/flazz/vim-colorschemes'
+Plug 'https://github.com/Valloric/YouCompleteMe'
+Plug 'https://github.com/vim-syntastic/syntastic'
+" Plug 'https://github.com/w0rp/ale'
+" Plug 'https://github.com/OmniSharp/omnisharp-vim'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -71,7 +73,7 @@ nmap <Leader>o <Plug>(openbrowser-smart-search)
 " artr for Unreal C++
 " ---------------------------------------------------------------------
 nmap <Leader>a <Plug>(altr-forward)
-call altr#define('Private/%.cpp', 'Public/%.h', 'Classes/%.h')
+call altr#define('Private/%.cpp', 'Public/%.h', 'Classes/%.h', 'Public/*/%.h')
 " --------------------------------------------------------------------------
 " syntastic
 " --------------------------------------------------------------------------
@@ -140,7 +142,6 @@ set autoindent
 set autoread
 set backspace=indent,eol,start
 set clipboard=unnamedplus,unnamed
-set completeopt=menuone
 set foldmethod=marker
 set pumheight=15
 set helplang=ja
@@ -174,8 +175,13 @@ set ambiwidth=double
 set wildignore=*.meta
 set noimdisable
 set viminfo='1000,
+set completeopt=menu,menuone,preview,noselect,noinsert
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
+" let g:ale_completion_enabled=1
+" let g:ale_linters = {'cpp': ['clangd']}
+" let g:ale_c_parse_compile_commands=1
+" imap <C-Space> <Plug>(ale_complete)
