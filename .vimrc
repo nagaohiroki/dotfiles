@@ -176,7 +176,7 @@ set ambiwidth=double
 set wildignore=*.meta
 set noimdisable
 set viminfo='1000,
-set completeopt=menu,menuone,preview,noselect,noinsert
+set completeopt=menu,menuone,noselect,noinsert
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
