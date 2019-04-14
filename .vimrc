@@ -45,6 +45,7 @@ Plug 'https://github.com/vim-scripts/ShaderHighLight'
 Plug 'https://github.com/flazz/vim-colorschemes'
 Plug 'https://github.com/Valloric/YouCompleteMe'
 Plug 'https://github.com/vim-syntastic/syntastic'
+Plug 'https://github.com/tyru/open-browser-github.vim'
 " Plug 'https://github.com/w0rp/ale'
 " Plug 'https://github.com/OmniSharp/omnisharp-vim'
 call plug#end()
