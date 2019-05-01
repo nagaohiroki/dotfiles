@@ -30,8 +30,8 @@
 	"Parameter can be",
 	"Convert to 'return' statement",
     "(Rule '.*')",
-	"The private field '.*' is never assigned",
-	"Convert to readonly"
+	"Convert to readonly",
+	"Initializing field by default value is redundant"
   ],
 
   "TestCommands": {
