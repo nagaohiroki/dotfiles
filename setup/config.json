@@ -31,7 +31,7 @@
 	"Convert to 'return' statement",
     "(Rule '.*')",
 	"Convert to readonly",
-	"Initializing field by default value is redundant"
+	"The private field '.*' is never assigned"
   ],
 
   "TestCommands": {
