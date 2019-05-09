@@ -12,6 +12,9 @@ endfunction
 command! InstallVimPlug call InstallVimPlug(expand('~/vim-plug'))
 if has('vim_starting')
 	set runtimepath^=~/vim-plug
+    let &t_SI .= "\e[6 q"
+    let &t_EI .= "\e[2 q"
+    let &t_SR .= "\e[4 q"
 endif
 filetype plugin indent off
 syntax off
@@ -177,6 +180,7 @@ set wildignore=*.meta
 set noimdisable
 set viminfo='1000,
 set completeopt=menu,menuone,noselect,noinsert
+set ttimeoutlen=10
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
