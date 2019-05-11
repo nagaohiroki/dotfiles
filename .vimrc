@@ -50,8 +50,6 @@ Plug 'https://github.com/Valloric/YouCompleteMe'
 Plug 'https://github.com/vim-syntastic/syntastic'
 Plug 'https://github.com/tyru/open-browser-github.vim'
 Plug 'https://github.com/haya14busa/vim-open-googletranslate'
-" Plug 'https://github.com/w0rp/ale'
-" Plug 'https://github.com/OmniSharp/omnisharp-vim'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -187,7 +185,3 @@ nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
-" let g:ale_completion_enabled=1
-" let g:ale_linters = {'cpp': ['clangd'], 'cs': ['omnisharp'], 'python': ['pyls']}
-" let g:ale_c_parse_compile_commands=1
-" imap <C-Space> <Plug>(ale_complete)
