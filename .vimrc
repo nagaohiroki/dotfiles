@@ -168,7 +168,6 @@ set undofile
 set whichwrap=b,s,h,l,<,>,[,]
 set mouse=a
 set visualbell t_vb=
-set colorcolumn=80
 set tags+=tags;
 set statusline=%<%f%m%r%h%w
 set statusline+=%y%{'['.&fenc.(&bomb?'_bom':'').']['.&ff.']'}
