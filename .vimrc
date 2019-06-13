@@ -12,9 +12,6 @@ endfunction
 command! InstallVimPlug call InstallVimPlug(expand('~/vim-plug'))
 if has('vim_starting')
 	set runtimepath^=~/vim-plug
-    let &t_SI .= "\e[6 q"
-    let &t_EI .= "\e[2 q"
-    let &t_SR .= "\e[4 q"
 endif
 filetype plugin indent off
 syntax off
