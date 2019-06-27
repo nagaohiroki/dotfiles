@@ -33,6 +33,7 @@ Plug 'https://github.com/mhinz/vim-signify'
 Plug 'https://github.com/nagaohiroki/myplugin.vim'
 Plug 'https://github.com/nagaohiroki/vim-perforce'
 Plug 'https://github.com/scrooloose/nerdtree'
+Plug 'https://github.com/Xuyuanp/nerdtree-git-plugin'
 Plug 'https://github.com/sheerun/vim-polyglot'
 Plug 'https://github.com/thinca/vim-fontzoom'
 Plug 'https://github.com/tpope/vim-fugitive'
@@ -83,7 +84,6 @@ command! CppCheck SyntasticCheck cppcheck | Errors
 " youcompleteme
 " -------------------------------------------------------------------------
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
-let g:ycm_max_diagnostics_to_display=3000
 " -------------------------------------------------------------------------
 " Unite
 " -------------------------------------------------------------------------
