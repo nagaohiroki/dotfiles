@@ -84,6 +84,7 @@ command! CppCheck SyntasticCheck cppcheck | Errors
 " youcompleteme
 " -------------------------------------------------------------------------
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
+let g:ycm_max_diagnostics_to_display=3000
 " -------------------------------------------------------------------------
 " Unite
 " -------------------------------------------------------------------------
