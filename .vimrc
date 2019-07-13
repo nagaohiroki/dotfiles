@@ -76,7 +76,6 @@ call altr#define('Private/%.cpp', 'Public/%.h', 'Classes/%.h', 'Public/*/%.h', '
 " --------------------------------------------------------------------------
 " syntastic
 " --------------------------------------------------------------------------
-let g:syntastic_cs_checkers=['syntax', 'semantic', 'issues']
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_go_checkers=['go', 'gofmt', 'golint', 'govet']
 command! CppCheck SyntasticCheck cppcheck | Errors
