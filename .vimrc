@@ -182,7 +182,3 @@ nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
-nnoremap <S-Left>  :set columns-=100<CR>
-nnoremap <S-Right> :set columns+=100<CR>
-nnoremap <S-Up>    :set lines-=10<CR>
-nnoremap <S-Down>  :set lines+=10<CR>
