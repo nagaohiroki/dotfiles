@@ -89,6 +89,10 @@ let g:ycm_use_clangd=1
 " -------------------------------------------------------------------------
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>m :History<CR>
+let s:local_vim=expand('~/local.vim')
+if filereadable(s:local_vim)
+	execute 'source ' . s:local_vim
+endif
 " -------------------------------------------------------------------------
 " RipGrep
 " -------------------------------------------------------------------------
