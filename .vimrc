@@ -172,7 +172,6 @@ set statusline+=%y%{'['.&fenc.(&bomb?'_bom':'').']['.&ff.']'}
 set statusline+=%=%c,%l/%L
 set cmdheight=2
 set ambiwidth=double
-set wildignore=*.meta
 set noimdisable
 set completeopt=menu,menuone,noselect,noinsert
 set ttimeoutlen=10
