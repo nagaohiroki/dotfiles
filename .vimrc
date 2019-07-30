@@ -143,8 +143,6 @@ set autoindent
 set autoread
 set backspace=indent,eol,start
 set clipboard=unnamedplus,unnamed
-set foldmethod=marker
-set pumheight=15
 set helplang=ja
 set hidden
 set hlsearch
@@ -174,7 +172,6 @@ set cmdheight=2
 set ambiwidth=double
 set noimdisable
 set completeopt=menu,menuone,noselect,noinsert
-set ttimeoutlen=10
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
