@@ -174,7 +174,6 @@ set cmdheight=2
 set ambiwidth=double
 set wildignore=*.meta
 set noimdisable
-set viminfo='1000,
 set completeopt=menu,menuone,noselect,noinsert
 set ttimeoutlen=10
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
