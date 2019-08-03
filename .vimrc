@@ -19,7 +19,6 @@ call plug#begin('~/vim-plug')
 Plug 'https://github.com/junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
 Plug 'https://github.com/junegunn/fzf'
 Plug 'https://github.com/junegunn/fzf.vim'
-Plug 'https://github.com/jremmen/vim-ripgrep'
 Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/beyondmarc/hlsl.vim'
 Plug 'https://github.com/cohama/agit.vim'
