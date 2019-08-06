@@ -122,6 +122,7 @@ augroup vimrc_loading
 	autocmd BufRead,BufNewFile *.ush setfiletype hlsl
 augroup END
 command! CopyPath call setreg('*', expand('%:p'))
+command! CopyPathLine call setreg('*', expand('%:p') . '#L' . line('.'))
 command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
 command! Rc e ~/dotfiles/.vimrc
 command! RcUpdate source ~/dotfiles/.vimrc
