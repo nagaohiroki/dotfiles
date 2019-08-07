@@ -84,10 +84,11 @@ nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 let g:ycm_max_diagnostics_to_display=3000
 let g:ycm_use_clangd=1
 " -------------------------------------------------------------------------
-" Unite
+" fzf
 " -------------------------------------------------------------------------
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>m :History<CR>
+nnoremap <Leader>p :P4FZF<CR>
 let s:local_vim=expand('~/local.vim')
 if filereadable(s:local_vim)
 	execute 'source ' . s:local_vim
