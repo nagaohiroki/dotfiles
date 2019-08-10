@@ -1,15 +1,9 @@
-## Window
-
 * Unity
--p --remote-tab-silent +$(Line) "$(File)"  
+windows: -p --remote-tab-silent +$(Line) "$(File)"   
+mac: +$(Line) "$(File)"  
 
 * Windows regedit  
 "gvim" -p --remote-tab-silent "%1"
 
-* Visual Studio
+* VisualStudio
 "gvim" -p --remote-tab-silent +$(CurLine) $(ItemPath)
-
-## Mac
-
-* Unity
-MacVim

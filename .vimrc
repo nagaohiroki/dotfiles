@@ -131,7 +131,7 @@ command! RcUpdate source ~/dotfiles/.vimrc
 command! CdCurrent execute 'cd ' . fnameescape(expand('%:h'))
 if has('win32')
 	command! Wex silent !start explorer /select,"%:p"
-	command! VSOpen execute '!start ' . $HOME . '/dotfiles/vsopen.bat ' . fnameescape(expand('%:p'))
+	command! VSOpen execute '!start ' . $HOME . '/dotfiles/windows/vsopen.bat ' . fnameescape(expand('%:p'))
 endif
 if has('mac')
 	command! Wex silent !open "%:p:h"
