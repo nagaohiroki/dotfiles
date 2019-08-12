@@ -131,7 +131,7 @@ command! RcUpdate source ~/dotfiles/.vimrc
 command! CdCurrent execute 'cd ' . fnameescape(expand('%:h'))
 if has('win32')
 	command! Wex silent !start explorer /select,"%:p"
-	nnoremap <Leader>v :execute '!start ' . $VS_COMMON_DIR . '/IDE/devenv /edit ' . fnameescape(expand('%:p'))
+	nnoremap <Leader>v :execute '!start ' . $VS_COMMON_DIR . '/IDE/devenv /edit ' . fnameescape(expand('%:p'))<CR>
 endif
 if has('mac')
 	command! Wex silent !open "%:p:h"
