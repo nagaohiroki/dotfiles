@@ -109,7 +109,7 @@ let g:DoxygenToolkit_commentType='C++'
 " ---------------------------------------------------------------------
 function! Astyle()
 	let l:pos = getpos('.')
-	execute '%!AStyle --options=' . $HOME . '/dotfiles/astylerc'
+	execute '%!AStyle --options=' . $HOME . '/dotfiles/scripts/astylerc'
 	call setpos('.',pos)
 endfunction
 command! Astyle call Astyle()
@@ -131,7 +131,7 @@ command! RcUpdate source ~/dotfiles/.vimrc
 command! CdCurrent execute 'cd ' . fnameescape(expand('%:h'))
 if has('win32')
 	command! Wex silent !start explorer /select,"%:p"
-	command! VSOpen execute '!start ' . $HOME . '/dotfiles/windows/vsopen.bat ' . fnameescape(expand('%:p'))
+	command! VSOpen execute '!start ' . $HOME . '/dotfiles/scripts/vsopen.bat ' . fnameescape(expand('%:p'))
 endif
 if has('mac')
 	command! Wex silent !open "%:p:h"
