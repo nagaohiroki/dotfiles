@@ -1,7 +1,7 @@
 set MY_UE4_ENGINE_DIR=D:\work\UE4\UE_4.22
 set MY_UE4_PROJECT_DIR=D:\work\UE4\UE4MyGame\MyProject
-set MY_UE4_PROJECT=%MY_UE4_PROJECT_DIR%\MyProject.uproject
-set GENERATE_CMD="%MY_UE4_ENGINE_DIR%\Engine\Build\BatchFiles\Build.bat" -projectfiles -project="%MY_UE4_PROJECT%" -game -rocket
+set MY_UE4_PROJECT_NAME=MyProject
+set GENERATE_CMD="%MY_UE4_ENGINE_DIR%\Engine\Build\BatchFiles\Build.bat" -projectfiles -project="%MY_UE4_PROJECT_DIR%\%MY_UE4_PROJECT_NAME%.uproject" -game -rocket
 if exist %MY_UE4_ENGINE_DIR%\GenerateProjectFiles.bat (
 	pushd %MY_UE4_ENGINE_DIR%
 	call "GenerateProjectFiles.bat"
