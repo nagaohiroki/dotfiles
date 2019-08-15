@@ -31,6 +31,7 @@ Plug 'https://github.com/mattn/vimtweak'
 Plug 'https://github.com/mhinz/vim-signify'
 Plug 'https://github.com/nagaohiroki/myplugin.vim'
 Plug 'https://github.com/nagaohiroki/vim-perforce'
+Plug 'https://github.com/nagaohiroki/vim-ue4helper'
 Plug 'https://github.com/scrooloose/nerdtree'
 Plug 'https://github.com/sheerun/vim-polyglot'
 Plug 'https://github.com/thinca/vim-fontzoom'
@@ -131,7 +132,6 @@ command! RcUpdate source ~/dotfiles/.vimrc
 command! CdCurrent execute 'cd ' . fnameescape(expand('%:h'))
 if has('win32')
 	command! Wex silent !start explorer /select,"%:p"
-	nnoremap <Leader>v :execute 'term ++close ' . $VS_COMMON_DIR . '/IDE/devenv /edit ' . fnameescape(expand('%:p'))<CR>
 endif
 if has('mac')
 	command! Wex silent !open "%:p:h"
