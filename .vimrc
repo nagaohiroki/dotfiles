@@ -88,6 +88,7 @@ let g:ycm_use_clangd=1
 " fzf
 " -------------------------------------------------------------------------
 nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>c :execute 'Files ' . expand('%:p:h')<CR>
 nnoremap <Leader>m :History<CR>
 nnoremap <Leader>p :P4FZF<CR>
 nnoremap <Leader>1 :UE4FZFProject<CR>
