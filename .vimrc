@@ -83,7 +83,6 @@ command! CppCheck SyntasticCheck cppcheck | Errors
 " -------------------------------------------------------------------------
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 let g:ycm_max_diagnostics_to_display=3000
-let g:ycm_use_clangd=1
 " -------------------------------------------------------------------------
 " fzf
 " -------------------------------------------------------------------------
