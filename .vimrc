@@ -92,6 +92,7 @@ nnoremap <Leader>m :History<CR>
 nnoremap <Leader>p :P4FZF<CR>
 nnoremap <Leader>1 :UE4FZFProject<CR>
 nnoremap <Leader>2 :UE4FZFEngine<CR>
+nnoremap <Leader>v :UE4VSOpen<CR>
 " -------------------------------------------------------------------------
 " RipGrep
 " -------------------------------------------------------------------------
