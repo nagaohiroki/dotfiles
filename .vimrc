@@ -122,7 +122,8 @@ augroup vimrc_loading
 	autocmd BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 	autocmd BufRead,BufNewFile *.usf setfiletype hlsl
 	autocmd BufRead,BufNewFile *.ush setfiletype hlsl
-	autocmd BufRead,BufNewFile *.xlsx execute '!' . expand('%:p')
+	autocmd BufRead,BufNewFile *.xls !start %
+	autocmd BufRead,BufNewFile *.xlsx !start %
 augroup END
 command! CopyPath call setreg('*', expand('%:p'))
 command! CopyPathLine call setreg('*', expand('%:p') . '#L' . line('.'))
