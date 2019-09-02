@@ -116,16 +116,12 @@ command! Astyle call Astyle()
 " ----------------------------------------------------------------------
 " Utility Setting(not plugins setting)
 " ---------------------------------------------------------------------
-let g:loaded_zipPlugin= 1
-let g:loaded_zip = 1
 augroup vimrc_loading
 	autocmd!
 	autocmd QuickFixCmdPost *grep* cwindow
 	autocmd BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 	autocmd BufRead,BufNewFile *.usf setfiletype hlsl
 	autocmd BufRead,BufNewFile *.ush setfiletype hlsl
-	autocmd BufRead *.xls !start %
-	autocmd BufRead *.xlsx !start %
 augroup END
 command! CopyPath call setreg('*', expand('%:p'))
 command! CopyPathLine call setreg('*', expand('%:p') . '#L' . line('.'))
