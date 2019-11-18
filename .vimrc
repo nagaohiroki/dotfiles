@@ -45,6 +45,7 @@ Plug 'https://github.com/tyru/open-browser-github.vim'
 Plug 'https://github.com/haya14busa/vim-open-googletranslate'
 Plug 'https://github.com/ycm-core/YouCompleteMe'
 Plug 'https://github.com/vim-syntastic/syntastic'
+Plug 'https://github.com/jremmen/vim-ripgrep'
 call plug#end()
 filetype plugin indent on
 syntax on
