@@ -46,24 +46,11 @@ Plug 'https://github.com/haya14busa/vim-open-googletranslate'
 Plug 'https://github.com/jremmen/vim-ripgrep'
 Plug 'https://github.com/ycm-core/YouCompleteMe'
 Plug 'https://github.com/vim-syntastic/syntastic'
-" Plug 'https://github.com/prabirshrestha/asyncomplete.vim'
-" Plug 'https://github.com/prabirshrestha/async.vim'
-" Plug 'https://github.com/prabirshrestha/vim-lsp'
-" Plug 'https://github.com/prabirshrestha/asyncomplete-lsp.vim'
-" Plug 'https://github.com/mattn/vim-lsp-settings'
 call plug#end()
 filetype plugin indent on
 syntax on
 set background=dark
 colorscheme iceberg
-" --------------------------------------------------------------------------
-" vim-lsp
-" --------------------------------------------------------------------------
-" imap <c-space> <Plug>(asyncomplete_force_refresh)
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
-" autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " --------------------------------------------------------------------------
 " tagbar
 " --------------------------------------------------------------------------
