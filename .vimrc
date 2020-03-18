@@ -94,6 +94,7 @@ nnoremap <Leader>p :P4FZF<CR>
 nnoremap <Leader>1 :UE4FZFProject<CR>
 nnoremap <Leader>2 :UE4FZFEngine<CR>
 nnoremap <Leader>v :UE4VSOpen<CR>
+let g:fzf_preview_window=''
 " -------------------------------------------------------------------------
 " RipGrep
 " -------------------------------------------------------------------------
