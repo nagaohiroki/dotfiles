@@ -10,7 +10,7 @@ if has('win32')
 	set guifont=Migu_1M:h10
 endif
 if has('mac')
-	set guifont=Osaka-Mono:h14
+	set guifont=Osaka-Mono:h16
 endif
 augroup gvimrc_loading
 	autocmd!
