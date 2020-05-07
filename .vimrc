@@ -26,8 +26,6 @@ Plug 'https://github.com/honza/vim-snippets'
 Plug 'https://github.com/kana/vim-altr'
 Plug 'https://github.com/previm/previm'
 Plug 'https://github.com/majutsushi/tagbar'
-Plug 'https://github.com/mattn/transparency-windows-vim'
-Plug 'https://github.com/mattn/vimtweak'
 Plug 'https://github.com/mhinz/vim-signify'
 Plug 'https://github.com/nagaohiroki/myplugin.vim'
 Plug 'https://github.com/nagaohiroki/vim-perforce'
@@ -176,6 +174,7 @@ set ambiwidth=double
 set noimdisable
 set completeopt=menu,menuone,noselect,noinsert
 set viminfo='1000
+set signcolumn=yes
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-j> :cn<CR>zz
 nnoremap <C-k> :cp<CR>zz
