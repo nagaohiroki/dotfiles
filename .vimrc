@@ -82,6 +82,7 @@ command! CppCheck SyntasticCheck cppcheck | Errors
 " youcompleteme
 " -------------------------------------------------------------------------
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
+let g:ycm_auto_hover=''
 " -------------------------------------------------------------------------
 " fzf
 " -------------------------------------------------------------------------
