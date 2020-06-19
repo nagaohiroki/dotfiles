@@ -7,7 +7,7 @@ if has('vim_starting')
 	set columns=90
 endif
 if has('win32')
-	set guifont=Migu_1M:h10
+	set guifont=Migu_1M:h14
 endif
 if has('mac')
 	set guifont=Osaka-Mono:h18
