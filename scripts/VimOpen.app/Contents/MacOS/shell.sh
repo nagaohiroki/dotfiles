@@ -1,4 +1,5 @@
 #!/bin/bash
 source /etc/zshrc
 source /etc/zprofile
-vim -g $*
+cd ~
+vim -g --remote-silent $*
