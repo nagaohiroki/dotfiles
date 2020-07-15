@@ -2,4 +2,5 @@
 source /etc/zshrc
 source /etc/zprofile
 cd ~
-vim -g --remote-silent $*
+vim $*
+# -g --remote-silent +$(Line) $(File)
