@@ -83,6 +83,7 @@ command! CppCheck SyntasticCheck cppcheck | Errors
 " -------------------------------------------------------------------------
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 let g:ycm_auto_hover=''
+let g:ycm_clangd_args = ['-log=verbose', '-pretty']
 " -------------------------------------------------------------------------
 " fzf
 " -------------------------------------------------------------------------
