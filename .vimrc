@@ -150,7 +150,6 @@ set statusline+=%y%{'['.&fenc.(&bomb?'_bom':'').']['.&ff.']'}
 set statusline+=%=%c,%l/%L
 set cmdheight=2
 set ambiwidth=double
-set noimdisable
 set completeopt=menu,menuone,noselect,noinsert
 set viminfo='1000
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
