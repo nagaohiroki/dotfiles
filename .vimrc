@@ -2,9 +2,6 @@
 set encoding=utf8
 set fileencodings=ucs-bom,iso-2022-jp-3,euc-jisx0213,cp932,sjis,euc-jp,utf-8
 let mapleader="\<Space>"
-" -------------------------------------------------------------------------
-" vim-plug
-" -------------------------------------------------------------------------
 function! InstallVimPlug(plug_dir)
 	call mkdir(a:plug_dir, 'p')
 	call system('git clone https://github.com/junegunn/vim-plug.git ' . a:plug_dir . '/autoload')
@@ -42,6 +39,7 @@ Plug 'https://github.com/flazz/vim-colorschemes'
 Plug 'https://github.com/tyru/open-browser-github.vim'
 Plug 'https://github.com/haya14busa/vim-open-googletranslate'
 Plug 'https://github.com/jremmen/vim-ripgrep'
+Plug 'https://github.com/simeji/winresizer'
 Plug 'https://github.com/ycm-core/YouCompleteMe'
 Plug 'https://github.com/vim-syntastic/syntastic'
 call plug#end()
@@ -49,76 +47,56 @@ filetype plugin indent on
 syntax on
 set background=dark
 colorscheme iceberg
-" --------------------------------------------------------------------------
+" windowresize
+let g:winresizer_gui_enable=1
 " tagbar
-" --------------------------------------------------------------------------
 let g:tagbar_sort=0
 nnoremap <Leader>t :TagbarToggle<CR>
-" --------------------------------------------------------------------------
 " UtilSnips
-" --------------------------------------------------------------------------
 let g:UltiSnipsExpandTrigger='<C-s>'
-" --------------------------------------------------------------------------
 " NERDTree
-" --------------------------------------------------------------------------
 nnoremap <Leader>n :NERDTree<CR>
 let g:NERDTreeShowHidden=1
-" --------------------------------------------------------------------------
 " open-browser
-" --------------------------------------------------------------------------
 nmap <Leader>o <Plug>(openbrowser-smart-search)
-" ----------------------------------------------------------------------
 " artr for Unreal C++
-" ---------------------------------------------------------------------
 nmap <Leader>a <Plug>(altr-forward)
 call altr#define('Private/%.cpp', 'Private/*/%.cpp', 'Public/%.h', 'Public/*/%.h', 'Classes/%.h', 'Classes/*/%.h')
-" --------------------------------------------------------------------------
 " syntastic
-" --------------------------------------------------------------------------
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_go_checkers=['go', 'gofmt', 'golint', 'govet']
 command! CppCheck SyntasticCheck cppcheck | Errors
-" -------------------------------------------------------------------------
 " youcompleteme
-" -------------------------------------------------------------------------
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 let g:ycm_auto_hover=''
 let g:ycm_clangd_args = ['-log=verbose', '-pretty']
-" -------------------------------------------------------------------------
 " fzf
-" -------------------------------------------------------------------------
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>c :execute 'Files ' . expand('%:p:h')<CR>
 nnoremap <Leader>m :History<CR>
+" ue4helper
 nnoremap <Leader>p :P4FZF<CR>
 nnoremap <Leader>1 :UE4FZFProject<CR>
 nnoremap <Leader>2 :UE4FZFEngine<CR>
 nnoremap <Leader>v :UE4VSOpen<CR>
 nnoremap <Leader>e :UE4Dumps<CR>
 let g:fzf_preview_window=''
-" -------------------------------------------------------------------------
 " RipGrep
-" -------------------------------------------------------------------------
 nnoremap <Leader>r :Rg <C-R><C-W><CR>
+" Signfy
 nnoremap <Leader>d :SignifyDiff<CR>
-" --------------------------------------------------------------------------
 " DoxygenToolkit
-" --------------------------------------------------------------------------
 let g:DoxygenToolkit_blockHeader=repeat('-', 72)
 let g:DoxygenToolkit_blockFooter=g:DoxygenToolkit_blockHeader
 let g:DoxygenToolkit_commentType='C++'
-" ----------------------------------------------------------------------
 " Astyle
-" ---------------------------------------------------------------------
 function! Astyle()
 	let l:pos = getpos('.')
 	execute '%!AStyle --options=' . $HOME . '/dotfiles/scripts/astylerc'
 	call setpos('.',pos)
 endfunction
 command! Astyle call Astyle()
-" ----------------------------------------------------------------------
 " Utility Setting(not plugins setting)
-" ---------------------------------------------------------------------
 augroup vimrc_loading
 	autocmd!
 	autocmd QuickFixCmdPost *grep* cwindow
@@ -128,9 +106,7 @@ augroup vimrc_loading
 augroup END
 command! CopyPath call setreg('*', expand('%:p'))
 command! CopyPathLine call setreg('*', expand('%:p') . '#L' . line('.'))
-command! DateTime normal i<C-R>=strftime("%Y/%m/%d %H:%M:%S")<CR>
 command! Rc e ~/dotfiles/.vimrc
-command! RcUpdate source ~/dotfiles/.vimrc
 command! CdCurrent execute 'cd ' . fnameescape(expand('%:h'))
 if has('win32')
 	command! Wex silent !start explorer /select,"%:p"
@@ -178,7 +154,5 @@ set noimdisable
 set completeopt=menu,menuone,noselect,noinsert
 set viminfo='1000
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
-nnoremap <C-j> :cn<CR>zz
-nnoremap <C-k> :cp<CR>zz
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
