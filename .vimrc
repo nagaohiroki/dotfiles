@@ -39,7 +39,6 @@ Plug 'https://github.com/flazz/vim-colorschemes'
 Plug 'https://github.com/tyru/open-browser-github.vim'
 Plug 'https://github.com/haya14busa/vim-open-googletranslate'
 Plug 'https://github.com/jremmen/vim-ripgrep'
-Plug 'https://github.com/simeji/winresizer'
 Plug 'https://github.com/ycm-core/YouCompleteMe'
 Plug 'https://github.com/vim-syntastic/syntastic'
 call plug#end()
@@ -47,8 +46,6 @@ filetype plugin indent on
 syntax on
 set background=dark
 colorscheme iceberg
-" windowresize
-let g:winresizer_gui_enable=1
 " tagbar
 let g:tagbar_sort=0
 nnoremap <Leader>t :TagbarToggle<CR>

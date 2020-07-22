@@ -14,4 +14,8 @@ if has('mac')
 endif
 set background=dark
 colorscheme iceberg
+nnoremap <S-Left>  :set columns-=100<CR>
+nnoremap <S-Right> :set columns+=100<CR>
+nnoremap <S-Up>    :set lines-=10<CR>
+nnoremap <S-Down>  :set lines+=10<CR>
 highlight CursorIM guifg=NONE guibg=Red
