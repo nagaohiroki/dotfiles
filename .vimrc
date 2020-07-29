@@ -66,7 +66,6 @@ command! CppCheck SyntasticCheck cppcheck | Errors
 " youcompleteme
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 let g:ycm_auto_hover=''
-let g:ycm_clangd_args = ['-log=verbose', '-pretty']
 " fzf
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>c :execute 'Files ' . expand('%:p:h')<CR>

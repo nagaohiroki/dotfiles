@@ -8,6 +8,7 @@ if has('vim_starting')
 endif
 if has('win32')
 	set guifont=Migu_1M:h11
+	set renderoptions=type:directx,renmode:5
 endif
 if has('mac')
 	set guifont=Osaka-Mono:h14
