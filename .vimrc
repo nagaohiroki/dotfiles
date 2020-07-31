@@ -16,6 +16,7 @@ call plug#begin('~/vim-plug')
 Plug 'https://github.com/junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
 Plug 'https://github.com/junegunn/fzf'
 Plug 'https://github.com/junegunn/fzf.vim'
+Plug 'https://github.com/pbogut/fzf-mru.vim'
 Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/beyondmarc/hlsl.vim'
 Plug 'https://github.com/cohama/agit.vim'
@@ -69,7 +70,7 @@ let g:ycm_auto_hover=''
 " fzf
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>c :execute 'Files ' . expand('%:p:h')<CR>
-nnoremap <Leader>m :History<CR>
+nnoremap <Leader>m :FZFMru<CR>
 " ue4helper
 nnoremap <Leader>p :P4FZF<CR>
 nnoremap <Leader>1 :UE4FZFProject<CR>
@@ -147,7 +148,6 @@ set statusline+=%=%c,%l/%L
 set cmdheight=2
 set ambiwidth=double
 set completeopt=menu,menuone,noselect,noinsert
-set viminfo='1000
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
