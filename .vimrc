@@ -115,7 +115,8 @@ set noshowmatch
 set noswapfile
 set nowrap
 set nobackup
-set nofixeol 
+set nofixeol
+set noexpandtab
 set autoindent
 set autoread
 set backspace=indent,eol,start
