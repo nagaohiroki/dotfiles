@@ -68,6 +68,8 @@ command! CppCheck SyntasticCheck cppcheck | Errors
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 let g:ycm_auto_hover=''
 " fzf
+let g:fzf_layout={'down': '40%'}
+let g:fzf_preview_window=''
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>c :execute 'Files ' . expand('%:p:h')<CR>
 nnoremap <Leader>m :FZFMru<CR>
@@ -77,7 +79,6 @@ nnoremap <Leader>1 :UE4FZFProject<CR>
 nnoremap <Leader>2 :UE4FZFEngine<CR>
 nnoremap <Leader>v :UE4VSOpen<CR>
 nnoremap <Leader>e :UE4Dumps<CR>
-let g:fzf_preview_window=''
 " RipGrep
 nnoremap <Leader>r :Rg <C-R><C-W><CR>
 " Signfy
