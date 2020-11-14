@@ -17,6 +17,8 @@ Plug 'https://github.com/junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
 Plug 'https://github.com/junegunn/fzf'
 Plug 'https://github.com/junegunn/fzf.vim'
 Plug 'https://github.com/pbogut/fzf-mru.vim'
+Plug 'https://github.com/mattn/transparency-windows-vim'
+Plug 'https://github.com/mattn/vimtweak'
 Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/beyondmarc/hlsl.vim'
 Plug 'https://github.com/cohama/agit.vim'
