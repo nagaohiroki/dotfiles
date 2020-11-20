@@ -41,6 +41,7 @@ Plug 'https://github.com/vim-scripts/ShaderHighLight'
 Plug 'https://github.com/flazz/vim-colorschemes'
 Plug 'https://github.com/tyru/open-browser-github.vim'
 Plug 'https://github.com/haya14busa/vim-open-googletranslate'
+Plug 'https://github.com/OrangeT/vim-csharp'
 Plug 'https://github.com/jremmen/vim-ripgrep'
 Plug 'https://github.com/ycm-core/YouCompleteMe'
 Plug 'https://github.com/vim-syntastic/syntastic'
@@ -68,6 +69,7 @@ let g:syntastic_go_checkers=['go', 'gofmt', 'golint', 'govet']
 command! CppCheck SyntasticCheck cppcheck | Errors
 " youcompleteme
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
+nnoremap <Leader>u :YcmCompleter GoToReferences & cwin<CR>
 let g:ycm_auto_hover=''
 " fzf
 let g:fzf_layout={'down': '40%'}
