@@ -157,3 +157,8 @@ set completeopt=menu,menuone,noselect,noinsert
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
+if has('mac')
+	" ./configure --with-macarchs=arm64 --enable-python3interp=dynamic
+	set pythonthreedll=/opt/local/Library/Frameworks/Python.framework/Versions/3.8/lib/libpython3.8.dylib
+	set pythonthreehome=/opt/local/Library/Frameworks/Python.framework/Versions/3.8
+endif

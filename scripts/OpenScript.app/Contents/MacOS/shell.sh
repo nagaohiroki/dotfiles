@@ -2,5 +2,5 @@
 source /etc/zshrc
 source /etc/zprofile
 cd ~
-mvim $*
+/Applications/MacVim.app/Contents/bin/mvim $*
 # -g --remote-silent +$(Line) $(File)
