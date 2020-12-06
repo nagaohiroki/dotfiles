@@ -44,7 +44,6 @@ Plug 'https://github.com/haya14busa/vim-open-googletranslate'
 Plug 'https://github.com/OrangeT/vim-csharp'
 Plug 'https://github.com/jremmen/vim-ripgrep'
 Plug 'https://github.com/ycm-core/YouCompleteMe'
-Plug 'https://github.com/vim-syntastic/syntastic'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -63,10 +62,6 @@ nmap <Leader>o <Plug>(openbrowser-smart-search)
 " artr for Unreal C++
 nmap <Leader>a <Plug>(altr-forward)
 call altr#define('Private/%.cpp', 'Private/*/%.cpp', 'Public/%.h', 'Public/*/%.h', 'Classes/%.h', 'Classes/*/%.h')
-" syntastic
-let g:syntastic_python_checkers=['flake8']
-let g:syntastic_go_checkers=['go', 'gofmt', 'golint', 'govet']
-command! CppCheck SyntasticCheck cppcheck | Errors
 " youcompleteme
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
 nnoremap <Leader>u :YcmCompleter GoToReferences & cwin<CR>
