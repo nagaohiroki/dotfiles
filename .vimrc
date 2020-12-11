@@ -64,26 +64,9 @@ nmap <Leader>a <Plug>(altr-forward)
 call altr#define('Private/%.cpp', 'Private/*/%.cpp', 'Public/%.h', 'Public/*/%.h', 'Classes/%.h', 'Classes/*/%.h')
 " youcompleteme
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
-nnoremap <Leader>u :YcmCompleter GoToReferences & cwin<CR>
+nnoremap <Leader>u :YcmCompleter GoToReferences<CR>
 let g:ycm_auto_hover=''
 " fzf
-function! s:get_registers() abort
-  redir => l:regs
-  silent registers
-  redir END
-
-  return split(l:regs, '\n')[1:]
-endfunction
-
-function! s:registers(...) abort
-  let l:opts = {
-        \ 'source': s:get_registers(),
-        \ 'sink': {x -> feedkeys(matchstr(x, '\v^\S+\ze.*') . (a:1 ? 'P' : 'p'), 'x')},
-        \ 'options': '--prompt="Reg> "'
-        \ }
-  call fzf#run(fzf#wrap(l:opts))
-endfunction
-command! -bang Registers call s:registers('<bang>' ==# '!')
 let g:fzf_layout={'down': '40%'}
 let g:fzf_preview_window=''
 nnoremap <Leader>f :FZF<CR>
@@ -95,7 +78,6 @@ nnoremap <Leader>1 :UE4FZFProject<CR>
 nnoremap <Leader>2 :UE4FZFEngine<CR>
 nnoremap <Leader>v :UE4VSOpen<CR>
 nnoremap <Leader>e :UE4Dumps<CR>
-nnoremap <Leader>y :Registers<CR>
 " RipGrep
 nnoremap <Leader>r :Rg <C-R><C-W><CR>
 " Signfy
