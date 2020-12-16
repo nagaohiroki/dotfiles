@@ -79,7 +79,11 @@ nnoremap <Leader>2 :UE4FZFEngine<CR>
 nnoremap <Leader>v :UE4VSOpen<CR>
 nnoremap <Leader>e :UE4Dumps<CR>
 " RipGrep
-nnoremap <Leader>r :Rg <C-R><C-W><CR>
+if executable('rg')
+	nnoremap <Leader>r :Rg <C-R><C-W><CR>
+else
+	nnoremap <Leader>r :vim/<C-R><C-W>/**/*.*<CR>
+endif
 " Signfy
 nnoremap <Leader>d :SignifyDiff<CR>
 " DoxygenToolkit
