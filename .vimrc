@@ -158,7 +158,8 @@ nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
 if has('mac')
-	" ./configure --with-macarchs=arm64 --enable-python3interp=dynamic
+	" ./configure --with-macarchs=arm64 --enable-python3interp=dynamic --enable-luainterp=dynamic --with-lua-prefix=/opt/local 
 	set pythonthreedll=/opt/local/Library/Frameworks/Python.framework/Versions/3.8/lib/libpython3.8.dylib
 	set pythonthreehome=/opt/local/Library/Frameworks/Python.framework/Versions/3.8
+	set luadll=/opt/local/lib/liblua.5.3.dylib
 endif
