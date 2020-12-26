@@ -10,6 +10,7 @@ command! InstallVimPlug call InstallVimPlug(expand('~/vim-plug'))
 if has('vim_starting')
 	set runtimepath^=~/vim-plug
 endif
+let s:use_coc=1
 filetype plugin indent off
 syntax off
 call plug#begin('~/vim-plug')
@@ -19,10 +20,8 @@ Plug 'https://github.com/junegunn/fzf.vim'
 Plug 'https://github.com/pbogut/fzf-mru.vim'
 Plug 'https://github.com/mattn/transparency-windows-vim'
 Plug 'https://github.com/mattn/vimtweak'
-Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/beyondmarc/hlsl.vim'
 Plug 'https://github.com/cohama/agit.vim'
-Plug 'https://github.com/honza/vim-snippets'
 Plug 'https://github.com/kana/vim-altr'
 Plug 'https://github.com/previm/previm'
 Plug 'https://github.com/majutsushi/tagbar'
@@ -43,7 +42,13 @@ Plug 'https://github.com/tyru/open-browser-github.vim'
 Plug 'https://github.com/haya14busa/vim-open-googletranslate'
 Plug 'https://github.com/OrangeT/vim-csharp'
 Plug 'https://github.com/jremmen/vim-ripgrep'
-Plug 'https://github.com/ycm-core/YouCompleteMe'
+if s:use_coc==1
+	Plug 'https://github.com/neoclide/coc.nvim'
+else
+	Plug 'https://github.com/honza/vim-snippets'
+	Plug 'https://github.com/SirVer/ultisnips'
+	Plug 'https://github.com/ycm-core/YouCompleteMe'
+endif
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -52,8 +57,23 @@ colorscheme iceberg
 " tagbar
 let g:tagbar_sort=0
 nnoremap <Leader>t :TagbarToggle<CR>
-" UtilSnips
-let g:UltiSnipsExpandTrigger='<C-s>'
+if s:use_coc==1
+	nnoremap <Leader>h :call CocActionAsync('doHover')<CR>
+	inoremap <silent><expr><c-space> coc#refresh()
+	inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+	inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+	nmap <Leader>g <Plug>(coc-definition)
+	nmap <Leader>u <Plug>(coc-references)
+	imap <C-s> <Plug>(coc-snippets-expand)
+	let g:coc_global_extensions=['coc-omnisharp', 'coc-clangd', 'coc-snippets', 'coc-pyright']
+else
+	" youcompleteme
+	nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
+	nnoremap <Leader>u :YcmCompleter GoToReferences<CR>
+	let g:ycm_auto_hover=''
+	" UtilSnips
+	let g:UltiSnipsExpandTrigger='<C-s>'
+endif
 " NERDTree
 nnoremap <Leader>n :NERDTree<CR>
 let g:NERDTreeShowHidden=1
@@ -62,10 +82,6 @@ nmap <Leader>o <Plug>(openbrowser-smart-search)
 " artr for Unreal C++
 nmap <Leader>a <Plug>(altr-forward)
 call altr#define('Private/%.cpp', 'Private/*/%.cpp', 'Public/%.h', 'Public/*/%.h', 'Classes/%.h', 'Classes/*/%.h')
-" youcompleteme
-nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
-nnoremap <Leader>u :YcmCompleter GoToReferences<CR>
-let g:ycm_auto_hover=''
 " fzf
 let g:fzf_layout={'down': '40%'}
 let g:fzf_preview_window=''
