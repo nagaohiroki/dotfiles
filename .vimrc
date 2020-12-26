@@ -178,4 +178,10 @@ if has('mac')
 	set pythonthreedll=/opt/local/Library/Frameworks/Python.framework/Versions/3.8/lib/libpython3.8.dylib
 	set pythonthreehome=/opt/local/Library/Frameworks/Python.framework/Versions/3.8
 	set luadll=/opt/local/lib/liblua.5.3.dylib
+	" mac omnisharp options
+	" ~/.config/coc/extensions/coc-omnisharp-data/server/run #L9
+	" mono_cmd=/Library/Frameworks/Mono.framework/Versions/Current/bin/mono
+	" ~/.config/coc/extensions/node_modules/coc-omnisharp/out/client/extension.js #L34
+	" "osx-x86": { platformPath: "omnisharp-osx.zip", executable: "run" },
 endif
+
