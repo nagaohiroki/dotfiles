@@ -173,15 +173,12 @@ set completeopt=menu,menuone,noselect,noinsert
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
-if has('mac')
-	" ./configure --with-macarchs=arm64 --enable-python3interp=dynamic --enable-luainterp=dynamic --with-lua-prefix=/opt/local 
-	set pythonthreedll=/opt/local/Library/Frameworks/Python.framework/Versions/3.8/lib/libpython3.8.dylib
-	set pythonthreehome=/opt/local/Library/Frameworks/Python.framework/Versions/3.8
-	set luadll=/opt/local/lib/liblua.5.3.dylib
-	" mac omnisharp options
-	" ~/.config/coc/extensions/coc-omnisharp-data/server/run #L9
-	" mono_cmd=/Library/Frameworks/Mono.framework/Versions/Current/bin/mono
-	" ~/.config/coc/extensions/node_modules/coc-omnisharp/out/client/extension.js #L34
-	" "osx-x86": { platformPath: "omnisharp-osx.zip", executable: "run" },
-endif
-
+" mac omnisharp options
+" ./configure --with-macarchs=arm64 --enable-python3interp=dynamic --enable-luainterp=dynamic --with-lua-prefix=/opt/local 
+" set pythonthreedll=/opt/local/Library/Frameworks/Python.framework/Versions/3.8/lib/libpython3.8.dylib
+" set pythonthreehome=/opt/local/Library/Frameworks/Python.framework/Versions/3.8
+" set luadll=/opt/local/lib/liblua.5.3.dylib
+" ~/.config/coc/extensions/coc-omnisharp-data/server/run #L9
+" mono_cmd=/Library/Frameworks/Mono.framework/Versions/Current/bin/mono
+" ~/.config/coc/extensions/node_modules/coc-omnisharp/out/client/extension.js #L34
+" "osx-x86": { platformPath: "omnisharp-osx.zip", executable: "run" },
