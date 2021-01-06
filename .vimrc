@@ -39,9 +39,9 @@ Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Plug 'https://github.com/vim-scripts/ShaderHighLight'
 Plug 'https://github.com/flazz/vim-colorschemes'
 Plug 'https://github.com/tyru/open-browser-github.vim'
-Plug 'https://github.com/haya14busa/vim-open-googletranslate'
 Plug 'https://github.com/OrangeT/vim-csharp'
 Plug 'https://github.com/jremmen/vim-ripgrep'
+Plug 'https://github.com/voldikss/vim-translator'
 if s:use_coc==1
 	Plug 'https://github.com/neoclide/coc.nvim'
 else
@@ -54,9 +54,7 @@ filetype plugin indent on
 syntax on
 set background=dark
 colorscheme iceberg
-" tagbar
-let g:tagbar_sort=0
-nnoremap <Leader>t :TagbarToggle<CR>
+" nnoremap <Leader>t :TagbarToggle<CR>
 if s:use_coc==1
 	nnoremap <Leader>h :call CocActionAsync('doHover')<CR>
 	inoremap <silent><expr><c-space> coc#refresh()
@@ -65,7 +63,9 @@ if s:use_coc==1
 	nmap <Leader>g <Plug>(coc-definition)
 	nmap <Leader>u <Plug>(coc-references)
 	imap <C-s> <Plug>(coc-snippets-expand)
-	let g:coc_global_extensions=['coc-omnisharp', 'coc-clangd', 'coc-snippets', 'coc-pyright']
+	nmap <Leader>t <Plug>(coc-translator-p)
+	vmap <Leader>t <Plug>(coc-translator-pv)
+	let g:coc_global_extensions=['coc-omnisharp', 'coc-clangd', 'coc-snippets', 'coc-pyright', 'coc-vimlsp', 'coc-json']
 else
 	" youcompleteme
 	nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
@@ -74,6 +74,15 @@ else
 	" UtilSnips
 	let g:UltiSnipsExpandTrigger='<C-s>'
 endif
+" tagbar
+let g:tagbar_sort=0
+" translator
+let g:translator_target_lang='ja'
+let g:translator_source_lang='en'
+nnoremap <silent> <Leader>j :TranslateW<CR>
+vnoremap <silent> <Leader>j :TganslateWV<CR>
+nnoremap <silent> <Leader>e :TranslateW!<CR>
+vnoremap <silent> <Leader>e :TganslateWV!<CR>
 " NERDTree
 nnoremap <Leader>n :NERDTree<CR>
 let g:NERDTreeShowHidden=1
@@ -93,7 +102,7 @@ nnoremap <Leader>p :P4FZF<CR>
 nnoremap <Leader>1 :UE4FZFProject<CR>
 nnoremap <Leader>2 :UE4FZFEngine<CR>
 nnoremap <Leader>v :UE4VSOpen<CR>
-nnoremap <Leader>e :UE4Dumps<CR>
+" nnoremap <Leader>e :UE4Dumps<CR>
 " RipGrep
 if executable('rg')
 	nnoremap <Leader>r :Rg <C-R><C-W><CR>
@@ -174,11 +183,11 @@ nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
 " mac omnisharp options
-" ./configure --with-macarchs=arm64 --enable-python3interp=dynamic --enable-luainterp=dynamic --with-lua-prefix=/opt/local 
+" ./configure --with-gacarchs=arm64 --enable-python3interp=dynamic --enable-luainterp=dynamic --with-lua-prefix=/opt/local 
 " set pythonthreedll=/opt/local/Library/Frameworks/Python.framework/Versions/3.8/lib/libpython3.8.dylib
 " set pythonthreehome=/opt/local/Library/Frameworks/Python.framework/Versions/3.8
 " set luadll=/opt/local/lib/liblua.5.3.dylib
 " ~/.config/coc/extensions/coc-omnisharp-data/server/run #L9
 " mono_cmd=/Library/Frameworks/Mono.framework/Versions/Current/bin/mono
 " ~/.config/coc/extensions/node_modules/coc-omnisharp/out/client/extension.js #L34
-" "osx-x86": { platformPath: "omnisharp-osx.zip", executable: "run" },
+" "osx-x86": { platformPath: "omnisharp-osx.zip", execugable: "run" },
