@@ -80,9 +80,9 @@ let g:tagbar_sort=0
 let g:translator_target_lang='ja'
 let g:translator_source_lang='en'
 nnoremap <silent> <Leader>j :TranslateW<CR>
-vnoremap <silent> <Leader>j :TganslateWV<CR>
+vnoremap <silent> <Leader>j :TranslateWV<CR>
 nnoremap <silent> <Leader>e :TranslateW!<CR>
-vnoremap <silent> <Leader>e :TganslateWV!<CR>
+vnoremap <silent> <Leader>e :TranslateWV!<CR>
 " NERDTree
 nnoremap <Leader>n :NERDTree<CR>
 let g:NERDTreeShowHidden=1
