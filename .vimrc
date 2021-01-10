@@ -54,7 +54,7 @@ filetype plugin indent on
 syntax on
 set background=dark
 colorscheme iceberg
-" nnoremap <Leader>t :TagbarToggle<CR>
+nnoremap <Leader>t :TagbarToggle<CR>
 if s:use_coc==1
 	nnoremap <Leader>h :call CocActionAsync('doHover')<CR>
 	inoremap <silent><expr><c-space> coc#refresh()
@@ -63,8 +63,6 @@ if s:use_coc==1
 	nmap <Leader>g <Plug>(coc-definition)
 	nmap <Leader>u <Plug>(coc-references)
 	imap <C-s> <Plug>(coc-snippets-expand)
-	nmap <Leader>t <Plug>(coc-translator-p)
-	vmap <Leader>t <Plug>(coc-translator-pv)
 	let g:coc_global_extensions=['coc-omnisharp', 'coc-clangd', 'coc-snippets', 'coc-pyright', 'coc-vimlsp', 'coc-json']
 else
 	" youcompleteme
