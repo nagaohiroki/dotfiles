@@ -58,8 +58,8 @@ nnoremap <Leader>t :TagbarToggle<CR>
 if s:use_coc==1
 	nnoremap <Leader>h :call CocActionAsync('doHover')<CR>
 	inoremap <silent><expr><c-space> coc#refresh()
-	inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
-	inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+	inoremap <silent><expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+	inoremap <silent><expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 	nmap <Leader>g <Plug>(coc-definition)
 	nmap <Leader>u <Plug>(coc-references)
 	imap <C-s> <Plug>(coc-snippets-expand)
