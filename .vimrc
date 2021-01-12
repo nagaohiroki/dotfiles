@@ -10,7 +10,6 @@ command! InstallVimPlug call InstallVimPlug(expand('~/vim-plug'))
 if has('vim_starting')
 	set runtimepath^=~/vim-plug
 endif
-let s:use_coc=1
 filetype plugin indent off
 syntax off
 call plug#begin('~/vim-plug')
@@ -18,8 +17,6 @@ Plug 'https://github.com/junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
 Plug 'https://github.com/junegunn/fzf'
 Plug 'https://github.com/junegunn/fzf.vim'
 Plug 'https://github.com/pbogut/fzf-mru.vim'
-Plug 'https://github.com/mattn/transparency-windows-vim'
-Plug 'https://github.com/mattn/vimtweak'
 Plug 'https://github.com/beyondmarc/hlsl.vim'
 Plug 'https://github.com/cohama/agit.vim'
 Plug 'https://github.com/kana/vim-altr'
@@ -42,37 +39,23 @@ Plug 'https://github.com/tyru/open-browser-github.vim'
 Plug 'https://github.com/OrangeT/vim-csharp'
 Plug 'https://github.com/jremmen/vim-ripgrep'
 Plug 'https://github.com/voldikss/vim-translator'
-if s:use_coc==1
-	Plug 'https://github.com/neoclide/coc.nvim'
-else
-	Plug 'https://github.com/honza/vim-snippets'
-	Plug 'https://github.com/SirVer/ultisnips'
-	Plug 'https://github.com/ycm-core/YouCompleteMe'
-endif
+Plug 'https://github.com/neoclide/coc.nvim'
 call plug#end()
 filetype plugin indent on
 syntax on
 set background=dark
 colorscheme iceberg
-nnoremap <Leader>t :TagbarToggle<CR>
-if s:use_coc==1
-	nnoremap <Leader>h :call CocActionAsync('doHover')<CR>
-	inoremap <silent><expr><c-space> coc#refresh()
-	inoremap <silent><expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
-	inoremap <silent><expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-	nmap <Leader>g <Plug>(coc-definition)
-	nmap <Leader>u <Plug>(coc-references)
-	imap <C-s> <Plug>(coc-snippets-expand)
-	let g:coc_global_extensions=['coc-omnisharp', 'coc-clangd', 'coc-snippets', 'coc-pyright', 'coc-vimlsp', 'coc-json']
-else
-	" youcompleteme
-	nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>
-	nnoremap <Leader>u :YcmCompleter GoToReferences<CR>
-	let g:ycm_auto_hover=''
-	" UtilSnips
-	let g:UltiSnipsExpandTrigger='<C-s>'
-endif
+" coc
+nnoremap <Leader>h :call CocActionAsync('doHover')<CR>
+inoremap <silent><expr><c-space> coc#refresh()
+inoremap <silent><expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <silent><expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+nmap <Leader>g <Plug>(coc-definition)
+nmap <Leader>u <Plug>(coc-references)
+imap <C-s> <Plug>(coc-snippets-expand)
+let g:coc_global_extensions=['coc-omnisharp', 'coc-clangd', 'coc-snippets', 'coc-pyright', 'coc-vimlsp', 'coc-json']
 " tagbar
+nnoremap <Leader>t :TagbarToggle<CR>
 let g:tagbar_sort=0
 " translator
 let g:translator_target_lang='ja'
@@ -127,7 +110,6 @@ augroup vimrc_loading
 	autocmd BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 	autocmd BufRead,BufNewFile *.usf setfiletype hlsl
 	autocmd BufRead,BufNewFile *.ush setfiletype hlsl
-	autocmd InsertEnter,InsertLeave * set cursorline!
 augroup END
 command! CopyPath call setreg('*', expand('%:p'))
 command! CopyPathLine call setreg('*', expand('%:p') . '#L' . line('.'))

@@ -12,7 +12,6 @@ if has('win32')
 endif
 if has('mac')
 	set guifont=Osaka-Mono:h14
-	set transparency=5
 endif
 set background=dark
 colorscheme iceberg
