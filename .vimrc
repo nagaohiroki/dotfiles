@@ -52,7 +52,7 @@ inoremap <silent><expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 nmap <Leader>g <Plug>(coc-definition)
 nmap <Leader>u <Plug>(coc-references)
 imap <C-s> <Plug>(coc-snippets-expand)
-let g:coc_global_extensions=['coc-omnisharp', 'coc-clangd', 'coc-snippets', 'coc-pyright', 'coc-vimlsp', 'coc-json']
+let g:coc_global_extensions=['coc-omnisharp', 'coc-clangd', 'coc-snippets', 'coc-pyright', 'coc-vimlsp', 'coc-json', 'coc-go']
 " tagbar
 nnoremap <Leader>t :TagbarToggle<CR>
 let g:tagbar_sort=0
