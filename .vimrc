@@ -45,13 +45,17 @@ syntax on
 set background=dark
 colorscheme iceberg
 " coc
-nnoremap <Leader>h :call CocActionAsync('doHover')<CR>
 inoremap <silent><expr><c-space> coc#refresh()
 inoremap <silent><expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <silent><expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <silent><expr><cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <Leader>g <Plug>(coc-definition)
 nmap <Leader>u <Plug>(coc-references)
+nnoremap <Leader>h :call CocActionAsync('doHover')<CR>
 imap <C-s> <Plug>(coc-snippets-expand)
+command! -nargs=0 Format :call CocAction('format')
 let g:coc_global_extensions=['coc-omnisharp', 'coc-clangd', 'coc-snippets', 'coc-pyright', 'coc-vimlsp', 'coc-json', 'coc-go']
 " tagbar
 nnoremap <Leader>t :TagbarToggle<CR>
@@ -162,10 +166,7 @@ nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
 " mac omnisharp options
-" ./configure --with-gacarchs=arm64 --enable-python3interp=dynamic --enable-luainterp=dynamic --with-lua-prefix=/opt/local 
-" set pythonthreedll=/opt/local/Library/Frameworks/Python.framework/Versions/3.8/lib/libpython3.8.dylib
-" set pythonthreehome=/opt/local/Library/Frameworks/Python.framework/Versions/3.8
-" set luadll=/opt/local/lib/liblua.5.3.dylib
+" ./configure --with-gacarchs=arm64
 " ~/.config/coc/extensions/coc-omnisharp-data/server/run #L9
 " mono_cmd=/Library/Frameworks/Mono.framework/Versions/Current/bin/mono
 " ~/.config/coc/extensions/node_modules/coc-omnisharp/out/client/extension.js #L34
