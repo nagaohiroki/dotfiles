@@ -99,13 +99,6 @@ nnoremap <Leader>d :SignifyDiff<CR>
 let g:DoxygenToolkit_blockHeader=repeat('-', 72)
 let g:DoxygenToolkit_blockFooter=g:DoxygenToolkit_blockHeader
 let g:DoxygenToolkit_commentType='C++'
-" Astyle
-function! Astyle()
-	let l:pos = getpos('.')
-	execute '%!AStyle --options=' . $HOME . '/dotfiles/scripts/astylerc'
-	call setpos('.',pos)
-endfunction
-command! Astyle call Astyle()
 " Utility Setting(not plugins setting)
 augroup vimrc_loading
 	autocmd!
