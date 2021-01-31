@@ -49,14 +49,15 @@ inoremap <silent><expr><c-space> coc#refresh()
 inoremap <silent><expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <silent><expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr><cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+nnoremap <Leader>h :call CocActionAsync('doHover')<CR>
+nnoremap <silent> <Leader>y :<C-u>CocList yank<CR>
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <Leader>g <Plug>(coc-definition)
 nmap <Leader>u <Plug>(coc-references)
-nnoremap <Leader>h :call CocActionAsync('doHover')<CR>
 imap <C-s> <Plug>(coc-snippets-expand)
 command! -nargs=0 Format :call CocAction('format')
-let g:coc_global_extensions=['coc-omnisharp', 'coc-clangd', 'coc-snippets', 'coc-pyright', 'coc-vimlsp', 'coc-json', 'coc-go']
+let g:coc_global_extensions=['coc-omnisharp', 'coc-clangd', 'coc-snippets', 'coc-pyright', 'coc-vimlsp', 'coc-json', 'coc-go', 'coc-lists', 'coc-yank', 'coc-highlight']
 " tagbar
 nnoremap <Leader>t :TagbarToggle<CR>
 let g:tagbar_sort=0
