@@ -81,7 +81,7 @@ let g:fzf_layout={'down': '40%'}
 let g:fzf_preview_window=''
 nnoremap <Leader>f :FZF<CR>
 nnoremap <Leader>c :execute 'FZF ' . expand('%:p:h')<CR>
-nnoremap <Leader>m :History<CR>
+nnoremap <Leader>m :FZFMru<CR>
 " ue4helper
 nnoremap <Leader>p :P4FZF<CR>
 nnoremap <Leader>1 :UE4FZFProject<CR>
