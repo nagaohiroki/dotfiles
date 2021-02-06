@@ -16,7 +16,6 @@ call plug#begin('~/vim-plug')
 Plug 'https://github.com/junegunn/vim-plug', {'dir': '~/vim-plug/autoload'}
 Plug 'https://github.com/junegunn/fzf'
 Plug 'https://github.com/junegunn/fzf.vim'
-Plug 'https://github.com/pbogut/fzf-mru.vim'
 Plug 'https://github.com/beyondmarc/hlsl.vim'
 Plug 'https://github.com/cohama/agit.vim'
 Plug 'https://github.com/kana/vim-altr'
@@ -80,14 +79,13 @@ call altr#define('Private/%.cpp', 'Private/*/%.cpp', 'Public/%.h', 'Public/*/%.h
 let g:fzf_layout={'down': '40%'}
 let g:fzf_preview_window=''
 nnoremap <Leader>f :FZF<CR>
-nnoremap <Leader>c :execute 'FZF ' . expand('%:p:h')<CR>
-nnoremap <Leader>m :FZFMru<CR>
+nnoremap <Leader>m :History<CR>
 " ue4helper
 nnoremap <Leader>p :P4FZF<CR>
 nnoremap <Leader>1 :UE4FZFProject<CR>
 nnoremap <Leader>2 :UE4FZFEngine<CR>
 nnoremap <Leader>v :UE4VSOpen<CR>
-" nnoremap <Leader>e :UE4Dumps<CR>
+nnoremap <Leader>l :UE4Dumps<CR>
 " RipGrep
 if executable('rg')
 	nnoremap <Leader>r :Rg <C-R><C-W><CR>
