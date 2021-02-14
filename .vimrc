@@ -22,7 +22,7 @@ Plug 'https://github.com/cohama/agit.vim'
 Plug 'https://github.com/kana/vim-altr'
 Plug 'https://github.com/previm/previm'
 Plug 'https://github.com/majutsushi/tagbar'
-Plug 'https://github.com/mhinz/vim-signify', {'commit': 'd80e507c8ba31d7d0711eb3b9a8053ec5f01df5c'}
+Plug 'https://github.com/mhinz/vim-signify'
 Plug 'https://github.com/nagaohiroki/myplugin.vim'
 Plug 'https://github.com/nagaohiroki/vim-perforce'
 Plug 'https://github.com/nagaohiroki/vim-ue4helper'
@@ -94,6 +94,7 @@ else
 	nnoremap <Leader>r :vim/<C-R><C-W>/**/*.*<CR>
 endif
 " Signfy
+let g:signify_sign_delete_first_line='-'
 nnoremap <Leader>d :SignifyDiff<CR>
 " DoxygenToolkit
 let g:DoxygenToolkit_blockHeader=repeat('-', 72)
