@@ -58,6 +58,7 @@ nmap <Leader>u <Plug>(coc-references)
 imap <C-s> <Plug>(coc-snippets-expand)
 command! -nargs=0 Format :call CocAction('format')
 let g:coc_global_extensions=['coc-omnisharp', 'coc-clangd', 'coc-snippets', 'coc-pyright', 'coc-vimlsp', 'coc-json', 'coc-go', 'coc-lists', 'coc-yank', 'coc-highlight']
+let g:coc_config_home='~/dotfiles/scripts'
 " tagbar
 nnoremap <Leader>t :TagbarToggle<CR>
 let g:tagbar_sort=0
