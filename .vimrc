@@ -161,7 +161,7 @@ nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
 " mac omnisharp options
-" ./configure --with-gacarchs=arm64
+" ./configure --with-macarchs=arm64
 " ~/.config/coc/extensions/coc-omnisharp-data/server/run #L9
 " mono_cmd=/Library/Frameworks/Mono.framework/Versions/Current/bin/mono
 " ~/.config/coc/extensions/node_modules/coc-omnisharp/out/client/extension.js #L34
