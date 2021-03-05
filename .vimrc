@@ -123,6 +123,7 @@ set noshowmatch
 set noswapfile
 set nowrap
 set nobackup
+set nowritebackup
 set nofixeol
 set noexpandtab
 set autoindent
