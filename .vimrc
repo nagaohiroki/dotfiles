@@ -94,8 +94,6 @@ if executable('rg')
 else
 	nnoremap <Leader>r :vim/<C-R><C-W>/**/*.*<CR>
 endif
-" Signfy
-let g:signify_sign_delete_first_line='-'
 nnoremap <Leader>d :SignifyDiff<CR>
 " DoxygenToolkit
 let g:DoxygenToolkit_blockHeader=repeat('-', 72)
