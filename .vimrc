@@ -159,6 +159,7 @@ set completeopt=menu,menuone,noselect,noinsert
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
+nnoremap <F3> i<C-R>=strftime("%F %T")<CR><Esc>
 " mac omnisharp options
 " ./configure --with-macarchs=arm64
 " ~/.config/coc/extensions/coc-omnisharp-data/server/run #L9
