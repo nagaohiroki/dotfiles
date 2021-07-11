@@ -86,8 +86,9 @@ nnoremap <Leader>m :History<CR>
 nnoremap <Leader>p :P4FZF<CR>
 nnoremap <Leader>1 :UE4FZFProject<CR>
 nnoremap <Leader>2 :UE4FZFEngine<CR>
-nnoremap <Leader>v :UE4VSOpen<CR>
 nnoremap <Leader>l :UE4Dumps<CR>
+nnoremap <F9> :VSBreakPoint<CR>
+nnoremap <F8> :VSOpen<CR>
 " RipGrep
 if executable('rg')
 	nnoremap <Leader>r :Rg <C-R><C-W><CR>
