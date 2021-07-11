@@ -81,7 +81,7 @@ call altr#define('Private/%.cpp', 'Private/*/%.cpp', 'Public/%.h', 'Public/*/%.h
 let g:fzf_layout={'down': '40%'}
 let g:fzf_preview_window=''
 nnoremap <Leader>f :FZF<CR>
-nnoremap <Leader>m :FZFMru<CR>
+nnoremap <Leader>m :History<CR>
 " ue4helper
 nnoremap <Leader>p :P4FZF<CR>
 nnoremap <Leader>1 :UE4FZFProject<CR>
