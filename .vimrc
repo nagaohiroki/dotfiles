@@ -163,6 +163,17 @@ nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
 inoremap <F3> <C-R>=strftime("%F %T")<CR>
+function! OpenSln(targetpath)
+	let dirname = fnamemodify(a:targetpath, ':h')
+	let sln = glob(dirname . '/*.sln')
+	if sln != ''
+		call system(sln)
+	endif
+	if dirname != a:targetpath
+		call OpenSln(dirname)
+	endif
+endfunction
+nnoremap<F10> :call OpenSln(expand('%:p:h'))<CR>
 " mac omnisharp options
 " ./configure --with-macarchs=arm64
 " ~/.config/coc/extensions/coc-omnisharp-data/server/run #L9
