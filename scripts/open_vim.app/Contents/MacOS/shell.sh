@@ -1,6 +1,4 @@
 #!/bin/bash
-source /etc/zshrc
-source /etc/zprofile
-cd ~
-/Applications/MacVim.app/Contents/bin/mvim $*
-# --remote-silent +$(Line) $(File)
+cd "$1"
+/Applications/MacVim.app/Contents/bin/mvim --remote-silent +"$3" "$2"
+# $(ProjectPath) $(File) $(Line)
