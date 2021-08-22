@@ -51,8 +51,7 @@ inoremap <silent><expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr><cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 nnoremap <Leader>h :call CocActionAsync('doHover')<CR>
 nnoremap <silent> <Leader>y :<C-u>CocList yank<CR>
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+nnoremap <leader>q :CocDiagnostics<CR>
 nmap <Leader>g <Plug>(coc-definition)
 nmap <Leader>u <Plug>(coc-references)
 imap <C-s> <Plug>(coc-snippets-expand)
