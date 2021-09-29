@@ -36,7 +36,6 @@ Plug 'https://github.com/vim-jp/vimdoc-ja'
 Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Plug 'https://github.com/flazz/vim-colorschemes'
 Plug 'https://github.com/tyru/open-browser-github.vim'
-Plug 'https://github.com/jremmen/vim-ripgrep'
 Plug 'https://github.com/voldikss/vim-translator'
 Plug 'https://github.com/neoclide/coc.nvim'
 call plug#end()
