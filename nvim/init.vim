@@ -40,6 +40,7 @@ Plug 'https://github.com/hrsh7th/cmp-nvim-lsp'
 Plug 'https://github.com/hrsh7th/cmp-buffer'
 Plug 'https://github.com/hrsh7th/cmp-vsnip'
 Plug 'https://github.com/hrsh7th/vim-vsnip'
+Plug 'https://github.com/rafamadriz/friendly-snippets'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -95,7 +96,7 @@ augroup vimrc_loading
 augroup END
 command! CopyPath call setreg('*', expand('%:p'))
 command! CopyPathLine call setreg('*', expand('%:p') . '#L' . line('.'))
-command! Rc e ~/AppData/Local/nvim/init.vim
+command! Rc e ~/dotfiles/nvim/init.vim
 command! CdCurrent execute 'cd ' . fnameescape(expand('%:h'))
 if has('win32')
 	command! Wex silent !start explorer /select,"%:p"
