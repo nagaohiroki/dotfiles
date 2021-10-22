@@ -25,7 +25,6 @@ Plug 'https://github.com/nagaohiroki/vim-perforce'
 Plug 'https://github.com/nagaohiroki/vim-ue4helper'
 Plug 'https://github.com/nagaohiroki/vimDTETool'
 Plug 'https://github.com/scrooloose/nerdtree'
-Plug 'https://github.com/thinca/vim-fontzoom'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/tyru/open-browser.vim'
 Plug 'https://github.com/vim-jp/vimdoc-ja'
@@ -144,6 +143,7 @@ set statusline+=%=%c,%l/%L
 set cmdheight=2
 set ambiwidth=double
 set completeopt=menu,menuone,noselect,noinsert
+set guifont=Migu\ 1M:h13
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
