@@ -1,3 +1,4 @@
+set fileencodings=ucs-bom,iso-2022-jp-3,euc-jisx0213,cp932,sjis,euc-jp,utf-8
 let mapleader="\<Space>"
 function! InstallVimPlug(plug_dir)
 	call mkdir(a:plug_dir, 'p')
