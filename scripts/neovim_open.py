@@ -2,6 +2,7 @@ import os
 import neovim
 import subprocess
 import sys
+import platform
 
 
 def func(address, cmd):
@@ -21,8 +22,11 @@ def main():
         cmd[0] = 'edit'
         func(address, ' '.join(cmd))
     except:
-        cmd[0] = 'nvim-qt'
-        subprocess.Popen(cmd, shell=True)
+        if platform.system() == 'Windows':
+            cmd[0] = 'nvim-qt'
+        if platform.system() == 'Darwin':
+            cmd = ['open', '-a', 'goneovim'] + cmd[1:]
+        subprocess.Popen(cmd)
 
 
 if __name__ == "__main__":
