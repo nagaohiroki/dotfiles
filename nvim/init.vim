@@ -143,7 +143,6 @@ set statusline+=%=%c,%l/%L
 set cmdheight=2
 set ambiwidth=double
 set completeopt=menu,menuone,noselect,noinsert
-set guifont=Migu\ 1M:h13
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
