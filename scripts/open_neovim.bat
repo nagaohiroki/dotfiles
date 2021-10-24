@@ -1,1 +1,1 @@
-start pythonw "%~dp0\neovim_open.py" %*
+start pythonw "%~dp0\open_neovim.py" %*
