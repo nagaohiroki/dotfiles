@@ -181,6 +181,7 @@ nnoremap <silent> <Leader>h <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <Leader>u <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <Leader>l <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> <Leader>e <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <Leader>a <cmd>lua vim.lsp.buf.formatting()<CR>
 redir! > $HOME/.cache_neovim/env.txt | echon $NVIM_LISTEN_ADDRESS | redir END
 if has('win32')
 	set guifont=Migu\ 1M:h13
