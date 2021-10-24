@@ -41,6 +41,7 @@ Plug 'https://github.com/hrsh7th/cmp-buffer'
 Plug 'https://github.com/hrsh7th/cmp-vsnip'
 Plug 'https://github.com/hrsh7th/vim-vsnip'
 Plug 'https://github.com/rafamadriz/friendly-snippets'
+Plug 'https://github.com/dstein64/nvim-scrollview'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -178,7 +179,7 @@ EOF
 nnoremap <silent> <Leader>g <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> <Leader>h <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <Leader>u <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <Leader>d <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> <Leader>l <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> <Leader>e <cmd>lua vim.lsp.buf.declaration()<CR>
 redir! > $HOME/.cache_neovim/env.txt | echon $NVIM_LISTEN_ADDRESS | redir END
 if has('win32')
