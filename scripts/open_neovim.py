@@ -10,11 +10,13 @@ def neovim_command(address):
     edit = 'exe "e "'
     for c in cmd:
         if c.startswith('+'):
-            edit += f' . "{c} "'
+            edit += f' . \'{c} \''
             continue
-        edit += f' . fnameescape("{c}") '
+        edit += f' . fnameescape(\'{c}\') '
     nvim = neovim.attach('socket', path=address)
+    print(edit)
     nvim.command(edit)
+    nvim.close()
 
 
 def open_neovim():
