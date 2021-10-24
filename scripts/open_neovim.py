@@ -6,9 +6,13 @@ import platform
 
 
 def neovim_command(address):
-    cmd = sys.argv
-    cmd[0] = 'edit'
-    edit = ' '.join(cmd)
+    cmd = sys.argv[1:]
+    edit = 'exe "e "'
+    for c in cmd:
+        if c.startswith('+'):
+            edit += f' . "{c} "'
+            continue
+        edit += f' . fnameescape("{c}") '
     nvim = neovim.attach('socket', path=address)
     nvim.command(edit)
 
@@ -33,7 +37,7 @@ def main():
         open_neovim()
         return
     f = open(env)
-    address = f.readlines()[1]
+    address = f.readline()
     try:
         neovim_command(address)
         activate_neovim()

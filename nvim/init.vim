@@ -181,5 +181,5 @@ nnoremap <silent> <Leader>u <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <Leader>d <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> <Leader>e <cmd>lua vim.lsp.buf.declaration()<CR>
 redir! > $HOME/.cache_neovim/env.txt
-ec $NVIM_LISTEN_ADDRESS
+echon $NVIM_LISTEN_ADDRESS
 redir END
