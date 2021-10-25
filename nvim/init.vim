@@ -62,8 +62,8 @@ nmap <Leader>o <Plug>(openbrowser-smart-search)
 nmap <Leader>a <Plug>(altr-forward)
 call altr#define('Private/%.cpp', 'Private/*/%.cpp', 'Public/%.h', 'Public/*/%.h', 'Classes/%.h', 'Classes/*/%.h')
 " fzf
-" let g:fzf_layout={'down': '40%'}
-" let g:fzf_preview_window=''
+let g:fzf_layout={'down': '40%'}
+let g:fzf_preview_window=''
 nnoremap <Leader>f :FZF<CR>
 nnoremap <Leader>m :History<CR>
 " ue4helper
