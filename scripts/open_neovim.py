@@ -5,18 +5,21 @@ import sys
 import platform
 
 
+app = '/opt/homebrew/Cellar/neovim-qt/0.2.16.1/nvim-qt.app'
+
 def neovim_command(address):
-    cmd = sys.argv[1:]
-    edit = 'exe "e "'
-    for c in cmd:
-        if c.startswith('+'):
-            edit += f' . \'{c} \''
-            continue
-        edit += f' . fnameescape(\'{c}\') '
     nvim = neovim.attach('socket', path=address)
-    print(edit)
-    nvim.command(edit)
+    if len(sys.argv) > 2:
+        cmd = sys.argv[1:]
+        edit = 'exe "e "'
+        for c in cmd:
+            if c.startswith('+'):
+                edit += f' . \' {c} \''
+                continue
+            edit += f' . fnameescape(\'{c}\') '
+        nvim.command(edit)
     nvim.close()
+    activate_neovim()
 
 
 def open_neovim():
@@ -24,13 +27,13 @@ def open_neovim():
     if platform.system() == 'Windows':
         cmd[0] = 'nvim-qt'
     if platform.system() == 'Darwin':
-        cmd[0] = '/Applications/goneovim.app/Contents/MacOS/goneovim'
+        cmd[0] = os.path.join(app, 'Contents/MacOS/nvim-qt')
     subprocess.Popen(cmd)
 
 
 def activate_neovim():
     if platform.system() == 'Darwin':
-        subprocess.Popen(['open', '-a', 'goneovim'])
+        subprocess.Popen(['open', app])
 
 
 def main():
@@ -42,8 +45,8 @@ def main():
     address = f.readline()
     try:
         neovim_command(address)
-        activate_neovim()
-    except:
+    except Exception as e:
+        print(e)
         open_neovim()
 
 

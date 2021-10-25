@@ -41,7 +41,6 @@ Plug 'https://github.com/hrsh7th/cmp-buffer'
 Plug 'https://github.com/hrsh7th/cmp-vsnip'
 Plug 'https://github.com/hrsh7th/vim-vsnip'
 Plug 'https://github.com/rafamadriz/friendly-snippets'
-Plug 'https://github.com/dstein64/nvim-scrollview'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -148,6 +147,13 @@ nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
 inoremap <F3> <C-R>=strftime("%F %T")<CR>
+nnoremap <silent> <Leader>g <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <Leader>h <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <Leader>u <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <Leader>l <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> <Leader>e <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <Leader>a <cmd>lua vim.lsp.buf.formatting()<CR>
+redir! > $HOME/.cache_neovim/env.txt | echon $NVIM_LISTEN_ADDRESS | redir END
 lua << EOF
   require("nvim-lsp-installer").on_server_ready(function(server) server:setup({}) end)
   local cmp = require'cmp'
@@ -176,13 +182,3 @@ lua << EOF
   },
 }
 EOF
-nnoremap <silent> <Leader>g <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> <Leader>h <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <Leader>u <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <Leader>l <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> <Leader>e <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <Leader>a <cmd>lua vim.lsp.buf.formatting()<CR>
-redir! > $HOME/.cache_neovim/env.txt | echon $NVIM_LISTEN_ADDRESS | redir END
-if has('win32')
-	set guifont=Migu\ 1M:h13
-endif
