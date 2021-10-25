@@ -5,7 +5,7 @@ import sys
 import platform
 
 
-app = '/opt/homebrew/Cellar/neovim-qt/0.2.16.1/nvim-qt.app'
+app = '/Applications/nvim-qt.app'
 
 def neovim_command(address):
     nvim = neovim.attach('socket', path=address)
