@@ -84,6 +84,42 @@ nnoremap <Leader>d :SignifyDiff<CR>
 let g:DoxygenToolkit_blockHeader=repeat('-', 72)
 let g:DoxygenToolkit_blockFooter=g:DoxygenToolkit_blockHeader
 let g:DoxygenToolkit_commentType='C++'
+" lsp
+nnoremap <silent> <Leader>g <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <Leader>h <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <Leader>u <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <Leader>l <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> <Leader>e <cmd>lua vim.lsp.buf.declaration()<CR>
+command! Format lua vim.lsp.buf.formatting()
+redir! > $HOME/.cache_neovim/env.txt | echon $NVIM_LISTEN_ADDRESS | redir END
+lua << EOF
+  require("nvim-lsp-installer").on_server_ready(function(server) server:setup({}) end)
+  local cmp = require'cmp'
+  cmp.setup({
+    snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end,
+    },
+    mapping = {
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ['<Tab>'] = cmp.mapping.select_next_item(),
+      ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+    },
+    sources = {
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' },
+      { name = 'buffer' },
+    }
+  })
+  require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+  },
+}
+EOF
 " Utility Setting(not plugins setting)
 augroup vimrc_loading
 	autocmd!
@@ -147,38 +183,3 @@ nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
 inoremap <F3> <C-R>=strftime("%F %T")<CR>
-nnoremap <silent> <Leader>g <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> <Leader>h <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <Leader>u <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <Leader>l <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> <Leader>e <cmd>lua vim.lsp.buf.declaration()<CR>
-command! Format <cmd>lua vim.lsp.buf.formatting()
-redir! > $HOME/.cache_neovim/env.txt | echon $NVIM_LISTEN_ADDRESS | redir END
-lua << EOF
-  require("nvim-lsp-installer").on_server_ready(function(server) server:setup({}) end)
-  local cmp = require'cmp'
-  cmp.setup({
-    snippet = {
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
-      end,
-    },
-    mapping = {
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-      ['<Tab>'] = cmp.mapping.select_next_item(),
-      ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    },
-    sources = {
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' },
-      { name = 'buffer' },
-    }
-  })
-  require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
-  highlight = {
-    enable = true,
-  },
-}
-EOF
