@@ -41,6 +41,8 @@ Plug 'https://github.com/hrsh7th/cmp-buffer'
 Plug 'https://github.com/hrsh7th/cmp-vsnip'
 Plug 'https://github.com/hrsh7th/vim-vsnip'
 Plug 'https://github.com/rafamadriz/friendly-snippets'
+Plug 'https://github.com/mfussenegger/nvim-dap'
+Plug 'https://github.com/rcarriga/nvim-dap-ui'
 call plug#end()
 filetype plugin indent on
 syntax on
@@ -71,8 +73,8 @@ nnoremap <Leader>p :P4FZF<CR>
 nnoremap <Leader>1 :UE4FZFProject<CR>
 nnoremap <Leader>2 :UE4FZFEngine<CR>
 nnoremap <Leader>l :UE4Dumps<CR>
-nnoremap <F9> :VSBreakPoint<CR>
-nnoremap <F8> :VSOpen<CR>
+nnoremap <Leader>b :VSBreakPoint<CR>
+nnoremap <Leader>v :VSOpen<CR>
 " RipGrep
 if executable('rg')
 	nnoremap <Leader>r :Rg <C-R><C-W><CR>
@@ -91,36 +93,29 @@ nnoremap <silent> <Leader>u <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <Leader>l <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> <Leader>e <cmd>lua vim.lsp.buf.declaration()<CR>
 command! Format lua vim.lsp.buf.formatting()
-redir! > $HOME/.cache_neovim/env.txt | echon $NVIM_LISTEN_ADDRESS | redir END
-lua << EOF
-  require("nvim-lsp-installer").on_server_ready(function(server) server:setup({}) end)
-  local cmp = require'cmp'
-  cmp.setup({
-    snippet = {
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
-      end,
-    },
-    mapping = {
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-      ['<Tab>'] = cmp.mapping.select_next_item(),
-      ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    },
-    sources = {
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' },
-      { name = 'buffer' },
-    }
-  })
-  require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
-  highlight = {
-    enable = true,
-  },
-}
-EOF
+" dap
+function! DepWin(isOpen)
+	if a:isOpen == 0
+		lua require'dap'.repl.close()
+		lua require'dapui'.close()
+	else
+		lua require'dap'.repl.open()
+		lua require'dapui'.open()
+	endif
+endfunction
+nnoremap <silent> <F6>     :call DepWin(1)<CR>
+nnoremap <silent> <S-F6>   :call DepWin(0)<CR>
+nnoremap <silent> <F5>     :lua require'dap'.continue()<CR>:call DepWin(1)<CR>
+nnoremap <silent> <S-F5>   :lua require'dap'.close()<CR>:call DepWin(0)<CR>
+nnoremap <silent> <S-C-F5> :lua require'dap'.run_last()<CR>
+nnoremap <silent> <F10>    :lua require'dap'.step_over()<CR>
+nnoremap <silent> <F11>    :lua require'dap'.step_into()<CR>
+nnoremap <silent> <S-F11>  :lua require'dap'.step_out()<CR>
+nnoremap <silent> <F9>     :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent> <S-F9>   :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+nnoremap <silent> <S-C-F9> :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
 " Utility Setting(not plugins setting)
+redir! > $HOME/.cache_neovim/env.txt | echon $NVIM_LISTEN_ADDRESS | redir END
 augroup vimrc_loading
 	autocmd!
 	autocmd QuickFixCmdPost *grep* cwindow
@@ -179,6 +174,52 @@ set cmdheight=2
 set ambiwidth=double
 set completeopt=menu,menuone,noselect,noinsert
 nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
+nnoremap <Leader>t i<C-R>=strftime("%F %T")<CR>
 nnoremap <C-p> "0p
 vnoremap <C-p> "0p
-inoremap <F3> <C-R>=strftime("%F %T")<CR>
+lua << EOF
+  require("nvim-lsp-installer").on_server_ready(function(server) server:setup({}) end)
+  local cmp = require'cmp'
+  cmp.setup({
+    snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end,
+    },
+    mapping = {
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ['<Tab>'] = cmp.mapping.select_next_item(),
+      ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+    },
+    sources = {
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' },
+      { name = 'buffer' },
+    }
+  })
+  require'nvim-treesitter.configs'.setup {
+    ensure_installed = "maintained",
+    highlight = {
+      enable = true,
+    },
+  }
+  local dap = require('dap')
+  dap.adapters.python = {
+    type = 'executable';
+    command = 'python';
+    args = { '-m', 'debugpy.adapter' };
+  }
+  dap.configurations.python = {
+    {
+      type = 'python';
+      request = 'launch';
+      name = "Launch file";
+      program = "${file}";
+      pythonPath = function()
+        return 'python'
+      end;
+    },
+  }
+  require("dapui").setup()
+EOF
