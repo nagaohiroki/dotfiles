@@ -32,8 +32,8 @@ Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Plug 'https://github.com/tyru/open-browser-github.vim'
 Plug 'https://github.com/voldikss/vim-translator'
 Plug 'https://github.com/cocopon/iceberg.vim'
-Plug 'https://github.com/neovim/nvim-lspconfig'
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
+Plug 'https://github.com/neovim/nvim-lspconfig'
 Plug 'https://github.com/williamboman/nvim-lsp-installer'
 Plug 'https://github.com/hrsh7th/nvim-cmp'
 Plug 'https://github.com/hrsh7th/cmp-nvim-lsp'
@@ -171,7 +171,6 @@ set undodir=$HOME/.cache_neovim
 set undofile
 set whichwrap=b,s,h,l,<,>,[,]
 set mouse=a
-set visualbell t_vb=
 set tags+=tags;
 set statusline=%<%f%m%r%h%w
 set statusline+=%y%{'['.&fenc.(&bomb?'_bom':'').']['.&ff.']'}
