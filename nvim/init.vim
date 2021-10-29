@@ -130,12 +130,16 @@ command! CopyPath call setreg('*', expand('%:p'))
 command! CopyPathLine call setreg('*', expand('%:p') . '#L' . line('.'))
 command! Rc e ~/dotfiles/nvim/init.vim
 command! CdCurrent execute 'cd ' . fnameescape(expand('%:h'))
+command! Date put=strftime('%F %T')
 if has('win32')
 	command! Wex silent !start explorer /select,"%:p"
 endif
 if has('mac')
 	command! Wex silent !open "%:p:h"
 endif
+nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
+nnoremap <C-p> "0p
+vnoremap <C-p> "0p
 set noshowmatch
 set noswapfile
 set nowrap
@@ -174,10 +178,6 @@ set statusline+=%=%c,%l/%L
 set cmdheight=2
 set ambiwidth=double
 set completeopt=menu,menuone,noselect,noinsert
-nnoremap <Leader>s :%s/\<<C-R><C-W>\>//g<Left><Left>
-nnoremap <Leader>t i<C-R>=strftime("%F %T")<CR>
-nnoremap <C-p> "0p
-vnoremap <C-p> "0p
 lua << EOF
   require("nvim-lsp-installer").on_server_ready(function(server) server:setup({}) end)
   local cmp = require'cmp'
@@ -224,4 +224,3 @@ lua << EOF
   }
   require("dapui").setup()
 EOF
-
