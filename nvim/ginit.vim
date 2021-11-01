@@ -4,6 +4,6 @@ if exists('g:GuiLoaded')
 		Guifont! Monaco:h13
 	endif
 	if has('win32')
-		Guifont! Migu\ 1M:h13
+		Guifont! Migu\ 1M:h12
 	endif
 endif
