@@ -223,4 +223,18 @@ lua << EOF
     },
   }
   require("dapui").setup()
+  dap.adapters.unity = {
+    type = 'executable';
+    command = 'D:\\unity-debug\\extension\\bin\\UnityDebug.exe';
+    name = 'Unity Editor';
+  }
+  dap.configurations.cs = {
+    {
+      type = 'unity';
+      request = 'launch';
+      name = "Unity Editor";
+      path = "D:\\work\\test1\\Library\\EditorInstance.json";
+		__exceptionOptions = {},
+    },
+  }
 EOF

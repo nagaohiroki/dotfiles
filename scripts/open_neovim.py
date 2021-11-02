@@ -9,7 +9,7 @@ app = '/Applications/nvim-qt.app'
 
 def neovim_command(address):
     nvim = neovim.attach('socket', path=address)
-    if len(sys.argv) > 2:
+    if len(sys.argv) > 1:
         cmd = sys.argv[1:]
         edit = 'exe "e "'
         for c in cmd:
