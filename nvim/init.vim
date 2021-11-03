@@ -32,6 +32,7 @@ Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Plug 'https://github.com/tyru/open-browser-github.vim'
 Plug 'https://github.com/voldikss/vim-translator'
 Plug 'https://github.com/cocopon/iceberg.vim'
+Plug 'https://github.com/github/copilot.vim'
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
 Plug 'https://github.com/neovim/nvim-lspconfig'
 Plug 'https://github.com/williamboman/nvim-lsp-installer'
@@ -115,6 +116,9 @@ nnoremap <silent> <S-F11>  :lua require'dap'.step_out()<CR>
 nnoremap <silent> <F9>     :lua require'dap'.toggle_breakpoint()<CR>
 nnoremap <silent> <S-F9>   :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
 nnoremap <silent> <S-C-F9> :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+" copilot
+imap <silent><script><expr> <C-q> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
 " Utility Setting(not plugins setting)
 redir! > $HOME/.cache_neovim/env.txt | echon $NVIM_LISTEN_ADDRESS | redir END
 augroup vimrc_loading
