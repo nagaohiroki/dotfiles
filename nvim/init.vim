@@ -229,7 +229,7 @@ lua << EOF
   require("dapui").setup()
   dap.adapters.unity = {
     type = 'executable';
-    command = 'D:\\unity-debug\\extension\\bin\\UnityDebug.exe';
+    command = vim.env.HOME .. '/.vscode/extensions/unity.unity-debug-3.0.2/bin/UnityDebug.exe';
     name = 'Unity Editor';
   }
   dap.configurations.cs = {
@@ -237,8 +237,7 @@ lua << EOF
       type = 'unity';
       request = 'launch';
       name = "Unity Editor";
-      path = "D:\\work\\test1\\Library\\EditorInstance.json";
-		__exceptionOptions = {},
+      path = "Library/EditorInstance.json";
     },
   }
 EOF
