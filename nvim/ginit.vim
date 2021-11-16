@@ -1,6 +1,6 @@
 if exists('g:GuiLoaded')
 	GuiScrollBar 1
-	GuiWindowOpacity 0.9
+	GuiWindowOpacity 0.95
 	if has('mac')
 		Guifont! Monaco:h13
 	endif

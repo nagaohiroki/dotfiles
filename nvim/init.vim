@@ -127,8 +127,9 @@ augroup vimrc_loading
 	autocmd BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 	autocmd BufRead,BufNewFile *.usf setfiletype hlsl
 	autocmd BufRead,BufNewFile *.ush setfiletype hlsl
-	autocmd BufRead,BufNewFile *.cginc setfiletype glsl
-	autocmd BufRead,BufNewFile *.glslinc setfiletype glsl
+	autocmd BufRead,BufNewFile *.cginc setfiletype hlsl
+	autocmd BufRead,BufNewFile *.shader setfiletype hlsl
+	autocmd BufRead,BufNewFile *.glslinc setfiletype hlsl
 augroup END
 command! CopyPath call setreg('*', expand('%:p'))
 command! CopyPathLine call setreg('*', expand('%:p') . '#L' . line('.'))
