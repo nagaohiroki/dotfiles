@@ -32,7 +32,7 @@ Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Plug 'https://github.com/tyru/open-browser-github.vim'
 Plug 'https://github.com/voldikss/vim-translator'
 Plug 'https://github.com/cocopon/iceberg.vim'
-Plug 'https://github.com/github/copilot.vim'
+" Plug 'https://github.com/github/copilot.vim'
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
 Plug 'https://github.com/neovim/nvim-lspconfig'
 Plug 'https://github.com/williamboman/nvim-lsp-installer'
@@ -181,7 +181,6 @@ set statusline=%<%f%m%r%h%w
 set statusline+=%y%{'['.&fenc.(&bomb?'_bom':'').']['.&ff.']'}
 set statusline+=%=%c,%l/%L
 set cmdheight=2
-set ambiwidth=double
 set completeopt=menu,menuone,noselect,noinsert
 lua << EOF
   require("nvim-lsp-installer").on_server_ready(function(server) server:setup({}) end)
