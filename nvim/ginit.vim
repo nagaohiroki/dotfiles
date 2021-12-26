@@ -11,6 +11,9 @@ if exists('g:GuiLoaded')
 	endif
 	function! FontSize(inc)
 		let g:fontSize+=a:inc
+		if(g:fontSize < 1)
+			let g:fontSize=1
+		endif
 		execute g:fontName . g:fontSize
 	endfunction
 	call FontSize(0)
