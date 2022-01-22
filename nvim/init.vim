@@ -14,7 +14,6 @@ call plug#begin('~/neovim-plug')
 Plug 'https://github.com/junegunn/vim-plug', {'dir': '~/neovim-plug/autoload'}
 Plug 'https://github.com/junegunn/fzf'
 Plug 'https://github.com/junegunn/fzf.vim'
-Plug 'https://github.com/pbogut/fzf-mru.vim'
 Plug 'https://github.com/beyondmarc/hlsl.vim'
 Plug 'https://github.com/cohama/agit.vim'
 Plug 'https://github.com/kana/vim-altr'
