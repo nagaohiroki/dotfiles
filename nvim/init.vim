@@ -170,7 +170,6 @@ set smartindent
 set smartcase
 set ignorecase
 set tabstop=4
-set title
 set undodir=$HOME/.cache_neovim
 set undofile
 set whichwrap=b,s,h,l,<,>,[,]

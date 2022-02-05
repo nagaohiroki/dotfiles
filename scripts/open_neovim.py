@@ -3,6 +3,7 @@ import neovim
 import subprocess
 import sys
 import platform
+import win32gui
 
 
 app = '/Applications/nvim-qt.app'
@@ -32,6 +33,8 @@ def open_neovim():
 
 
 def activate_neovim():
+    if platform.system() == 'Windows':
+        win32gui.SetForegroundWindow(win32gui.FindWindow(None, 'Neovim'))
     if platform.system() == 'Darwin':
         subprocess.Popen(['open', app])
 
