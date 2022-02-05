@@ -3,7 +3,10 @@ import neovim
 import subprocess
 import sys
 import platform
-import win32gui
+try:
+    import win32gui
+except Exception as e:
+    pass
 
 
 app = '/Applications/nvim-qt.app'
