@@ -37,9 +37,15 @@ def open_neovim():
 
 def activate_neovim():
     if platform.system() == 'Windows':
-        win32gui.SetForegroundWindow(win32gui.FindWindow(None, 'Neovim'))
+        win32gui.EnumWindows(activate_win32, None)
     if platform.system() == 'Darwin':
         subprocess.Popen(['open', app])
+
+
+def activate_win32(hwnd, _):
+    win_name = win32gui.GetWindowText(hwnd)
+    if win_name.endswith('NVIM') or win_name == 'Neovim':
+       win32gui.SetForegroundWindow(hwnd)
 
 
 def main():
