@@ -34,7 +34,7 @@ Plug 'https://github.com/cocopon/iceberg.vim'
 " Plug 'https://github.com/github/copilot.vim'
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
 Plug 'https://github.com/neovim/nvim-lspconfig'
-Plug 'https://github.com/williamboman/nvim-lsp-installer'
+Plug 'https://github.com/williamboman/nvim-lsp-installer', {'commit': '5000f77c4bbe753ba1b03e465e57cd48da8f5989'}
 Plug 'https://github.com/hrsh7th/nvim-cmp'
 Plug 'https://github.com/hrsh7th/cmp-nvim-lsp'
 Plug 'https://github.com/hrsh7th/cmp-buffer'
@@ -119,7 +119,7 @@ nnoremap <silent> <S-C-F9> :lua require'dap'.set_breakpoint(nil, nil, vim.fn.inp
 imap <silent><script><expr> <C-q> copilot#Accept("")
 let g:copilot_no_tab_map = v:true
 " Utility Setting(not plugins setting)
-redir! > $HOME/.cache_neovim/env.txt | echon $NVIM_LISTEN_ADDRESS | redir END
+redir! > $HOME/nvim_env.txt | echon $NVIM_LISTEN_ADDRESS | redir END
 augroup vimrc_loading
 	autocmd!
 	autocmd QuickFixCmdPost *grep* cwindow

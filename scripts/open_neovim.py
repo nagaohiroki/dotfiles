@@ -49,7 +49,7 @@ def activate_win32(hwnd, _):
 
 
 def main():
-    env = os.path.join(os.path.expanduser('~'), '.cache_neovim', 'env.txt')
+    env = os.path.join(os.path.expanduser('~'), 'nvim_env.txt')
     if not os.path.exists(env):
         open_neovim()
         return
