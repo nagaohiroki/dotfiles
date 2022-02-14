@@ -22,7 +22,6 @@ def neovim_command(address):
                 continue
             edit += f' . fnameescape(\'{c}\') '
         nvim.command(edit)
-    nvim.close()
     activate_neovim()
 
 
