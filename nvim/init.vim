@@ -29,7 +29,7 @@ Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Plug 'https://github.com/tyru/open-browser-github.vim'
 Plug 'https://github.com/voldikss/vim-translator'
 Plug 'https://github.com/cocopon/iceberg.vim'
-" Plug 'https://github.com/github/copilot.vim'
+Plug 'https://github.com/github/copilot.vim'
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
 Plug 'https://github.com/neovim/nvim-lspconfig'
 Plug 'https://github.com/williamboman/nvim-lsp-installer', {'commit': '5000f77c4bbe753ba1b03e465e57cd48da8f5989'}
@@ -195,7 +195,7 @@ lua << EOF
     }
   })
   require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained",
+    ensure_installed = "all",
     highlight = {
       enable = true,
     },
