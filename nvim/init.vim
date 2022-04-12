@@ -12,8 +12,6 @@ filetype plugin indent off
 syntax off
 call plug#begin('~/neovim-plug')
 Plug 'https://github.com/junegunn/vim-plug', {'dir': '~/neovim-plug/autoload'}
-Plug 'https://github.com/junegunn/fzf'
-Plug 'https://github.com/junegunn/fzf.vim'
 Plug 'https://github.com/beyondmarc/hlsl.vim'
 Plug 'https://github.com/cohama/agit.vim'
 Plug 'https://github.com/kana/vim-altr'
@@ -38,8 +36,11 @@ Plug 'https://github.com/williamboman/nvim-lsp-installer', {'commit': '5000f77c4
 Plug 'https://github.com/hrsh7th/nvim-cmp'
 Plug 'https://github.com/hrsh7th/cmp-nvim-lsp'
 Plug 'https://github.com/hrsh7th/cmp-buffer'
+Plug 'https://github.com/hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'https://github.com/hrsh7th/cmp-vsnip'
 Plug 'https://github.com/hrsh7th/vim-vsnip'
+Plug 'https://github.com/nvim-lua/plenary.nvim'
+Plug 'https://github.com/nvim-telescope/telescope.nvim'
 Plug 'https://github.com/rafamadriz/friendly-snippets'
 Plug 'https://github.com/mfussenegger/nvim-dap'
 Plug 'https://github.com/rcarriga/nvim-dap-ui'
@@ -63,24 +64,14 @@ nmap <Leader>o <Plug>(openbrowser-smart-search)
 " artr for Unreal C++
 nmap <Leader>a <Plug>(altr-forward)
 call altr#define('Private/%.cpp', 'Private/*/%.cpp', 'Public/%.h', 'Public/*/%.h', 'Classes/%.h', 'Classes/*/%.h')
-" fzf
-let g:fzf_layout={'down': '40%'}
-let g:fzf_preview_window=''
-nnoremap <Leader>f :FZF<CR>
-nnoremap <Leader>m :History<CR>
-" ue4helper
-nnoremap <Leader>p :P4FZF<CR>
-nnoremap <Leader>1 :UE4FZFProject<CR>
-nnoremap <Leader>2 :UE4FZFEngine<CR>
-nnoremap <Leader>l :UE4Dumps<CR>
+" Telescope
+nnoremap <Leader>f :Telescope find_files<CR>
+nnoremap <Leader>m :Telescope oldfiles<CR>
+nnoremap <Leader>r :Telescope live_grep<CR>
+" VS
 nnoremap <Leader>b :VSBreakPoint<CR>
 nnoremap <Leader>v :VSOpen<CR>
-" RipGrep
-if executable('rg')
-	nnoremap <Leader>r :Rg <C-R><C-W><CR>
-else
-	nnoremap <Leader>r :vim/<C-R><C-W>/**/*.*<CR>
-endif
+" SignifyDiff
 nnoremap <Leader>d :SignifyDiff<CR>
 " DoxygenToolkit
 let g:DoxygenToolkit_blockHeader=repeat('-', 72)
@@ -200,6 +191,7 @@ lua << EOF
       { name = 'nvim_lsp' },
       { name = 'vsnip' },
       { name = 'buffer' },
+      { name = 'nvim_lsp_signature_help' },
     }
   })
   require'nvim-treesitter.configs'.setup {
