@@ -186,6 +186,8 @@ lua << EOF
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
       ['<Tab>'] = cmp.mapping.select_next_item(),
       ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+      ['<Down>'] = cmp.mapping.select_next_item(),
+      ['<Up>'] = cmp.mapping.select_prev_item(),
     },
     sources = {
       { name = 'nvim_lsp' },
@@ -196,7 +198,7 @@ lua << EOF
   })
   require'nvim-treesitter.configs'.setup {
     ensure_installed = "all",
-    ignore_install = {"phpdoc"},
+    ignore_install = {"phpdoc", "fortran", "haskell"},
     highlight = {
       enable = true,
     },
