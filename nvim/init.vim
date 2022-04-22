@@ -234,4 +234,8 @@ lua << EOF
       path = "Library/EditorInstance.json";
     },
   }
+  require('telescope').setup
+  {
+    defaults = {preview = false}
+  }
 EOF
