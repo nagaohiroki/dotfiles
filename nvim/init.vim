@@ -32,7 +32,7 @@ Plug 'https://github.com/cocopon/iceberg.vim'
 Plug 'https://github.com/github/copilot.vim'
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
 Plug 'https://github.com/neovim/nvim-lspconfig'
-Plug 'https://github.com/williamboman/nvim-lsp-installer', {'commit': '5000f77c4bbe753ba1b03e465e57cd48da8f5989'}
+Plug 'https://github.com/williamboman/nvim-lsp-installer'
 Plug 'https://github.com/hrsh7th/nvim-cmp'
 Plug 'https://github.com/hrsh7th/cmp-nvim-lsp'
 Plug 'https://github.com/hrsh7th/cmp-buffer'
@@ -173,7 +173,14 @@ set statusline+=%=%c,%l/%L
 set cmdheight=2
 set completeopt=menu,menuone,noselect,noinsert
 lua << EOF
-  require("nvim-lsp-installer").on_server_ready(function(server) server:setup({}) end)
+  require('telescope').setup
+  {
+    defaults = {preview = false}
+  }
+  local lspinstaller = require("nvim-lsp-installer")
+  lspinstaller.setup{}
+  local lspconfig = require("lspconfig")
+  lspconfig.omnisharp.setup{use_mono = true}
   local cmp = require'cmp'
   cmp.setup({
     snippet = {
@@ -220,7 +227,6 @@ lua << EOF
       end;
     },
   }
-  require("dapui").setup()
   dap.adapters.unity = {
     type = 'executable';
     command = vim.env.HOME .. '/.vscode/extensions/unity.unity-debug-3.0.2/bin/UnityDebug.exe';
@@ -234,8 +240,5 @@ lua << EOF
       path = "Library/EditorInstance.json";
     },
   }
-  require('telescope').setup
-  {
-    defaults = {preview = false}
-  }
+  require("dapui").setup()
 EOF
