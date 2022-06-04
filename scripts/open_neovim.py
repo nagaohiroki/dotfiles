@@ -9,6 +9,8 @@ except Exception as e:
     pass
 
 
+app = '/Applications/nvim-qt.app'
+
 def neovim_command(address):
     nvim = neovim.attach('socket', path=address)
     if len(sys.argv) > 1:
@@ -23,11 +25,12 @@ def neovim_command(address):
     activate_neovim()
 
 
-def open_neovim(address):
-    nvim = 'nvim-qt'
+def open_neovim():
+    cmd = sys.argv
+    if platform.system() == 'Windows':
+        cmd[0] = 'nvim-qt'
     if platform.system() == 'Darwin':
-        nvim = '/Applications/nvim-qt.app/Contents/MacOS/nvim-qt'
-    cmd = [nvim, '--', '--listen', address] + sys.argv[1:]
+        cmd[0] = os.path.join(app, 'Contents/MacOS/nvim-qt')
     subprocess.Popen(cmd)
 
 
@@ -35,18 +38,27 @@ def activate_neovim():
     if platform.system() == 'Windows':
         win32gui.EnumWindows(activate_win32, None)
     if platform.system() == 'Darwin':
-        subprocess.Popen(['open', '/Applications/nvim-qt.app'])
+        subprocess.Popen(['open', app])
+
+
+def activate_win32(hwnd, _):
+    win_name = win32gui.GetWindowText(hwnd)
+    if win_name.endswith('NVIM') or win_name == 'Neovim':
+       win32gui.SetForegroundWindow(hwnd)
 
 
 def main():
-    server_address = '\\\\.\\pipe\\nvim'
-    if platform.system() == 'Darwin':
-        server_address = '/tmp/nvim'
+    env = os.path.join(os.path.expanduser('~'), 'nvim_env.txt')
+    if not os.path.exists(env):
+        open_neovim()
+        return
+    f = open(env)
+    address = f.readline()
     try:
-        neovim_command(server_address)
+        neovim_command(address)
     except Exception as e:
         print(e)
-        open_neovim(server_address)
+        open_neovim()
 
 
 if __name__ == "__main__":
