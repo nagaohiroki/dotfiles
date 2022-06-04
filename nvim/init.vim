@@ -110,7 +110,6 @@ nnoremap <silent> <S-C-F9> :lua require'dap'.set_breakpoint(nil, nil, vim.fn.inp
 imap <silent><script><expr> <C-q> copilot#Accept("")
 let g:copilot_no_tab_map = v:true
 " Utility Setting(not plugins setting)
-redir! > $HOME/nvim_env.txt | echon $NVIM_LISTEN_ADDRESS | redir END
 augroup vimrc_loading
 	autocmd!
 	autocmd QuickFixCmdPost *grep* cwindow
