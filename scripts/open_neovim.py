@@ -22,7 +22,6 @@ def neovim_command(address):
                 continue
             edit += f' . fnameescape(\'{c}\') '
         nvim.command(edit)
-    activate_neovim()
 
 
 def open_neovim():
@@ -59,6 +58,7 @@ def main():
     except Exception as e:
         print(e)
         open_neovim()
+    activate_neovim()
 
 
 if __name__ == "__main__":

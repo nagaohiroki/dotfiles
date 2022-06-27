@@ -190,7 +190,7 @@ lua << EOF
     },
     mapping = {
       ['<C-Space>'] = cmp.mapping.complete(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ['<CR>'] = cmp.mapping.confirm(),
       ['<Tab>'] = cmp.mapping.select_next_item(),
       ['<S-Tab>'] = cmp.mapping.select_prev_item(),
       ['<Down>'] = cmp.mapping.select_next_item(),
@@ -205,7 +205,7 @@ lua << EOF
   })
   require'nvim-treesitter.configs'.setup {
     ensure_installed = "all",
-    ignore_install = {"phpdoc", "fortran", "haskell"},
+    ignore_install = {"phpdoc", "fortran", "haskell", "rnoweb"},
     highlight = {
       enable = true,
     },
