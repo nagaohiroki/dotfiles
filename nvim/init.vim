@@ -181,6 +181,7 @@ lua << EOF
   lspinstaller.setup{}
   local lspconfig = require("lspconfig")
   lspconfig.omnisharp.setup{use_mono = true}
+  lspconfig.pyright.setup{}
   local cmp = require'cmp'
   cmp.setup({
     snippet = {
