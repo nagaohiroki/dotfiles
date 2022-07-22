@@ -172,6 +172,7 @@ set statusline+=%y%{'['.&fenc.(&bomb?'_bom':'').']['.&ff.']'}
 set statusline+=%=%c,%l/%L
 set cmdheight=2
 set completeopt=menu,menuone,noselect,noinsert
+set viminfo+='10000
 lua << EOF
   require('telescope').setup
   {
