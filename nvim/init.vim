@@ -67,7 +67,9 @@ call altr#define('Private/%.cpp', 'Private/*/%.cpp', 'Public/%.h', 'Public/*/%.h
 " Telescope
 nnoremap <Leader>f :Telescope find_files<CR>
 nnoremap <Leader>m :Telescope oldfiles<CR>
-nnoremap <Leader>r :Telescope live_grep<CR>
+nnoremap <Leader>r :Telescope grep_string<CR>
+nnoremap <Leader>i :Telescope live_grep<CR>
+nnoremap <Leader>t :Telescope resume<CR>
 " VS
 nnoremap <Leader>b :VSBreakPoint<CR>
 nnoremap <Leader>v :VSOpen<CR>
