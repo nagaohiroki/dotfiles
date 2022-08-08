@@ -112,6 +112,9 @@ nnoremap <silent> <S-C-F9> :lua require'dap'.set_breakpoint(nil, nil, vim.fn.inp
 " copilot
 imap <silent><script><expr> <C-q> copilot#Accept("")
 let g:copilot_no_tab_map = v:true
+if has('mac')
+	let g:copilot_node_command = "~/.nvm/versions/node/v17.9.1/bin/node"
+endif
 " Utility Setting(not plugins setting)
 redir! > $HOME/nvim_env.txt | echon v:servername | redir END
 augroup vimrc_loading
