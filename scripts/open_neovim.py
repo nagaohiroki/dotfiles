@@ -55,10 +55,10 @@ def main():
     address = f.readline()
     try:
         neovim_command(address)
+        activate_neovim()
     except Exception as e:
         print(e)
         open_neovim()
-    activate_neovim()
 
 
 if __name__ == "__main__":
