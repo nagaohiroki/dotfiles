@@ -116,9 +116,22 @@ if has('mac')
 	let g:copilot_node_command = "~/.nvm/versions/node/v17.9.1/bin/node"
 endif
 " Utility Setting(not plugins setting)
-redir! > $HOME/nvim_env.txt | echon v:servername | redir END
+function! LaunchSingleton()
+	let my_servername = '\\.\pipe\nvim-server'
+	if my_servername == v:servername
+		return
+	endif
+	try
+		call serverstart(my_servername)
+		call serverstop(v:servername)
+	catch
+		call system(printf('"%s" --server "%s" --remote-send ":e %s | call cursor(%d, %d)<CR>"', v:progpath, my_servername, expand('%:p'), line('.'), col('.')))
+		exit
+	endtry
+endfunction
 augroup vimrc_loading
 	autocmd!
+	autocmd VimEnter * call LaunchSingleton()
 	autocmd QuickFixCmdPost *grep* cwindow
 	autocmd BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 	autocmd BufRead,BufNewFile *.usf setfiletype hlsl
