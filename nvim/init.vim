@@ -117,7 +117,10 @@ if has('mac')
 endif
 " Utility Setting(not plugins setting)
 function! LaunchSingleton()
-	let my_servername = '\\.\pipe\nvim-server'
+	let my_servername = $HOME . '/.local/state/nvim/nvim0'
+	if has('win32')
+		let my_servername = '\\.\pipe\nvim-server'
+	endif
 	if my_servername == v:servername
 		return
 	endif

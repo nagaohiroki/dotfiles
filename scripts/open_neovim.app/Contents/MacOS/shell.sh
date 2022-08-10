@@ -1,2 +1,2 @@
-#!/bin/bash
-python3 ~/dotfiles/scripts/open_neovim.py "$@"
+#!/bin/zsh
+nvim-qt "$@"
