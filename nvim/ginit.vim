@@ -1,3 +1,6 @@
+if exists('g:server_mode')
+	finish
+endif
 if exists('g:GuiLoaded')
 	GuiScrollBar 1
 	GuiWindowOpacity 0.95

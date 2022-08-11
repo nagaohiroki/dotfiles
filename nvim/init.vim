@@ -1,3 +1,22 @@
+let g:my_servername = $HOME . '/.local/state/nvim/nvim0'
+if has('win32')
+	let g:my_servername = '\\.\pipe\nvim-server'
+endif
+if g:my_servername != v:servername
+	try
+		call serverstart(g:my_servername)
+		call serverstop(v:servername)
+	catch
+		let g:server_mode=1
+		function! LaunchSingleton()
+			call system(printf('"%s" --server "%s" --remote-send ":e %s | call cursor(%d, %d)<CR>"', v:progpath, g:my_servername, expand('%:p'), line('.'), col('.')))
+			exit
+		endfunction
+		set noswapfile
+		autocmd VimEnter * call LaunchSingleton()
+		finish
+	endtry
+endif
 set fileencodings=ucs-bom,iso-2022-jp-3,euc-jisx0213,cp932,sjis,euc-jp,utf-8
 let mapleader="\<Space>"
 function! InstallVimPlug(plug_dir)
@@ -116,25 +135,8 @@ if has('mac')
 	let g:copilot_node_command = "~/.nvm/versions/node/v17.9.1/bin/node"
 endif
 " Utility Setting(not plugins setting)
-function! LaunchSingleton()
-	let my_servername = $HOME . '/.local/state/nvim/nvim0'
-	if has('win32')
-		let my_servername = '\\.\pipe\nvim-server'
-	endif
-	if my_servername == v:servername
-		return
-	endif
-	try
-		call serverstart(my_servername)
-		call serverstop(v:servername)
-	catch
-		call system(printf('"%s" --server "%s" --remote-send ":e %s | call cursor(%d, %d)<CR>"', v:progpath, my_servername, expand('%:p'), line('.'), col('.')))
-		exit
-	endtry
-endfunction
 augroup vimrc_loading
 	autocmd!
-	autocmd VimEnter * call LaunchSingleton()
 	autocmd QuickFixCmdPost *grep* cwindow
 	autocmd BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 	autocmd BufRead,BufNewFile *.usf setfiletype hlsl
