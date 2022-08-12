@@ -1,5 +1,5 @@
 if exists('g:server_mode')
-	finish
+	exit
 endif
 if exists('g:GuiLoaded')
 	GuiScrollBar 1

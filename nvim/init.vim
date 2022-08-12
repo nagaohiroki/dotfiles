@@ -7,13 +7,21 @@ if g:my_servername != v:servername
 		call serverstart(g:my_servername)
 		call serverstop(v:servername)
 	catch
-		let g:server_mode=1
-		function! LaunchSingleton()
-			call system(printf('"%s" --server "%s" --remote-send ":e %s | call cursor(%d, %d)<CR>"', v:progpath, g:my_servername, expand('%:p'), line('.'), col('.')))
-			exit
-		endfunction
 		set noswapfile
-		autocmd VimEnter * call LaunchSingleton()
+		let g:server_mode=1
+		if expand('%:p') != ''
+			function! LaunchSingleton()
+				call system(printf('"%s" --server "%s" --remote-send ":e %s | call cursor(%d, %d)<CR>"', v:progpath, g:my_servername, expand('%:p'), line('.'), col('.')))
+				if !exists('g:GuiLoaded')
+					exit
+				endif
+			endfunction
+			autocmd VimEnter * call LaunchSingleton()
+		else
+			if !exists('g:GuiLoaded')
+				exit
+			endif
+		endif
 		finish
 	endtry
 endif

@@ -1,2 +1,2 @@
 #!/bin/zsh
-nvim-qt "$@"
+nvim-qt -- "$@"
