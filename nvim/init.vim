@@ -12,6 +12,12 @@ if g:my_servername != v:servername
 		if expand('%:p') != ''
 			function! LaunchSingleton()
 				call system(printf('"%s" --server "%s" --remote-send ":e %s | call cursor(%d, %d)<CR>"', v:progpath, g:my_servername, expand('%:p'), line('.'), col('.')))
+				if has('win32')
+					call system($HOME . '/dotfiles/scripts/foreground_win32.exe')
+				endif
+				if has('mac')
+					call system('open -a nvim-qt')
+				endif
 				if !exists('g:GuiLoaded')
 					exit
 				endif
