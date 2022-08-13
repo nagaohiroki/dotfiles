@@ -16,7 +16,7 @@ if g:my_servername != v:servername
 					call system($HOME . '/dotfiles/scripts/foreground_win32.exe')
 				endif
 				if has('mac')
-					call system('open -a nvim-qt')
+					call system('open -a /opt/homebrew/bin/nvim-qt')
 				endif
 				if !exists('g:GuiLoaded')
 					exit
