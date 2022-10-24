@@ -119,27 +119,27 @@ nnoremap <silent> <Leader>l <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> <Leader>e <cmd>lua vim.lsp.buf.declaration()<CR>
 imap <expr> <C-s>   vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-s>'
 command! Format lua vim.lsp.buf.format{async=true}
+command! Fmt lua vim.lsp.buf.formatting()
 " dap
 function! DepWin(isOpen)
 	if a:isOpen == 0
-		lua require'dap'.repl.close()
 		lua require'dapui'.close()
+		lua require'dap'.repl.close()
+		lua require'dap'.disconnect()
 	else
+		lua require'dap'.continue()
 		lua require'dap'.repl.open()
 		lua require'dapui'.open()
 	endif
 endfunction
-nnoremap <silent> <F6>     :call DepWin(1)<CR>
-nnoremap <silent> <S-F6>   :call DepWin(0)<CR>
-nnoremap <silent> <F5>     :lua require'dap'.continue()<CR>:call DepWin(1)<CR>
-nnoremap <silent> <S-F5>   :lua require'dap'.close()<CR>:call DepWin(0)<CR>
+nnoremap <silent> <F5>     :call DepWin(1)<CR>
+nnoremap <silent> <S-F5>   :call DepWin(0)<CR>
 nnoremap <silent> <S-C-F5> :lua require'dap'.run_last()<CR>
 nnoremap <silent> <F10>    :lua require'dap'.step_over()<CR>
 nnoremap <silent> <F11>    :lua require'dap'.step_into()<CR>
 nnoremap <silent> <S-F11>  :lua require'dap'.step_out()<CR>
 nnoremap <silent> <F9>     :lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <silent> <S-F9>   :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
-nnoremap <silent> <S-C-F9> :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+nnoremap <silent> <S-C-F9> :lua require'dap'.clear_breakpoints()<CR>
 " Utility Setting(not plugins setting)
 augroup vimrc_loading
 	autocmd!
@@ -202,8 +202,6 @@ set statusline+=%y%{'['.&fenc.(&bomb?'_bom':'').']['.&ff.']'}
 set statusline+=%=%c,%l/%L
 set cmdheight=2
 set completeopt=menu,menuone,noselect,noinsert
-set viminfo+='10000
-set viminfo-='100
 lua << EOF
   require('telescope').setup
   {
@@ -263,7 +261,7 @@ lua << EOF
   }
   dap.adapters.unity = {
     type = 'executable';
-    command = vim.env.HOME .. '/.vscode/extensions/unity.unity-debug-3.0.2/bin/UnityDebug.exe';
+    command = vim.env.HOME .. '/.vscode/extensions/deitry.unity-debug-3.0.11/bin/UnityDebug.exe';
     name = 'Unity Editor';
   }
   dap.configurations.cs = {
