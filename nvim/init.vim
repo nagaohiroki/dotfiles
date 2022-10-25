@@ -263,7 +263,7 @@ lua << EOF
     },
   }
   local unityDebug = vim.env.HOME .. '/.vscode/extensions/deitry.unity-debug-3.0.11/bin/UnityDebug.exe'
-  if vim.fn.has('win32') then
+  if vim.fn.has('win32') == 1 then
     dap.adapters.unity = {
       type = 'executable';
       command = unityDebug;
