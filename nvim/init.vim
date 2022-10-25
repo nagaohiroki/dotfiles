@@ -118,8 +118,11 @@ nnoremap <silent> <Leader>u <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <Leader>l <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> <Leader>e <cmd>lua vim.lsp.buf.declaration()<CR>
 imap <expr> <C-s>   vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-s>'
-command! Format lua vim.lsp.buf.format{async=true}
-command! Fmt lua vim.lsp.buf.formatting()
+if has('win32')
+	command! Format lua vim.lsp.buf.formatting()
+else
+	command! Format lua vim.lsp.buf.format{async=true}
+endif
 " dap
 function! DepWin(isOpen)
 	if a:isOpen == 0
