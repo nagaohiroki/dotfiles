@@ -262,17 +262,18 @@ lua << EOF
       end;
     },
   }
-  if vim.fn.has('macunix') then
+  local unityDebug = vim.env.HOME .. '/.vscode/extensions/deitry.unity-debug-3.0.11/bin/UnityDebug.exe'
+  if vim.fn.has('win32') then
     dap.adapters.unity = {
       type = 'executable';
-      command = 'mono';
-      args = {vim.env.HOME .. '/.vscode/extensions/deitry.unity-debug-3.0.11/bin/UnityDebug.exe'};
+      command = unityDebug;
       name = 'Unity Editor';
     }
   else
     dap.adapters.unity = {
       type = 'executable';
-      command = vim.env.HOME .. '/.vscode/extensions/deitry.unity-debug-3.0.11/bin/UnityDebug.exe';
+      command = 'mono';
+      args = {unityDebug};
       name = 'Unity Editor';
     }
   end
