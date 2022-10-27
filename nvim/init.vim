@@ -240,7 +240,7 @@ lua << EOF
   })
   require'nvim-treesitter.configs'.setup {
     ensure_installed = "all",
-    ignore_install = {"phpdoc", "fortran", "haskell", "rnoweb"},
+    ignore_install = {"phpdoc", "fortran", "haskell", "rnoweb", "markdown"},
     highlight = {
       enable = true,
     },
