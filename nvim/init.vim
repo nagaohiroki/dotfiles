@@ -1,7 +1,4 @@
-let g:my_servername = $HOME . '/.local/state/nvim/nvim0'
-if has('win32')
-	let g:my_servername = '\\.\pipe\nvim-server'
-endif
+let g:my_servername = has('win32') ? '\\.\pipe\nvim-server' : $HOME . '/.local/state/nvim/nvim0'
 if g:my_servername != v:servername
 	try
 		call serverstart(g:my_servername)
@@ -12,25 +9,21 @@ if g:my_servername != v:servername
 		set noloadplugins
 		let g:server_mode=1
 		if expand('%:p') != ''
-			function! LaunchSingleton()
-				call system(printf('"%s" --server "%s" --remote-send ":e %s | call cursor(%d, %d)<CR>"', v:progpath, g:my_servername, expand('%:p'), line('.'), col('.')))
-				if has('win32')
-					call system($HOME . '/dotfiles/scripts/foreground_win32.exe')
+			let cmdl = ''
+			for i in v:argv
+				if matchstr(i, '+\d\+', 0) == i
+					let cmdl = printf(' | call cursor(%s, 1)', substitute(i, '+', '', 'g'))
 				endif
-				if has('mac')
-					call system('open -a /opt/homebrew/bin/nvim-qt')
-				endif
-				if !exists('g:GuiLoaded')
-					exit
-				endif
-			endfunction
-			autocmd VimEnter * call LaunchSingleton()
-		else
-			if !exists('g:GuiLoaded')
-				exit
+			endfor
+			call system(printf('"%s" --server "%s" --remote-send ":e %s%s<CR>"', v:progpath, g:my_servername, expand('%:p'), cmdl))
+			if has('win32')
+				call system($HOME . '/dotfiles/scripts/foreground_win32.exe')
+			endif
+			if has('mac')
+				call system('open -a /opt/homebrew/bin/nvim-qt')
 			endif
 		endif
-		finish
+		exit
 	endtry
 endif
 set fileencodings=ucs-bom,iso-2022-jp-3,euc-jisx0213,cp932,sjis,euc-jp,utf-8
