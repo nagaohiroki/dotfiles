@@ -16,11 +16,13 @@ if g:my_servername != v:servername
 				endif
 			endfor
 			call system(printf('"%s" --server "%s" --remote-send ":e %s%s<CR>"', v:progpath, g:my_servername, expand('%:p'), cmdl))
-			if has('win32')
-				call system($HOME . '/dotfiles/scripts/foreground_win32.exe')
-			endif
-			if has('mac')
-				call system('open -a /opt/homebrew/bin/nvim-qt')
+			if exists('g:GuiLoaded')
+				if has('win32')
+					call system($HOME . '/dotfiles/scripts/foreground_win32.exe')
+				endif
+				if has('mac')
+					call system('open -a /opt/homebrew/bin/nvim-qt')
+				endif
 			endif
 		endif
 		exit
