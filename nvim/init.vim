@@ -93,12 +93,6 @@ nmap <Leader>o <Plug>(openbrowser-smart-search)
 " artr for Unreal C++
 nmap <Leader>a <Plug>(altr-forward)
 call altr#define('Private/%.cpp', 'Private/*/%.cpp', 'Public/%.h', 'Public/*/%.h', 'Classes/%.h', 'Classes/*/%.h')
-" Telescope
-nnoremap <Leader>f :Telescope find_files<CR>
-nnoremap <Leader>m :Telescope oldfiles<CR>
-nnoremap <Leader>r :Telescope grep_string<CR>
-nnoremap <Leader>i :Telescope live_grep<CR>
-nnoremap <Leader>t :Telescope resume<CR>
 " VS
 nnoremap <Leader>b :VSBreakPoint<CR>
 nnoremap <Leader>v :VSOpen<CR>
@@ -108,38 +102,6 @@ nnoremap <Leader>d :SignifyDiff<CR>
 let g:DoxygenToolkit_blockHeader=repeat('-', 72)
 let g:DoxygenToolkit_blockFooter=g:DoxygenToolkit_blockHeader
 let g:DoxygenToolkit_commentType='C++'
-" lsp
-nnoremap <silent> <Leader>g <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> <Leader>h <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <Leader>u <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <Leader>l <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> <Leader>e <cmd>lua vim.lsp.buf.declaration()<CR>
-imap <expr> <C-s>   vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-s>'
-if has('win32')
-	command! Format lua vim.lsp.buf.formatting()
-else
-	command! Format lua vim.lsp.buf.format{async=true}
-endif
-" dap
-function! DepWin(isOpen)
-	if a:isOpen == 0
-		lua require'dapui'.close()
-		lua require'dap'.repl.close()
-		lua require'dap'.disconnect()
-	else
-		lua require'dap'.continue()
-		lua require'dap'.repl.open()
-		lua require'dapui'.open()
-	endif
-endfunction
-nnoremap <silent> <F5>     :call DepWin(1)<CR>
-nnoremap <silent> <S-F5>   :call DepWin(0)<CR>
-nnoremap <silent> <S-C-F5> :lua require'dap'.run_last()<CR>
-nnoremap <silent> <F10>    :lua require'dap'.step_over()<CR>
-nnoremap <silent> <F11>    :lua require'dap'.step_into()<CR>
-nnoremap <silent> <S-F11>  :lua require'dap'.step_out()<CR>
-nnoremap <silent> <F9>     :lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <silent> <S-C-F9> :lua require'dap'.clear_breakpoints()<CR>
 " Utility Setting(not plugins setting)
 augroup vimrc_loading
 	autocmd!
