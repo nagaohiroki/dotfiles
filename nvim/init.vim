@@ -4,25 +4,27 @@ if g:my_servername != v:servername
 		call serverstart(g:my_servername)
 		call serverstop(v:servername)
 	catch
-		stop
 		set noswapfile
 		set noloadplugins
 		let g:server_mode=1
-		if expand('%:p') != ''
-			let cmdl = ''
+		let ecmd = 'enew'
+		let fname = expand('%:p')
+		if fname != ''
+			let cursorline = ''
 			for i in v:argv
 				if matchstr(i, '+\d\+', 0) == i
-					let cmdl = printf(' | call cursor(%s, 1)', substitute(i, '+', '', 'g'))
+					let cursorline = printf(' | call cursor(%s, 1)', substitute(i, '+', '', 'g'))
 				endif
 			endfor
-			call system(printf('"%s" --server "%s" --remote-send ":e %s%s<CR>"', v:progpath, g:my_servername, expand('%:p'), cmdl))
-			if exists('g:GuiLoaded')
-				if has('win32')
-					call system($HOME . '/dotfiles/scripts/foreground_win32.exe')
-				endif
-				if has('mac')
-					call system('open -a /opt/homebrew/bin/nvim-qt')
-				endif
+			let ecmd = printf('e %s%s', fname, cursorline)
+		endif
+		call system(printf('"%s" --server "%s" --remote-send ":%s<CR>"', v:progpath, g:my_servername, ecmd))
+		if exists('g:GuiLoaded')
+			if has('win32')
+				call system($HOME . '/dotfiles/scripts/foreground_win32.exe')
+			endif
+			if has('mac')
+				call system('open -a /opt/homebrew/bin/nvim-qt')
 			endif
 		endif
 		exit
