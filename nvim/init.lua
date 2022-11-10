@@ -1,5 +1,6 @@
-local my_servername = vim.fn.has('win32') == 1 and [[\\.\pipe\nvim-server]] or vim.env.HOME ..
-	[[/.local/state/nvim/nvim0]]
+local my_servername = vim.fn.has('win32') == 1 and
+	[[\\.\pipe\nvim-server]] or
+	vim.env.HOME .. [[/.local/state/nvim/nvim0]]
 if my_servername ~= vim.v.servername then
 	local result, _ = pcall(vim.fn.serverstart, my_servername)
 	if result then
@@ -15,12 +16,13 @@ if my_servername ~= vim.v.servername then
 			for _, a in pairs(vim.v.argv) do
 				if string.match(a, '+%d+') == a then
 					local line, _ = string.gsub(a, '+', '')
-					cursorline = string.format(' | call cursor(%s, 1)', line)
+					cursorline = string.format('|call cursor(%s, 1)', line)
 				end
 			end
 			ecmd = string.format('e %s%s', fname, cursorline)
 		end
-		local cmd = string.format('"%s" --server "%s" --remote-send ":%s<CR>"', vim.v.progpath, my_servername, ecmd)
+		local activate = [[|if exists('g:GuiLoaded')==1|suspend|call GuiForeground()|endif]]
+		local cmd = string.format('"%s" --server "%s" --remote-send ":silent! %s%s<CR>"', vim.v.progpath, my_servername, ecmd, activate)
 		vim.fn.system(cmd)
 		vim.cmd.exit()
 	end
@@ -121,8 +123,8 @@ vim.api.nvim_create_autocmd('BufRead',
 		end
 	})
 vim.api.nvim_create_user_command('PackerInit', function()
-	vim.fn.system('git clone https://github.com/wbthomason/packer.nvim "' ..
-		vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim"')
+	local pickerdir = string.format('"%s/site/pack/packer/start/packer.nvim"', vim.fn.stdpath('data'))
+	vim.fn.system('git clone https://github.com/wbthomason/packer.nvim ' .. pickerdir)
 end, {})
 -- plugins
 vim.cmd [[silent! packadd packer.nvim]]
@@ -145,7 +147,6 @@ packer.startup(function(use)
 	use 'scrooloose/nerdtree'
 	use 'tpope/vim-fugitive'
 	use 'tyru/open-browser.vim'
-	use 'vim-jp/vimdoc-ja'
 	use 'vim-scripts/DoxygenToolkit.vim'
 	use 'tyru/open-browser-github.vim'
 	use 'cocopon/iceberg.vim'
