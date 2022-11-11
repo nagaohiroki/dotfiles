@@ -96,7 +96,7 @@ vim.api.nvim_create_autocmd("UIEnter", {
 			{ os = 'win32', font = [[Migu 1M]], size = 12 }
 		}
 		for _, f in pairs(fontTable) do
-			if vim.fn.has(f.os) then
+			if vim.fn.has(f.os) == 1 then
 				vim.g.fontName = f.font
 				vim.g.fontSize = f.size
 			end
