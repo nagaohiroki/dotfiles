@@ -147,7 +147,6 @@ packer.startup(function(use)
 	use 'nagaohiroki/vim-perforce'
 	use 'nagaohiroki/vim-ue4helper'
 	use 'nagaohiroki/vimDTETool'
-	use 'scrooloose/nerdtree'
 	use 'tpope/vim-fugitive'
 	use 'tyru/open-browser.vim'
 	use 'vim-scripts/DoxygenToolkit.vim'
@@ -168,6 +167,7 @@ packer.startup(function(use)
 	use 'mfussenegger/nvim-dap'
 	use 'rcarriga/nvim-dap-ui'
 	use 'voldikss/vim-translator'
+	use 'lambdalisue/fern.vim'
 end)
 vim.api.nvim_command [[silent! colorscheme iceberg]]
 -- telescope
@@ -190,19 +190,17 @@ vim.keymap.set('n', '<leader>l', vim.lsp.buf.document_symbol)
 vim.keymap.set('n', '<leader>e', vim.lsp.buf.declaration)
 vim.keymap.set('i', '<C-s>', Vsnip, { expr = true })
 vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.format { async = true } end, {})
-require("nvim-lsp-installer").setup {}
-local lspconfig = require("lspconfig")
+require('nvim-lsp-installer').setup {}
+local lspconfig = require('lspconfig')
 lspconfig.omnisharp.setup { use_mono = true }
 lspconfig.pyright.setup {}
 lspconfig.clangd.setup {}
 lspconfig.sumneko_lua.setup { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
-lspconfig.vimls.setup {}
-lspconfig.jsonls.setup {}
 local cmp = require 'cmp'
 cmp.setup({
 	snippet = {
 		expand = function(args)
-			vim.fn["vsnip#anonymous"](args.body)
+			vim.fn['vsnip#anonymous'](args.body)
 		end,
 	},
 	mapping = {
@@ -222,8 +220,8 @@ cmp.setup({
 })
 -- treesitter
 require 'nvim-treesitter.configs'.setup {
-	ensure_installed = "all",
-	ignore_install = { "phpdoc", "fortran", "haskell", "rnoweb", "markdown" },
+	ensure_installed = 'all',
+	ignore_install = { 'phpdoc', 'fortran', 'haskell', 'rnoweb', 'markdown' },
 	highlight = { enable = true },
 }
 -- dap
@@ -257,8 +255,8 @@ dap.configurations.python = {
 	{
 		type = 'python',
 		request = 'launch',
-		name = "Launch file",
-		program = "${file}",
+		name = 'Launch file',
+		program = '${file}',
 		pythonPath = function() return 'python' end,
 	},
 }
@@ -278,14 +276,14 @@ dap.configurations.cs = {
 	{
 		type = 'unity',
 		request = 'launch',
-		name = "Unity Editor",
-		path = "Library/EditorInstance.json",
+		name = 'Unity Editor',
+		path = 'Library/EditorInstance.json',
 	},
 }
 require("dapui").setup()
--- nerdtree
-vim.g.NERDTreeShowHidden = 1
-vim.keymap.set('n', '<leader>n', ':NERDTree<CR>')
+-- Fern
+vim.g['fern#default_hidden'] = 1
+vim.keymap.set('n', '<leader>n', ':Fern %:h -toggle -drawer<CR>')
 -- open-browser
 vim.keymap.set('n', '<leader>o', '<Plug>(openbrowser-smart-search)')
 -- translator
