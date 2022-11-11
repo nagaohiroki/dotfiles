@@ -1,6 +1,5 @@
 local my_server = vim.fn.has('win32') == 1 and
-	[[\\.\pipe\nvim-server]] or
-	vim.env.HOME .. [[/.local/state/nvim/nvim0]]
+	[[\\.\pipe\nvim-server]] or vim.env.HOME .. [[/.local/state/nvim/nvim0]]
 if my_server ~= vim.v.servername then
 	local result, _ = pcall(vim.fn.serverstart, my_server)
 	if result then
@@ -178,16 +177,12 @@ vim.keymap.set('n', '<leader>r', builtin.grep_string)
 vim.keymap.set('n', '<leader>i', builtin.live_grep)
 vim.keymap.set('n', '<leader>t', builtin.resume)
 -- lsp
-function Vsnip()
-	return [[<Plug>(vsnip-expand)]] or [[<C-s>]]
-end
-
 vim.keymap.set('n', '<leader>g', vim.lsp.buf.definition)
 vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover)
 vim.keymap.set('n', '<leader>u', vim.lsp.buf.references)
 vim.keymap.set('n', '<leader>l', vim.lsp.buf.document_symbol)
 vim.keymap.set('n', '<leader>e', vim.lsp.buf.declaration)
-vim.keymap.set('i', '<C-s>', Vsnip, { expr = true })
+vim.keymap.set('i', '<C-s>', function() return [[<Plug>(vsnip-expand)]] or [[<C-s>]] end, { expr = true })
 vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.format { async = true } end, {})
 require('nvim-lsp-installer').setup {}
 local lspconfig = require('lspconfig')
@@ -222,6 +217,8 @@ require 'nvim-treesitter.configs'.setup {
 	ensure_installed = 'all',
 	ignore_install = { 'phpdoc', 'fortran', 'haskell', 'rnoweb', 'markdown' },
 	highlight = { enable = true },
+	indent = { enable = true },
+	incremental_selection = { enable = true },
 }
 -- dap
 local dap = require('dap')
