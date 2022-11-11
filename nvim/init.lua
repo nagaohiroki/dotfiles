@@ -57,12 +57,11 @@ vim.api.nvim_create_user_command('CopyPathLine',
 	function() vim.fn.setreg('*', vim.fn.expand('%:p') .. '#L' .. vim.fn.line('.')) end, {})
 vim.api.nvim_create_user_command('Wex',
 	function()
-		local file = vim.api.nvim_buf_get_name(0)
-		if vim.fn.has('mac') then
-			vim.fn.system('open ' .. file)
+		if vim.fn.has('mac') == 1 then
+			vim.fn.system('open ' .. vim.fn.expand('%:h'))
 		end
-		if vim.fn.has('win32') then
-			vim.fn.system('start explorer /select,' .. file)
+		if vim.fn.has('win32') == 1 then
+			vim.fn.system('start explorer /select,' .. vim.api.nvim_buf_get_name(0))
 		end
 	end, {})
 
