@@ -1,8 +1,8 @@
-local my_servername = vim.fn.has('win32') == 1 and
+local my_server = vim.fn.has('win32') == 1 and
 	[[\\.\pipe\nvim-server]] or
 	vim.env.HOME .. [[/.local/state/nvim/nvim0]]
-if my_servername ~= vim.v.servername then
-	local result, _ = pcall(vim.fn.serverstart, my_servername)
+if my_server ~= vim.v.servername then
+	local result, _ = pcall(vim.fn.serverstart, my_server)
 	if result then
 		vim.fn.serverstop(vim.v.servername)
 	else
@@ -21,9 +21,9 @@ if my_servername ~= vim.v.servername then
 			end
 			ecmd = string.format('e %s%s', fname, cursorline)
 		end
-		local activate = [[|if exists('g:GuiLoaded')==1|suspend|call GuiForeground()|endif]]
-		local cmd = string.format('"%s" --server "%s" --remote-send ":silent! %s%s<CR>"', vim.v.progpath, my_servername, ecmd, activate)
-		vim.fn.system(cmd)
+		local fwg = [[|if exists('g:GuiLoaded')==1|suspend|call GuiForeground()|endif]]
+		vim.fn.system(string.format('"%s" --server "%s" --remote-send ":silent! %s%s<CR>"',
+			vim.v.progpath, my_server, ecmd, fwg))
 		vim.cmd.exit()
 	end
 end
@@ -90,13 +90,16 @@ vim.api.nvim_create_autocmd("UIEnter", {
 		end
 		vim.api.nvim_command('GuiWindowOpacity 0.95')
 		vim.api.nvim_command('GuiScrollBar 1')
-		if vim.fn.has('mac') then
-			vim.g.fontName = [[Monaco]]
-			vim.g.fontSize = 13
-		end
-		if vim.fn.has('win32') == 1 then
-			vim.g.fontName = [[Migu 1M]]
-			vim.g.fontSize = 12
+		local fontTable =
+		{
+			{ os = 'mac', font = [[Monaco]], size = 13 },
+			{ os = 'win32', font = [[Migu 1M]], size = 12 }
+		}
+		for _, f in pairs(fontTable) do
+			if vim.fn.has(f.os) then
+				vim.g.fontName = f.font
+				vim.g.fontSize = f.size
+			end
 		end
 		FontSize(0)
 	end
