@@ -20,13 +20,12 @@ if my_server ~= vim.v.servername then
 			end
 			ecmd = string.format('e %s%s', fname, cursorline)
 		end
-		local fwg = [[|if exists('g:GuiLoaded')==1|suspend|call GuiForeground()|endif]]
 		vim.fn.system(string.format('"%s" --server "%s" --remote-send ":silent! %s%s<CR>"',
-			vim.v.progpath, my_server, ecmd, fwg))
-		vim.cmd.exit()
+			vim.v.progpath, my_server, ecmd,
+			[[|if exists('g:GuiLoaded')==1|suspend|call GuiForeground()|endif]]))
 	end
 end
-vim.g.mapleader = " "
+vim.g.mapleader = ' '
 vim.o.writebackup = false
 vim.o.fixeol = false
 vim.o.wrap = false
@@ -79,11 +78,11 @@ vim.api.nvim_create_autocmd("UIEnter", {
 	group = 'loading',
 	once = true,
 	callback = function()
-		if vim.g.GuiLoaded ~= 1 then
-			return
-		end
 		if vim.g.server_mode == 1 then
 			vim.cmd.exit()
+			return
+		end
+		if vim.g.GuiLoaded ~= 1 then
 			return
 		end
 		vim.api.nvim_command('GuiWindowOpacity 0.95')
