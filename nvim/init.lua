@@ -166,6 +166,7 @@ packer.startup(function(use)
 	use 'rcarriga/nvim-dap-ui'
 	use 'voldikss/vim-translator'
 	use 'lambdalisue/fern.vim'
+	use 'j-hui/fidget.nvim'
 end)
 vim.api.nvim_command [[silent! colorscheme iceberg]]
 -- telescope
@@ -184,6 +185,7 @@ vim.keymap.set('n', '<leader>l', vim.lsp.buf.document_symbol)
 vim.keymap.set('n', '<leader>e', vim.lsp.buf.declaration)
 vim.keymap.set('i', '<C-s>', function() return [[<Plug>(vsnip-expand)]] or [[<C-s>]] end, { expr = true })
 vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.format { async = true } end, {})
+require('fidget').setup()
 require('nvim-lsp-installer').setup {}
 local lspconfig = require('lspconfig')
 lspconfig.omnisharp.setup { use_mono = true }
@@ -276,7 +278,7 @@ dap.configurations.cs = {
 		path = 'Library/EditorInstance.json',
 	},
 }
-require("dapui").setup()
+require('dapui').setup()
 -- Fern
 vim.g['fern#default_hidden'] = 1
 vim.keymap.set('n', '<leader>n', ':Fern %:h -toggle -drawer<CR>')
