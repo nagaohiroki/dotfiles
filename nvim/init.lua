@@ -45,7 +45,7 @@ vim.o.listchars = 'eol:<,tab:> ,extends:<'
 vim.o.whichwrap = 'b,s,h,l,<,>,[,]'
 vim.o.clipboard = 'unnamedplus,unnamed'
 vim.o.fileencodings = 'ucs-bom,iso-2022-jp-3,euc-jisx0213,cp932,sjis,euc-jp,utf-8'
-vim.o.statusline = '%<%f%m%r%h%w%y[%{&fenc}%{(&bomb?"_bom":"")}]%=%c,%l/%L'
+vim.o.statusline = '%<%f%m%r%h%w%y[%{&fenc}%{(&bomb?"_bom":"")}][%{&ff}]%=%c,%l/%L'
 vim.keymap.set({ 'n', 'v' }, '<C-p>', '"0p')
 vim.keymap.set('n', '<leader>s', [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
 vim.api.nvim_create_user_command('Rc', function() vim.cmd([[e ]] .. vim.env.HOME .. [[/dotfiles/nvim/init.lua]]) end, {})
@@ -90,7 +90,7 @@ vim.api.nvim_create_autocmd("UIEnter", {
 		local fontTable =
 		{
 			{ os = 'mac', font = [[Monaco]], size = 13 },
-			{ os = 'win32', font = [[Migu 1M]], size = 12 }
+			{ os = 'win32', font = [[HackGen Console NFJ]], size = 12 }
 		}
 		for _, f in pairs(fontTable) do
 			if vim.fn.has(f.os) == 1 then
@@ -165,7 +165,12 @@ packer.startup(function(use)
 	use 'rcarriga/nvim-dap-ui'
 	use 'voldikss/vim-translator'
 	use 'lambdalisue/fern.vim'
+	use 'lambdalisue/fern-git-status.vim'
+	use 'lambdalisue/fern-renderer-nerdfont.vim'
+	use 'lambdalisue/nerdfont.vim'
+	use 'lambdalisue/glyph-palette.vim'
 	use 'j-hui/fidget.nvim'
+	use 'nvim-tree/nvim-web-devicons'
 end)
 vim.api.nvim_command [[silent! colorscheme iceberg]]
 -- telescope
@@ -280,6 +285,7 @@ dap.configurations.cs = {
 require('dapui').setup()
 -- Fern
 vim.g['fern#default_hidden'] = 1
+vim.g['fern#renderer'] = 'nerdfont'
 vim.keymap.set('n', '<leader>n', ':Fern %:h -toggle -drawer<CR>')
 -- open-browser
 vim.keymap.set('n', '<leader>o', '<Plug>(openbrowser-smart-search)')
