@@ -200,9 +200,7 @@ lspconfig.sumneko_lua.setup { settings = { Lua = { diagnostics = { globals = { '
 local cmp = require 'cmp'
 cmp.setup({
 	snippet = {
-		expand = function(args)
-			vim.fn['vsnip#anonymous'](args.body)
-		end,
+		expand = function(args) vim.fn['vsnip#anonymous'](args.body) end,
 	},
 	mapping = {
 		['<C-Space>'] = cmp.mapping.complete(),
@@ -222,7 +220,6 @@ cmp.setup({
 -- treesitter
 require 'nvim-treesitter.configs'.setup {
 	ensure_installed = 'all',
-	ignore_install = { 'phpdoc', 'fortran', 'haskell', 'rnoweb', 'markdown' },
 	highlight = { enable = true },
 	indent = { enable = true },
 	incremental_selection = { enable = true },
