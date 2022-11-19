@@ -89,7 +89,7 @@ vim.api.nvim_create_autocmd("UIEnter", {
 		vim.api.nvim_command('GuiScrollBar 1')
 		local fontTable =
 		{
-			{ os = 'mac', font = [[Monaco]], size = 13 },
+			{ os = 'mac', font = [[HackGen Console NFJ]], size = 14 },
 			{ os = 'win32', font = [[HackGen Console NFJ]], size = 12 }
 		}
 		for _, f in pairs(fontTable) do
