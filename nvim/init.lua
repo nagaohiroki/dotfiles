@@ -1,30 +1,35 @@
-local my_server = vim.fn.has('win32') == 1 and
-	[[\\.\pipe\nvim-server]] or vim.env.HOME .. [[/.local/state/nvim/nvim0]]
-if my_server ~= vim.v.servername then
+function LaunchOnceProcess()
+	local my_server = vim.fn.has('win32') == 1 and
+		[[\\.\pipe\nvim-server]] or vim.env.HOME .. [[/.local/state/nvim/nvim0]]
+	if my_server == vim.v.servername then
+		return
+	end
 	local result, _ = pcall(vim.fn.serverstart, my_server)
 	if result then
 		vim.fn.serverstop(vim.v.servername)
-	else
-		vim.g.server_mode = 1
-		vim.o.swapfile = false
-		vim.o.loadplugins = false
-		local ecmd = 'enew'
-		local fname = vim.api.nvim_buf_get_name(0)
-		if fname ~= '' then
-			local cursorline = ''
-			for _, a in pairs(vim.v.argv) do
-				if string.match(a, '+%d+') == a then
-					local line, _ = string.gsub(a, '+', '')
-					cursorline = string.format('|call cursor(%s, 1)', line)
-				end
-			end
-			ecmd = string.format('e %s%s', fname, cursorline)
-		end
-		vim.fn.system(string.format('"%s" --server "%s" --remote-send ":silent! %s%s<CR>"',
-			vim.v.progpath, my_server, ecmd,
-			[[|if exists('g:GuiLoaded')==1|suspend|call GuiForeground()|endif]]))
+		return
 	end
+	vim.g.server_mode = 1
+	vim.o.swapfile = false
+	vim.o.loadplugins = false
+	local ecmd = 'enew'
+	local fname = vim.api.nvim_buf_get_name(0)
+	if fname ~= '' then
+		local cursorline = ''
+		for _, a in pairs(vim.v.argv) do
+			if string.match(a, '+%d+') == a then
+				local line, _ = string.gsub(a, '+', '')
+				cursorline = string.format('|call cursor(%s, 1)', line)
+			end
+		end
+		ecmd = string.format('e %s%s', fname, cursorline)
+	end
+	vim.fn.system(string.format('"%s" --server "%s" --remote-send ":silent! %s%s<CR>"',
+		vim.v.progpath, my_server, ecmd,
+		[[|if exists('g:GuiLoaded')==1|suspend|call GuiForeground()|endif]]))
 end
+
+LaunchOnceProcess()
 vim.g.mapleader = ' '
 vim.o.writebackup = false
 vim.o.fixeol = false
