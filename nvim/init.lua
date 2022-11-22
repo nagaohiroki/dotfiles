@@ -112,6 +112,12 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' },
 		pattern = { '*.usf', '*.ush', '*.cginc', '*.shader', '*.glslinc' },
 		command = 'setfiletype hlsl'
 	})
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' },
+	{
+		group = 'loading',
+		pattern = { 'COMMIT_EDITMSG' },
+		command = 'set fenc=utf-8'
+	})
 vim.api.nvim_create_autocmd('BufRead',
 	{
 		group = 'loading',
@@ -300,7 +306,7 @@ vim.g.DoxygenToolkit_blockHeader = '--------------------------------------------
 vim.g.DoxygenToolkit_blockFooter = vim.g.DoxygenToolkit_blockHeader
 vim.g.DoxygenToolkit_commentType = 'C++'
 -- SignifyDiff
-vim.keymap.set('n', '<leader>d', ':SignifyDiff<CR>')
+vim.keymap.set('n', '<leader>d', ':Gdiffsplit<CR>')
 -- VS
 vim.keymap.set('n', '<leader>b', ':VSBreakPoint<CR>')
 vim.keymap.set('n', '<leader>v', ':VSOpen<CR>')
