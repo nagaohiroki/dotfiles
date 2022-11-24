@@ -207,6 +207,7 @@ local lspconfig = require('lspconfig')
 lspconfig.omnisharp.setup { use_mono = true }
 lspconfig.pyright.setup {}
 lspconfig.clangd.setup {}
+lspconfig.powershell_es.setup {}
 lspconfig.sumneko_lua.setup { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
 local cmp = require 'cmp'
 cmp.setup({
@@ -311,7 +312,7 @@ vim.g.DoxygenToolkit_blockHeader = '--------------------------------------------
 vim.g.DoxygenToolkit_blockFooter = vim.g.DoxygenToolkit_blockHeader
 vim.g.DoxygenToolkit_commentType = 'C++'
 -- SignifyDiff
-vim.keymap.set('n', '<leader>d', ':Gdiffsplit<CR>')
+vim.keymap.set('n', '<leader>d', ':Gvdiffsplit<CR>')
 -- VS
 vim.keymap.set('n', '<leader>b', ':VSBreakPoint<CR>')
 vim.keymap.set('n', '<leader>v', ':VSOpen<CR>')
