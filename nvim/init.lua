@@ -1,3 +1,16 @@
+function Foreground()
+	if vim.g.GuiLoaded ~= 1 then
+		return
+	end
+	if vim.fn.has('win32') == 1 then
+		vim.api.nvim_command('suspend')
+		vim.fn.GuiForeground()
+	end
+	if vim.fn.has('mac') == 1 then
+		vim.api.nvim_command('!open -a nvim-qt')
+	end
+end
+
 function LaunchOnceProcess()
 	local my_server = vim.fn.has('win32') == 1 and
 		[[\\.\pipe\nvim-server]] or vim.env.HOME .. [[/.local/state/nvim/nvim0]]
@@ -24,9 +37,8 @@ function LaunchOnceProcess()
 		end
 		ecmd = string.format('e %s%s', fname, cursorline)
 	end
-	vim.fn.system(string.format('"%s" --server "%s" --remote-send ":silent! %s%s<CR>"',
-		vim.v.progpath, my_server, ecmd,
-		[[|if exists('g:GuiLoaded')==1|suspend|call GuiForeground()|endif]]))
+	vim.fn.system(string.format('"%s" --server "%s" --remote-send ":silent! %s|lua Foreground()<CR>"',
+		vim.v.progpath, my_server, ecmd))
 end
 
 LaunchOnceProcess()
