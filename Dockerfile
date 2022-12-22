@@ -1,5 +1,3 @@
-# sudo docker build -t dev .
-# sudo docker run -it dev
 FROM ubuntu:latest
 WORKDIR /root
 RUN apt-get update 
