@@ -12,6 +12,9 @@ function Foreground()
 end
 
 function LaunchOnceProcess()
+	if vim.fn.has('unix') == 1 then
+		return
+	end
 	local my_server = vim.fn.has('win32') == 1 and
 		[[\\.\pipe\nvim-server]] or vim.env.HOME .. [[/.local/state/nvim/nvim0]]
 	if my_server == vim.v.servername then
@@ -96,7 +99,7 @@ vim.api.nvim_create_autocmd("UIEnter", {
 	once = true,
 	callback = function()
 		if vim.g.server_mode == 1 then
-			vim.cmd.exit()
+			vim.api.nvim_command('exit')
 			return
 		end
 		if vim.g.GuiLoaded ~= 1 then
@@ -220,6 +223,7 @@ lspconfig.omnisharp.setup { use_mono = true }
 lspconfig.pyright.setup {}
 lspconfig.clangd.setup {}
 lspconfig.powershell_es.setup {}
+lspconfig.dockerls.setup {}
 lspconfig.sumneko_lua.setup { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
 local cmp = require 'cmp'
 cmp.setup({
