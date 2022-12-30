@@ -83,6 +83,13 @@ vim.api.nvim_create_user_command('Wex',
 		end
 	end, {})
 
+vim.api.nvim_create_user_command('Utf8bomLF',
+	function()
+		vim.o.fileencoding = 'utf-8'
+		vim.o.bomb = true
+		vim.o.fileformat = 'unix'
+	end, {})
+
 function FontSize(inc)
 	if vim.g.GuiLoaded ~= 1 then
 		return
