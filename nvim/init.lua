@@ -264,13 +264,11 @@ local dap = require('dap')
 local dapui = require('dapui')
 function DapClose()
 	dapui.close()
-	dap.repl.close()
 	dap.disconnect()
 end
 
 function DapOpen()
 	dapui.open()
-	dap.repl.open()
 	dap.continue()
 end
 
@@ -279,7 +277,7 @@ vim.keymap.set('n', '<S-F5>', DapClose)
 vim.keymap.set('n', '<F10>', dap.step_over)
 vim.keymap.set('n', '<F11>', dap.step_into)
 vim.keymap.set('n', '<S-F11>', dap.step_out)
-vim.keymap.set('n', '<S-F9>', dap.toggle_breakpoint)
+vim.keymap.set('n', '<F9>', dap.toggle_breakpoint)
 vim.keymap.set('n', '<S-C-F9>', dap.clear_breakpoints)
 dap.adapters.python = {
 	type = 'executable';
