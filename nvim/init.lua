@@ -262,6 +262,7 @@ require 'nvim-treesitter.configs'.setup {
 -- dap
 local dap = require('dap')
 local dapui = require('dapui')
+local dapwidget = require('dap.ui.widgets')
 function DapClose()
 	dapui.close()
 	dap.disconnect()
@@ -279,6 +280,7 @@ vim.keymap.set('n', '<F11>', dap.step_into)
 vim.keymap.set('n', '<S-F11>', dap.step_out)
 vim.keymap.set('n', '<F9>', dap.toggle_breakpoint)
 vim.keymap.set('n', '<S-C-F9>', dap.clear_breakpoints)
+vim.keymap.set('n', '<F12>', dapwidget.hover)
 dap.adapters.python = {
 	type = 'executable';
 	command = 'python';
