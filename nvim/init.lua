@@ -205,6 +205,7 @@ packer.startup(function(use)
 	use 'lambdalisue/fern-renderer-nerdfont.vim'
 	use 'lambdalisue/nerdfont.vim'
 	use 'lambdalisue/glyph-palette.vim'
+	use 'mortepau/codicons.nvim'
 end)
 vim.api.nvim_command [[silent! colorscheme iceberg]]
 -- telescope
@@ -275,10 +276,12 @@ end
 
 vim.keymap.set('n', '<F5>', DapOpen)
 vim.keymap.set('n', '<S-F5>', DapClose)
+vim.keymap.set('n', '<C-F5>', dap.run_last)
 vim.keymap.set('n', '<F10>', dap.step_over)
 vim.keymap.set('n', '<F11>', dap.step_into)
 vim.keymap.set('n', '<S-F11>', dap.step_out)
 vim.keymap.set('n', '<F9>', dap.toggle_breakpoint)
+vim.keymap.set('n', '<C-F9>', function() dap.set_breakpoint(vim.fn.input(''), nil, nil) end)
 vim.keymap.set('n', '<S-C-F9>', dap.clear_breakpoints)
 vim.keymap.set('n', '<F12>', dapwidget.hover)
 dap.adapters.python = {
@@ -315,7 +318,21 @@ dap.configurations.cs = {
 		path = 'Library/EditorInstance.json',
 	},
 }
-require('dapui').setup()
+dapui.setup({
+	controls = {
+		icons = {
+			disconnect = "■",
+			pause = "",
+			play = ">",
+			run_last = "↷",
+			step_back = "",
+			step_into = "→",
+			step_out = "←",
+			step_over = "↓",
+			terminate = ""
+		}
+	},
+})
 -- Fern
 vim.g['fern#default_hidden'] = 1
 vim.g['fern#renderer'] = 'nerdfont'
