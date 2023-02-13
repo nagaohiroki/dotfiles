@@ -232,7 +232,7 @@ lspconfig.pyright.setup {}
 lspconfig.clangd.setup {}
 lspconfig.powershell_es.setup {}
 lspconfig.dockerls.setup {}
-lspconfig.sumneko_lua.setup { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
+lspconfig.lua_ls.setup { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
 local cmp = require 'cmp'
 cmp.setup({
 	snippet = {
