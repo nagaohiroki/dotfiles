@@ -99,7 +99,7 @@ function FontSize(inc)
 end
 
 vim.keymap.set('n', '+', function() FontSize(1) end)
-vim.keymap.set('n', '-', function() FontSize(-1) end)
+vim.keymap.set('n', '-', function() FontSize( -1) end)
 vim.api.nvim_create_augroup('loading', {})
 vim.api.nvim_create_autocmd("UIEnter", {
 	group = 'loading',
@@ -116,7 +116,7 @@ vim.api.nvim_create_autocmd("UIEnter", {
 		vim.api.nvim_command('GuiScrollBar 1')
 		local fontTable =
 		{
-			{ os = 'mac', font = [[HackGen Console NFJ]], size = 14 },
+			{ os = 'mac',   font = [[HackGen Console NFJ]], size = 14 },
 			{ os = 'win32', font = [[HackGen Console NFJ]], size = 12 }
 		}
 		for _, f in pairs(fontTable) do
@@ -184,7 +184,8 @@ packer.startup(function(use)
 	use 'tyru/open-browser-github.vim'
 	use 'cocopon/iceberg.vim'
 	use 'neovim/nvim-lspconfig'
-	use 'williamboman/nvim-lsp-installer'
+	use "williamboman/mason.nvim"
+	use "williamboman/mason-lspconfig.nvim"
 	use 'hrsh7th/nvim-cmp'
 	use 'hrsh7th/cmp-nvim-lsp'
 	use 'hrsh7th/cmp-buffer'
@@ -225,9 +226,10 @@ vim.keymap.set('n', '<leader>e', vim.lsp.buf.declaration)
 vim.keymap.set('i', '<C-s>', function() return [[<Plug>(vsnip-expand)]] or [[<C-s>]] end, { expr = true })
 vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.format { async = true } end, {})
 require('fidget').setup()
-require('nvim-lsp-installer').setup {}
+require('mason').setup()
+require('mason-lspconfig').setup()
 local lspconfig = require('lspconfig')
-lspconfig.omnisharp.setup { use_mono = true }
+lspconfig.omnisharp_mono.setup {}
 lspconfig.pyright.setup {}
 lspconfig.clangd.setup {}
 lspconfig.powershell_es.setup {}
@@ -285,9 +287,9 @@ vim.keymap.set('n', '<C-F9>', function() dap.set_breakpoint(vim.fn.input(''), ni
 vim.keymap.set('n', '<S-C-F9>', dap.clear_breakpoints)
 vim.keymap.set('n', '<F12>', dapwidget.hover)
 dap.adapters.python = {
-	type = 'executable';
-	command = 'python';
-	args = { '-m', 'debugpy.adapter' };
+	type = 'executable',
+	command = 'python',
+	args = { '-m', 'debugpy.adapter' },
 }
 dap.configurations.python = {
 	{
