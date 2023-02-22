@@ -13,17 +13,17 @@ end
 
 function LaunchOnceProcess()
 	if vim.fn.has('unix') == 1 then
-		return
+		return false
 	end
 	local my_server = vim.fn.has('win32') == 1 and
 		[[\\.\pipe\nvim-server]] or vim.env.HOME .. [[/.local/state/nvim/nvim0]]
 	if my_server == vim.v.servername then
-		return
+		return false
 	end
 	local result, _ = pcall(vim.fn.serverstart, my_server)
 	if result then
 		vim.fn.serverstop(vim.v.servername)
-		return
+		return false
 	end
 	vim.g.server_mode = 1
 	vim.o.swapfile = false
@@ -42,9 +42,22 @@ function LaunchOnceProcess()
 	end
 	vim.fn.system(string.format('"%s" --server "%s" --remote-send ":silent! %s|lua Foreground()<CR>"',
 		vim.v.progpath, my_server, ecmd))
+	return true
 end
 
-LaunchOnceProcess()
+if LaunchOnceProcess() then
+	vim.api.nvim_create_autocmd("UIEnter",
+		{
+			once = true,
+			callback = function()
+				if vim.g.server_mode == 1 then
+					vim.api.nvim_command('exit')
+					return
+				end
+			end
+		})
+	do return end
+end
 vim.g.mapleader = ' '
 vim.o.writebackup = false
 vim.o.fixeol = false
@@ -105,10 +118,6 @@ vim.api.nvim_create_autocmd("UIEnter", {
 	group = 'loading',
 	once = true,
 	callback = function()
-		if vim.g.server_mode == 1 then
-			vim.api.nvim_command('exit')
-			return
-		end
 		if vim.g.GuiLoaded ~= 1 then
 			return
 		end
