@@ -28,6 +28,7 @@ function LaunchOnceProcess()
 	vim.g.server_mode = 1
 	vim.o.swapfile = false
 	vim.o.loadplugins = false
+	vim.o.shada = ''
 	local ecmd = 'enew'
 	local fname = vim.api.nvim_buf_get_name(0)
 	if fname ~= '' then
