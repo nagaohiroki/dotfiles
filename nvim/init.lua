@@ -6,9 +6,6 @@ function Foreground()
 		vim.api.nvim_command('suspend')
 		vim.fn.GuiForeground()
 	end
-	if vim.fn.has('mac') == 1 then
-		vim.api.nvim_command('!open -a nvim-qt')
-	end
 end
 
 function LaunchOnceProcess()
