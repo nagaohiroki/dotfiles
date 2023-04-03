@@ -12,9 +12,6 @@ function Foreground()
 end
 
 function LaunchOnceProcess()
-	if vim.fn.has('unix') == 1 then
-		return false
-	end
 	local my_server = vim.fn.has('win32') == 1 and
 		[[\\.\pipe\nvim-server]] or vim.env.HOME .. [[/.local/state/nvim/nvim0]]
 	if my_server == vim.v.servername then
