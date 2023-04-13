@@ -107,7 +107,7 @@ function FontSize(inc)
 end
 
 vim.keymap.set('n', '+', function() FontSize(1) end)
-vim.keymap.set('n', '-', function() FontSize( -1) end)
+vim.keymap.set('n', '-', function() FontSize(-1) end)
 vim.api.nvim_create_augroup('loading', {})
 vim.api.nvim_create_autocmd("UIEnter", {
 	group = 'loading',
@@ -233,7 +233,22 @@ require('fidget').setup()
 require('mason').setup()
 require('mason-lspconfig').setup()
 local lspconfig = require('lspconfig')
-lspconfig.omnisharp_mono.setup {}
+lspconfig.omnisharp_mono.setup {
+	on_attach = function(client, buffer)
+		local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
+		for i, v in ipairs(tokenModifiers) do
+			local a = v:gsub(' ', '_')
+			a = a:gsub('-', '_')
+			tokenModifiers[i] = a
+		end
+		local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
+		for i, v in ipairs(tokenTypes) do
+			local a = v:gsub(' ', '_')
+			a = a:gsub('-', '_')
+			tokenTypes[i] = a
+		end
+	end
+}
 lspconfig.pyright.setup {}
 lspconfig.clangd.setup {}
 lspconfig.powershell_es.setup {}
