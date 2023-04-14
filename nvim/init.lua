@@ -234,18 +234,14 @@ require('mason').setup()
 require('mason-lspconfig').setup()
 local lspconfig = require('lspconfig')
 lspconfig.omnisharp_mono.setup {
-	on_attach = function(client, buffer)
+	on_attach = function(client, _)
 		local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
 		for i, v in ipairs(tokenModifiers) do
-			local a = v:gsub(' ', '_')
-			a = a:gsub('-', '_')
-			tokenModifiers[i] = a
+			tokenModifiers[i] = v:gsub(' ', '_'):gsub('-', '_')
 		end
 		local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
 		for i, v in ipairs(tokenTypes) do
-			local a = v:gsub(' ', '_')
-			a = a:gsub('-', '_')
-			tokenTypes[i] = a
+			tokenTypes[i] = v:gsub(' ', '_'):gsub('-', '_')
 		end
 	end
 }
