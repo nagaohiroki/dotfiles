@@ -211,6 +211,7 @@ packer.startup(function(use)
 	use 'lambdalisue/nerdfont.vim'
 	use 'lambdalisue/glyph-palette.vim'
 	use 'mortepau/codicons.nvim'
+	use 'mhanberg/output-panel.nvim'
 end)
 vim.api.nvim_command [[silent! colorscheme iceberg]]
 -- telescope
@@ -229,6 +230,7 @@ vim.keymap.set('n', '<leader>l', vim.lsp.buf.document_symbol)
 vim.keymap.set('n', '<leader>e', vim.lsp.buf.declaration)
 vim.keymap.set('i', '<C-s>', function() return [[<Plug>(vsnip-expand)]] or [[<C-s>]] end, { expr = true })
 vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.format { async = true } end, {})
+require("output_panel").setup()
 require('fidget').setup()
 require('mason').setup()
 require('mason-lspconfig').setup()
