@@ -239,11 +239,11 @@ lspconfig.omnisharp_mono.setup {
 	on_attach = function(client, _)
 		local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
 		for i, v in ipairs(tokenModifiers) do
-			tokenModifiers[i] = v:gsub(' ', '_'):gsub('-', '_')
+			tokenModifiers[i] = v:gsub(' ', '_'):gsub('-_', '')
 		end
 		local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
 		for i, v in ipairs(tokenTypes) do
-			tokenTypes[i] = v:gsub(' ', '_'):gsub('-', '_')
+			tokenTypes[i] = v:gsub(' ', '_'):gsub('-_', '')
 		end
 	end
 }
