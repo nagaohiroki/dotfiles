@@ -212,6 +212,7 @@ packer.startup(function(use)
 	use 'lambdalisue/glyph-palette.vim'
 	use 'mortepau/codicons.nvim'
 	use 'mhanberg/output-panel.nvim'
+	use 'Exafunction/codeium.vim'
 end)
 vim.api.nvim_command [[silent! colorscheme iceberg]]
 -- telescope
@@ -391,3 +392,8 @@ vim.keymap.set('n', '<leader>d', ':Gvdiffsplit<CR>')
 -- VS
 vim.keymap.set('n', '<leader>b', ':VSBreakPoint<CR>')
 vim.keymap.set('n', '<leader>v', ':VSOpen<CR>')
+-- Codeium
+vim.keymap.set('i', '<C-q>', function () return vim.fn['codeium#Accept']() end, { expr = true })
+vim.keymap.set('i', '<C-S-q>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+vim.keymap.set('i', '<C-a>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+vim.keymap.set('i', '<C-S-a>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
