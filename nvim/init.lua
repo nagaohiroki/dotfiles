@@ -213,6 +213,7 @@ packer.startup(function(use)
 	use 'mortepau/codicons.nvim'
 	use 'mhanberg/output-panel.nvim'
 	use 'Exafunction/codeium.vim'
+	use 'junegunn/vim-easy-align'
 end)
 vim.api.nvim_command [[silent! colorscheme iceberg]]
 -- telescope
