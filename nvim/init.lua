@@ -204,7 +204,6 @@ packer.startup(function(use)
 	use 'mfussenegger/nvim-dap'
 	use 'rcarriga/nvim-dap-ui'
 	use 'voldikss/vim-translator'
-	use 'j-hui/fidget.nvim'
 	use 'lambdalisue/fern.vim'
 	use 'lambdalisue/fern-git-status.vim'
 	use 'lambdalisue/fern-renderer-nerdfont.vim'
@@ -233,7 +232,6 @@ vim.keymap.set('n', '<leader>e', vim.lsp.buf.declaration)
 vim.keymap.set('i', '<C-s>', function() return [[<Plug>(vsnip-expand)]] or [[<C-s>]] end, { expr = true })
 vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.format { async = true } end, {})
 require("output_panel").setup()
-require('fidget').setup()
 require('mason').setup()
 require('mason-lspconfig').setup()
 local lspconfig = require('lspconfig')
