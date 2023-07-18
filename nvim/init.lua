@@ -235,18 +235,7 @@ require("output_panel").setup()
 require('mason').setup()
 require('mason-lspconfig').setup()
 local lspconfig = require('lspconfig')
-lspconfig.omnisharp_mono.setup {
-	on_attach = function(client, _)
-		local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
-		for i, v in ipairs(tokenModifiers) do
-			tokenModifiers[i] = v:gsub(' ', '_'):gsub('-_', '')
-		end
-		local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
-		for i, v in ipairs(tokenTypes) do
-			tokenTypes[i] = v:gsub(' ', '_'):gsub('-_', '')
-		end
-	end
-}
+lspconfig.omnisharp_mono.setup {}
 lspconfig.pyright.setup {}
 lspconfig.clangd.setup {}
 lspconfig.powershell_es.setup {}
