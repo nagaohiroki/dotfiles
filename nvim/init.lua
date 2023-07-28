@@ -196,7 +196,6 @@ packer.startup(function(use)
 	use 'hrsh7th/cmp-nvim-lsp-signature-help'
 	use 'hrsh7th/cmp-vsnip'
 	use 'hrsh7th/vim-vsnip'
-	use 'nvim-treesitter/nvim-treesitter'
 	use 'nvim-lua/plenary.nvim'
 	use 'nvim-telescope/telescope.nvim'
 	use 'nvim-tree/nvim-web-devicons'
@@ -261,13 +260,6 @@ cmp.setup({
 		{ name = 'nvim_lsp_signature_help' },
 	}
 })
--- treesitter
-require 'nvim-treesitter.configs'.setup {
-	ensure_installed = 'all',
-	highlight = { enable = true },
-	indent = { enable = true },
-	incremental_selection = { enable = true },
-}
 -- dap
 local dap = require('dap')
 local dapui = require('dapui')
