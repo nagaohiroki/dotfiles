@@ -236,9 +236,6 @@ require('mason-lspconfig').setup()
 local lspconfig = require('lspconfig')
 lspconfig.omnisharp_mono.setup {}
 lspconfig.pyright.setup {}
-lspconfig.clangd.setup {}
-lspconfig.powershell_es.setup {}
-lspconfig.dockerls.setup {}
 lspconfig.lua_ls.setup { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
 local cmp = require 'cmp'
 cmp.setup({
@@ -373,7 +370,7 @@ vim.keymap.set('n', '<leader>d', ':Gvdiffsplit<CR>')
 vim.keymap.set('n', '<leader>b', ':VSBreakPoint<CR>')
 vim.keymap.set('n', '<leader>v', ':VSOpen<CR>')
 -- Codeium
-vim.keymap.set('i', '<C-q>', function () return vim.fn['codeium#Accept']() end, { expr = true })
+vim.keymap.set('i', '<C-q>', function() return vim.fn['codeium#Accept']() end, { expr = true })
 vim.keymap.set('i', '<C-S-q>', function() return vim.fn['codeium#Clear']() end, { expr = true })
 vim.keymap.set('i', '<C-a>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
 vim.keymap.set('i', '<C-S-a>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
