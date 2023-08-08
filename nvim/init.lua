@@ -208,7 +208,6 @@ packer.startup(function(use)
 	use 'lambdalisue/fern-renderer-nerdfont.vim'
 	use 'lambdalisue/nerdfont.vim'
 	use 'lambdalisue/glyph-palette.vim'
-	use 'mortepau/codicons.nvim'
 	use 'mhanberg/output-panel.nvim'
 	use 'Exafunction/codeium.vim'
 	use 'junegunn/vim-easy-align'
