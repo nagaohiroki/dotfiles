@@ -143,10 +143,10 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' },
 		pattern = { '*.usf', '*.ush', '*.cginc', '*.shader', '*.glslinc' },
 		command = 'setfiletype hlsl'
 	})
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' },
+vim.api.nvim_create_autocmd({ 'FileType' },
 	{
 		group = 'loading',
-		pattern = { 'COMMIT_EDITMSG' },
+		pattern = { 'gitcommit' },
 		command = 'set fenc=utf-8'
 	})
 vim.api.nvim_create_autocmd('BufRead',
