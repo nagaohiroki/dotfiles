@@ -99,11 +99,13 @@ vim.api.nvim_create_user_command('Utf8bomLF',
 	end, {})
 
 function FontSize(inc)
-	if vim.g.GuiLoaded ~= 1 then
-		return
-	end
 	vim.g.fontSize = math.max(1, vim.g.fontSize + inc)
-	vim.api.nvim_command('Guifont! ' .. vim.g.fontName .. ':h' .. vim.g.fontSize)
+	if vim.g.GuiLoaded == 1 then
+		vim.api.nvim_command('Guifont! ' .. vim.g.fontName .. ':h' .. vim.g.fontSize)
+	end
+	if vim.g.neovide then
+		vim.o.guifont = vim.g.fontName .. ':h' .. vim.g.fontSize
+	end
 end
 
 vim.keymap.set('n', '+', function() FontSize(1) end)
@@ -113,11 +115,6 @@ vim.api.nvim_create_autocmd("UIEnter", {
 	group = 'loading',
 	once = true,
 	callback = function()
-		if vim.g.GuiLoaded ~= 1 then
-			return
-		end
-		vim.api.nvim_command('GuiWindowOpacity 0.95')
-		vim.api.nvim_command('GuiScrollBar 1')
 		local fontTable =
 		{
 			{ os = 'mac',   font = [[HackGen Console NFJ]], size = 14 },
@@ -130,6 +127,13 @@ vim.api.nvim_create_autocmd("UIEnter", {
 			end
 		end
 		FontSize(0)
+		if vim.g.GuiLoaded == 1 then
+			vim.api.nvim_command('GuiWindowOpacity 0.95')
+			vim.api.nvim_command('GuiScrollBar 1')
+		end
+		if vim.g.neovide then
+			vim.g.neovide_transparency = 0.95
+		end
 	end
 })
 vim.api.nvim_create_autocmd('QuickFixCmdPost',
