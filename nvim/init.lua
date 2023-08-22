@@ -35,13 +35,9 @@ function LaunchOnceProcess()
 		end
 		ecmd = string.format('e %s%s', fname, cursorline)
 	end
-	vim.fn.system(string.format('"%s" --server "%s" --remote-send ":silent! %s|lua Foreground()<CR>"',
-		vim.v.progpath, my_server, ecmd))
-	return true
-end
-
-if LaunchOnceProcess() then
-	vim.api.nvim_create_autocmd("UIEnter",
+	local cmd = '"%s" --server "%s" --remote-send ":silent! %s|lua Foreground()<CR>"'
+	vim.fn.system(string.format(cmd, vim.v.progpath, my_server, ecmd))
+	vim.api.nvim_create_autocmd('UIEnter',
 		{
 			once = true,
 			callback = function()
@@ -51,7 +47,11 @@ if LaunchOnceProcess() then
 				end
 			end
 		})
-	do return end
+	return true
+end
+
+if LaunchOnceProcess() then
+	return
 end
 vim.g.mapleader = ' '
 vim.o.writebackup = false
@@ -377,4 +377,4 @@ vim.keymap.set('i', '<C-q>', function() return vim.fn['codeium#Accept']() end, {
 vim.keymap.set('i', '<C-S-q>', function() return vim.fn['codeium#Clear']() end, { expr = true })
 vim.keymap.set('i', '<C-a>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
 vim.keymap.set('i', '<C-S-a>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-vim.g.codeium_filetypes = {markdown = false}
+vim.g.codeium_filetypes = { markdown = false }
