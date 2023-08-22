@@ -23,24 +23,18 @@ function LaunchOnceProcess()
 	vim.o.swapfile = false
 	vim.o.loadplugins = false
 	vim.o.shada = ''
-	local ecmd = 'enew'
-	local fname = vim.api.nvim_buf_get_name(0)
-	if fname ~= '' then
-		local cursorline = ''
-		for _, a in pairs(vim.v.argv) do
-			if string.match(a, '+%d+') == a then
-				local line, _ = string.gsub(a, '+', '')
-				cursorline = string.format('|call cursor(%s, 1)', line)
-			end
-		end
-		ecmd = string.format('e %s%s', fname, cursorline)
-	end
-	local cmd = '"%s" --server "%s" --remote-send ":silent! %s|lua Foreground()<CR>"'
-	vim.fn.system(string.format(cmd, vim.v.progpath, my_server, ecmd))
 	vim.api.nvim_create_autocmd('UIEnter',
 		{
 			once = true,
 			callback = function()
+				local ecmd = 'enew'
+				local fname = vim.api.nvim_buf_get_name(0)
+				if fname ~= '' then
+					ecmd = string.format('e %s', fname)
+				end
+				vim.fn.system(string.format(
+					'"%s" --server "%s" --remote-send ":silent! %s|call cursor(%s, %s)|lua Foreground()<CR>"',
+					vim.v.progpath, my_server, ecmd, vim.fn.line('.'), vim.fn.col('.')))
 				if vim.g.server_mode == 1 then
 					vim.api.nvim_command('exit')
 					return
