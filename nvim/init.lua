@@ -371,4 +371,4 @@ vim.keymap.set('i', '<C-q>', function() return vim.fn['codeium#Accept']() end, {
 vim.keymap.set('i', '<C-S-q>', function() return vim.fn['codeium#Clear']() end, { expr = true })
 vim.keymap.set('i', '<C-a>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
 vim.keymap.set('i', '<C-S-a>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-vim.g.codeium_filetypes = { markdown = false }
+vim.g.codeium_filetypes = { markdown = false, text = false }
