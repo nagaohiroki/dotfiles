@@ -34,7 +34,11 @@ function LaunchOnceProcess()
 				local cmd = string.format(
 					'"%s" --server "%s" --remote-send ":silent! %s|call cursor(%s, %s)|lua Foreground()<CR>"',
 					vim.v.progpath, my_server, ecmd, vim.fn.line('.'), vim.fn.col('.'))
-				os.execute(cmd)
+				if vim.fn.has('win32') == 1 then
+					vim.fn.system(cmd)
+				else
+					os.execute(cmd)
+				end
 				vim.api.nvim_command('exit')
 			end
 		})
