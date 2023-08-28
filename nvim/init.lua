@@ -19,7 +19,6 @@ function LaunchOnceProcess()
 		vim.fn.serverstop(vim.v.servername)
 		return false
 	end
-	vim.g.server_mode = 1
 	vim.o.swapfile = false
 	vim.o.loadplugins = false
 	vim.o.shada = ''
@@ -32,13 +31,11 @@ function LaunchOnceProcess()
 				if fname ~= '' then
 					ecmd = string.format('e %s', fname)
 				end
-				vim.fn.system(string.format(
+				local cmd = string.format(
 					'"%s" --server "%s" --remote-send ":silent! %s|call cursor(%s, %s)|lua Foreground()<CR>"',
-					vim.v.progpath, my_server, ecmd, vim.fn.line('.'), vim.fn.col('.')))
-				if vim.g.server_mode == 1 then
-					vim.api.nvim_command('exit')
-					return
-				end
+					vim.v.progpath, my_server, ecmd, vim.fn.line('.'), vim.fn.col('.'))
+				os.execute(cmd)
+				vim.api.nvim_command('exit')
 			end
 		})
 	return true
