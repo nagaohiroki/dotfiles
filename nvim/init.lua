@@ -36,6 +36,7 @@ function LaunchOnceProcess()
 				local cmd = string.format(
 					'"%s" --server "%s" --remote-send ":%s|call cursor(%s, %s)|lua Foreground()<CR>"',
 					vim.v.progpath, my_server, ecmd, vim.fn.line('.'), vim.fn.col('.'))
+				vim.api.nvim_command('enew')
 				vim.fn.jobstart(cmd, { on_exit = function() vim.api.nvim_command('quit') end })
 			end
 		})
