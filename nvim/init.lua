@@ -20,26 +20,39 @@ function LaunchOnceProcess()
 		return false
 	end
 	vim.o.swapfile = false
-	vim.o.loadplugins = false
+	-- vim.o.loadplugins = false
 	vim.o.shada = ''
+	vim.cmd('syntax off')
+	-- local ecmd = 'enew'
+	-- local fname = vim.api.nvim_buf_get_name(0)
+	-- if fname ~= '' then
+	-- 	local cursorline = ''
+	-- 	for _, a in pairs(vim.v.argv) do
+	-- 		if string.match(a, '+%d+') == a then
+	-- 			local line, _ = string.gsub(a, '+', '')
+	-- 			cursorline = string.format('|call cursor(%s, 1)', line)
+	-- 		end
+	-- 	end
+	-- 	ecmd = string.format('e %s%s', fname, cursorline)
+	-- end
+	-- local fmt = '"%s" --server "%s" --remote-send ":silent! %s|lua Foreground()<CR>"'
+	-- local cmd = string.format(fmt, vim.v.progpath, my_server, ecmd)
+	-- vim.fn.jobstart(cmd, { on_exit = function() vim.api.nvim_command('quit') end })
 	vim.api.nvim_create_autocmd('UIEnter',
 		{
 			once = true,
 			callback = function()
+
+			vim.api.nvim_command('GuiWindowOpacity 0')
 				local ecmd = 'enew'
 				local fname = vim.api.nvim_buf_get_name(0)
 				if fname ~= '' then
 					ecmd = string.format('e %s', fname)
 				end
 				local cmd = string.format(
-					'"%s" --server "%s" --remote-send ":silent! %s|call cursor(%s, %s)|lua Foreground()<CR>"',
+					'"%s" --server "%s" --remote-send ":%s|call cursor(%s, %s)|lua Foreground()<CR>"',
 					vim.v.progpath, my_server, ecmd, vim.fn.line('.'), vim.fn.col('.'))
-				if vim.fn.has('win32') == 1 then
-					vim.fn.system(cmd)
-				else
-					os.execute(cmd)
-				end
-				vim.api.nvim_command('exit')
+				vim.fn.jobstart(cmd, { on_exit = function() vim.api.nvim_command('quit') end })
 			end
 		})
 	return true
