@@ -110,7 +110,7 @@ vim.api.nvim_create_autocmd("UIEnter", {
 	callback = function()
 		local fontTable =
 		{
-			{ os = 'mac',   font = [[HackGen Console NFJ]], size = 14 },
+			{ os = 'unix',   font = [[HackGen Console NFJ]], size = 14 },
 			{ os = 'win32', font = [[HackGen Console NFJ]], size = 12 }
 		}
 		for _, f in pairs(fontTable) do
