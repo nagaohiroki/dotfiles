@@ -3,8 +3,10 @@ function Foreground()
 		return
 	end
 	if vim.fn.has('win32') == 1 then
-		vim.api.nvim_command('suspend')
-		vim.fn.GuiForeground()
+		vim.fn.jobstart(vim.env.HOME .. '/dotfiles/scripts/foreground_win32.exe')
+	end
+	if vim.fn.has('mac') == 1 then
+		vim.fn.jobstart('open -a nvim-qt')
 	end
 end
 
