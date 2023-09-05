@@ -1,12 +1,11 @@
 function Foreground()
-	if vim.g.GuiLoaded ~= 1 then
-		return
-	end
-	if vim.fn.has('win32') == 1 then
-		vim.fn.jobstart(vim.env.HOME .. '/dotfiles/scripts/foreground_win32.exe')
-	end
-	if vim.fn.has('mac') == 1 then
-		vim.fn.jobstart('open -a nvim-qt')
+	if vim.g.GuiLoaded == 1 then
+		if vim.fn.has('win32') == 1 then
+			vim.fn.jobstart(vim.env.HOME .. '/dotfiles/scripts/foreground_win32.exe')
+		end
+		if vim.fn.has('mac') == 1 then
+			vim.fn.jobstart('open -a nvim-qt')
+		end
 	end
 end
 
@@ -36,10 +35,10 @@ function LaunchOnceProcess()
 					ecmd = string.format('e %s', fname)
 				end
 				local cmd = string.format(
-					'"%s" --server "%s" --remote-send ":%s|call cursor(%s, %s)|lua Foreground()<CR>"',
+					'"%s" --server "%s" --remote-send "<Esc>:%s|call cursor(%s, %s)|lua Foreground()<CR>"',
 					vim.v.progpath, my_server, ecmd, vim.fn.line('.'), vim.fn.col('.'))
-				vim.api.nvim_command('enew')
-				vim.fn.jobstart(cmd, { on_exit = function() vim.api.nvim_command('quit') end })
+				vim.cmd('enew')
+				vim.fn.jobstart(cmd, { on_exit = function() vim.cmd('quit') end })
 			end
 		})
 	return true
@@ -96,7 +95,7 @@ vim.api.nvim_create_user_command('Utf8bomLF',
 function FontSize(inc)
 	vim.g.fontSize = math.max(1, vim.g.fontSize + inc)
 	if vim.g.GuiLoaded == 1 then
-		vim.api.nvim_command('Guifont! ' .. vim.g.fontName .. ':h' .. vim.g.fontSize)
+		vim.cmd('Guifont! ' .. vim.g.fontName .. ':h' .. vim.g.fontSize)
 	end
 	if vim.g.neovide then
 		vim.o.guifont = vim.g.fontName .. ':h' .. vim.g.fontSize
@@ -106,13 +105,13 @@ end
 vim.keymap.set('n', '+', function() FontSize(1) end)
 vim.keymap.set('n', '-', function() FontSize(-1) end)
 vim.api.nvim_create_augroup('loading', {})
-vim.api.nvim_create_autocmd("UIEnter", {
+vim.api.nvim_create_autocmd('UIEnter', {
 	group = 'loading',
 	once = true,
 	callback = function()
 		local fontTable =
 		{
-			{ os = 'unix',   font = [[HackGen Console NFJ]], size = 14 },
+			{ os = 'unix',  font = [[HackGen Console NFJ]], size = 14 },
 			{ os = 'win32', font = [[HackGen Console NFJ]], size = 12 }
 		}
 		for _, f in pairs(fontTable) do
@@ -123,8 +122,8 @@ vim.api.nvim_create_autocmd("UIEnter", {
 		end
 		FontSize(0)
 		if vim.g.GuiLoaded == 1 then
-			vim.api.nvim_command('GuiWindowOpacity 0.95')
-			vim.api.nvim_command('GuiScrollBar 1')
+			vim.cmd('GuiWindowOpacity 0.95')
+			vim.cmd('GuiScrollBar 1')
 		end
 		if vim.g.neovide then
 			vim.g.neovide_transparency = 0.95
@@ -211,7 +210,7 @@ packer.startup(function(use)
 	use 'Exafunction/codeium.vim'
 	use 'junegunn/vim-easy-align'
 end)
-vim.api.nvim_command [[silent! colorscheme iceberg]]
+vim.cmd([[silent! colorscheme iceberg]])
 -- telescope
 require('telescope').setup { defaults = { preview = false } }
 local builtin = require('telescope.builtin')
@@ -228,7 +227,7 @@ vim.keymap.set('n', '<leader>l', vim.lsp.buf.document_symbol)
 vim.keymap.set('n', '<leader>e', vim.lsp.buf.declaration)
 vim.keymap.set('i', '<C-s>', function() return [[<Plug>(vsnip-expand)]] or [[<C-s>]] end, { expr = true })
 vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.format { async = true } end, {})
-require("output_panel").setup()
+require('output_panel').setup()
 require('mason').setup()
 require('mason-lspconfig').setup()
 local lspconfig = require('lspconfig')
