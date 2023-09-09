@@ -20,12 +20,12 @@ function LaunchOnceProcess()
 		vim.fn.serverstop(vim.v.servername)
 		return false
 	end
+	vim.cmd('suspend')
 	vim.o.swapfile = false
 	vim.o.shada = ''
-	vim.o.lazyredraw = false
 	vim.o.loadplugins = false
 	vim.cmd('syntax off')
-	vim.api.nvim_create_autocmd('UIEnter',
+	vim.api.nvim_create_autocmd('VimEnter',
 		{
 			once = true,
 			callback = function()
