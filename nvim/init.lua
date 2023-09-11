@@ -1,14 +1,3 @@
-function Foreground()
-	if vim.g.GuiLoaded == 1 then
-		if vim.fn.has('win32') == 1 then
-			vim.fn.jobstart(vim.env.HOME .. '/dotfiles/scripts/foreground_win32.exe')
-		end
-		if vim.fn.has('mac') == 1 then
-			vim.fn.jobstart('open -a nvim-qt')
-		end
-	end
-end
-
 function LaunchOnceProcess()
 	local my_server = vim.fn.has('win32') == 1 and
 		[[\\.\pipe\nvim-server]] or vim.env.HOME .. [[/.local/state/nvim/nvim226]]
@@ -20,25 +9,17 @@ function LaunchOnceProcess()
 		vim.fn.serverstop(vim.v.servername)
 		return false
 	end
-	vim.cmd('suspend')
 	vim.o.swapfile = false
 	vim.o.shada = ''
 	vim.o.loadplugins = false
-	vim.cmd('syntax off')
 	vim.api.nvim_create_autocmd('VimEnter',
 		{
 			once = true,
 			callback = function()
-				local ecmd = 'enew'
-				local fname = vim.api.nvim_buf_get_name(0)
-				if fname ~= '' then
-					ecmd = string.format('e %s', fname)
-				end
-				local cmd = string.format(
-					'"%s" --server "%s" --remote-send "<Esc>:%s|call cursor(%s, %s)|lua Foreground()<CR>"',
-					vim.v.progpath, my_server, ecmd, vim.fn.line('.'), vim.fn.col('.'))
+				local cmd = string.format('"%s" --server "%s" --remote-send "<Esc>:lua EditFile([[%s]],%s,%s)<CR>"',
+					vim.v.progpath, my_server, vim.api.nvim_buf_get_name(0), vim.fn.line('.'), vim.fn.col('.'))
 				vim.cmd('enew')
-				vim.fn.jobstart(cmd, { on_exit = function() vim.cmd('quit') end })
+				vim.fn.jobstart(cmd, { on_exit = function() vim.cmd('q') end })
 			end
 		})
 	return true
@@ -47,6 +28,7 @@ end
 if LaunchOnceProcess() then
 	return
 end
+
 vim.g.mapleader = ' '
 vim.o.writebackup = false
 vim.o.fixeol = false
@@ -100,6 +82,27 @@ function FontSize(inc)
 	if vim.g.neovide then
 		vim.o.guifont = vim.g.fontName .. ':h' .. vim.g.fontSize
 	end
+end
+
+function Foreground()
+	if vim.g.GuiLoaded == 1 then
+		if vim.fn.has('win32') == 1 then
+			vim.fn.jobstart(vim.env.HOME .. '/dotfiles/scripts/foreground_win32.exe')
+		end
+		if vim.fn.has('mac') == 1 then
+			vim.fn.jobstart('open -a nvim-qt')
+		end
+	end
+end
+
+function EditFile(fname, line, col)
+	if vim.fn.filereadable(fname) == 1 then
+		vim.cmd('edit ' .. fname)
+		vim.fn.cursor(line, col)
+	else
+		vim.cmd('enew')
+	end
+	Foreground()
 end
 
 vim.keymap.set('n', '+', function() FontSize(1) end)
