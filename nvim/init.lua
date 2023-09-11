@@ -96,13 +96,13 @@ function Foreground()
 end
 
 function EditFile(fname, line, col)
+	Foreground()
 	if vim.fn.filereadable(fname) == 1 then
 		vim.cmd('edit ' .. fname)
 		vim.fn.cursor(line, col)
 	else
 		vim.cmd('enew')
 	end
-	Foreground()
 end
 
 vim.keymap.set('n', '+', function() FontSize(1) end)
