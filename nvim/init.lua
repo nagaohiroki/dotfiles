@@ -261,19 +261,6 @@ cmp.setup({
 local dap = require('dap')
 local dapui = require('dapui')
 local dapwidget = require('dap.ui.widgets')
-function DapClose()
-	dapui.close()
-	dap.disconnect()
-end
-
-function DapOpen()
-	dapui.open()
-	dap.continue()
-end
-
-function FindEditorInstanceJson()
-	return FindPath(vim.fn.expand('%:p'), '/Library/EditorInstance.json')
-end
 
 function FindPath(path, findPath)
 	local newPath = vim.fn.fnamemodify(path, ':h')
@@ -287,8 +274,14 @@ function FindPath(path, findPath)
 	return FindPath(newPath, findPath)
 end
 
-vim.keymap.set('n', '<F5>', DapOpen)
-vim.keymap.set('n', '<S-F5>', DapClose)
+vim.keymap.set('n', '<F5>', function()
+	dapui.open()
+	dap.continue()
+end)
+vim.keymap.set('n', '<S-F5>', function()
+	dapui.close()
+	dap.disconnect()
+end)
 vim.keymap.set('n', '<C-F5>', dap.run_last)
 vim.keymap.set('n', '<F10>', dap.step_over)
 vim.keymap.set('n', '<F11>', dap.step_into)
@@ -328,7 +321,7 @@ dap.configurations.cs = {
 		type = 'unity',
 		request = 'launch',
 		name = 'Unity Editor',
-		path = FindEditorInstanceJson,
+		path = function() return FindPath(vim.fn.expand('%:p'), '/Library/EditorInstance.json') end,
 	},
 }
 dapui.setup({
