@@ -212,6 +212,7 @@ packer.startup(function(use)
 	use 'mhanberg/output-panel.nvim'
 	use 'Exafunction/codeium.vim'
 	use 'junegunn/vim-easy-align'
+	use 'mhartington/formatter.nvim'
 end)
 vim.cmd([[silent! colorscheme iceberg]])
 -- telescope
@@ -229,7 +230,6 @@ vim.keymap.set('n', '<leader>u', vim.lsp.buf.references)
 vim.keymap.set('n', '<leader>l', vim.lsp.buf.document_symbol)
 vim.keymap.set('n', '<leader>e', vim.lsp.buf.declaration)
 vim.keymap.set('i', '<C-s>', function() return [[<Plug>(vsnip-expand)]] or [[<C-s>]] end, { expr = true })
-vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.format { async = true } end, {})
 require('output_panel').setup()
 require('mason').setup()
 require('mason-lspconfig').setup()
@@ -338,6 +338,17 @@ dapui.setup({
 			terminate = ""
 		}
 	},
+})
+-- formatter
+require('formatter').setup({
+	filetype = {
+		python = {
+			require('formatter.filetypes.python').black
+		},
+		['*'] = {
+			function() vim.lsp.buf.format { async = true } end
+		}
+	}
 })
 -- Fern
 vim.g['fern#default_hidden'] = 1
