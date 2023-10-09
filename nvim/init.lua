@@ -86,12 +86,7 @@ end
 
 function Foreground()
 	if vim.g.GuiLoaded == 1 then
-		if vim.fn.has('win32') == 1 then
-			vim.fn.jobstart(vim.env.HOME .. '/dotfiles/scripts/foreground_win32.exe')
-		end
-		if vim.fn.has('mac') == 1 then
-			vim.fn.jobstart('open -a nvim-qt')
-		end
+		vim.cmd('py3file ' .. vim.env.HOME .. '/dotfiles/scripts/foreground.py')
 	end
 end
 
@@ -160,15 +155,20 @@ vim.api.nvim_create_autocmd('BufRead',
 			end
 		end
 	})
-vim.api.nvim_create_user_command('PackerInit', function()
+vim.api.nvim_create_user_command('InitPlugin', function()
 	local pickerdir = string.format('"%s/site/pack/packer/start/packer.nvim"', vim.fn.stdpath('data'))
 	vim.fn.system('git clone https://github.com/wbthomason/packer.nvim ' .. pickerdir)
+	local pyexe = 'python'
+	if vim.fn.has('mac') == 1 then
+		pyexe = 'python3'
+	end
+	vim.fn.system(pyexe .. ' -m pip install -r ' .. vim.env.HOME .. '/dotfiles/scripts/requirements.txt')
 end, {})
 -- plugins
 vim.cmd [[silent! packadd packer.nvim]]
 local ok, packer = pcall(require, 'packer')
 if not ok then
-	print('cannot install plugins Please :PackerInit')
+	print('cannot install plugins Please :InitPlugin')
 	return
 end
 packer.startup(function(use)
@@ -209,7 +209,6 @@ packer.startup(function(use)
 	use 'lambdalisue/fern-renderer-nerdfont.vim'
 	use 'lambdalisue/nerdfont.vim'
 	use 'lambdalisue/glyph-palette.vim'
-	use 'mhanberg/output-panel.nvim'
 	use 'Exafunction/codeium.vim'
 	use 'junegunn/vim-easy-align'
 	use 'mhartington/formatter.nvim'
@@ -230,7 +229,6 @@ vim.keymap.set('n', '<leader>u', vim.lsp.buf.references)
 vim.keymap.set('n', '<leader>l', vim.lsp.buf.document_symbol)
 vim.keymap.set('n', '<leader>e', vim.lsp.buf.declaration)
 vim.keymap.set('i', '<C-s>', function() return [[<Plug>(vsnip-expand)]] or [[<C-s>]] end, { expr = true })
-require('output_panel').setup()
 require('mason').setup()
 require('mason-lspconfig').setup()
 local lspconfig = require('lspconfig')
