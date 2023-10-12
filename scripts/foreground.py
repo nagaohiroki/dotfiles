@@ -8,6 +8,7 @@ def activate(title_name):
             wins = pywinctl.getWindowsWithTitle(title)
             for win in wins:
                 win.activate()
+            break
 
 
 if __name__ == "__main__":
