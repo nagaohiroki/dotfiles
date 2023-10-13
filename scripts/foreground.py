@@ -2,13 +2,9 @@
 
 
 def activate(title_name):
-    titles = pywinctl.getAllTitles()
-    for title in titles:
-        if title_name in title:
-            wins = pywinctl.getWindowsWithTitle(title)
-            for win in wins:
-                win.activate()
-            break
+    wins = pywinctl.getWindowsWithTitle(title_name, condition=pywinctl.Re.CONTAINS)
+    for win in wins:
+        win.activate()
 
 
 if __name__ == "__main__":
