@@ -212,11 +212,8 @@ packer.startup(function(use)
 	use 'Exafunction/codeium.vim'
 	use 'junegunn/vim-easy-align'
 	use 'mhartington/formatter.nvim'
-	use 'lewis6991/gitsigns.nvim'
 end)
 vim.cmd([[silent! colorscheme iceberg]])
--- gitsigns
-require('gitsigns').setup()
 -- telescope
 require('telescope').setup { defaults = { preview = false } }
 local builtin = require('telescope.builtin')
