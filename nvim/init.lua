@@ -230,7 +230,7 @@ vim.keymap.set('n', '<leader>l', vim.lsp.buf.document_symbol)
 vim.keymap.set('n', '<leader>e', vim.lsp.buf.declaration)
 vim.keymap.set('i', '<C-s>', function() return [[<Plug>(vsnip-expand)]] or [[<C-s>]] end, { expr = true })
 vim.api.nvim_create_user_command('MasonMyInstall', function()
-	vim.cmd("MasonInstall lua-language-server omnisharp-mono@v1.39.8 pyright black json-lsp")
+	vim.cmd("MasonInstall lua-language-server omnisharp-mono@v1.39.8 pyright black json-lsp clangd")
 end, {})
 require('mason').setup()
 require('mason-lspconfig').setup()
@@ -238,6 +238,7 @@ local lspconfig = require('lspconfig')
 lspconfig.omnisharp_mono.setup {}
 lspconfig.pyright.setup {}
 lspconfig.jsonls.setup {}
+lspconfig.clangd.setup {}
 lspconfig.lua_ls.setup { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
 local cmp = require 'cmp'
 cmp.setup({
