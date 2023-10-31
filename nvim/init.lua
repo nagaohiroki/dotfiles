@@ -212,6 +212,7 @@ packer.startup(function(use)
 	use 'Exafunction/codeium.vim'
 	use 'junegunn/vim-easy-align'
 	use 'mhartington/formatter.nvim'
+	use 'Hoffs/omnisharp-extended-lsp.nvim'
 end)
 vim.cmd([[silent! colorscheme iceberg]])
 -- telescope
@@ -238,7 +239,7 @@ end, {})
 require('mason').setup()
 require('mason-lspconfig').setup()
 local lspconfig = require('lspconfig')
-lspconfig.omnisharp_mono.setup {}
+lspconfig.omnisharp_mono.setup({ handlers = { ['textDocument/definition'] = require('omnisharp_extended').handler } })
 lspconfig.pyright.setup {}
 lspconfig.jsonls.setup {}
 lspconfig.clangd.setup {}

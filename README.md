@@ -6,17 +6,14 @@
 
 ```dos
 git clone https://github.com/nagaohiroki/dotfiles.git
-cd %USERPROFILE%\dotfiles\scripts
-windows_vim_setup.bat
+python dotfiles\setup.py
 ```
 
 ### Mac
 
 ```bash
 git clone https://github.com/nagaohiroki/dotfiles.git
-cd ~/dotfiles/scripts
-chmod +x setup.sh
-./setup.sh
+python3 dotfiles/setup.py
 ```
 
 ### Docker install, build, run
@@ -34,9 +31,9 @@ sudo docker run -it dev
 
 ## Use Plugins
 
-nvim command
 
-```
-:PackerInit
-:PackerUpdate
+``` 
+on nvim command
+:InitPlugin
+:MasonMyInstall
 ```
