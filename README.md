@@ -27,13 +27,3 @@ sh get-docker.sh
 sudo docker build -t dev https://github.com/nagaohiroki/dotfiles.git
 sudo docker run -it dev
 ```
-
-
-## Use Plugins
-
-
-``` 
-on nvim command
-:InitPlugin
-:MasonMyInstall
-```
