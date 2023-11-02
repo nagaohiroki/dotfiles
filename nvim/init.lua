@@ -25,7 +25,8 @@ vim.o.fileencodings = 'ucs-bom,iso-2022-jp-3,euc-jisx0213,cp932,sjis,euc-jp,utf-
 vim.o.statusline = '%<%f%m%r%h%w%y[%{&fenc}%{(&bomb?"_bom":"")}][%{&ff}]%=%c,%l/%L'
 vim.api.nvim_create_user_command('Errors', function() vim.diagnostic.setqflist() end, {})
 vim.api.nvim_create_user_command('Rc', function() vim.cmd('e ' .. vim.env.HOME .. [[/dotfiles/nvim/init.lua]]) end, {})
-vim.api.nvim_create_user_command('Plug', function() vim.cmd('e ' .. vim.env.HOME .. [[/dotfiles/nvim/init.lua]]) end, {})
+vim.api.nvim_create_user_command('RcPlug',
+	function() vim.cmd('e ' .. vim.env.HOME .. [[/dotfiles/nvim/lua/plugins.lua]]) end, {})
 vim.api.nvim_create_user_command('CdCurrent', function() vim.api.nvim_set_current_dir(vim.fn.expand('%:p:h')) end, {})
 vim.api.nvim_create_user_command('CopyPath', function() vim.fn.setreg('*', vim.fn.expand('%:p')) end, {})
 vim.api.nvim_create_user_command('CopyPathLine',
