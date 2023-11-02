@@ -1,6 +1,5 @@
 return {
 	{ 'equalsraf/neovim-gui-shim' },
-	{ 'beyondmarc/hlsl.vim' },
 	{ 'cohama/agit.vim' },
 	{ 'previm/previm' },
 	{ 'mhinz/vim-signify' },
@@ -11,6 +10,17 @@ return {
 	{ 'nvim-lua/plenary.nvim' },
 	{ 'junegunn/vim-easy-align' },
 	{ 'nvim-tree/nvim-web-devicons' },
+	{
+		'beyondmarc/hlsl.vim',
+		config = function()
+			vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' },
+				{
+					group = 'loading',
+					pattern = { '*.usf', '*.ush', '*.cginc', '*.shader', '*.glslinc' },
+					command = 'setfiletype hlsl'
+				})
+		end
+	},
 	{
 		'kana/vim-altr',
 		config = function()

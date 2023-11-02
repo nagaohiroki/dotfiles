@@ -53,6 +53,7 @@ vim.o.statusline = '%<%f%m%r%h%w%y[%{&fenc}%{(&bomb?"_bom":"")}][%{&ff}]%=%c,%l/
 vim.keymap.set({ 'n', 'v' }, '<C-p>', '"0p')
 vim.keymap.set('n', '<leader>s', [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
 vim.api.nvim_create_user_command('Rc', function() vim.cmd([[e ]] .. vim.env.HOME .. [[/dotfiles/nvim/init.lua]]) end, {})
+vim.api.nvim_create_user_command('PluginRc', function() vim.cmd([[e ]] .. vim.env.HOME .. [[/dotfiles/nvim/init.lua]]) end, {})
 vim.api.nvim_create_user_command('CdCurrent', function() vim.api.nvim_set_current_dir(vim.fn.expand('%:p:h')) end, {})
 vim.api.nvim_create_user_command('CopyPath', function() vim.fn.setreg('*', vim.fn.expand('%:p')) end, {})
 vim.api.nvim_create_user_command('CopyPathLine',
@@ -132,12 +133,6 @@ vim.api.nvim_create_autocmd('QuickFixCmdPost',
 	{
 		group = 'loading',
 		command = 'cwindow'
-	})
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' },
-	{
-		group = 'loading',
-		pattern = { '*.usf', '*.ush', '*.cginc', '*.shader', '*.glslinc' },
-		command = 'setfiletype hlsl'
 	})
 vim.api.nvim_create_autocmd({ 'FileType' },
 	{
