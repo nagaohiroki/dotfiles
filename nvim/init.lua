@@ -1,31 +1,4 @@
-function LaunchOnceProcess()
-	local my_server = vim.fn.has('win32') == 1 and
-		[[\\.\pipe\nvim-server]] or vim.env.HOME .. [[/.local/state/nvim/nvim226]]
-	if my_server == vim.v.servername then
-		return false
-	end
-	local result, _ = pcall(vim.fn.serverstart, my_server)
-	if result then
-		vim.fn.serverstop(vim.v.servername)
-		return false
-	end
-	vim.o.swapfile = false
-	vim.o.shada = ''
-	vim.o.loadplugins = false
-	vim.api.nvim_create_autocmd('VimEnter',
-		{
-			once = true,
-			callback = function()
-				local cmd = string.format('"%s" --server "%s" --remote-send "<Esc>:lua EditFile([[%s]],%s,%s)<CR>"',
-					vim.v.progpath, my_server, vim.api.nvim_buf_get_name(0), vim.fn.line('.'), vim.fn.col('.'))
-				vim.cmd('enew')
-				vim.fn.jobstart(cmd, { on_exit = function() vim.cmd('q') end })
-			end
-		})
-	return true
-end
-
-if LaunchOnceProcess() then
+if require('singleton').singleton() then
 	return
 end
 
@@ -50,10 +23,9 @@ vim.o.whichwrap = 'b,s,h,l,<,>,[,]'
 vim.o.clipboard = 'unnamedplus,unnamed'
 vim.o.fileencodings = 'ucs-bom,iso-2022-jp-3,euc-jisx0213,cp932,sjis,euc-jp,utf-8'
 vim.o.statusline = '%<%f%m%r%h%w%y[%{&fenc}%{(&bomb?"_bom":"")}][%{&ff}]%=%c,%l/%L'
-vim.keymap.set({ 'n', 'v' }, '<C-p>', '"0p')
-vim.keymap.set('n', '<leader>s', [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
-vim.api.nvim_create_user_command('Rc', function() vim.cmd([[e ]] .. vim.env.HOME .. [[/dotfiles/nvim/init.lua]]) end, {})
-vim.api.nvim_create_user_command('PluginRc', function() vim.cmd([[e ]] .. vim.env.HOME .. [[/dotfiles/nvim/init.lua]]) end, {})
+vim.api.nvim_create_user_command('Errors', function() vim.diagnostic.setqflist() end, {})
+vim.api.nvim_create_user_command('Rc', function() vim.cmd('e ' .. vim.env.HOME .. [[/dotfiles/nvim/init.lua]]) end, {})
+vim.api.nvim_create_user_command('Plug', function() vim.cmd('e ' .. vim.env.HOME .. [[/dotfiles/nvim/init.lua]]) end, {})
 vim.api.nvim_create_user_command('CdCurrent', function() vim.api.nvim_set_current_dir(vim.fn.expand('%:p:h')) end, {})
 vim.api.nvim_create_user_command('CopyPath', function() vim.fn.setreg('*', vim.fn.expand('%:p')) end, {})
 vim.api.nvim_create_user_command('CopyPathLine',
@@ -75,7 +47,9 @@ vim.api.nvim_create_user_command('Utf8bomLF',
 		vim.o.fileformat = 'unix'
 	end, {})
 
-function FontSize(inc)
+vim.api.nvim_create_augroup('loading', {})
+
+function FontResize(inc)
 	vim.g.fontSize = math.max(1, vim.g.fontSize + inc)
 	if vim.g.GuiLoaded == 1 then
 		vim.cmd('Guifont! ' .. vim.g.fontName .. ':h' .. vim.g.fontSize)
@@ -85,25 +59,6 @@ function FontSize(inc)
 	end
 end
 
-function Foreground()
-	if vim.g.GuiLoaded == 1 then
-		vim.cmd('py3file ' .. vim.env.HOME .. '/dotfiles/scripts/foreground.py')
-	end
-end
-
-function EditFile(fname, line, col)
-	Foreground()
-	if vim.fn.filereadable(fname) == 1 then
-		vim.cmd('edit ' .. fname)
-		vim.fn.cursor(line, col)
-	else
-		vim.cmd('enew')
-	end
-end
-
-vim.keymap.set('n', '+', function() FontSize(1) end)
-vim.keymap.set('n', '-', function() FontSize(-1) end)
-vim.api.nvim_create_augroup('loading', {})
 vim.api.nvim_create_autocmd('UIEnter', {
 	group = 'loading',
 	once = true,
@@ -119,7 +74,7 @@ vim.api.nvim_create_autocmd('UIEnter', {
 				vim.g.fontSize = f.size
 			end
 		end
-		FontSize(0)
+		FontResize(0)
 		if vim.g.GuiLoaded == 1 then
 			vim.cmd('GuiWindowOpacity 0.95')
 			vim.cmd('GuiScrollBar 1')
@@ -150,14 +105,15 @@ vim.api.nvim_create_autocmd('BufRead',
 			end
 		end
 	})
--- lsp
-vim.api.nvim_create_user_command('Errors', function() vim.diagnostic.setqflist() end, {})
+vim.keymap.set({ 'n', 'v' }, '<C-p>', '"0p')
+vim.keymap.set('n', '<leader>s', [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
+vim.keymap.set('n', '+', function() FontResize(1) end)
+vim.keymap.set('n', '-', function() FontResize(-1) end)
 vim.keymap.set('n', '<leader>g', vim.lsp.buf.definition)
 vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover)
 vim.keymap.set('n', '<leader>u', vim.lsp.buf.references)
 vim.keymap.set('n', '<leader>l', vim.lsp.buf.document_symbol)
 vim.keymap.set('n', '<leader>e', vim.lsp.buf.declaration)
--- plugins
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
