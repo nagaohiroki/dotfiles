@@ -1,15 +1,13 @@
 return {
+	{ 'nagaohiroki/myplugin.vim' },
+	{ 'nagaohiroki/vim-perforce' },
+	{ 'nagaohiroki/vim-ue4helper' },
 	{ 'equalsraf/neovim-gui-shim' },
 	{ 'cohama/agit.vim' },
 	{ 'previm/previm' },
 	{ 'mhinz/vim-signify' },
-	{ 'nagaohiroki/myplugin.vim' },
-	{ 'nagaohiroki/vim-perforce' },
-	{ 'nagaohiroki/vim-ue4helper' },
 	{ 'vim-jp/vimdoc-ja' },
-	{ 'nvim-lua/plenary.nvim' },
 	{ 'junegunn/vim-easy-align' },
-	{ 'nvim-tree/nvim-web-devicons' },
 	{
 		'beyondmarc/hlsl.vim',
 		config = function()
@@ -133,7 +131,12 @@ return {
 	},
 	{
 		'nvim-telescope/telescope.nvim',
+		dependencies = {
+			'nvim-lua/plenary.nvim',
+			'nvim-tree/nvim-web-devicons'
+		},
 		config = function()
+			require('nvim-web-devicons').setup()
 			require('telescope').setup { defaults = { preview = false } }
 			local builtin = require('telescope.builtin')
 			vim.keymap.set('n', '<leader>f', builtin.find_files)
