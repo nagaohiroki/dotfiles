@@ -6,7 +6,6 @@ return {
 	{ 'cohama/agit.vim' },
 	{ 'previm/previm' },
 	{ 'mhinz/vim-signify' },
-	{ 'vim-jp/vimdoc-ja' },
 	{ 'junegunn/vim-easy-align' },
 	{
 		'beyondmarc/hlsl.vim',
