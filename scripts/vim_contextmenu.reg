@@ -1,4 +1,0 @@
-Windows Registry Editor Version 5.00
-
-[HKEY_CLASSES_ROOT*\shell\nvim-qt\Command]
-@="\"D:\nvim-win64\Neovim\bin\nvim-qt.exe\" "%1\""

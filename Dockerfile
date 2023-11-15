@@ -10,9 +10,7 @@ RUN apt-get install -y npm
 RUN apt-get install -y unzip
 RUN apt-get install -y python3
 RUN apt-get install -y python3-pip
-RUN pip3 install --upgrade pip
-RUN pip3 install --upgrade neovim
-RUN git clone https://github.com/nagaohiroki/dotfiles 
-RUN git clone https://github.com/wbthomason/packer.nvim /root/.local/share/nvim/site/pack/packer/start/packer.nvim
 RUN mkdir -p /root/.config
-RUN ln -s /root/dotfiles/nvim /root/.config/nvim
+RUN python3 -m pip3 install --upgrade pip
+RUN git clone https://github.com/nagaohiroki/dotfiles 
+RUN python3 /root/dotfiles/setup.py
