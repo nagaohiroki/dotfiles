@@ -90,7 +90,7 @@ vim.api.nvim_create_autocmd('QuickFixCmdPost',
 		group = 'loading',
 		command = 'cwindow'
 	})
-vim.api.nvim_create_autocmd({ 'FileType' },
+vim.api.nvim_create_autocmd('FileType',
 	{
 		group = 'loading',
 		pattern = { 'gitcommit' },
@@ -106,6 +106,14 @@ vim.api.nvim_create_autocmd('BufRead',
 			end
 		end
 	})
+vim.api.nvim_create_autocmd('TermOpen',
+	{
+		group = 'loading',
+		callback = function()
+			vim.cmd('startinsert')
+		end
+	})
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
 vim.keymap.set({ 'n', 'v' }, '<C-p>', '"0p')
 vim.keymap.set('n', '<leader>s', [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
 vim.keymap.set('n', '+', function() FontResize(1) end)
