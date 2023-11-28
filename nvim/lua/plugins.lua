@@ -3,7 +3,6 @@ return {
 	{ 'nagaohiroki/vim-perforce' },
 	{ 'nagaohiroki/vim-ue4helper' },
 	{ 'equalsraf/neovim-gui-shim' },
-	{ 'cohama/agit.vim' },
 	{ 'previm/previm' },
 	{ 'mhinz/vim-signify' },
 	{ 'junegunn/vim-easy-align' },
