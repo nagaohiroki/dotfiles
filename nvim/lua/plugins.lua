@@ -35,6 +35,9 @@ return {
 	},
 	{
 		'tpope/vim-fugitive',
+		dependencies = {
+			'tpope/vim-rhubarb'
+		},
 		config = function()
 			vim.keymap.set('n', '<leader>d', ':Gvdiffsplit<CR>')
 		end
@@ -136,7 +139,7 @@ return {
 		},
 		config = function()
 			require('nvim-web-devicons').setup()
-			require('telescope').setup { defaults = { preview = false } }
+			require('telescope').setup()
 			local builtin = require('telescope.builtin')
 			vim.keymap.set('n', '<leader>f', builtin.find_files)
 			vim.keymap.set('n', '<leader>m', builtin.oldfiles)
