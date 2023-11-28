@@ -36,7 +36,8 @@ return {
 	{
 		'tpope/vim-fugitive',
 		dependencies = {
-			'tpope/vim-rhubarb'
+			'tpope/vim-rhubarb',
+			'junegunn/gv.vim'
 		},
 		config = function()
 			vim.keymap.set('n', '<leader>d', ':Gvdiffsplit<CR>')
