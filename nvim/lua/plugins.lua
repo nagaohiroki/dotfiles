@@ -139,7 +139,7 @@ return {
 		},
 		config = function()
 			require('nvim-web-devicons').setup()
-			require('telescope').setup()
+			require('telescope').setup { defaults = { preview = false } }
 			local builtin = require('telescope.builtin')
 			vim.keymap.set('n', '<leader>f', builtin.find_files)
 			vim.keymap.set('n', '<leader>m', builtin.oldfiles)
