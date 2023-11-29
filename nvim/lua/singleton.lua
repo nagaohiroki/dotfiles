@@ -33,13 +33,13 @@ function Foreground()
 end
 
 function EditFile(fname, line, col)
-	Foreground()
-	if vim.fn.filereadable(fname) == 1 then
+	if fname == '' then
+		vim.cmd('enew')
+	else
 		vim.cmd('edit ' .. fname)
 		vim.fn.cursor(line, col)
-	else
-		vim.cmd('enew')
 	end
+	Foreground()
 end
 
 return {
