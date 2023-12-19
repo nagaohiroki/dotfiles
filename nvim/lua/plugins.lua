@@ -1,5 +1,4 @@
 return {
-	{ 'nagaohiroki/myplugin.vim' },
 	{ 'nagaohiroki/vim-perforce' },
 	{ 'nagaohiroki/vim-ue4helper' },
 	{ 'equalsraf/neovim-gui-shim' },
@@ -40,14 +39,6 @@ return {
 		},
 		config = function()
 			vim.keymap.set('n', '<leader>d', ':Gvdiffsplit<CR>')
-		end
-	},
-	{
-		'vim-scripts/DoxygenToolkit.vim',
-		config = function()
-			vim.g.DoxygenToolkit_blockHeader = '------------------------------------------------------------------------'
-			vim.g.DoxygenToolkit_blockFooter = vim.g.DoxygenToolkit_blockHeader
-			vim.g.DoxygenToolkit_commentType = 'C++'
 		end
 	},
 	{
