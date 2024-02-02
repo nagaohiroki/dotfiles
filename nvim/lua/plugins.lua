@@ -1,4 +1,4 @@
-return {
+﻿return {
 	{ 'nagaohiroki/vim-perforce' },
 	{ 'nagaohiroki/vim-ue4helper' },
 	{ 'equalsraf/neovim-gui-shim' },
