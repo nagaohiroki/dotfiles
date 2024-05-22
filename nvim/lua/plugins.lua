@@ -128,12 +128,14 @@
 			'nvim-lua/plenary.nvim',
 			'nvim-tree/nvim-web-devicons',
 			"nvim-telescope/telescope-file-browser.nvim",
+			"nvim-telescope/telescope-project.nvim",
 		},
 		config = function()
 			require('nvim-web-devicons').setup()
 			local telescope = require('telescope')
 			telescope.setup { defaults = { preview = false } }
 			telescope.load_extension('file_browser')
+			telescope.load_extension('project')
 			local builtin = require('telescope.builtin')
 			vim.keymap.set('n', '<leader>f', builtin.find_files)
 			vim.keymap.set('n', '<leader>m', builtin.oldfiles)
@@ -144,7 +146,10 @@
 			vim.keymap.set('n', '<leader>e', builtin.diagnostics)
 			vim.keymap.set('n', '<leader>h', builtin.help_tags)
 			vim.keymap.set('n', '<leader>n', function()
-				require('telescope').extensions.file_browser.file_browser()
+				telescope.extensions.file_browser.file_browser()
+			end)
+			vim.keymap.set('n', '<leader>p', function()
+				telescope.extensions.project.project{}
 			end)
 		end
 	},
