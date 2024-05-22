@@ -126,17 +126,26 @@
 		'nvim-telescope/telescope.nvim',
 		dependencies = {
 			'nvim-lua/plenary.nvim',
-			'nvim-tree/nvim-web-devicons'
+			'nvim-tree/nvim-web-devicons',
+			"nvim-telescope/telescope-file-browser.nvim",
 		},
 		config = function()
 			require('nvim-web-devicons').setup()
-			require('telescope').setup { defaults = { preview = false } }
+			local telescope = require('telescope')
+			telescope.setup { defaults = { preview = false } }
+			telescope.load_extension('file_browser')
 			local builtin = require('telescope.builtin')
 			vim.keymap.set('n', '<leader>f', builtin.find_files)
 			vim.keymap.set('n', '<leader>m', builtin.oldfiles)
 			vim.keymap.set('n', '<leader>r', builtin.grep_string)
 			vim.keymap.set('n', '<leader>i', builtin.live_grep)
 			vim.keymap.set('n', '<leader>t', builtin.resume)
+			vim.keymap.set('n', '<leader>b', builtin.buffers)
+			vim.keymap.set('n', '<leader>e', builtin.diagnostics)
+			vim.keymap.set('n', '<leader>h', builtin.help_tags)
+			vim.keymap.set('n', '<leader>n', function()
+				require('telescope').extensions.file_browser.file_browser()
+			end)
 		end
 	},
 	{
@@ -147,20 +156,6 @@
 			vim.keymap.set('i', '<C-a>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
 			vim.keymap.set('i', '<C-S-a>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
 			vim.g.codeium_filetypes = { markdown = false, text = false }
-		end
-	},
-	{
-		'lambdalisue/fern.vim',
-		dependencies = {
-			'lambdalisue/fern-git-status.vim',
-			'lambdalisue/fern-renderer-nerdfont.vim',
-			'lambdalisue/nerdfont.vim',
-			'lambdalisue/glyph-palette.vim',
-		},
-		config = function()
-			vim.g['fern#default_hidden'] = 1
-			vim.g['fern#renderer'] = 'nerdfont'
-			vim.keymap.set('n', '<leader>n', ':Fern %:h -toggle -drawer<CR>')
 		end
 	},
 	{
