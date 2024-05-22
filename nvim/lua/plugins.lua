@@ -123,6 +123,22 @@
 		end
 	},
 	{
+		"kdheepak/lazygit.nvim",
+		cmd = {
+			"LazyGit",
+			"LazyGitConfig",
+			"LazyGitCurrentFile",
+			"LazyGitFilter",
+			"LazyGitFilterCurrentFile",
+		},
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		keys = {
+			{ "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+		}
+	},
+	{
 		'nvim-telescope/telescope.nvim',
 		dependencies = {
 			'nvim-lua/plenary.nvim',
@@ -149,7 +165,7 @@
 				telescope.extensions.file_browser.file_browser()
 			end)
 			vim.keymap.set('n', '<leader>p', function()
-				telescope.extensions.project.project{}
+				telescope.extensions.project.project {}
 			end)
 		end
 	},
