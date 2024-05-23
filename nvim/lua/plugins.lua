@@ -129,19 +129,23 @@
 			'nvim-tree/nvim-web-devicons',
 			"nvim-telescope/telescope-file-browser.nvim",
 			"nvim-telescope/telescope-project.nvim",
+			"nvim-telescope/telescope-frecency.nvim",
+			"nvim-telescope/telescope-live-grep-args.nvim",
 		},
 		config = function()
 			require('nvim-web-devicons').setup()
 			local telescope = require('telescope')
 			telescope.setup { defaults = { preview = false } }
+			telescope.load_extension('frecency')
 			telescope.load_extension('file_browser')
 			telescope.load_extension('project')
+			telescope.load_extension("live_grep_args")
 			local builtin = require('telescope.builtin')
 			vim.keymap.set('n', '<leader>f', builtin.find_files)
 			vim.keymap.set('n', '<leader>m', builtin.oldfiles)
-			vim.keymap.set('n', '<leader>r', builtin.grep_string)
+			vim.keymap.set('n', '<leader>t', builtin.grep_string)
 			vim.keymap.set('n', '<leader>i', builtin.live_grep)
-			vim.keymap.set('n', '<leader>t', builtin.resume)
+			vim.keymap.set('n', '<leader>r', builtin.resume)
 			vim.keymap.set('n', '<leader>b', builtin.buffers)
 			vim.keymap.set('n', '<leader>e', builtin.diagnostics)
 			vim.keymap.set('n', '<leader>h', builtin.help_tags)
@@ -150,6 +154,12 @@
 			end)
 			vim.keymap.set('n', '<leader>p', function()
 				telescope.extensions.project.project {}
+			end)
+			vim.keymap.set('n', '<leader>m', function()
+				telescope.extensions.frecency.frecency {}
+			end)
+			vim.keymap.set('n', '<leader>g', function()
+				telescope.extensions.live_grep_args.live_grep_args {}
 			end)
 		end
 	},
