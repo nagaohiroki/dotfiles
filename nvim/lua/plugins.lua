@@ -25,11 +25,7 @@
 		end
 	},
 	{
-		'nagaohiroki/vimDTETool',
-		config = function()
-			vim.keymap.set('n', '<leader>b', ':VSBreakPoint<CR>')
-			vim.keymap.set('n', '<leader>v', ':VSOpen<CR>')
-		end
+		'nagaohiroki/vimDTETool'
 	},
 	{
 		'tpope/vim-fugitive',
@@ -158,7 +154,7 @@
 			vim.keymap.set('n', '<leader>m', function()
 				telescope.extensions.frecency.frecency {}
 			end)
-			vim.keymap.set('n', '<leader>g', function()
+			vim.keymap.set('n', '<leader>i', function()
 				telescope.extensions.live_grep_args.live_grep_args {}
 			end)
 		end
