@@ -144,7 +144,7 @@
 			vim.keymap.set('n', '<leader>r', builtin.resume)
 			vim.keymap.set('n', '<leader>b', builtin.buffers)
 			vim.keymap.set('n', '<leader>e', builtin.diagnostics)
-			vim.keymap.set('n', '<leader>h', builtin.help_tags)
+			-- vim.keymap.set('n', '<leader>h', builtin.help_tags)
 			vim.keymap.set('n', '<leader>n', function()
 				telescope.extensions.file_browser.file_browser()
 			end)
