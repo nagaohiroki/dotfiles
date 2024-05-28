@@ -123,10 +123,10 @@
 		dependencies = {
 			'nvim-lua/plenary.nvim',
 			'nvim-tree/nvim-web-devicons',
-			"nvim-telescope/telescope-file-browser.nvim",
-			"nvim-telescope/telescope-project.nvim",
-			"nvim-telescope/telescope-frecency.nvim",
-			"nvim-telescope/telescope-live-grep-args.nvim",
+			'nvim-telescope/telescope-file-browser.nvim',
+			'nvim-telescope/telescope-project.nvim',
+			'nvim-telescope/telescope-frecency.nvim',
+			'nvim-telescope/telescope-live-grep-args.nvim',
 		},
 		config = function()
 			require('nvim-web-devicons').setup()
@@ -135,7 +135,7 @@
 			telescope.load_extension('frecency')
 			telescope.load_extension('file_browser')
 			telescope.load_extension('project')
-			telescope.load_extension("live_grep_args")
+			telescope.load_extension('live_grep_args')
 			local builtin = require('telescope.builtin')
 			vim.keymap.set('n', '<leader>f', builtin.find_files)
 			vim.keymap.set('n', '<leader>m', builtin.oldfiles)
