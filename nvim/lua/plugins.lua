@@ -2,9 +2,14 @@
 	{ 'nagaohiroki/vim-perforce' },
 	{ 'nagaohiroki/vim-ue4helper' },
 	{ 'equalsraf/neovim-gui-shim' },
-	{ 'previm/previm' },
 	{ 'mhinz/vim-signify' },
 	{ 'junegunn/vim-easy-align' },
+	{
+	   "iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
+		build = function() vim.fn["mkdp#util#install"]() end,
+	},
 	{
 		'beyondmarc/hlsl.vim',
 		config = function()
