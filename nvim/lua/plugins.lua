@@ -3,9 +3,10 @@
 	{ 'nagaohiroki/vim-ue4helper' },
 	{ 'equalsraf/neovim-gui-shim' },
 	{ 'mhinz/vim-signify' },
+	{ 'nagaohiroki/vimDTETool' },
 	{ 'junegunn/vim-easy-align' },
 	{
-	   "iamcco/markdown-preview.nvim",
+		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		ft = { "markdown" },
 		build = function() vim.fn["mkdp#util#install"]() end,
@@ -28,9 +29,6 @@
 			vim.fn['altr#define']('Private/%.cpp', 'Private/*/%.cpp', 'Public/%.h', 'Public/*/%.h', 'Classes/%.h',
 				'Classes/*/%.h')
 		end
-	},
-	{
-		'nagaohiroki/vimDTETool'
 	},
 	{
 		'tpope/vim-fugitive',
@@ -72,14 +70,26 @@
 			'williamboman/mason.nvim',
 			'williamboman/mason-lspconfig.nvim',
 			'Hoffs/omnisharp-extended-lsp.nvim',
+			'Decodetalkers/csharpls-extended-lsp.nvim',
 		},
 		config = function()
-			require('mason').setup()
+			require('mason').setup(
+				{
+					registries = {
+						"github:mason-org/mason-registry",
+					}
+				})
 			require('mason-lspconfig').setup()
 			vim.api.nvim_create_user_command('MasonMyInstall', function()
 				vim.cmd("MasonInstall lua-language-server omnisharp-mono@v1.39.8 pyright black json-lsp clangd")
 			end, {})
 			local lspconfig = require('lspconfig')
+			-- lspconfig.csharp_ls.setup({
+			-- 	handlers = {
+			-- 		['textDocument/definition'] = require('csharpls_extended').handler,
+			-- 		['textDocument/typeDefinition'] = require('csharpls_extended').handler,
+			-- 	}
+			-- })
 			lspconfig.omnisharp_mono.setup({
 				handlers = { ['textDocument/definition'] = require('omnisharp_extended').handler }
 			})
@@ -136,7 +146,9 @@
 		config = function()
 			require('nvim-web-devicons').setup()
 			local telescope = require('telescope')
-			telescope.setup { defaults = { preview = false } }
+			telescope.setup {
+				defaults = { preview = false },
+			}
 			telescope.load_extension('frecency')
 			telescope.load_extension('file_browser')
 			telescope.load_extension('project')
@@ -144,17 +156,13 @@
 			local builtin = require('telescope.builtin')
 			vim.keymap.set('n', '<leader>f', builtin.find_files)
 			vim.keymap.set('n', '<leader>m', builtin.oldfiles)
-			vim.keymap.set('n', '<leader>t', builtin.grep_string)
-			vim.keymap.set('n', '<leader>i', builtin.live_grep)
-			vim.keymap.set('n', '<leader>r', builtin.resume)
-			vim.keymap.set('n', '<leader>b', builtin.buffers)
-			vim.keymap.set('n', '<leader>e', builtin.diagnostics)
-			-- vim.keymap.set('n', '<leader>h', builtin.help_tags)
+			vim.keymap.set('n', '<leader>r', builtin.grep_string)
+			vim.keymap.set('n', '<leader>t', builtin.resume)
 			vim.keymap.set('n', '<leader>n', function()
-				telescope.extensions.file_browser.file_browser()
+				telescope.extensions.file_browser.file_browser({ hidden = true })
 			end)
 			vim.keymap.set('n', '<leader>p', function()
-				telescope.extensions.project.project {}
+				telescope.extensions.project.project { { hidden = true } }
 			end)
 			vim.keymap.set('n', '<leader>m', function()
 				telescope.extensions.frecency.frecency {}
