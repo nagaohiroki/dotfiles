@@ -81,18 +81,18 @@
 				})
 			require('mason-lspconfig').setup()
 			vim.api.nvim_create_user_command('MasonMyInstall', function()
-				vim.cmd("MasonInstall lua-language-server omnisharp-mono@v1.39.8 pyright black json-lsp clangd")
+				vim.cmd("MasonInstall lua-language-server omnisharp-mono@v1.39.8 pyright black json-lsp clangd csharp-language-server")
 			end, {})
 			local lspconfig = require('lspconfig')
-			-- lspconfig.csharp_ls.setup({
-			-- 	handlers = {
-			-- 		['textDocument/definition'] = require('csharpls_extended').handler,
-			-- 		['textDocument/typeDefinition'] = require('csharpls_extended').handler,
-			-- 	}
-			-- })
-			lspconfig.omnisharp_mono.setup({
-				handlers = { ['textDocument/definition'] = require('omnisharp_extended').handler }
+			lspconfig.csharp_ls.setup({
+				handlers = {
+					['textDocument/definition'] = require('csharpls_extended').handler,
+					['textDocument/typeDefinition'] = require('csharpls_extended').handler,
+				}
 			})
+			-- lspconfig.omnisharp_mono.setup({
+			-- 	handlers = { ['textDocument/definition'] = require('omnisharp_extended').handler }
+			-- })
 			lspconfig.pyright.setup {}
 			lspconfig.jsonls.setup {}
 			lspconfig.clangd.setup {}
@@ -140,7 +140,7 @@
 			'nvim-tree/nvim-web-devicons',
 			'nvim-telescope/telescope-file-browser.nvim',
 			'nvim-telescope/telescope-project.nvim',
-			'nvim-telescope/telescope-frecency.nvim',
+		--	'nvim-telescope/telescope-frecency.nvim',
 			'nvim-telescope/telescope-live-grep-args.nvim',
 		},
 		config = function()
@@ -149,7 +149,7 @@
 			telescope.setup {
 				defaults = { preview = false },
 			}
-			telescope.load_extension('frecency')
+			-- telescope.load_extension('frecency')
 			telescope.load_extension('file_browser')
 			telescope.load_extension('project')
 			telescope.load_extension('live_grep_args')
@@ -164,9 +164,9 @@
 			vim.keymap.set('n', '<leader>p', function()
 				telescope.extensions.project.project { { hidden = true } }
 			end)
-			vim.keymap.set('n', '<leader>m', function()
-				telescope.extensions.frecency.frecency {}
-			end)
+			-- vim.keymap.set('n', '<leader>m', function()
+			-- 	telescope.extensions.frecency.frecency {}
+			-- end)
 			vim.keymap.set('n', '<leader>i', function()
 				telescope.extensions.live_grep_args.live_grep_args {}
 			end)
