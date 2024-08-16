@@ -84,15 +84,15 @@
 				vim.cmd("MasonInstall lua-language-server omnisharp-mono@v1.39.8 pyright black json-lsp clangd csharp-language-server")
 			end, {})
 			local lspconfig = require('lspconfig')
-			lspconfig.csharp_ls.setup({
-				handlers = {
-					['textDocument/definition'] = require('csharpls_extended').handler,
-					['textDocument/typeDefinition'] = require('csharpls_extended').handler,
-				}
-			})
-			-- lspconfig.omnisharp_mono.setup({
-			-- 	handlers = { ['textDocument/definition'] = require('omnisharp_extended').handler }
+			-- lspconfig.csharp_ls.setup({
+			-- 	handlers = {
+			-- 		['textDocument/definition'] = require('csharpls_extended').handler,
+			-- 		['textDocument/typeDefinition'] = require('csharpls_extended').handler,
+			-- 	}
 			-- })
+			lspconfig.omnisharp_mono.setup({
+				handlers = { ['textDocument/definition'] = require('omnisharp_extended').handler }
+			})
 			lspconfig.pyright.setup {}
 			lspconfig.jsonls.setup {}
 			lspconfig.clangd.setup {}
