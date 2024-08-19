@@ -81,7 +81,8 @@
 				})
 			require('mason-lspconfig').setup()
 			vim.api.nvim_create_user_command('MasonMyInstall', function()
-				vim.cmd("MasonInstall lua-language-server omnisharp-mono@v1.39.8 pyright black json-lsp clangd csharp-language-server")
+				vim.cmd(
+					"MasonInstall lua-language-server omnisharp-mono@v1.39.8 pyright black json-lsp clangd csharp-language-server")
 			end, {})
 			local lspconfig = require('lspconfig')
 			-- lspconfig.csharp_ls.setup({
@@ -140,7 +141,7 @@
 			'nvim-tree/nvim-web-devicons',
 			'nvim-telescope/telescope-file-browser.nvim',
 			'nvim-telescope/telescope-project.nvim',
-		--	'nvim-telescope/telescope-frecency.nvim',
+			--	'nvim-telescope/telescope-frecency.nvim',
 			'nvim-telescope/telescope-live-grep-args.nvim',
 		},
 		config = function()
@@ -154,22 +155,15 @@
 			telescope.load_extension('project')
 			telescope.load_extension('live_grep_args')
 			local builtin = require('telescope.builtin')
-			vim.keymap.set('n', '<leader>f', builtin.find_files)
-			vim.keymap.set('n', '<leader>m', builtin.oldfiles)
-			vim.keymap.set('n', '<leader>r', builtin.grep_string)
-			vim.keymap.set('n', '<leader>t', builtin.resume)
-			vim.keymap.set('n', '<leader>n', function()
-				telescope.extensions.file_browser.file_browser({ hidden = true })
-			end)
-			vim.keymap.set('n', '<leader>p', function()
-				telescope.extensions.project.project { { hidden = true } }
-			end)
-			-- vim.keymap.set('n', '<leader>m', function()
-			-- 	telescope.extensions.frecency.frecency {}
-			-- end)
-			vim.keymap.set('n', '<leader>i', function()
-				telescope.extensions.live_grep_args.live_grep_args {}
-			end)
+			local ext = telescope.extensions
+			vim.keymap.set('n', '<leader>f', function() builtin.find_files({ hidden = true }) end)
+			vim.keymap.set('n', '<leader>m', function() builtin.oldfiles({ hidden = true }) end)
+			vim.keymap.set('n', '<leader>r', function() builtin.grep_string({ hidden = true }) end)
+			vim.keymap.set('n', '<leader>t', function() builtin.resume({ hidden = true }) end)
+			vim.keymap.set('n', '<leader>n', function() ext.file_browser.file_browser({ hidden = true }) end)
+			vim.keymap.set('n', '<leader>p', function() ext.project.project({ hidden = true }) end)
+			vim.keymap.set('n', '<leader>i', function() ext.live_grep_args.live_grep_args({ hidden = true }) end)
+			--vim.keymap.set('n', '<leader>m', function() ext.frecency.frecency({ hidden = true }) end)
 		end
 	},
 	{
