@@ -141,7 +141,7 @@
 			'nvim-tree/nvim-web-devicons',
 			'nvim-telescope/telescope-file-browser.nvim',
 			'nvim-telescope/telescope-project.nvim',
-			--	'nvim-telescope/telescope-frecency.nvim',
+			'nvim-telescope/telescope-frecency.nvim',
 			'nvim-telescope/telescope-live-grep-args.nvim',
 		},
 		config = function()
@@ -150,7 +150,7 @@
 			telescope.setup {
 				defaults = { preview = false },
 			}
-			-- telescope.load_extension('frecency')
+			telescope.load_extension('frecency')
 			telescope.load_extension('file_browser')
 			telescope.load_extension('project')
 			telescope.load_extension('live_grep_args')
@@ -163,7 +163,7 @@
 			vim.keymap.set('n', '<leader>n', function() ext.file_browser.file_browser({ hidden = true }) end)
 			vim.keymap.set('n', '<leader>p', function() ext.project.project({ hidden = true }) end)
 			vim.keymap.set('n', '<leader>i', function() ext.live_grep_args.live_grep_args({ hidden = true }) end)
-			--vim.keymap.set('n', '<leader>m', function() ext.frecency.frecency({ hidden = true }) end)
+			vim.keymap.set('n', '<leader>m', function() ext.frecency.frecency({ hidden = true }) end)
 		end
 	},
 	{
