@@ -76,6 +76,7 @@
 			require('mason').setup(
 				{
 					registries = {
+						"file:" .. vim.env.HOME .. [[/dotfiles/scripts/mason-registry]],
 						"github:mason-org/mason-registry",
 					}
 				})
