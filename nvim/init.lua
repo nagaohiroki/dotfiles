@@ -53,6 +53,17 @@ vim.api.nvim_create_user_command('ClearOldfiles',
 	function()
 		vim.cmd('set vi+=\'0 | wv!')
 	end, {})
+
+vim.api.nvim_create_user_command('CodeAction',
+	function()
+		vim.lsp.buf.code_action()
+	end, {})
+
+vim.api.nvim_create_user_command('DocumentSymbol',
+	function()
+		vim.lsp.buf.document_symbol()
+	end, {})
+
 vim.api.nvim_create_augroup('loading', {})
 
 function FontResize(inc)
@@ -126,7 +137,6 @@ vim.keymap.set('n', '-', function() FontResize(-1) end)
 vim.keymap.set('n', '<leader>g', vim.lsp.buf.definition)
 vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover)
 vim.keymap.set('n', '<leader>u', vim.lsp.buf.references)
-vim.keymap.set('n', '<leader>l', vim.lsp.buf.document_symbol)
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -139,4 +149,4 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
-require('lazy').setup( { import = 'plugins' })
+require('lazy').setup({ import = 'plugins' })
