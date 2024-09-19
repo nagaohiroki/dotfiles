@@ -65,6 +65,11 @@
 		end
 	},
 	{
+		'seblj/roslyn.nvim',
+		ft = 'cs',
+		opts = {}
+	},
+	{
 		'neovim/nvim-lspconfig',
 		dependencies = {
 			'williamboman/mason.nvim',
@@ -92,9 +97,9 @@
 			-- 		['textDocument/typeDefinition'] = require('csharpls_extended').handler,
 			-- 	}
 			-- })
-			lspconfig.omnisharp_mono.setup({
-				handlers = { ['textDocument/definition'] = require('omnisharp_extended').handler }
-			})
+			-- lspconfig.omnisharp_mono.setup({
+			-- 	handlers = { ['textDocument/definition'] = require('omnisharp_extended').handler }
+			-- })
 			lspconfig.pyright.setup {}
 			lspconfig.jsonls.setup {}
 			lspconfig.clangd.setup {}
