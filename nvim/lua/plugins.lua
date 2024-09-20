@@ -1,9 +1,9 @@
 ﻿return {
 	{ 'nagaohiroki/vim-perforce' },
 	{ 'nagaohiroki/vim-ue4helper' },
+	{ 'nagaohiroki/vimDTETool' },
 	{ 'equalsraf/neovim-gui-shim' },
 	{ 'mhinz/vim-signify' },
-	{ 'nagaohiroki/vimDTETool' },
 	{ 'junegunn/vim-easy-align' },
 	{
 		"iamcco/markdown-preview.nvim",
@@ -128,32 +128,15 @@
 		dependencies = {
 			'williamboman/mason.nvim',
 			'williamboman/mason-lspconfig.nvim',
-			'Hoffs/omnisharp-extended-lsp.nvim',
-			'Decodetalkers/csharpls-extended-lsp.nvim',
 		},
 		config = function()
-			require('mason').setup(
-				{
-					registries = {
-						"file:" .. vim.env.HOME .. [[/dotfiles/scripts/mason-registry]],
-						"github:mason-org/mason-registry",
-					}
-				})
+			require('mason').setup()
 			require('mason-lspconfig').setup()
 			vim.api.nvim_create_user_command('MasonMyInstall', function()
 				vim.cmd(
-					"MasonInstall lua-language-server omnisharp-mono@v1.39.8 pyright black json-lsp clangd csharp-language-server")
+					"MasonInstall lua-language-server pyright black json-lsp clangd")
 			end, {})
 			local lspconfig = require('lspconfig')
-			-- lspconfig.csharp_ls.setup({
-			-- 	handlers = {
-			-- 		['textDocument/definition'] = require('csharpls_extended').handler,
-			-- 		['textDocument/typeDefinition'] = require('csharpls_extended').handler,
-			-- 	}
-			-- })
-			-- lspconfig.omnisharp_mono.setup({
-			-- 	handlers = { ['textDocument/definition'] = require('omnisharp_extended').handler }
-			-- })
 			lspconfig.pyright.setup {}
 			lspconfig.jsonls.setup {}
 			lspconfig.clangd.setup {}
