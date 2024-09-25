@@ -244,19 +244,7 @@
 			local dap = require('dap')
 			local dapui = require('dapui')
 			local dapwidget = require('dap.ui.widgets')
-
-			function FindPath(path, findPath)
-				local newPath = vim.fn.fnamemodify(path, ':h')
-				local editorInstance = vim.fn.glob(newPath .. findPath)
-				if editorInstance ~= '' then
-					return editorInstance
-				end
-				if path == newPath then
-					return nil
-				end
-				return FindPath(newPath, findPath)
-			end
-
+			dapui.setup()
 			vim.keymap.set('n', '<F5>', function()
 				dapui.open()
 				dap.continue()
@@ -273,7 +261,7 @@
 			vim.keymap.set('n', '<C-F9>', function() dap.set_breakpoint(vim.fn.input(''), nil, nil) end)
 			vim.keymap.set('n', '<S-C-F9>', dap.clear_breakpoints)
 			vim.keymap.set('n', '<F12>', dapwidget.hover)
-			dap.adapters.python = {
+			dap.adapters.python       = {
 				type = 'executable',
 				command = 'python',
 				args = { '-m', 'debugpy.adapter' },
@@ -287,41 +275,54 @@
 					pythonPath = function() return 'python' end,
 				},
 			}
-			local unityDebugCommand = vim.env.HOME .. '/.vscode/extensions/deitry.unity-debug-3.0.11/bin/UnityDebug.exe'
-			local unityDebugArgs = {}
-			if vim.fn.has('win32') == 0 then
-				unityDebugArgs = { unityDebugCommand }
-				unityDebugCommand = 'mono'
-			end
-			dap.adapters.unity = {
+			local vstuc_path          = vim.env.HOME .. '/.vscode/extensions/visualstudiotoolsforunity.vstuc-1.0.4/bin/'
+			dap.adapters.vstuc        = {
 				type = 'executable',
-				command = unityDebugCommand,
-				args = unityDebugArgs,
-				name = 'Unity Editor',
+				command = 'dotnet',
+				args = { vstuc_path .. 'UnityDebugAdapter.dll' },
+				name = 'Attach to Unity',
 			}
-			dap.configurations.cs = {
+			dap.configurations.cs     = {
 				{
-					type = 'unity',
-					request = 'launch',
-					name = 'Unity Editor',
-					path = function() return FindPath(vim.fn.expand('%:p'), '/Library/EditorInstance.json') end,
+					type = 'vstuc',
+					request = 'attach',
+					name = 'Attach to Unity',
+					logFile = vim.fs.joinpath(vim.fn.stdpath("data")) .. '/vstuc.log',
+					projectPath = function()
+						local path = vim.fn.expand('%:p')
+						while true do
+							local new_path = vim.fn.fnamemodify(path, ':h')
+							if new_path == path then
+								return ''
+							end
+							path = new_path
+							local assets = vim.fn.glob(path .. '/Assets')
+							if assets ~= '' then
+								return path
+							end
+						end
+					end,
+					endPoint = function()
+						local system_obj = vim.system({ 'dotnet', vstuc_path .. 'UnityAttachProbe.dll' })
+						local probe_result = system_obj:wait(2000).stdout
+						if probe_result == nil or #probe_result == 0 then
+							print('No endpoint found (is unity running?)')
+							return ''
+						end
+						for json in vim.gsplit(probe_result, '\n') do
+							if json ~= '' then
+								local probe = vim.json.decode(json)
+								for _, p in pairs(probe) do
+									if p.isBackground == false then
+										return p.address .. ':' .. p.debuggerPort
+									end
+								end
+							end
+						end
+						return ''
+					end
 				},
 			}
-			dapui.setup({
-				controls = {
-					icons = {
-						disconnect = "■",
-						pause = "",
-						play = ">",
-						run_last = "↷",
-						step_back = "",
-						step_into = "→",
-						step_out = "←",
-						step_over = "↓",
-						terminate = ""
-					}
-				},
-			})
 		end
 	},
 }
