@@ -6,10 +6,10 @@
 	{ 'mhinz/vim-signify' },
 	{ 'junegunn/vim-easy-align' },
 	{
-		"iamcco/markdown-preview.nvim",
-		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-		ft = { "markdown" },
-		build = function() vim.fn["mkdp#util#install"]() end,
+		'iamcco/markdown-preview.nvim',
+		cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+		ft = { 'markdown' },
+		build = function() vim.fn['mkdp#util#install']() end,
 	},
 	{
 		'beyondmarc/hlsl.vim',
@@ -59,7 +59,7 @@
 		end
 	},
 	{
-		"folke/tokyonight.nvim",
+		'folke/tokyonight.nvim',
 		lazy = false,
 		priority = 1000,
 		opts = {},
@@ -89,7 +89,7 @@
 					client.is_hacked = true
 
 					-- let the runtime know the server can do semanticTokens/full now
-					client.server_capabilities = vim.tbl_deep_extend("force", client.server_capabilities, {
+					client.server_capabilities = vim.tbl_deep_extend('force', client.server_capabilities, {
 						semanticTokensProvider = {
 							full = true,
 						},
@@ -105,14 +105,14 @@
 						local target_bufnr = vim.uri_to_bufnr(params.textDocument.uri)
 						local line_count = vim.api.nvim_buf_line_count(target_bufnr)
 						local last_line = vim.api.nvim_buf_get_lines(target_bufnr, line_count - 1, line_count, true)[1]
-						return request_inner("textDocument/semanticTokens/range", {
+						return request_inner('textDocument/semanticTokens/range', {
 							textDocument = params.textDocument,
 							range = {
-								["start"] = {
+								['start'] = {
 									line = 0,
 									character = 0,
 								},
-								["end"] = {
+								['end'] = {
 									line = line_count - 1,
 									character = string.len(last_line) - 1,
 								},
@@ -134,7 +134,7 @@
 			require('mason-lspconfig').setup()
 			vim.api.nvim_create_user_command('MasonMyInstall', function()
 				vim.cmd(
-					"MasonInstall lua-language-server pyright black json-lsp clangd")
+					'MasonInstall lua-language-server pyright black json-lsp clangd')
 			end, {})
 			local lspconfig = require('lspconfig')
 			lspconfig.pyright.setup {}
@@ -183,7 +183,6 @@
 			'nvim-lua/plenary.nvim',
 			'nvim-tree/nvim-web-devicons',
 			'nvim-telescope/telescope-file-browser.nvim',
-			'nvim-telescope/telescope-project.nvim',
 			'nvim-telescope/telescope-frecency.nvim',
 			'nvim-telescope/telescope-live-grep-args.nvim',
 		},
@@ -195,16 +194,13 @@
 			}
 			telescope.load_extension('frecency')
 			telescope.load_extension('file_browser')
-			telescope.load_extension('project')
 			telescope.load_extension('live_grep_args')
 			local builtin = require('telescope.builtin')
 			local ext = telescope.extensions
 			vim.keymap.set('n', '<leader>f', function() builtin.find_files({ hidden = true }) end)
-			vim.keymap.set('n', '<leader>m', function() builtin.oldfiles({ hidden = true }) end)
 			vim.keymap.set('n', '<leader>r', function() builtin.grep_string({ hidden = true }) end)
 			vim.keymap.set('n', '<leader>t', function() builtin.resume({ hidden = true }) end)
 			vim.keymap.set('n', '<leader>n', function() ext.file_browser.file_browser({ hidden = true }) end)
-			vim.keymap.set('n', '<leader>p', function() ext.project.project({ hidden = true }) end)
 			vim.keymap.set('n', '<leader>i', function() ext.live_grep_args.live_grep_args({ hidden = true }) end)
 			vim.keymap.set('n', '<leader>m', function() ext.frecency.frecency({ hidden = true }) end)
 		end
@@ -287,7 +283,7 @@
 					type = 'vstuc',
 					request = 'attach',
 					name = 'Attach to Unity',
-					logFile = vim.fs.joinpath(vim.fn.stdpath("data")) .. '/vstuc.log',
+					logFile = vim.fs.joinpath(vim.fn.stdpath('data')) .. '/vstuc.log',
 					projectPath = function()
 						local path = vim.fn.expand('%:p')
 						while true do
