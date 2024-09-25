@@ -303,7 +303,7 @@
 						end
 					end,
 					endPoint = function()
-						local system_obj = vim.system({ 'dotnet', vstuc_path .. 'UnityAttachProbe.dll' })
+						local system_obj = vim.system({ 'dotnet', vstuc_path .. 'UnityAttachProbe.dll' }, { text = true })
 						local probe_result = system_obj:wait(2000).stdout
 						if probe_result == nil or #probe_result == 0 then
 							print('No endpoint found (is unity running?)')
