@@ -134,13 +134,14 @@
 			require('mason-lspconfig').setup()
 			vim.api.nvim_create_user_command('MasonMyInstall', function()
 				vim.cmd(
-					'MasonInstall lua-language-server pyright black json-lsp clangd')
+					'MasonInstall lua-language-server pyright black json-lsp clangd marksman')
 			end, {})
 			local lspconfig = require('lspconfig')
+			lspconfig.lua_ls.setup { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
 			lspconfig.pyright.setup {}
 			lspconfig.jsonls.setup {}
 			lspconfig.clangd.setup {}
-			lspconfig.lua_ls.setup { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
+			lspconfig.marksman.setup {}
 		end
 	},
 	{
