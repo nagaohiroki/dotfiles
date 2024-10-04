@@ -30,7 +30,7 @@ def score_dict(root_path):
 
 
 if __name__ == "__main__":
-    root_path = r"C:\Users\nagao_hiroki\AppData\Local"
+    root_path = "."
     score = score_dict(root_path)
     sorted_dict = dict(sorted(score.items(), key=lambda x: x[1], reverse=True))
     print(json.dumps(sorted_dict, indent=2))
