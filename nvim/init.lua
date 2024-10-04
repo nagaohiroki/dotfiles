@@ -142,6 +142,13 @@ vim.keymap.set('n', '-', function() FontResize(-1) end)
 vim.keymap.set('n', '<leader>g', vim.lsp.buf.definition)
 vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover)
 vim.keymap.set('n', '<leader>u', vim.lsp.buf.references)
+local function win_resize(map, width, height)
+	vim.keymap.set('n', map, function() require('winctrl').resize(width, height) end)
+end
+win_resize('<M-UP>', 0, -200)
+win_resize('<M-Down>', 0, 200)
+win_resize('<M-Left>', -200, 0)
+win_resize('<M-Right>', 200, 0)
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
