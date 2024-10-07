@@ -6,12 +6,6 @@
 	{ 'mhinz/vim-signify' },
 	{ 'junegunn/vim-easy-align' },
 	{
-		'iamcco/markdown-preview.nvim',
-		cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-		ft = { 'markdown' },
-		build = function() vim.fn['mkdp#util#install']() end,
-	},
-	{
 		'beyondmarc/hlsl.vim',
 		config = function()
 			vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' },
@@ -50,13 +44,14 @@
 		end
 	},
 	{
-		'voldikss/vim-translator',
-		config = function()
-			vim.g.translator_target_lang = 'ja'
-			vim.g.translator_source_lang = 'en'
-			vim.keymap.set({ 'n', 'v' }, '<leader>j', ':TranslateW<CR>')
-			vim.keymap.set({ 'n', 'v' }, '<leader>e', ':TranslateW!<CR>')
-		end
+		'iamcco/markdown-preview.nvim',
+		cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+		ft = { 'markdown' },
+		build = function() vim.fn['mkdp#util#install']() end,
+	},
+	{
+		'uga-rosa/translate.nvim',
+		opts = {}
 	},
 	{
 		'folke/tokyonight.nvim',
