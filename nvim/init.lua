@@ -69,6 +69,11 @@ vim.api.nvim_create_user_command('DocumentSymbol',
 		vim.lsp.buf.document_symbol()
 	end, {})
 
+vim.api.nvim_create_user_command('UnityDebuggerInstall',
+	function()
+		require('dl_unity_debugger').dl_vstuc()
+	end, {})
+
 vim.api.nvim_create_augroup('loading', {})
 
 function FontResize(inc)

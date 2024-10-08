@@ -267,7 +267,9 @@
 					pythonPath = function() return 'python' end,
 				},
 			}
-			local vstuc_path          = vim.env.HOME .. '/.vscode/extensions/visualstudiotoolsforunity.vstuc-1.0.4/bin'
+
+			local vstuc_path = vim.fn.fnameescape(vim.fn.stdpath('data') .. '/vstuc/extension/bin')
+			-- local vstuc_path          = vim.env.HOME .. '/.vscode/extensions/visualstudiotoolsforunity.vstuc-1.0.4/bin'
 			local vstuc_opts          = {
 				type = 'vstuc',
 				request = 'attach',
