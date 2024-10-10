@@ -10,9 +10,9 @@ M.singleton = function()
 		vim.fn.serverstop(vim.v.servername)
 		return false
 	end
-	vim.o.swapfile = false
-	vim.o.shada = ''
-	vim.o.loadplugins = false
+	vim.opt.swapfile = false
+	vim.opt.shada = ''
+	vim.opt.loadplugins = false
 	vim.api.nvim_create_autocmd('VimEnter',
 		{
 			once = true,

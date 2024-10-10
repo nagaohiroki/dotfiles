@@ -3,26 +3,26 @@
 end
 
 vim.g.mapleader = ' '
-vim.o.writebackup = false
-vim.o.fixeol = false
-vim.o.wrap = false
-vim.o.swapfile = false
-vim.o.smartindent = true
-vim.o.smartcase = true
-vim.o.ignorecase = true
-vim.o.title = true
-vim.o.number = true
-vim.o.list = true
-vim.o.undofile = true
-vim.o.shiftwidth = 4
-vim.o.tabstop = 4
-vim.o.cmdheight = 2
-vim.o.mouse = 'a'
-vim.o.listchars = 'eol:<,tab:> ,extends:<'
-vim.o.whichwrap = 'b,s,h,l,<,>,[,]'
-vim.o.clipboard = 'unnamedplus,unnamed'
-vim.o.fileencodings = 'ucs-bom,iso-2022-jp-3,euc-jisx0213,cp932,sjis,euc-jp,utf-8'
-vim.o.statusline =
+vim.opt.writebackup = false
+vim.opt.swapfile = false
+vim.opt.fixeol = false
+vim.opt.wrap = false
+vim.opt.smartindent = true
+vim.opt.smartcase = true
+vim.opt.ignorecase = true
+vim.opt.title = true
+vim.opt.number = true
+vim.opt.list = true
+vim.opt.undofile = true
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.cmdheight = 2
+vim.opt.mouse = 'a'
+vim.opt.listchars = { eol = '<', tab = '> ', extends = '<' }
+vim.opt.whichwrap = 'b,s,h,l,<,>,[,]'
+vim.opt.clipboard = { 'unnamed', 'unnamedplus' }
+vim.opt.fileencodings = { 'ucs-bom', 'iso-2022-jp-3', 'euc-jisx0213', 'cp932', 'sjis', 'euc-jp', 'utf-8' }
+vim.opt.statusline =
 '%<%f%m%r%h%w%y[%{&fenc}%{(&bomb?"_bom":"")}][%{&ff}]%=%c,%l/%L%{exists("*FugitiveStatusline")?FugitiveStatusline():""}'
 vim.api.nvim_create_user_command('Errors', function() vim.diagnostic.setqflist() end, {})
 function EditFile(file)
@@ -49,9 +49,9 @@ vim.api.nvim_create_user_command('Wex',
 
 vim.api.nvim_create_user_command('Utf8bomLF',
 	function()
-		vim.o.fileencoding = 'utf-8'
-		vim.o.bomb = true
-		vim.o.fileformat = 'unix'
+		vim.opt.fileencoding = 'utf-8'
+		vim.opt.bomb = true
+		vim.opt.fileformat = 'unix'
 	end, {})
 
 vim.api.nvim_create_user_command('ClearOldfiles',
@@ -82,7 +82,7 @@ function FontResize(inc)
 		vim.cmd('Guifont! ' .. vim.g.fontName .. ':h' .. vim.g.fontSize)
 	end
 	if vim.g.neovide then
-		vim.o.guifont = vim.g.fontName .. ':h' .. vim.g.fontSize
+		vim.opt.guifont = vim.g.fontName .. ':h' .. vim.g.fontSize
 	end
 end
 
@@ -166,7 +166,4 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
-require('lazy').setup(
-	'plugins', {
-		change_detection = { notify = false }
-	})
+require('lazy').setup('plugins', { change_detection = { notify = false } })
