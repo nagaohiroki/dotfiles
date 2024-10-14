@@ -50,6 +50,10 @@
 		build = function() vim.fn['mkdp#util#install']() end,
 	},
 	{
+		'j-hui/fidget.nvim',
+		opts = {}
+	},
+	{
 		'uga-rosa/translate.nvim',
 		opts = {}
 	},
