@@ -56,7 +56,7 @@ function M.setup()
 		'Stop',
 	}
 	for _, v in ipairs(functionTbl) do
-		vim.api.nvim_create_user_command('Unity' .. v, function()
+		vim.api.nvim_create_user_command('U' .. v, function()
 			request({ Type = v, Value = '' })
 		end, {})
 	end
