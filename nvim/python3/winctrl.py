@@ -8,10 +8,7 @@ class NvimWinCtrl:
         self.window = params["window"]
         self.width = params["width"]
         self.height = params["height"]
-        method = params["method"]
-        dic = {"resize": self.resize, "move": self.move, "activate": self.activate}
-        if method in dic:
-            dic[params["method"]]()
+        getattr(self, params["method"])()
 
     def resize(self):
         wins = self.windows()
@@ -29,7 +26,8 @@ class NvimWinCtrl:
             w.activate()
 
     def windows(self):
-        return pywinctl.getWindowsWithTitle(self.window, condition=pywinctl.Re.CONTAINS)
+        condition = pywinctl.Re.CONTAINS
+        return pywinctl.getWindowsWithTitle(self.window, condition=condition)
 
 
 if __name__ == "__main__":

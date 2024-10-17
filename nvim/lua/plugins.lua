@@ -134,25 +134,17 @@
 		},
 		config = function()
 			require('mason').setup()
-			require('mason-lspconfig').setup({
-				ensure_installed = { 'lua_ls', 'pyright', 'clangd', 'marksman', 'jsonls' }
-			})
+			local mason_lspconfig = require('mason-lspconfig')
 			local lspconfig = require('lspconfig')
-			lspconfig.lua_ls.setup { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
-			lspconfig.pyright.setup {}
-			lspconfig.jsonls.setup {}
-			lspconfig.clangd.setup {}
-			lspconfig.marksman.setup {}
-		end
-	},
-	{
-		'nvimtools/none-ls.nvim',
-		config = function()
-			local null_ls = require('null-ls')
-			null_ls.setup({
-				sources = {
-					null_ls.builtins.formatting.black,
-				}
+			mason_lspconfig.setup({ ensure_installed = { 'lua_ls', 'pylsp', 'clangd', 'marksman', 'jsonls' } })
+			mason_lspconfig.setup_handlers({
+				function(server_name)
+					local opts = {}
+					if server_name == 'lua_ls' then
+						opts = { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
+					end
+					lspconfig[server_name].setup(opts)
+				end
 			})
 		end
 	},
