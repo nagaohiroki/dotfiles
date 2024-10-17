@@ -8,22 +8,30 @@ local function execute_win(tbl)
 	vim.cmd('py3 sys.argv = [\'' .. json .. '\']')
 	vim.cmd('py3file ' .. winctrl_py)
 end
-local function resize(width, height)
-	execute_win({ window = "NVIM", method = 'resize', width = width, height = height })
+local function key_resize(map, width, height)
+	vim.keymap.set('n', map, function()
+		execute_win({ window = 'NVIM', method = 'resize', width = width, height = height })
+	end)
 end
-local function win_resize(map, width, height)
-	vim.keymap.set('n', map, function() resize(width, height) end)
+local function key_move(map, width, height)
+	vim.keymap.set('n', map, function()
+		execute_win({ window = 'NVIM', method = 'move', width = width, height = height })
+	end)
 end
 function M.activate(window)
-	execute_win({ window = window, method = 'activate' })
+	execute_win({ window = window, method = 'activate', width = 0, height = 0 })
 end
 
 function M.setup()
 	local size = 200
-	win_resize('<M-UP>', 0, -size)
-	win_resize('<M-Down>', 0, size)
-	win_resize('<M-Left>', -size, 0)
-	win_resize('<M-Right>', size, 0)
+	key_resize('<M-UP>', 0, -size)
+	key_resize('<M-Down>', 0, size)
+	key_resize('<M-Left>', -size, 0)
+	key_resize('<M-Right>', size, 0)
+	key_move('<S-M-UP>', 0, -size)
+	key_move('<S-M-Down>', 0, size)
+	key_move('<S-M-Left>', -size, 0)
+	key_move('<S-M-Right>', size, 0)
 end
 
 return M

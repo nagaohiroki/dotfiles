@@ -5,21 +5,23 @@ import json
 
 class NvimWinCtrl:
     def execute(self, params):
-        if params is None:
-            return
         self.window = params["window"]
+        self.width = params["width"]
+        self.height = params["height"]
         method = params["method"]
-        if method == "resize":
-            w = int(params["width"])
-            h = int(params["height"])
-            self.resize(w, h)
-        elif method == "activate":
-            self.activate()
+        dic = {"resize": self.resize, "move": self.move, "activate": self.activate}
+        if method in dic:
+            dic[params["method"]]()
 
-    def resize(self, width, height):
+    def resize(self):
         wins = self.windows()
         for w in wins:
-            w.size = (w.size[0] + width, w.size[1] + height)
+            w.resize(self.width, self.height)
+
+    def move(self):
+        wins = self.windows()
+        for w in wins:
+            w.move(self.width, self.height)
 
     def activate(self):
         wins = self.windows()
