@@ -52,6 +52,7 @@ function M.setup()
 		'Refresh',
 		'Play',
 		'Pause',
+		'Unpause',
 		'Stop',
 	}
 	for _, v in ipairs(functionTbl) do
