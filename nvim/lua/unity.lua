@@ -1,23 +1,5 @@
 ﻿local M = {}
-M.setup = function()
-	local functionTbl = {
-		'Refresh',
-		'Play',
-		'Pause',
-		'Stop',
-	}
-	for _, v in ipairs(functionTbl) do
-		vim.api.nvim_create_user_command('Unity' .. v, function()
-			M.request({ Type = v, Value = '' })
-		end, {})
-	end
-
-	vim.api.nvim_create_user_command('VstucInstall',
-		function()
-			M.dl_vstuc()
-		end, {})
-end
-M.find_address = function()
+local function find_probe()
 	local vstuc_path = vim.fn.fnameescape(vim.fn.stdpath('data') .. '/vstuc/extension/bin')
 	local system_obj = vim.system({ 'dotnet', vstuc_path .. '/UnityAttachProbe.dll' }, { text = true })
 	local probe_result = system_obj:wait(2000).stdout
@@ -37,8 +19,8 @@ M.find_address = function()
 	end
 	return nil
 end
-M.request = function(tbl)
-	local probe = M.find_address()
+local function request(tbl)
+	local probe = find_probe()
 	if probe == nil then
 		vim.print('not find unity endpoint')
 		return
@@ -50,7 +32,6 @@ M.request = function(tbl)
 		if err then
 			print('error:', err)
 		else
-			print('success')
 			uv.close(udp)
 		end
 	end)
@@ -66,18 +47,30 @@ local function dl_debugger(tbl)
 	vim.cmd('py3file ' .. py)
 	vim.notify('download\n' .. json)
 end
-M.dl_vstuc = function()
-	dl_debugger({
+function M.setup()
+	local functionTbl = {
+		'Refresh',
+		'Play',
+		'Pause',
+		'Stop',
+	}
+	for _, v in ipairs(functionTbl) do
+		vim.api.nvim_create_user_command('Unity' .. v, function()
+			request({ Type = v, Value = '' })
+		end, {})
+	end
+	local vstuc = {
 		url =
-		"https://marketplace.visualstudio.com/_apis/public/gallery/publishers/VisualStudioToolsForUnity/vsextensions/vstuc/1.0.4/vspackage",
-		out = vim.fn.fnameescape(vim.fn.stdpath('data') .. '/vstuc')
-	})
+		'https://marketplace.visualstudio.com/_apis/public/gallery/publishers/VisualStudioToolsForUnity/vsextensions/vstuc/1.0.4/vspackage',
+		out = vim.fn.fnameescape(vim.fn.stdpath('data') .. '/vstuc'),
+	}
+	-- old debugger
+	-- local unity_debugger = {
+	-- 	url =
+	-- 	'https://marketplace.visualstudio.com/_apis/public/gallery/publishers/deitry/vsextensions/unity-debug/3.0.11/vspackage',
+	-- 	out = vim.fn.fnameescape(vim.fn.stdpath('data') .. '/unity-debug')
+	-- }
+	vim.api.nvim_create_user_command('VstucInstall', function() dl_debugger(vstuc) end, {})
 end
-M.dl_unity_debugger = function()
-	dl_debugger({
-		url =
-		"https://marketplace.visualstudio.com/_apis/public/gallery/publishers/deitry/vsextensions/unity-debug/3.0.11/vspackage",
-		out = vim.fn.fnameescape(vim.fn.stdpath('data') .. '/unity-debug')
-	})
-end
+
 return M

@@ -54,20 +54,10 @@ vim.api.nvim_create_user_command('Utf8bomLF',
 		vim.opt.fileformat = 'unix'
 	end, {})
 
-vim.api.nvim_create_user_command('ClearOldfiles',
-	function()
-		vim.cmd('set vi+=\'0 | wv!')
-	end, {})
-
-vim.api.nvim_create_user_command('CodeAction',
-	function()
-		vim.lsp.buf.code_action()
-	end, {})
-
-vim.api.nvim_create_user_command('DocumentSymbol',
-	function()
-		vim.lsp.buf.document_symbol()
-	end, {})
+vim.api.nvim_create_user_command('ClearOldfiles', function() vim.cmd('set vi+=\'0 | wv!') end, {})
+vim.api.nvim_create_user_command('CodeAction', function() vim.lsp.buf.code_action() end, {})
+vim.api.nvim_create_user_command('DocumentSymbol', function() vim.lsp.buf.document_symbol() end, {})
+vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.format() end, {})
 
 vim.api.nvim_create_augroup('loading', {})
 

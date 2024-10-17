@@ -134,17 +134,26 @@
 		},
 		config = function()
 			require('mason').setup()
-			require('mason-lspconfig').setup()
-			vim.api.nvim_create_user_command('MasonMyInstall', function()
-				vim.cmd(
-					'MasonInstall lua-language-server pyright black json-lsp clangd marksman')
-			end, {})
+			require('mason-lspconfig').setup({
+				ensure_installed = { 'lua_ls', 'pyright', 'clangd', 'marksman', 'jsonls' }
+			})
 			local lspconfig = require('lspconfig')
 			lspconfig.lua_ls.setup { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
 			lspconfig.pyright.setup {}
 			lspconfig.jsonls.setup {}
 			lspconfig.clangd.setup {}
 			lspconfig.marksman.setup {}
+		end
+	},
+	{
+		'nvimtools/none-ls.nvim',
+		config = function()
+			local null_ls = require('null-ls')
+			null_ls.setup({
+				sources = {
+					null_ls.builtins.formatting.black,
+				}
+			})
 		end
 	},
 	{
@@ -220,21 +229,6 @@
 		end
 	},
 	{
-		'mhartington/formatter.nvim',
-		config = function()
-			require('formatter').setup({
-				filetype = {
-					python = {
-						require('formatter.filetypes.python').black
-					},
-					['*'] = {
-						function() vim.lsp.buf.format { async = true } end
-					}
-				}
-			})
-		end
-	},
-	{
 		'mfussenegger/nvim-dap',
 		dependencies = {
 			'rcarriga/nvim-dap-ui',
@@ -277,7 +271,6 @@
 			}
 
 			local vstuc_path          = vim.fn.fnameescape(vim.fn.stdpath('data') .. '/vstuc/extension/bin')
-			-- local vstuc_path          = vim.env.HOME .. '/.vscode/extensions/visualstudiotoolsforunity.vstuc-1.0.4/bin'
 			local vstuc_opts          = {
 				type = 'vstuc',
 				request = 'attach',

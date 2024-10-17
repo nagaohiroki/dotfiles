@@ -35,8 +35,7 @@ M.edit_file = function(fname, line, col)
 		vim.fn.cursor(line, col)
 	end
 	if vim.g.GuiLoaded == 1 then
-		require('winctrl').activate()
-		-- vim.cmd('py3file ' .. vim.env.HOME .. '/dotfiles/scripts/foreground.py')
+		require('winctrl').activate('NVIM')
 	end
 end
 
