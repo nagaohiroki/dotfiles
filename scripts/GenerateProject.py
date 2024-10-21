@@ -53,10 +53,14 @@ def find_ue_path():
 
 def main():
     uproject = find_uproject()
+    if uproject is None:
+        return
     with open(uproject, "r") as f:
         dic = json.load(f)
         ver = dic["EngineAssociation"]
         engine_dir = find_ue_path()
+        if engine_dir is None:
+            return
         engine = os.path.join(engine_dir, f"UE_{ver}")
         generate_project(engine, uproject)
 
