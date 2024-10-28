@@ -37,16 +37,23 @@ local function request(tbl)
 	end)
 	uv.run()
 end
-local function dl_debugger(tbl)
-	if vim.fn.has('python3') == 0 then
+
+local function download_debugger(dir, url)
+	if vim.fn.isdirectory(dir) == 1 then
+		vim.print('vstuc already downloaded ' .. dir)
 		return
 	end
-	local json = vim.fn.json_encode(tbl)
-	local py = vim.fn.fnameescape(vim.fn.stdpath('config') .. '/python3/dl_unity_debugger.py')
-	vim.cmd('py3 sys.argv = [\'' .. json .. '\']')
-	vim.cmd('py3file ' .. py)
-	vim.notify('download\n' .. json)
+	local out = dir .. '/tmp.zip'
+	vim.fn.mkdir(dir, 'p')
+	vim.system({ 'curl', '--compressed', '-L', url, '-o', out }, { text = true }, function(_)
+		vim.print('done download')
+		vim.print('start extract')
+		vim.system({ 'tar', 'xf', out, '-C', dir }, { text = true }, function(_)
+			vim.print('done extract')
+		end)
+	end)
 end
+
 function M.setup()
 	local functionTbl = {
 		'Refresh',
@@ -60,18 +67,14 @@ function M.setup()
 			request({ Type = v, Value = '' })
 		end, {})
 	end
-	local vstuc = {
-		url =
-		'https://marketplace.visualstudio.com/_apis/public/gallery/publishers/VisualStudioToolsForUnity/vsextensions/vstuc/1.0.4/vspackage',
-		out = vim.fn.fnameescape(vim.fn.stdpath('data') .. '/vstuc'),
-	}
-	-- old debugger
-	-- local unity_debugger = {
-	-- 	url =
-	-- 	'https://marketplace.visualstudio.com/_apis/public/gallery/publishers/deitry/vsextensions/unity-debug/3.0.11/vspackage',
-	-- 	out = vim.fn.fnameescape(vim.fn.stdpath('data') .. '/unity-debug')
-	-- }
-	vim.api.nvim_create_user_command('VstucInstall', function() dl_debugger(vstuc) end, {})
+	vim.api.nvim_create_user_command('InstallUnityDebugger', function()
+		download_debugger(vim.fn.fnameescape(vim.fn.stdpath('data') .. '/vstuc'),
+			'https://marketplace.visualstudio.com/_apis/public/gallery/publishers/VisualStudioToolsForUnity/vsextensions/vstuc/1.0.4/vspackage')
+	end, {})
+	vim.api.nvim_create_user_command('InstallUnityDebuggerOld', function()
+		download_debugger(vim.fn.fnameescape(vim.fn.stdpath('data') .. '/unity-debug'),
+			'https://marketplace.visualstudio.com/_apis/public/gallery/publishers/deitry/vsextensions/unity-debug/3.0.11/vspackage')
+	end, {})
 end
 
 return M
