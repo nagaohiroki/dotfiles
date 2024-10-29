@@ -1,7 +1,6 @@
 ﻿if require('singleton').singleton() then
 	return
 end
-
 vim.g.mapleader = ' '
 vim.opt.writebackup = false
 vim.opt.swapfile = false
@@ -25,43 +24,36 @@ vim.opt.fileencodings = { 'ucs-bom', 'iso-2022-jp-3', 'euc-jisx0213', 'cp932', '
 vim.opt.statusline =
 '%<%f%m%r%h%w%y[%{&fenc}%{(&bomb?"_bom":"")}][%{&ff}]%=%c,%l/%L%{exists("*FugitiveStatusline")?FugitiveStatusline():""}'
 vim.api.nvim_create_user_command('Errors', function() vim.diagnostic.setqflist() end, {})
-function EditFile(file)
-	vim.cmd('e ' .. vim.env.HOME .. '/dotfiles/nvim' .. file)
-end
-
-vim.api.nvim_create_user_command('Rc', function() EditFile('/init.lua') end, {})
-vim.api.nvim_create_user_command('RcPlug', function() EditFile('/lua/plugins.lua') end, {})
-vim.api.nvim_create_user_command('CdCurrent', function() vim.api.nvim_set_current_dir(vim.fn.expand('%:p:h')) end, {})
-vim.api.nvim_create_user_command('CopyPath', function() vim.fn.setreg('*', vim.fn.expand('%:p')) end, {})
-vim.api.nvim_create_user_command('CopyPathLine',
-	function()
-		vim.fn.setreg('*', vim.fn.expand('%:p') .. '#L' .. vim.fn.line('.'))
-	end, {})
-vim.api.nvim_create_user_command('Wex',
-	function()
-		if vim.fn.has('mac') == 1 then
-			vim.fn.system('open ' .. vim.fn.expand('%:h'))
-		end
-		if vim.fn.has('win32') == 1 then
-			vim.fn.system('start explorer /select,' .. vim.api.nvim_buf_get_name(0))
-		end
-	end, {})
-
-vim.api.nvim_create_user_command('Utf8bomLF',
-	function()
-		vim.opt.fileencoding = 'utf-8'
-		vim.opt.bomb = true
-		vim.opt.fileformat = 'unix'
-	end, {})
-
-vim.api.nvim_create_user_command('ClearOldfiles', function() vim.cmd('set vi+=\'0 | wv!') end, {})
 vim.api.nvim_create_user_command('CodeAction', function() vim.lsp.buf.code_action() end, {})
 vim.api.nvim_create_user_command('DocumentSymbol', function() vim.lsp.buf.document_symbol() end, {})
 vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.format() end, {})
-
+vim.api.nvim_create_user_command('CdCurrent', function() vim.api.nvim_set_current_dir(vim.fn.expand('%:p:h')) end, {})
+vim.api.nvim_create_user_command('CopyPath', function() vim.fn.setreg('*', vim.fn.expand('%:p')) end, {})
+vim.api.nvim_create_user_command('CopyPathLine', function()
+	vim.fn.setreg('*', vim.fn.expand('%:p') .. '#L' .. vim.fn.line('.'))
+end, {})
+vim.api.nvim_create_user_command('Wex', function()
+	if vim.fn.has('mac') == 1 then
+		vim.fn.system('open ' .. vim.fn.expand('%:h'))
+	end
+	if vim.fn.has('win32') == 1 then
+		vim.fn.system('start explorer /select,' .. vim.api.nvim_buf_get_name(0))
+	end
+end, {})
+vim.api.nvim_create_user_command('Rc', function()
+	vim.cmd.drop(vim.env.HOME .. '/dotfiles/nvim/init.lua')
+end, {})
+vim.api.nvim_create_user_command('RcPlug', function()
+	vim.cmd.drop(vim.env.HOME .. '/dotfiles/nvim/lua/plugins.lua')
+end, {})
+vim.api.nvim_create_user_command('Utf8bomLF', function()
+	vim.opt.fileencoding = 'utf-8'
+	vim.opt.bomb = true
+	vim.opt.fileformat = 'unix'
+end, {})
 vim.api.nvim_create_augroup('loading', {})
 
-function FontResize(inc)
+local function FontResize(inc)
 	vim.g.fontSize = math.max(1, vim.g.fontSize + inc)
 	if vim.g.GuiLoaded == 1 then
 		vim.cmd('Guifont! ' .. vim.g.fontName .. ':h' .. vim.g.fontSize)
@@ -106,6 +98,15 @@ vim.api.nvim_create_autocmd('FileType',
 		group = 'loading',
 		pattern = { 'gitcommit' },
 		command = 'set fenc=utf-8'
+	})
+vim.api.nvim_create_autocmd('FileType',
+	{
+		group = 'loading',
+		pattern = { 'markdown' },
+		callback = function()
+			vim.opt.foldmethod = 'marker'
+			vim.opt.foldmarker = { '<details>', '</details>' }
+		end
 	})
 vim.api.nvim_create_autocmd('BufRead',
 	{

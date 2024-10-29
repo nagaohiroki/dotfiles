@@ -313,12 +313,13 @@
 					return ''
 				end
 			}
-			dap.adapters.vstuc        = {
+			local vstuc               = {
 				type = 'executable',
 				command = 'dotnet',
 				args = { vstuc_path .. '/UnityDebugAdapter.dll' },
-				name = 'Attach to Unity',
+				name = 'Attach to Unity'
 			}
+			dap.adapters.vstuc        = vstuc
 			dap.configurations.cs     = { vstuc_opts }
 		end
 	},
