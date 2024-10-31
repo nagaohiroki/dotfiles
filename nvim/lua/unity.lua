@@ -1,4 +1,48 @@
 ﻿local M = {}
+
+local function get_editor_instance_json()
+	local path = vim.fn.expand('%:p')
+	while true do
+		local new_path = vim.fn.fnamemodify(path, ':h')
+		if new_path == path then
+			print('Not found EditorInstance.json')
+			return ''
+		end
+		path = new_path
+		local editor_instance = vim.fn.glob(path .. '/Library/EditorInstance.json')
+		if editor_instance ~= '' then
+			return editor_instance
+		end
+	end
+end
+local function get_process_id()
+	local editor_instance = get_editor_instance_json()
+	if editor_instance == '' then
+		return nil
+	end
+	local file = io.open(editor_instance, 'r')
+	if file == nil then
+		return nil
+	end
+	local text = file:read('a')
+	local json = vim.json.decode(text)
+	file:close()
+	return json.process_id
+end
+local function unity_debugger_port()
+	local process_id = get_process_id()
+	if process_id == nil then
+		return nil
+	end
+	return 56000 + (process_id % 1000)
+end
+local function unity_message_port()
+	local debugger_port = unity_debugger_port()
+	if debugger_port == nil then
+		return nil
+	end
+	return debugger_port + 2
+end
 local function find_probe()
 	local vstuc_path = vim.fn.fnameescape(vim.fn.stdpath('data') .. '/vstuc/extension/bin')
 	local system_obj = vim.system({ 'dotnet', vstuc_path .. '/UnityAttachProbe.dll' }, { text = true })
@@ -25,9 +69,15 @@ local function request(tbl)
 		vim.print('not find unity endpoint')
 		return
 	end
+	-- not required UnityAttachProbe.dll. but it's slow
+	-- local messager_port = unity_message_port()
+	-- if messager_port == nil then
+	-- 	return
+	-- end
 	local uv = vim.uv
 	local udp = uv.new_udp()
 	local json = vim.fn.json_encode(tbl)
+	-- uv.udp_send(udp, json, '127.0.0.1', messager_port, function(err)
 	uv.udp_send(udp, json, probe.address, probe.messagerPort, function(err)
 		if err then
 			print('error:', err)
