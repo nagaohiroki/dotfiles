@@ -134,7 +134,6 @@ vim.keymap.set('n', '<leader>g', vim.lsp.buf.definition)
 vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover)
 vim.keymap.set('n', '<leader>u', vim.lsp.buf.references)
 require('winctrl').setup()
-require('unity').setup()
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({

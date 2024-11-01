@@ -62,6 +62,10 @@
 		opts = {}
 	},
 	{
+		'nagaohiroki/unity.nvim',
+		opts = {}
+	},
+	{
 		'folke/tokyonight.nvim',
 		lazy = false,
 		priority = 1000,
@@ -236,6 +240,7 @@
 		dependencies = {
 			'rcarriga/nvim-dap-ui',
 			'nvim-neotest/nvim-nio',
+			'nagaohiroki/unity.nvim',
 		},
 		config = function()
 			local dap = require('dap')
