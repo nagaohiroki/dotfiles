@@ -1,27 +1,28 @@
 ﻿local M = {}
 
-local function get_editor_instance_json()
+local function find_path(target)
 	local path = vim.fn.expand('%:p')
 	while true do
 		local new_path = vim.fn.fnamemodify(path, ':h')
 		if new_path == path then
-			print('Not found EditorInstance.json')
 			return ''
 		end
 		path = new_path
-		local editor_instance = vim.fn.glob(path .. '/Library/EditorInstance.json')
-		if editor_instance ~= '' then
-			return editor_instance
+		local target_path = vim.fn.glob(path .. target)
+		if target_path ~= '' then
+			return path
 		end
 	end
 end
+local function find_editor_instance_json()
+	local editor_instance = '/Library/EditorInstance.json'
+	return find_path(editor_instance) .. editor_instance
+end
 local function get_process_id()
-	local editor_instance = get_editor_instance_json()
-	if editor_instance == '' then
-		return nil
-	end
+	local editor_instance = find_editor_instance_json()
 	local file = io.open(editor_instance, 'r')
 	if file == nil then
+		vim.print('cannot open ' .. editor_instance)
 		return nil
 	end
 	local text = file:read('a')
@@ -69,14 +70,21 @@ local function download_debugger(dir, url)
 	local out = dir .. '/tmp.zip'
 	vim.fn.mkdir(dir, 'p')
 	vim.system({ 'curl', '--compressed', '-L', url, '-o', out }, { text = true }, function(_)
-		vim.print('done download')
+		vim.print('done download.' .. url)
 		vim.print('start extract')
 		vim.system({ 'tar', 'xf', out, '-C', dir }, { text = true }, function(_)
-			vim.print('done extract')
+			vim.print('done extract. ' .. dir)
+			os.remove(out)
 		end)
 	end)
 end
 
+local function vstuc_path()
+	return vim.fn.fnameescape(vim.fn.stdpath('data') .. '/unity-debugger/vstuc')
+end
+local function unity_debug_path()
+	return vim.fn.fnameescape(vim.fn.stdpath('data') .. '/unity-debugger/unity-debug')
+end
 function M.setup()
 	local functionTbl = {
 		'Refresh',
@@ -84,6 +92,8 @@ function M.setup()
 		'Pause',
 		'Unpause',
 		'Stop',
+		'PlayToggle',
+		'PauseToggle',
 	}
 	for _, v in ipairs(functionTbl) do
 		vim.api.nvim_create_user_command('U' .. v, function()
@@ -91,13 +101,61 @@ function M.setup()
 		end, {})
 	end
 	vim.api.nvim_create_user_command('InstallUnityDebugger', function()
-		download_debugger(vim.fn.fnameescape(vim.fn.stdpath('data') .. '/vstuc'),
+		download_debugger(vstuc_path(),
 			'https://marketplace.visualstudio.com/_apis/public/gallery/publishers/VisualStudioToolsForUnity/vsextensions/vstuc/1.0.4/vspackage')
 	end, {})
 	vim.api.nvim_create_user_command('InstallUnityDebuggerOld', function()
-		download_debugger(vim.fn.fnameescape(vim.fn.stdpath('data') .. '/unity-debug'),
+		download_debugger(unity_debug_path(),
 			'https://marketplace.visualstudio.com/_apis/public/gallery/publishers/deitry/vsextensions/unity-debug/3.0.11/vspackage')
 	end, {})
+end
+
+function M.vstuc_dap_adapter()
+	return {
+		type = 'executable',
+		command = 'dotnet',
+		args = { vstuc_path() .. '/extension/bin/UnityDebugAdapter.dll' },
+		name = 'Attach to Unity'
+	}
+end
+
+function M.vstuc_dap_configuration()
+	return {
+		type = 'vstuc',
+		request = 'attach',
+		name = 'Attach to Unity',
+		logFile = vstuc_path() .. '/vstuc.log',
+		projectPath = function()
+			return find_path('/Assets')
+		end,
+		endPoint = function()
+			return string.format('127.0.0.1:%d', unity_debugger_port())
+		end
+	}
+end
+
+function M.unity_dap_adapter()
+	local unityDebugCommand = unity_debug_path() .. '/extension/bin/UnityDebug.exe'
+	local unityDebugArgs = {}
+	if vim.fn.has('win32') == 0 then
+		unityDebugArgs = { unityDebugCommand }
+		unityDebugCommand = 'mono'
+	end
+	return {
+		type = 'executable',
+		command = unityDebugCommand,
+		args = unityDebugArgs,
+		name = 'Unity Editor',
+	}
+end
+
+function M.unity_dap_configuration()
+	return {
+		type = 'unity',
+		request = 'launch',
+		name = 'Unity Editor',
+		path = function() return find_editor_instance_json() end
+	}
 end
 
 return M
