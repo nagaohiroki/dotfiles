@@ -247,14 +247,6 @@
 			local dapui = require('dapui')
 			local dapwidget = require('dap.ui.widgets')
 			dapui.setup()
-			vim.keymap.set('n', '<F5>', function()
-				dapui.open()
-				dap.continue()
-			end)
-			vim.keymap.set('n', '<S-F5>', function()
-				dapui.close()
-				dap.disconnect()
-			end)
 			vim.keymap.set('n', '<C-F5>', dap.run_last)
 			vim.keymap.set('n', '<F10>', dap.step_over)
 			vim.keymap.set('n', '<F11>', dap.step_into)
@@ -263,27 +255,35 @@
 			vim.keymap.set('n', '<C-F9>', function() dap.set_breakpoint(vim.fn.input(''), nil, nil) end)
 			vim.keymap.set('n', '<S-C-F9>', dap.clear_breakpoints)
 			vim.keymap.set('n', '<F12>', dapwidget.hover)
-			dap.adapters.python       = {
-				type = 'executable',
-				command = 'python',
-				args = { '-m', 'debugpy.adapter' },
-			}
-			dap.configurations.python = {
-				{
-					type = 'python',
-					request = 'launch',
-					name = 'Launch file',
-					program = '${file}',
-					pythonPath = function() return 'python' end,
-				},
-			}
-			local unity               = require('unity')
-			dap.adapters.vstuc        = unity.vstuc_dap_adapter()
-			dap.adapters.unity        = unity.unity_dap_adapter()
-			dap.configurations.cs     = {
-				--	unity.unity_dap_configuration(),
-				unity.vstuc_dap_configuration()
-			}
+			vim.keymap.set('n', '<S-F5>', function()
+				dapui.close()
+				dap.disconnect()
+			end)
+			vim.keymap.set('n', '<F5>', function()
+				if dap.session() == nil then
+					local unity               = require('unity')
+					dap.adapters.vstuc        = unity.vstuc_dap_adapter()
+					dap.configurations.cs     = unity.vstuc_dap_configuration()
+					-- dap.adapters.unity    = unity.unity_dap_adapter()
+					-- dap.configurations.cs = { unity.unity_dap_configuration()}
+					dap.adapters.python       = {
+						type = 'executable',
+						command = 'python',
+						args = { '-m', 'debugpy.adapter' },
+					}
+					dap.configurations.python = {
+						{
+							type = 'python',
+							request = 'launch',
+							name = 'Launch file',
+							program = '${file}',
+							pythonPath = function() return 'python' end,
+						},
+					}
+				end
+				dapui.open()
+				dap.continue()
+			end)
 		end
 	},
 }
