@@ -1,6 +1,6 @@
-﻿import pywinctl
-import sys
+﻿import sys
 import json
+import pywinctl
 
 
 class NvimWinCtrl:
@@ -26,8 +26,7 @@ class NvimWinCtrl:
             w.activate()
 
     def windows(self):
-        condition = pywinctl.Re.CONTAINS
-        return pywinctl.getWindowsWithTitle(self.window, condition=condition)
+        return pywinctl.getWindowsWithTitle(self.window, condition=pywinctl.Re.CONTAINS)
 
 
 if __name__ == "__main__":

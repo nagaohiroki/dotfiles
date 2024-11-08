@@ -261,25 +261,36 @@
 			end)
 			vim.keymap.set('n', '<F5>', function()
 				if dap.session() == nil then
-					local unity               = require('unity')
-					dap.adapters.vstuc        = unity.vstuc_dap_adapter()
-					dap.configurations.cs     = unity.vstuc_dap_configuration()
-					-- dap.adapters.unity    = unity.unity_dap_adapter()
-					-- dap.configurations.cs = { unity.unity_dap_configuration()}
-					dap.adapters.python       = {
-						type = 'executable',
-						command = 'python',
-						args = { '-m', 'debugpy.adapter' },
-					}
-					dap.configurations.python = {
-						{
-							type = 'python',
-							request = 'launch',
-							name = 'Launch file',
-							program = '${file}',
-							pythonPath = function() return 'python' end,
-						},
-					}
+					if vim.bo.filetype == 'cs' then
+						local unity           = require('unity')
+						dap.adapters.vstuc    = unity.vstuc_dap_adapter()
+						dap.configurations.cs = unity.vstuc_dap_configuration()
+						-- dap.adapters.unity    = unity.unity_dap_adapter()
+						-- dap.configurations.cs = { unity.unity_dap_configuration()}
+					end
+					if vim.bo.filetype == 'python' then
+						dap.adapters.python       = {
+							type = 'executable',
+							command = 'python',
+							args = { '-m', 'debugpy.adapter' },
+						}
+						dap.configurations.python = {
+							{
+								type = 'python',
+								request = 'launch',
+								name = 'Launch file',
+								program = '${file}',
+								pythonPath = function() return 'python' end,
+							},
+						}
+					end
+				--	if vim.bo.filetype == 'cpp' then
+				--		dap.adapters.cppbg = {
+				--			id = 'cppdbg',
+				--			type = 'executable',
+				--			command = 'OpenDebugAD7',
+				--		}
+				--	end
 				end
 				dapui.open()
 				dap.continue()
