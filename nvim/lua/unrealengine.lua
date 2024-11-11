@@ -69,7 +69,7 @@ local function ue_build()
 	end)
 end
 function M.setup()
-	vim.api.nvim_create_user_command('Test', function()
+	vim.api.nvim_create_user_command('UETest', function()
 		ue_build()
 	end, {})
 end

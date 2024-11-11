@@ -236,7 +236,7 @@
 		end
 	},
 	{
-		'mfussenegger/nvim-dap',
+		'nagaohiroki/nvim-dap',
 		dependencies = {
 			'rcarriga/nvim-dap-ui',
 			'nvim-neotest/nvim-nio',
