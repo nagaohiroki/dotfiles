@@ -137,7 +137,12 @@
 			'williamboman/mason-lspconfig.nvim',
 		},
 		config = function()
-			require('mason').setup()
+			require('mason').setup({
+				registries = {
+					'github:mason-org/mason-registry',
+					'github:Crashdummyy/mason-registry'
+				}
+			})
 			local mason_lspconfig = require('mason-lspconfig')
 			local lspconfig = require('lspconfig')
 			mason_lspconfig.setup({ ensure_installed = { 'lua_ls', 'pyright', 'clangd', 'marksman', 'jsonls' } })
@@ -284,13 +289,13 @@
 							},
 						}
 					end
-				--	if vim.bo.filetype == 'cpp' then
-				--		dap.adapters.cppbg = {
-				--			id = 'cppdbg',
-				--			type = 'executable',
-				--			command = 'OpenDebugAD7',
-				--		}
-				--	end
+					--	if vim.bo.filetype == 'cpp' then
+					--		dap.adapters.cppbg = {
+					--			id = 'cppdbg',
+					--			type = 'executable',
+					--			command = 'OpenDebugAD7',
+					--		}
+					--	end
 				end
 				dapui.open()
 				dap.continue()
