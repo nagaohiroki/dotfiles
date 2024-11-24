@@ -86,6 +86,7 @@
 		'seblj/roslyn.nvim',
 		ft = 'cs',
 		opts = {
+			filewatching = false,
 			config = {
 				on_attach = function(client)
 					-- NOTE: Super hacky... Don't know if I like that we set a random variable on the client
@@ -289,13 +290,31 @@
 							},
 						}
 					end
-					--	if vim.bo.filetype == 'cpp' then
-					--		dap.adapters.cppbg = {
-					--			id = 'cppdbg',
-					--			type = 'executable',
-					--			command = 'OpenDebugAD7',
-					--		}
-					--	end
+					if vim.bo.filetype == 'cpp' then
+						local cppdbg = {
+							id = 'cppdbg',
+							type = 'executable',
+							command = vim.fn.exepath('OpenDebugAD7'),
+						}
+						if vim.fn.has('win32') == 1 then
+							cppdbg.options = {
+								detached = false
+							}
+						end
+						dap.adapters.cppdbg = cppdbg
+						dap.configurations.cpp = {
+							{
+								name = "C++ Lounch (Windows)",
+								type = "cppdbg",
+								request = "launch",
+								program = function()
+									return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+								end,
+								cwd = '${workspaceFolder}',
+								stopAtEntry = true,
+							}
+						}
+					end
 				end
 				dapui.open()
 				dap.continue()
