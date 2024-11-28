@@ -22,7 +22,8 @@ vim.opt.whichwrap = 'b,s,h,l,<,>,[,]'
 vim.opt.clipboard = { 'unnamed', 'unnamedplus' }
 vim.opt.fileencodings = { 'ucs-bom', 'iso-2022-jp-3', 'euc-jisx0213', 'cp932', 'sjis', 'euc-jp', 'utf-8' }
 vim.opt.statusline =
-'%<%f%m%r%h%w%y[%{&fenc}%{(&bomb?"_bom":"")}][%{&ff}]%=%c,%l/%L%{exists("*FugitiveStatusline")?FugitiveStatusline():""}'
+    '%<%f%m%r%h%w%y[%{&fenc}%{(&bomb?"_bom":"")}][%{&ff}]' ..
+    '%=%c,%l/%L%{exists("*FugitiveStatusline")?FugitiveStatusline():""}'
 vim.api.nvim_create_user_command('Errors', function() vim.diagnostic.setqflist() end, {})
 vim.api.nvim_create_user_command('CodeAction', function() vim.lsp.buf.code_action() end, {})
 vim.api.nvim_create_user_command('DocumentSymbol', function() vim.lsp.buf.document_symbol() end, {})
