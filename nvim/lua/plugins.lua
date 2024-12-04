@@ -86,7 +86,6 @@ return {
     'seblj/roslyn.nvim',
     ft = 'cs',
     opts = {
-      filewatching = false,
       config = {
         on_attach = function(client)
           -- NOTE: Super hacky... Don't know if I like that we set a random variable on the client
