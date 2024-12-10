@@ -26,7 +26,9 @@ class NvimWinCtrl:
             w.activate()
 
     def windows(self):
-        return pywinctl.getWindowsWithTitle(self.window, condition=pywinctl.Re.CONTAINS)
+        return pywinctl.getWindowsWithTitle(
+            self.window, condition=pywinctl.Re.CONTAINS, flags=pywinctl.Re.IGNORECASE
+        )
 
 
 if __name__ == "__main__":
