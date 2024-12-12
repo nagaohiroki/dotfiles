@@ -98,14 +98,14 @@ return {
             },
           })
           local request_inner = client.request
-          function client:request(method, params, handler, req_bufnr)
+            client.request = function(method, params, handler, req_bufnr)
             if method ~= vim.lsp.protocol.Methods.textDocument_semanticTokens_full then
-              return request_inner(self, method, params, handler)
+              return request_inner(method, params, handler)
             end
             local target_bufnr = vim.uri_to_bufnr(params.textDocument.uri)
             local line_count = vim.api.nvim_buf_line_count(target_bufnr)
             local last_line = vim.api.nvim_buf_get_lines(target_bufnr, line_count - 1, line_count, true)[1]
-            return request_inner(self, 'textDocument/semanticTokens/range', {
+            return request_inner('textDocument/semanticTokens/range', {
               textDocument = params.textDocument,
               range = {
                 ['start'] = {
