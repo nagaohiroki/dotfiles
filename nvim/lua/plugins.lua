@@ -263,8 +263,6 @@ return {
             local unity           = require('unity')
             dap.adapters.vstuc    = unity.vstuc_dap_adapter()
             dap.configurations.cs = unity.vstuc_dap_configuration()
-            -- dap.adapters.unity    = unity.unity_dap_adapter()
-            -- dap.configurations.cs = { unity.unity_dap_configuration()}
           end
           if vim.bo.filetype == 'python' then
             dap.adapters.python       = {
@@ -280,31 +278,6 @@ return {
                 program = '${file}',
                 pythonPath = function() return 'python' end,
               },
-            }
-          end
-          if vim.bo.filetype == 'cpp' then
-            local cppdbg = {
-              id = 'cppdbg',
-              type = 'executable',
-              command = vim.fn.exepath('OpenDebugAD7'),
-            }
-            if vim.fn.has('win32') == 1 then
-              cppdbg.options = {
-                detached = false
-              }
-            end
-            dap.adapters.cppdbg = cppdbg
-            dap.configurations.cpp = {
-              {
-                name = "C++ Lounch (Windows)",
-                type = "cppdbg",
-                request = "launch",
-                program = function()
-                  return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-                end,
-                cwd = '${workspaceFolder}',
-                stopAtEntry = true,
-              }
             }
           end
         end
