@@ -98,7 +98,7 @@ return {
             },
           })
           local request_inner = client.request
-            client.request = function(method, params, handler, req_bufnr)
+          client.request = function(method, params, handler, req_bufnr)
             if method ~= vim.lsp.protocol.Methods.textDocument_semanticTokens_full then
               return request_inner(method, params, handler)
             end
