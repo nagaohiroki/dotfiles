@@ -58,12 +58,10 @@ return {
     opts = {}
   },
   {
-    'numToStr/Comment.nvim',
-    opts = {}
-  },
-  {
     'nagaohiroki/unity.nvim',
-    opts = {}
+    opts = {
+      discover_time = 100
+    }
   },
   {
     'folke/tokyonight.nvim',
