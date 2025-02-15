@@ -232,7 +232,7 @@ return {
     end
   },
   {
-    'nagaohiroki/nvim-dap',
+    'mfussenegger/nvim-dap',
     dependencies = {
       'rcarriga/nvim-dap-ui',
       'nvim-neotest/nvim-nio',
@@ -292,7 +292,12 @@ return {
     opts = {
       provider = 'copilot',
     },
-    build = 'powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false',
+    build = function()
+      if vim.fn.has('win32') == 1 then
+        return 'powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false'
+      end
+      return 'build'
+    end,
     dependencies = {
       'stevearc/dressing.nvim',
       'nvim-lua/plenary.nvim',
