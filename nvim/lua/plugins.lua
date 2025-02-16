@@ -284,38 +284,4 @@ return {
       end)
     end
   },
-  {
-    'yetone/avante.nvim',
-    event = 'VeryLazy',
-    lazy = false,
-    version = false,
-    opts = {
-      provider = 'copilot',
-    },
-    build = function()
-      if vim.fn.has('win32') == 1 then
-        return 'powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false'
-      end
-      return 'build'
-    end,
-    dependencies = {
-      'stevearc/dressing.nvim',
-      'nvim-lua/plenary.nvim',
-      'MunifTanjim/nui.nvim',
-      'nvim-telescope/telescope.nvim',
-      'nvim-tree/nvim-web-devicons',
-      'zbirenbaum/copilot.lua',
-      {
-        'HakonHarnes/img-clip.nvim',
-        event = 'VeryLazy',
-      },
-      {
-        'MeanderingProgrammer/render-markdown.nvim',
-        opts = {
-          file_types = { 'markdown', 'Avante' },
-        },
-        ft = { 'markdown', 'Avante' },
-      },
-    },
-  }
 }
