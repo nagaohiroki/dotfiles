@@ -65,9 +65,7 @@ return {
   },
   {
     'nagaohiroki/unity.nvim',
-    opts = {
-      discover_time = 100
-    }
+    opts = {}
   },
   {
     'folke/tokyonight.nvim',
@@ -246,9 +244,10 @@ return {
     },
     config = function()
       local dap = require('dap')
-      local dapui = require('dapui')
-      local dapwidget = require('dap.ui.widgets')
-      dapui.setup()
+      dap.set_log_level('TRACE')
+      local widget = require('dap.ui.widgets')
+      vim.api.nvim_create_user_command('DapUIFrame', function() widget.sidebar(widget.frames).open() end, {})
+      vim.api.nvim_create_user_command('DapUIScope', function() widget.sidebar(widget.scopes).open() end, {})
       vim.keymap.set('n', '<C-F5>', dap.run_last)
       vim.keymap.set('n', '<F10>', dap.step_over)
       vim.keymap.set('n', '<F11>', dap.step_into)
@@ -256,9 +255,8 @@ return {
       vim.keymap.set('n', '<F9>', dap.toggle_breakpoint)
       vim.keymap.set('n', '<C-F9>', function() dap.set_breakpoint(vim.fn.input(''), nil, nil) end)
       vim.keymap.set('n', '<S-C-F9>', dap.clear_breakpoints)
-      vim.keymap.set('n', '<F12>', dapwidget.hover)
+      vim.keymap.set('n', '<F12>', widget.hover)
       vim.keymap.set('n', '<S-F5>', function()
-        dapui.close()
         dap.disconnect()
       end)
       vim.keymap.set('n', '<F5>', function()
@@ -285,7 +283,6 @@ return {
             }
           end
         end
-        dapui.open()
         dap.continue()
       end)
     end
