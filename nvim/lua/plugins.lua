@@ -244,8 +244,9 @@ return {
     },
     config = function()
       local dap = require('dap')
-      dap.set_log_level('TRACE')
       local widget = require('dap.ui.widgets')
+      local dapui = require('dapui')
+      dapui.setup()
       vim.api.nvim_create_user_command('DapUIFrame', function() widget.sidebar(widget.frames).open() end, {})
       vim.api.nvim_create_user_command('DapUIScope', function() widget.sidebar(widget.scopes).open() end, {})
       vim.keymap.set('n', '<C-F5>', dap.run_last)
@@ -256,8 +257,10 @@ return {
       vim.keymap.set('n', '<C-F9>', function() dap.set_breakpoint(vim.fn.input(''), nil, nil) end)
       vim.keymap.set('n', '<S-C-F9>', dap.clear_breakpoints)
       vim.keymap.set('n', '<F12>', widget.hover)
+      vim.keymap.set('n', '<F6>', dapui.toggle)
       vim.keymap.set('n', '<S-F5>', function()
         dap.disconnect()
+        dapui.close()
       end)
       vim.keymap.set('n', '<F5>', function()
         if dap.session() == nil then
@@ -282,6 +285,7 @@ return {
               },
             }
           end
+          dapui.open()
         end
         dap.continue()
       end)

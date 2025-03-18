@@ -150,3 +150,20 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require('lazy').setup('plugins', { change_detection = { notify = false } })
+
+vim.api.nvim_create_user_command('Test', function()
+  local tbl = {
+    version = '0.2.0',
+    configurations = {
+      {
+        name = 'Attach to Unity',
+        type = 'vstuc',
+        request = 'attach',
+        projectPath = '${workspaceFolder}Assets',
+        endPoint = '127.0.0.1:56012'
+      }
+    }
+  }
+  local json = vim.fn.json_encode(tbl)
+  vim.print(json)
+end, {})
