@@ -247,7 +247,23 @@ return {
       local widget = require('dap.ui.widgets')
       local dapui = require('dapui')
       dapui.setup()
+      require('unity').setup_vstuc()
+      dap.adapters.python       = {
+        type = 'executable',
+        command = 'python',
+        args = { '-m', 'debugpy.adapter' },
+      }
+      dap.configurations.python = {
+        {
+          type = 'python',
+          request = 'launch',
+          name = 'Launch file',
+          program = '${file}',
+          pythonPath = function() return 'python' end,
+        },
+      }
       vim.api.nvim_create_user_command('DapUIFrame', function() widget.sidebar(widget.frames).open() end, {})
+      vim.api.nvim_create_user_command('DapUIScope', function() widget.sidebar(widget.scopes).open() end, {})
       vim.api.nvim_create_user_command('DapUIScope', function() widget.sidebar(widget.scopes).open() end, {})
       vim.keymap.set('n', '<C-F5>', dap.run_last)
       vim.keymap.set('n', '<F10>', dap.step_over)
@@ -263,30 +279,7 @@ return {
         dapui.close()
       end)
       vim.keymap.set('n', '<F5>', function()
-        if dap.session() == nil then
-          if vim.bo.filetype == 'cs' then
-            local unity           = require('unity')
-            dap.adapters.vstuc    = unity.vstuc_dap_adapter()
-            dap.configurations.cs = unity.vstuc_dap_configuration()
-          end
-          if vim.bo.filetype == 'python' then
-            dap.adapters.python       = {
-              type = 'executable',
-              command = 'python',
-              args = { '-m', 'debugpy.adapter' },
-            }
-            dap.configurations.python = {
-              {
-                type = 'python',
-                request = 'launch',
-                name = 'Launch file',
-                program = '${file}',
-                pythonPath = function() return 'python' end,
-              },
-            }
-          end
-          dapui.open()
-        end
+        if dap.session() == nil then dapui.open() end
         dap.continue()
       end)
     end
