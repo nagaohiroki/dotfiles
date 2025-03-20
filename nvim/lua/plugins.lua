@@ -87,43 +87,48 @@ return {
   {
     'seblj/roslyn.nvim',
     ft = 'cs',
-    opts = {
-      config = {
-        on_attach = function(client)
-          if client.is_hacked then
-            return
-          end
-          client.is_hacked = true
-          client.server_capabilities = vim.tbl_deep_extend('force', client.server_capabilities, {
-            semanticTokensProvider = {
-              full = true,
-            },
-          })
-          local request_inner = client.request
-          client.request = function(method, params, handler, req_bufnr)
-            if method ~= vim.lsp.protocol.Methods.textDocument_semanticTokens_full then
-              return request_inner(method, params, handler)
+    config = function()
+      vim.api.nvim_create_user_command('LspRestart', function() vim.cmd('Roslyn restart') end, {})
+      require('roslyn').setup(
+        {
+          filewatching = 'roslyn',
+          config = {
+            on_attach = function(client)
+              if client.is_hacked then
+                return
+              end
+              client.is_hacked = true
+              client.server_capabilities = vim.tbl_deep_extend('force', client.server_capabilities, {
+                semanticTokensProvider = {
+                  full = true,
+                },
+              })
+              local request_inner = client.request
+              client.request = function(method, params, handler, req_bufnr)
+                if method ~= vim.lsp.protocol.Methods.textDocument_semanticTokens_full then
+                  return request_inner(method, params, handler)
+                end
+                local target_bufnr = vim.uri_to_bufnr(params.textDocument.uri)
+                local line_count = vim.api.nvim_buf_line_count(target_bufnr)
+                local last_line = vim.api.nvim_buf_get_lines(target_bufnr, line_count - 1, line_count, true)[1]
+                return request_inner('textDocument/semanticTokens/range', {
+                  textDocument = params.textDocument,
+                  range = {
+                    ['start'] = {
+                      line = 0,
+                      character = 0,
+                    },
+                    ['end'] = {
+                      line = line_count - 1,
+                      character = string.len(last_line) - 1,
+                    },
+                  },
+                }, handler, req_bufnr)
+              end
             end
-            local target_bufnr = vim.uri_to_bufnr(params.textDocument.uri)
-            local line_count = vim.api.nvim_buf_line_count(target_bufnr)
-            local last_line = vim.api.nvim_buf_get_lines(target_bufnr, line_count - 1, line_count, true)[1]
-            return request_inner('textDocument/semanticTokens/range', {
-              textDocument = params.textDocument,
-              range = {
-                ['start'] = {
-                  line = 0,
-                  character = 0,
-                },
-                ['end'] = {
-                  line = line_count - 1,
-                  character = string.len(last_line) - 1,
-                },
-              },
-            }, handler, req_bufnr)
-          end
-        end
-      }
-    },
+          }
+        })
+    end
   },
   {
     'neovim/nvim-lspconfig',
