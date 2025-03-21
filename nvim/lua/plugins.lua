@@ -144,11 +144,7 @@ return {
       mason_lspconfig.setup({ ensure_installed = { 'lua_ls', 'pyright', 'clangd', 'marksman', 'jsonls' } })
       mason_lspconfig.setup_handlers({
         function(server_name)
-          local opts = {}
-          if server_name == 'lua_ls' then
-            opts = { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
-          end
-          lspconfig[server_name].setup(opts)
+          lspconfig[server_name].setup({})
         end
       })
     end
