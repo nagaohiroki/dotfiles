@@ -254,8 +254,8 @@ return {
           pythonPath = function() return 'python' end,
         },
       }
-      vim.api.nvim_create_user_command('DapUIFrame', function() widget.sidebar(widget.frames).open() end, {})
-      vim.api.nvim_create_user_command('DapUIScope', function() widget.sidebar(widget.scopes).open() end, {})
+      vim.api.nvim_create_user_command('DapUIFrame', widget.sidebar(widget.frames).open, {})
+      vim.api.nvim_create_user_command('DapUIScope', widget.sidebar(widget.scopes).open, {})
       vim.keymap.set('n', '<C-F5>', dap.run_last)
       vim.keymap.set('n', '<F10>', dap.step_over)
       vim.keymap.set('n', '<F11>', dap.step_into)
