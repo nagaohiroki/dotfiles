@@ -1,10 +1,8 @@
 local M = {}
 M.singleton = function()
-  local my_server = vim.fn.has('win32') == 1 and
-      [[\\.\pipe\nvim-server]] or vim.env.HOME .. [[/.local/state/nvim/nvim226]]
-  if my_server == vim.v.servername then
-    return false
-  end
+  local my_server = vim.env.HOME .. [[/.local/state/nvim/nvim226]]
+  if vim.fn.has('win32') == 1 then my_server = [[\\.\pipe\nvim-server]] end
+  if my_server == vim.v.servername then return false end
   local result, _ = pcall(vim.fn.serverstart, my_server)
   if result then
     vim.fn.serverstop(vim.v.servername)
@@ -31,11 +29,8 @@ M.edit_file = function(fname, line, col)
   if fname == '' then
     vim.cmd('enew')
   else
-    vim.cmd('drop ' .. vim.fn.fnameescape(fname))
+    vim.cmd('tab drop ' .. vim.fn.fnameescape(fname))
     vim.fn.cursor(line, col)
-  end
-  if vim.g.GuiLoaded == 1 then
-    require('winctrl').activate('NVIM')
   end
 end
 
