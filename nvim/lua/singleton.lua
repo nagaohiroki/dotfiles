@@ -29,7 +29,7 @@ M.edit_file = function(fname, line, col)
   if fname == '' then
     vim.cmd('enew')
   else
-    vim.cmd('tab drop ' .. vim.fn.fnameescape(fname))
+    vim.cmd('drop ' .. vim.fn.fnameescape(fname))
     vim.fn.cursor(line, col)
   end
 end
