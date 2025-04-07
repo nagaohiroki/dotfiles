@@ -202,6 +202,7 @@ return {
       local widget = require('dap.ui.widgets')
       local dapui = require('dapui')
       dapui.setup()
+      require('unity').setup()
       dap.adapters.python       = {
         type = 'executable',
         command = 'python',
@@ -229,9 +230,6 @@ return {
       vim.keymap.set('n', '<F6>', dapui.toggle)
       vim.keymap.set('n', '<S-F5>', dap.disconnect)
       vim.keymap.set('n', '<F5>', dap.continue)
-      local unity = require('unity')
-      unity.setup()
-      unity.setup_vstuc()
     end
   },
 }
