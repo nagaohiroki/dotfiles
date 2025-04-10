@@ -85,7 +85,7 @@ return {
     ft = 'cs',
     config = function()
       vim.api.nvim_create_user_command('LspRestart', function() vim.cmd('Roslyn restart') end, {})
-      require('roslyn').setup( { filewatching = 'roslyn', })
+      require('roslyn').setup({ filewatching = 'roslyn', })
     end
   },
   {
