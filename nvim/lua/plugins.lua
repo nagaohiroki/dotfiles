@@ -89,10 +89,10 @@ return {
     end
   },
   {
-    'neovim/nvim-lspconfig',
+    'williamboman/mason.nvim',
     dependencies = {
-      'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
+      'neovim/nvim-lspconfig',
     },
     config = function()
       require('mason').setup({
@@ -232,4 +232,25 @@ return {
       vim.keymap.set('n', '<F5>', dap.continue)
     end
   },
+  {
+    'David-Kunz/gen.nvim',
+    config = function()
+      require('gen').setup({
+        model = 'llama3.2',
+        init = function(_) vim.system({ 'ollama', 'serve' }) end,
+        prompts = require('prompts')
+      })
+      --     local function kill_ollama()
+      --       if vim.fn.has('win32') == 1 then
+      --         vim.system({ 'taskkill', '/f', '/im', 'ollama.exe' })
+      --       end
+      --     end
+      --     vim.api.nvim_create_autocmd({ 'VimLeavePre' },
+      --       {
+      --         group = 'loading',
+      --         once = true,
+      --         callback = kill_ollama
+      --       })
+    end
+  }
 }
