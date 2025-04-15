@@ -181,13 +181,26 @@ return {
     end
   },
   {
-    'Exafunction/codeium.vim',
+    'Exafunction/windsurf.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'hrsh7th/nvim-cmp'
+    },
     config = function()
-      vim.keymap.set('i', '<C-q>', function() return vim.fn['codeium#Accept']() end, { expr = true })
-      vim.keymap.set('i', '<C-S-q>', function() return vim.fn['codeium#Clear']() end, { expr = true })
-      vim.keymap.set('i', '<C-a>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-      vim.keymap.set('i', '<C-S-a>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-      vim.g.codeium_filetypes = { text = false, markdown = false }
+      require('codeium').setup(
+        {
+          enable_cmp_source = false,
+          virtual_text =
+          {
+            enabled = true,
+            key_bindings =
+            {
+              accept = '<C-q>',
+              next = '<C-a>',
+              prev = '<C-s>',
+            }
+          },
+        })
     end
   },
   {
@@ -236,21 +249,10 @@ return {
     'David-Kunz/gen.nvim',
     config = function()
       require('gen').setup({
-        model = 'llama3.2',
+        model = 'gemma3',
         init = function(_) vim.system({ 'ollama', 'serve' }) end,
         prompts = require('prompts')
       })
-      --     local function kill_ollama()
-      --       if vim.fn.has('win32') == 1 then
-      --         vim.system({ 'taskkill', '/f', '/im', 'ollama.exe' })
-      --       end
-      --     end
-      --     vim.api.nvim_create_autocmd({ 'VimLeavePre' },
-      --       {
-      --         group = 'loading',
-      --         once = true,
-      --         callback = kill_ollama
-      --       })
     end
   }
 }
