@@ -197,7 +197,7 @@ return {
             {
               accept = '<C-q>',
               next = '<C-a>',
-              prev = '<C-s>',
+              prev = '<C-S-a>',
             }
           },
         })
@@ -248,11 +248,26 @@ return {
   {
     'David-Kunz/gen.nvim',
     config = function()
+      local ollama = nil
       require('gen').setup({
         model = 'gemma3',
-        init = function(_) vim.system({ 'ollama', 'serve' }) end,
+        init = function(_)
+          ollama = vim.system({ 'ollama', 'serve' }, {text = true, stdin = true})
+        end,
         prompts = require('prompts')
       })
+      local function kill_ollama()
+        if ollama == nil then
+          return
+        end
+        vim.system({ 'taskkill', '/f', '/im', 'ollama.exe' }):wait()
+      end
+      vim.api.nvim_create_user_command('OllamaKill', kill_ollama, {})
+      vim.api.nvim_create_autocmd({ 'VimLeavePre' },
+        {
+          group = 'loading',
+          callback = kill_ollama
+        })
     end
   }
 }
