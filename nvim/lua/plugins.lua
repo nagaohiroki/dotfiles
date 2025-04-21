@@ -1,7 +1,4 @@
 return {
-  { 'nagaohiroki/vim-perforce' },
-  { 'nagaohiroki/vim-ue4helper' },
-  { 'nagaohiroki/vimDTETool' },
   { 'equalsraf/neovim-gui-shim' },
   { 'mhinz/vim-signify' },
   { 'junegunn/vim-easy-align' },
@@ -230,8 +227,6 @@ return {
           pythonPath = function() return 'python' end,
         },
       }
-      vim.api.nvim_create_user_command('DapUIFrame', widget.sidebar(widget.frames).open, {})
-      vim.api.nvim_create_user_command('DapUIScope', widget.sidebar(widget.scopes).open, {})
       vim.keymap.set('n', '<C-F5>', dap.run_last)
       vim.keymap.set('n', '<F10>', dap.step_over)
       vim.keymap.set('n', '<F11>', dap.step_into)
@@ -246,28 +241,30 @@ return {
     end
   },
   {
-    'David-Kunz/gen.nvim',
+    'olimorris/codecompanion.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
-      local ollama = nil
-      require('gen').setup({
-        model = 'gemma3',
-        init = function(_)
-          ollama = vim.system({ 'ollama', 'serve' }, {text = true, stdin = true})
-        end,
-        prompts = require('prompts')
-      })
-      local function kill_ollama()
-        if ollama == nil then
-          return
-        end
-        vim.system({ 'taskkill', '/f', '/im', 'ollama.exe' }):wait()
-      end
-      vim.api.nvim_create_user_command('OllamaKill', kill_ollama, {})
-      vim.api.nvim_create_autocmd({ 'VimLeavePre' },
+      local ollama =
+      {
+        adapters =
         {
-          group = 'loading',
-          callback = kill_ollama
-        })
+          ollama = function()
+            return require('codecompanion.adapters').extend('ollama',
+              {
+                schema = { model = { default = 'gemma3:27b' }, }
+              })
+          end
+        },
+        strategies =
+        {
+          chat = { adapter = 'ollama' },
+          inline = { adapter = 'ollama' },
+          cmd = { adapter = 'ollama' }
+        }
+      }
+      require('codecompanion').setup(
+       -- ollama
+      )
     end
   }
 }
