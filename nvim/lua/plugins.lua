@@ -1,3 +1,51 @@
+local windsurf =
+{
+  'Exafunction/windsurf.nvim',
+  config = function()
+    require('codeium').setup(
+      {
+        enable_cmp_source = false,
+        virtual_text =
+        {
+          enabled = true,
+          key_bindings =
+          {
+            accept = '<C-q>',
+            next = '<C-a>',
+            prev = '<C-S-a>',
+          }
+        },
+      })
+  end
+}
+local copilot =
+{
+  'github/copilot.vim',
+  config = function()
+    vim.keymap.set('i', '<C-q>', '<Plug>(copilot-accept-word)')
+    vim.keymap.set('i', '<C-a>', '<Plug>(copilot-next)')
+    vim.keymap.set('i', '<C-S-a>', '<Plug>(copilot-previous)')
+    vim.g.copilot_no_tab_map = true
+  end
+}
+local ollama =
+{
+  adapters =
+  {
+    ollama = function()
+      return require('codecompanion.adapters').extend('ollama',
+        {
+          schema = { model = { default = 'gemma3:27b' }, }
+        })
+    end
+  },
+  strategies =
+  {
+    chat = { adapter = 'ollama' },
+    inline = { adapter = 'ollama' },
+    cmd = { adapter = 'ollama' }
+  }
+}
 return {
   { 'equalsraf/neovim-gui-shim' },
   { 'mhinz/vim-signify' },
@@ -46,20 +94,11 @@ return {
     ft = { 'markdown' },
     build = function() vim.fn['mkdp#util#install']() end,
   },
-  {
-    'MeanderingProgrammer/render-markdown.nvim',
-    dependencies = { 'echasnovski/mini.nvim' },
-    opts = {},
-    ft = { 'markdown' },
-  },
-  {
-    'j-hui/fidget.nvim',
-    opts = {}
-  },
-  {
-    'uga-rosa/translate.nvim',
-    opts = {}
-  },
+  { 'echasnovski/mini.nvim',                     lazy = true },
+  { 'MeanderingProgrammer/render-markdown.nvim', opts = {},  ft = { 'markdown' }, },
+  { 'j-hui/fidget.nvim',                         opts = {} },
+  { 'uga-rosa/translate.nvim',                   opts = {} },
+  { 'nvim-lua/plenary.nvim',                     lazy = true },
   {
     'folke/tokyonight.nvim',
     lazy = false,
@@ -152,7 +191,6 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     dependencies = {
-      'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
       'nvim-telescope/telescope-file-browser.nvim',
       'nvim-telescope/telescope-frecency.nvim',
@@ -175,29 +213,6 @@ return {
       vim.keymap.set('n', '<leader>n', function() ext.file_browser.file_browser({ hidden = true }) end)
       vim.keymap.set('n', '<leader>i', function() ext.live_grep_args.live_grep_args({ hidden = true }) end)
       vim.keymap.set('n', '<leader>m', function() ext.frecency.frecency({ hidden = true }) end)
-    end
-  },
-  {
-    'Exafunction/windsurf.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'hrsh7th/nvim-cmp'
-    },
-    config = function()
-      require('codeium').setup(
-        {
-          enable_cmp_source = false,
-          virtual_text =
-          {
-            enabled = true,
-            key_bindings =
-            {
-              accept = '<C-q>',
-              next = '<C-a>',
-              prev = '<C-S-a>',
-            }
-          },
-        })
     end
   },
   {
@@ -240,31 +255,7 @@ return {
       vim.keymap.set('n', '<F5>', dap.continue)
     end
   },
-  {
-    'olimorris/codecompanion.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      local ollama =
-      {
-        adapters =
-        {
-          ollama = function()
-            return require('codecompanion.adapters').extend('ollama',
-              {
-                schema = { model = { default = 'gemma3:27b' }, }
-              })
-          end
-        },
-        strategies =
-        {
-          chat = { adapter = 'ollama' },
-          inline = { adapter = 'ollama' },
-          cmd = { adapter = 'ollama' }
-        }
-      }
-      require('codecompanion').setup(
-       -- ollama
-      )
-    end
-  }
+  { 'olimorris/codecompanion.nvim', opts = {} },
+  -- windsurf,
+  copilot
 }
