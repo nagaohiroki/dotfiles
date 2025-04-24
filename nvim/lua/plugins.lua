@@ -69,21 +69,17 @@ return {
         'Classes/*/%.h')
     end
   },
+  { 'tpope/vim-rhubarb' },
+  { 'junegunn/gv.vim' },
   {
     'tpope/vim-fugitive',
-    dependencies = {
-      'tpope/vim-rhubarb',
-      'junegunn/gv.vim'
-    },
     config = function()
       vim.keymap.set('n', '<leader>d', ':Gvdiffsplit<CR>')
     end
   },
+  { 'tyru/open-browser-github.vim',              lazy = true },
   {
     'tyru/open-browser.vim',
-    dependencies = {
-      'tyru/open-browser-github.vim'
-    },
     config = function()
       vim.keymap.set('n', '<leader>o', '<Plug>(openbrowser-smart-search)')
     end
@@ -94,11 +90,12 @@ return {
     ft = { 'markdown' },
     build = function() vim.fn['mkdp#util#install']() end,
   },
-  { 'echasnovski/mini.nvim',                     lazy = true },
   { 'MeanderingProgrammer/render-markdown.nvim', opts = {},  ft = { 'markdown' }, },
   { 'j-hui/fidget.nvim',                         opts = {} },
   { 'uga-rosa/translate.nvim',                   opts = {} },
   { 'nvim-lua/plenary.nvim',                     lazy = true },
+  { 'echasnovski/mini.nvim',                     lazy = true },
+  { 'nvim-tree/nvim-web-devicons',               opts = {},  lazy = true },
   {
     'folke/tokyonight.nvim',
     lazy = false,
@@ -124,19 +121,10 @@ return {
       require('roslyn').setup({ filewatching = 'roslyn', })
     end
   },
+  { 'neovim/nvim-lspconfig',               lazy = true },
   {
-    'williamboman/mason.nvim',
-    dependencies = {
-      'williamboman/mason-lspconfig.nvim',
-      'neovim/nvim-lspconfig',
-    },
+    'williamboman/mason-lspconfig.nvim',
     config = function()
-      require('mason').setup({
-        registries = {
-          'github:mason-org/mason-registry',
-          'github:Crashdummyy/mason-registry'
-        }
-      })
       local mason_lspconfig = require('mason-lspconfig')
       local lspconfig = require('lspconfig')
       mason_lspconfig.setup({ ensure_installed = { 'lua_ls', 'pyright', 'clangd', 'marksman', 'jsonls' } })
@@ -144,26 +132,30 @@ return {
     end
   },
   {
+    'williamboman/mason.nvim',
+    opts = {
+      registries = {
+        'github:mason-org/mason-registry',
+        'github:Crashdummyy/mason-registry'
+      }
+    }
+  },
+  {
     'nvimtools/none-ls.nvim',
     config = function()
       local null_ls = require('null-ls')
-      null_ls.setup({
-        sources = {
-          null_ls.builtins.formatting.black,
-        }
-      })
+      null_ls.setup({ sources = { null_ls.builtins.formatting.black } })
     end
   },
+
+  { 'hrsh7th/cmp-nvim-lsp',                lazy = true },
+  { 'hrsh7th/cmp-buffer',                  lazy = true },
+  { 'hrsh7th/cmp-nvim-lsp-signature-help', lazy = true },
+  { 'hrsh7th/cmp-vsnip',                   lazy = true },
+  { 'hrsh7th/vim-vsnip',                   lazy = true },
+  { 'rafamadriz/friendly-snippets',        lazy = true },
   {
     'hrsh7th/nvim-cmp',
-    dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-nvim-lsp-signature-help',
-      'hrsh7th/cmp-vsnip',
-      'hrsh7th/vim-vsnip',
-      'rafamadriz/friendly-snippets',
-    },
     config = function()
       local cmp = require('cmp')
       cmp.setup({
@@ -188,20 +180,14 @@ return {
       vim.keymap.set('i', '<C-s>', function() return [[<Plug>(vsnip-expand)]] or [[<C-s>]] end, { expr = true })
     end
   },
+  { 'nvim-telescope/telescope-file-browser.nvim',   lazy = true },
+  { 'nvim-telescope/telescope-frecency.nvim',       lazy = true },
+  { 'nvim-telescope/telescope-live-grep-args.nvim', lazy = true },
   {
     'nvim-telescope/telescope.nvim',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-      'nvim-telescope/telescope-file-browser.nvim',
-      'nvim-telescope/telescope-frecency.nvim',
-      'nvim-telescope/telescope-live-grep-args.nvim',
-    },
     config = function()
-      require('nvim-web-devicons').setup()
       local telescope = require('telescope')
-      telescope.setup {
-        defaults = { preview = false },
-      }
+      telescope.setup { defaults = { preview = false }, }
       telescope.load_extension('frecency')
       telescope.load_extension('file_browser')
       telescope.load_extension('live_grep_args')
@@ -215,19 +201,21 @@ return {
       vim.keymap.set('n', '<leader>m', function() ext.frecency.frecency({ hidden = true }) end)
     end
   },
+  { 'nagaohiroki/unity.nvim', opts = {} },
+  { 'nvim-neotest/nvim-nio',  lazy = true },
   {
-    'mfussenegger/nvim-dap',
-    dependencies = {
-      'rcarriga/nvim-dap-ui',
-      'nvim-neotest/nvim-nio',
-      'nagaohiroki/unity.nvim',
-    },
+    'rcarriga/nvim-dap-ui',
     config = function()
-      local dap = require('dap')
-      local widget = require('dap.ui.widgets')
       local dapui = require('dapui')
       dapui.setup()
-      require('unity').setup()
+      vim.keymap.set('n', '<F6>', dapui.toggle)
+    end
+  },
+  {
+    'mfussenegger/nvim-dap',
+    config = function()
+      local dap                 = require('dap')
+      local widget              = require('dap.ui.widgets')
       dap.adapters.python       = {
         type = 'executable',
         command = 'python',
@@ -250,7 +238,6 @@ return {
       vim.keymap.set('n', '<C-F9>', function() dap.set_breakpoint(vim.fn.input(''), nil, nil) end)
       vim.keymap.set('n', '<S-C-F9>', dap.clear_breakpoints)
       vim.keymap.set('n', '<F12>', widget.hover)
-      vim.keymap.set('n', '<F6>', dapui.toggle)
       vim.keymap.set('n', '<S-F5>', dap.disconnect)
       vim.keymap.set('n', '<F5>', dap.continue)
     end
