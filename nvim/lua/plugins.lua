@@ -1,22 +1,20 @@
 local windsurf =
 {
   'Exafunction/windsurf.nvim',
-  config = function()
-    require('codeium').setup(
+  opts =
+  {
+    enable_cmp_source = false,
+    virtual_text =
+    {
+      enabled = true,
+      key_bindings =
       {
-        enable_cmp_source = false,
-        virtual_text =
-        {
-          enabled = true,
-          key_bindings =
-          {
-            accept = '<C-q>',
-            next = '<C-a>',
-            prev = '<C-S-a>',
-          }
-        },
-      })
-  end
+        accept = '<C-q>',
+        next = '<C-a>',
+        prev = '<C-S-a>',
+      }
+    },
+  }
 }
 local copilot =
 {
