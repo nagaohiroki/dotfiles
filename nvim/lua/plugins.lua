@@ -98,17 +98,18 @@ return {
     'folke/tokyonight.nvim',
     lazy = false,
     priority = 1000,
-    opts = {},
     config = function()
-      require('tokyonight').setup({
-        styles = {
-          comments = { italic = false },
-          keywords = { italic = false },
-          functions = { italic = false },
-          variables = { italic = false },
-        },
-      })
-      vim.cmd('colorscheme tokyonight-night')
+      require('tokyonight').setup(
+        {
+          styles = {
+            comments = { italic = false },
+            keywords = { italic = false },
+            functions = { italic = false },
+            variables = { italic = false },
+          },
+        }
+      )
+      vim.cmd.colorscheme('tokyonight-night')
     end
   },
   {
@@ -145,7 +146,6 @@ return {
       null_ls.setup({ sources = { null_ls.builtins.formatting.black } })
     end
   },
-
   { 'hrsh7th/cmp-nvim-lsp',                lazy = true },
   { 'hrsh7th/cmp-buffer',                  lazy = true },
   { 'hrsh7th/cmp-nvim-lsp-signature-help', lazy = true },
@@ -240,7 +240,12 @@ return {
       vim.keymap.set('n', '<F5>', dap.continue)
     end
   },
-  { 'olimorris/codecompanion.nvim', opts = {} },
+  {
+    'olimorris/codecompanion.nvim',
+    opts = {
+      -- ollama
+    }
+  },
   -- windsurf,
   copilot
 }
