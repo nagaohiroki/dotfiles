@@ -1,20 +1,21 @@
 local windsurf =
 {
   'Exafunction/windsurf.nvim',
-  opts =
-  {
-    enable_cmp_source = false,
-    virtual_text =
-    {
-      enabled = true,
-      key_bindings =
+  config = function()
+    require('codeium').setup({
+      enable_cmp_source = false,
+      virtual_text =
       {
-        accept = '<C-q>',
-        next = '<C-a>',
-        prev = '<C-S-a>',
+        enabled = true,
+        key_bindings =
+        {
+          accept = '<C-q>',
+          next = '<C-a>',
+          prev = '<C-S-a>',
+        }
       }
-    },
-  }
+    })
+  end
 }
 local copilot =
 {
@@ -120,7 +121,7 @@ return {
       require('roslyn').setup({ filewatching = 'roslyn', })
     end
   },
-  { 'neovim/nvim-lspconfig',               lazy = true },
+  { 'neovim/nvim-lspconfig',              lazy = true },
   {
     'williamboman/mason-lspconfig.nvim',
     config = function()
@@ -132,8 +133,10 @@ return {
   },
   {
     'williamboman/mason.nvim',
-    opts = {
-      registries = {
+    opts =
+    {
+      registries =
+      {
         'github:mason-org/mason-registry',
         'github:Crashdummyy/mason-registry'
       }
@@ -146,12 +149,12 @@ return {
       null_ls.setup({ sources = { null_ls.builtins.formatting.black } })
     end
   },
-  { 'hrsh7th/cmp-nvim-lsp',                lazy = true },
-  { 'hrsh7th/cmp-buffer',                  lazy = true },
-  { 'hrsh7th/cmp-nvim-lsp-signature-help', lazy = true },
-  { 'hrsh7th/cmp-vsnip',                   lazy = true },
-  { 'hrsh7th/vim-vsnip',                   lazy = true },
-  { 'rafamadriz/friendly-snippets',        lazy = true },
+  { 'hrsh7th/cmp-nvim-lsp' },
+  { 'hrsh7th/cmp-buffer' },
+  { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+  { 'hrsh7th/cmp-vsnip' },
+  { 'hrsh7th/vim-vsnip' },
+  { 'rafamadriz/friendly-snippets' },
   {
     'hrsh7th/nvim-cmp',
     config = function()
@@ -246,6 +249,6 @@ return {
       -- ollama
     }
   },
-  -- windsurf,
-  copilot
+  windsurf,
+  -- copilot
 }
