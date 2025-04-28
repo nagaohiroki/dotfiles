@@ -147,7 +147,11 @@ return {
     'nvimtools/none-ls.nvim',
     config = function()
       local null_ls = require('null-ls')
-      null_ls.setup({ sources = { null_ls.builtins.formatting.black } })
+      null_ls.setup({
+        sources = { null_ls.builtins.formatting.black.with({
+          command = vim.fs.joinpath(vim.fn.stdpath('config'), 'python3/.venv/Scripts/black')
+        }) }
+      })
     end
   },
   { 'hrsh7th/cmp-nvim-lsp' },
@@ -155,7 +159,6 @@ return {
   { 'hrsh7th/cmp-nvim-lsp-signature-help' },
   { 'hrsh7th/cmp-vsnip' },
   { 'hrsh7th/vim-vsnip' },
-  -- { 'hrsh7th/cmp-cmdline' },
   { 'rafamadriz/friendly-snippets' },
   {
     'hrsh7th/nvim-cmp',
@@ -181,14 +184,6 @@ return {
         }
       })
       vim.keymap.set('i', '<C-s>', function() return [[<Plug>(vsnip-expand)]] or [[<C-s>]] end, { expr = true })
-      --     cmp.setup.cmdline('/', {
-      --       mapping = cmp.mapping.preset.cmdline(),
-      --       sources = { { name = 'buffer' } }
-      --     })
-      --     cmp.setup.cmdline(':', {
-      --       mapping = cmp.mapping.preset.cmdline(),
-      --       sources = cmp.config.sources({ { name = 'path' } }, { { name = 'cmdline', } })
-      --     })
     end
   },
   { 'nvim-telescope/telescope-file-browser.nvim',   lazy = true },
