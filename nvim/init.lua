@@ -2,6 +2,7 @@ if require('singleton').singleton() then
   return
 end
 vim.g.mapleader = ' '
+vim.g.python3_host_prog = vim.fs.joinpath(vim.fn.stdpath('config'), 'python3/.venv/Scripts/python')
 vim.opt.writebackup = false
 vim.opt.swapfile = false
 vim.opt.fixeol = false
@@ -150,3 +151,4 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require('lazy').setup('plugins', { change_detection = { notify = false } })
+

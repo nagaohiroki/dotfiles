@@ -1,7 +1,5 @@
 import os
-import sys
 import platform
-import subprocess
 import pathlib
 
 
@@ -23,13 +21,5 @@ def symlink(src, dst):
     print(f"symlink {src} -> {dst}")
 
 
-def install_requirements():
-    requirements = pathlib.Path.home().joinpath("dotfiles", "requirements.txt")
-    subprocess.run(
-        [sys.executable, "-m", "pip", "install", "--upgrade", "-r", requirements]
-    )
-
-
 if __name__ == "__main__":
-    install_requirements()
     make_symlink()

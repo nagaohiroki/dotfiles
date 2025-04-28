@@ -1,3 +1,0 @@
-pywinctl
-neovim
-black

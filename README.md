@@ -1,4 +1,4 @@
-# dotfiles
+﻿# dotfiles
 
 ## Install
 
@@ -26,4 +26,11 @@ sh get-docker.sh
 
 sudo docker build -t dev https://github.com/nagaohiroki/dotfiles.git
 sudo docker run -it dev
+```
+
+## optional
+
+```
+cd nvim/python3
+uv sync
 ```
