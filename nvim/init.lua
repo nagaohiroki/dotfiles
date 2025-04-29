@@ -2,11 +2,9 @@ if require('singleton').singleton() then
   return
 end
 vim.g.mapleader = ' '
-if vim.fn.has('win32') == 1 then
-  vim.g.py_dir = vim.fs.joinpath(vim.fn.stdpath('config'),'python3/.venv/Scripts')
-else
-  vim.g.py_dir = vim.fs.joinpath(vim.fn.stdpath('config'),'python3/.venv/bin')
-end
+local bin_dir = 'bin'
+if vim.fn.has('win32') == 1 then bin_dir = 'Scripts' end
+vim.g.py_dir = vim.fs.joinpath(vim.fn.stdpath('config'), 'python3', '.venv', bin_dir)
 vim.g.python3_host_prog = vim.fs.joinpath(vim.g.py_dir, 'python')
 vim.opt.writebackup = false
 vim.opt.swapfile = false
@@ -50,10 +48,10 @@ vim.api.nvim_create_user_command('Wex', function()
   end
 end, {})
 vim.api.nvim_create_user_command('Rc', function()
-  vim.cmd.drop(vim.env.HOME .. '/dotfiles/nvim/init.lua')
+  vim.cmd.drop(vim.fs.joinpath(vim.env.HOME, 'dotfiles', 'nvim', 'init.lua'))
 end, {})
 vim.api.nvim_create_user_command('RcPlug', function()
-  vim.cmd.drop(vim.env.HOME .. '/dotfiles/nvim/lua/plugins.lua')
+  vim.cmd.drop(vim.fs.joinpath(vim.env.HOME, 'dotfiles', 'nvim', 'lua', 'plugins.lua'))
 end, {})
 vim.api.nvim_create_user_command('Utf8bomLF', function()
   vim.opt.fileencoding = 'utf-8'
@@ -144,7 +142,7 @@ vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover)
 vim.keymap.set('n', '<leader>u', vim.lsp.buf.references)
 require('winctrl').setup()
 require('unrealengine').setup()
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+local lazypath = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     'git',
