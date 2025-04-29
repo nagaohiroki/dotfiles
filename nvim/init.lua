@@ -26,6 +26,7 @@ vim.opt.fileencodings = { 'ucs-bom', 'iso-2022-jp-3', 'euc-jisx0213', 'cp932', '
 vim.opt.statusline =
     '%<%f%m%r%h%w%y[%{&fenc}%{(&bomb?"_bom":"")}][%{&ff}]' ..
     '%=%c,%l/%L%{exists("*FugitiveStatusline")?FugitiveStatusline():""}'
+vim.diagnostic.config({ virtual_text = true })
 vim.api.nvim_create_user_command('Errors', function() vim.diagnostic.setqflist() end, {})
 vim.api.nvim_create_user_command('CodeAction', function() vim.lsp.buf.code_action() end, {})
 vim.api.nvim_create_user_command('DocumentSymbol', function() vim.lsp.buf.document_symbol() end, {})
@@ -151,4 +152,3 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require('lazy').setup('plugins', { change_detection = { notify = false } })
-
