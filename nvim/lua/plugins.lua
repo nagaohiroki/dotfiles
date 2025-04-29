@@ -9,7 +9,7 @@ local windsurf =
         enabled = true,
         key_bindings =
         {
-          accept = '<C-w>',
+          accept = '<C-g>',
           next = '<C-a>',
           prev = '<C-S-a>',
         }
@@ -21,7 +21,7 @@ local copilot =
 {
   'github/copilot.vim',
   config = function()
-    vim.keymap.set('i', '<C-w>', '<Plug>(copilot-accept-word)')
+    vim.keymap.set('i', '<C-g>', '<Plug>(copilot-accept-word)')
     vim.keymap.set('i', '<C-a>', '<Plug>(copilot-next)')
     vim.keymap.set('i', '<C-S-a>', '<Plug>(copilot-previous)')
     vim.g.copilot_no_tab_map = true
@@ -199,6 +199,16 @@ return {
     end
   },
   { 'nagaohiroki/unity.nvim', opts = {} },
+  {
+    'mfussenegger/nvim-dap-python',
+    config = function()
+      local dir = 'bin'
+      if vim.fn.has('win32') == 1 then
+        dir = 'Scripts'
+      end
+      require('dap-python').setup(vim.fs.joinpath('.venv', dir, 'python'))
+    end
+  },
   { 'nvim-neotest/nvim-nio',  lazy = true },
   {
     'rcarriga/nvim-dap-ui',
@@ -211,22 +221,8 @@ return {
   {
     'mfussenegger/nvim-dap',
     config = function()
-      local dap                 = require('dap')
-      local widget              = require('dap.ui.widgets')
-      dap.adapters.python       = {
-        type = 'executable',
-        command = 'python',
-        args = { '-m', 'debugpy.adapter' },
-      }
-      dap.configurations.python = {
-        {
-          type = 'python',
-          request = 'launch',
-          name = 'Launch file',
-          program = '${file}',
-          pythonPath = function() return 'python' end,
-        },
-      }
+      local dap    = require('dap')
+      local widget = require('dap.ui.widgets')
       vim.keymap.set('n', '<C-F5>', dap.run_last)
       vim.keymap.set('n', '<F10>', dap.step_over)
       vim.keymap.set('n', '<F11>', dap.step_into)
@@ -247,5 +243,4 @@ return {
   },
   windsurf,
   -- copilot
-  --
 }
