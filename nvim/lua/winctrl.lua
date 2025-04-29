@@ -4,22 +4,22 @@ local function execute_win(tbl)
     return
   end
   local json = vim.fn.json_encode(tbl)
-  local winctrl_py = vim.fn.fnameescape(vim.fn.stdpath('config') .. '/python3/winctrl.py')
+  local winctrl_py = vim.fn.fnameescape(vim.fs.joinpath(vim.fn.stdpath('config'), 'python3', 'winctrl.py'))
   vim.cmd('py3 sys.argv = [\'' .. json .. '\']')
   vim.cmd('py3file ' .. winctrl_py)
 end
 local function key_resize(map, width, height)
   vim.keymap.set('n', map, function()
-    execute_win({ window = 'NVIM', method = 'resize', width = width, height = height })
+    execute_win({ pid = vim.uv.os_getppid(), method = 'resize', width = width, height = height })
   end)
 end
 local function key_move(map, width, height)
   vim.keymap.set('n', map, function()
-    execute_win({ window = 'NVIM', method = 'move', width = width, height = height })
+    execute_win({ pid = vim.uv.os_getppid(), method = 'move', width = width, height = height })
   end)
 end
-function M.activate(window)
-  execute_win({ window = window, method = 'activate', width = 0, height = 0 })
+function M.activate()
+  execute_win({ pid = vim.uv.os_getppid(), method = 'activate', width = 0, height = 0 })
 end
 
 function M.setup()

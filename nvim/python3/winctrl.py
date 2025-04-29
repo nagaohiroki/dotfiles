@@ -5,7 +5,7 @@ import pywinctl
 
 
 class JsonDict(typing.TypedDict):
-    window: str
+    pid: int
     width: int
     height: int
     method: str
@@ -13,41 +13,31 @@ class JsonDict(typing.TypedDict):
 
 class NvimWinCtrl:
     def __init__(self, params: JsonDict):
-        self.window: str = params["window"]
+        self.pid: int = params["pid"]
         self.width: int = params["width"]
         self.height: int = params["height"]
         self.method: str = params["method"]
 
     def execute(self):
+        win = self.get_win()
+        if not win:
+            print(f"pid: {self.pid} not found.")
+            return
+        result = True
         if self.method == "resize":
-            self.resize()
+            result = win.resize(self.width, self.height)
         elif self.method == "move":
-            self.move()
+            result = win.move(self.width, self.height)
         elif self.method == "activate":
-            self.activate()
+            result = win.activate()
+        if not result:
+            print(f"failed to {self.method}, pid: {self.pid}")
 
-    def resize(self):
-        wins = self.windows()
-        for w in wins:
-            if not w.resize(self.width, self.height):
-                print(f"failed to resize {w.title}")
-
-    def move(self):
-        wins = self.windows()
-        for w in wins:
-            if not w.move(self.width, self.height):
-                print(f"failed to move {w.title}")
-
-    def activate(self):
-        wins = self.windows()
-        for w in wins:
-            if not w.activate():
-                print(f"failed to activate {w.title}")
-
-    def windows(self):
-        return pywinctl.getWindowsWithTitle(
-            self.window, condition=pywinctl.Re.CONTAINS, flags=pywinctl.Re.IGNORECASE
-        )
+    def get_win(self):
+        windows = pywinctl.getAllWindows()
+        for w in windows:
+            if w.getPID() == self.pid:
+                return w
 
 
 if __name__ == "__main__":
