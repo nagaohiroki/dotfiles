@@ -1,29 +1,40 @@
 ﻿import sys
 import json
 import pywinctl
+import typing
+
+
+class JsonDict(typing.TypedDict):
+    window: str
+    width: int
+    height: int
+    method: str
 
 
 class NvimWinCtrl:
-    def execute(self, params):
-        self.window = params["window"]
-        self.width = params["width"]
-        self.height = params["height"]
-        getattr(self, params["method"])()
+    def __init__(self, params: JsonDict):
+        self.window: str = params["window"]
+        self.width: int = params["width"]
+        self.height: int = params["height"]
+        self.method: str = params["method"]
+
+    def execute(self):
+        getattr(self, self.method)()
 
     def resize(self):
         wins = self.windows()
         for w in wins:
-            w.resize(self.width, self.height)
+            _ = w.resize(self.width, self.height)
 
     def move(self):
         wins = self.windows()
         for w in wins:
-            w.move(self.width, self.height)
+            _ = w.move(self.width, self.height)
 
     def activate(self):
         wins = self.windows()
         for w in wins:
-            w.activate()
+            _ = w.activate()
 
     def windows(self):
         return pywinctl.getWindowsWithTitle(
@@ -32,5 +43,6 @@ class NvimWinCtrl:
 
 
 if __name__ == "__main__":
-    param = json.loads(sys.argv[0])
-    NvimWinCtrl().execute(param)
+    jsonstr = sys.argv[0]
+    params: JsonDict = typing.cast(JsonDict, json.loads(jsonstr))
+    NvimWinCtrl(params).execute()
