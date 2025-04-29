@@ -2,7 +2,12 @@ if require('singleton').singleton() then
   return
 end
 vim.g.mapleader = ' '
-vim.g.python3_host_prog = vim.fs.joinpath(vim.fn.stdpath('config'), 'python3/.venv/Scripts/python')
+if vim.fn.has('win32') == 1 then
+  vim.g.py_dir = vim.fs.joinpath(vim.fn.stdpath('config'),'python3/.venv/Scripts')
+else
+  vim.g.py_dir = vim.fs.joinpath(vim.fn.stdpath('config'),'python3/.venv/bin')
+end
+vim.g.python3_host_prog = vim.fs.joinpath(vim.g.py_dir, 'python')
 vim.opt.writebackup = false
 vim.opt.swapfile = false
 vim.opt.fixeol = false

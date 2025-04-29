@@ -130,9 +130,8 @@ return {
       local lspconfig = require('lspconfig')
       mason_lspconfig.setup({ ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'jsonls' } })
       mason_lspconfig.setup_handlers({ function(server_name) lspconfig[server_name].setup({}) end })
-      local py = vim.fs.joinpath(vim.fn.stdpath('config'), 'python3/.venv/Scripts')
-      lspconfig.ruff.setup({ cmd = { vim.fs.joinpath(py, 'ruff'), 'server' } })
-      lspconfig.basedpyright.setup({ cmd = { vim.fs.joinpath(py, 'basedpyright-langserver'), '--stdio' } })
+      lspconfig.ruff.setup({ cmd = { vim.fs.joinpath(vim.g.py_dir, 'ruff'), 'server' } })
+      lspconfig.basedpyright.setup({ cmd = { vim.fs.joinpath(vim.g.py_dir, 'basedpyright-langserver'), '--stdio' } })
     end
   },
   {
