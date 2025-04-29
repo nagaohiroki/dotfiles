@@ -1,7 +1,7 @@
 ﻿import sys
 import json
-import pywinctl
 import typing
+import pywinctl
 
 
 class JsonDict(typing.TypedDict):
@@ -19,22 +19,30 @@ class NvimWinCtrl:
         self.method: str = params["method"]
 
     def execute(self):
-        getattr(self, self.method)()
+        if self.method == "resize":
+            self.resize()
+        elif self.method == "move":
+            self.move()
+        elif self.method == "activate":
+            self.activate()
 
     def resize(self):
         wins = self.windows()
         for w in wins:
-            _ = w.resize(self.width, self.height)
+            if not w.resize(self.width, self.height):
+                print(f"failed to resize {w.title}")
 
     def move(self):
         wins = self.windows()
         for w in wins:
-            _ = w.move(self.width, self.height)
+            if not w.move(self.width, self.height):
+                print(f"failed to move {w.title}")
 
     def activate(self):
         wins = self.windows()
         for w in wins:
-            _ = w.activate()
+            if not w.activate():
+                print(f"failed to activate {w.title}")
 
     def windows(self):
         return pywinctl.getWindowsWithTitle(
