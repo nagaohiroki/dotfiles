@@ -9,7 +9,7 @@ local windsurf =
         enabled = true,
         key_bindings =
         {
-          accept = '<C-q>',
+          accept = '<C-tab>',
           next = '<C-a>',
           prev = '<C-S-a>',
         }
@@ -21,7 +21,7 @@ local copilot =
 {
   'github/copilot.vim',
   config = function()
-    vim.keymap.set('i', '<C-q>', '<Plug>(copilot-accept-word)')
+    vim.keymap.set('i', '<C-tab>', '<Plug>(copilot-accept-word)')
     vim.keymap.set('i', '<C-a>', '<Plug>(copilot-next)')
     vim.keymap.set('i', '<C-S-a>', '<Plug>(copilot-previous)')
     vim.g.copilot_no_tab_map = true
