@@ -130,6 +130,7 @@ return {
       local lspconfig = require('lspconfig')
       mason_lspconfig.setup({ ensure_installed = { 'lua_ls', 'pyright', 'clangd', 'marksman', 'jsonls' } })
       mason_lspconfig.setup_handlers({ function(server_name) lspconfig[server_name].setup({}) end })
+      lspconfig.ruff.setup({ cmd = { vim.fs.joinpath(vim.fn.stdpath('config'), 'python3/.venv/Scripts/ruff'), 'server' } })
     end
   },
   {
@@ -142,17 +143,6 @@ return {
         'github:Crashdummyy/mason-registry'
       }
     }
-  },
-  {
-    'nvimtools/none-ls.nvim',
-    config = function()
-      local null_ls = require('null-ls')
-      null_ls.setup({
-        sources = { null_ls.builtins.formatting.black.with({
-          command = vim.fs.joinpath(vim.fn.stdpath('config'), 'python3/.venv/Scripts/black')
-        }) }
-      })
-    end
   },
   { 'hrsh7th/cmp-nvim-lsp' },
   { 'hrsh7th/cmp-buffer' },
