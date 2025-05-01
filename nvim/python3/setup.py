@@ -4,16 +4,15 @@ import pathlib
 
 
 def make_symlink():
-    home = pathlib.Path.home()
     nvim = "nvim"
-    nvim_src = home.joinpath("dotfiles").joinpath(nvim)
-    nvim_dst = home.joinpath(".config", nvim)
+    src = pathlib.Path.home().joinpath("dotfiles", nvim)
     if platform.system() == "Windows":
-        nvim_dst = pathlib.Path(os.environ["LOCALAPPDATA"], nvim)
-    symlink(nvim_src, nvim_dst)
+        symlink(src, pathlib.Path(os.environ["LOCALAPPDATA"], nvim))
+    else:
+        symlink(src, pathlib.Path.home().joinpath(".config", nvim))
 
 
-def symlink(src, dst):
+def symlink(src: pathlib.Path, dst: pathlib.Path):
     if dst.exists():
         os.remove(dst)
         print(f"remove {dst}")
