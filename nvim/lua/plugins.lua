@@ -77,7 +77,7 @@ return {
       vim.keymap.set('n', '<leader>d', ':Gvdiffsplit<CR>')
     end
   },
-  { 'tyru/open-browser-github.vim',              lazy = true },
+  { 'tyru/open-browser-github.vim', lazy = true },
   {
     'tyru/open-browser.vim',
     config = function()
@@ -90,12 +90,16 @@ return {
     ft = { 'markdown' },
     build = function() vim.fn['mkdp#util#install']() end,
   },
-  { 'MeanderingProgrammer/render-markdown.nvim', opts = {},  ft = { 'markdown' }, },
-  { 'j-hui/fidget.nvim',                         opts = {} },
-  { 'uga-rosa/translate.nvim',                   opts = {} },
-  { 'nvim-lua/plenary.nvim',                     lazy = true },
-  { 'echasnovski/mini.nvim',                     lazy = true },
-  { 'nvim-tree/nvim-web-devicons',               opts = {},  lazy = true },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    ft = { 'markdown' },
+    opts = { completions = { lsp = { enabled = true } } }
+  },
+  { 'j-hui/fidget.nvim',            opts = {} },
+  { 'uga-rosa/translate.nvim',      opts = {} },
+  { 'nvim-lua/plenary.nvim',        lazy = true },
+  { 'echasnovski/mini.nvim',        lazy = true },
+  { 'nvim-tree/nvim-web-devicons',  opts = {},  lazy = true },
   {
     'folke/tokyonight.nvim',
     lazy = false,
@@ -172,6 +176,7 @@ return {
           { name = 'vsnip' },
           { name = 'buffer' },
           { name = 'nvim_lsp_signature_help' },
+          { name = 'render-markdown' },
         }
       })
       vim.keymap.set('i', '<C-s>', function() return [[<Plug>(vsnip-expand)]] or [[<C-s>]] end, { expr = true })
