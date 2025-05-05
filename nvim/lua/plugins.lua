@@ -27,25 +27,13 @@ local copilot =
     vim.g.copilot_no_tab_map = true
   end
 }
-local ollama =
-{
-  adapters =
-  {
-    ollama = function()
-      return require('codecompanion.adapters').extend('ollama',
-        {
-          schema = { model = { default = 'gemma3:27b' }, }
-        })
-    end
-  },
-  strategies =
-  {
-    chat = { adapter = 'ollama' },
-    inline = { adapter = 'ollama' },
-    cmd = { adapter = 'ollama' }
-  }
-}
-local _ = { copilot, ollama }
+local function ai_plugins(name)
+  if name == 'windsurf' then
+    return windsurf
+  elseif name == 'copilot' then
+    return copilot
+  end
+end
 return {
   { 'equalsraf/neovim-gui-shim' },
   { 'mhinz/vim-signify' },
@@ -243,9 +231,37 @@ return {
   {
     'olimorris/codecompanion.nvim',
     opts = {
-      -- ollama
+      extensions = {
+        mcphub = {
+          callback = 'mcphub.extensions.codecompanion',
+          opts = {
+            show_result_in_chat = true,
+            make_vars = true,
+            make_slash_commands = true,
+          }
+        }
+      },
+      adapters =
+      {
+        ollama = function()
+          return require('codecompanion.adapters').extend('ollama',
+            {
+              schema = { model = { default = 'gemma3:27b' }, }
+            })
+        end
+      },
+      strategies =
+      {
+        --  chat = { adapter = 'ollama' },
+        --  inline = { adapter = 'ollama' },
+        --  cmd = { adapter = 'ollama' }
+      }
     }
   },
-  windsurf,
-  -- copilot
+  {
+    'ravitemer/mcphub.nvim',
+    build = 'npm install -g mcp-hub@latest',
+    config = function() require('mcphub').setup({}) end
+  },
+  ai_plugins('windsurf')
 }
