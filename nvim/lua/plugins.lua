@@ -1,39 +1,3 @@
-local windsurf =
-{
-  'Exafunction/windsurf.nvim',
-  config = function()
-    require('codeium').setup({
-      enable_cmp_source = false,
-      virtual_text =
-      {
-        enabled = true,
-        key_bindings =
-        {
-          accept = '<C-g>',
-          next = '<C-a>',
-          prev = '<C-S-a>',
-        }
-      }
-    })
-  end
-}
-local copilot =
-{
-  'github/copilot.vim',
-  config = function()
-    vim.keymap.set('i', '<C-g>', '<Plug>(copilot-accept-word)')
-    vim.keymap.set('i', '<C-a>', '<Plug>(copilot-next)')
-    vim.keymap.set('i', '<C-S-a>', '<Plug>(copilot-previous)')
-    vim.g.copilot_no_tab_map = true
-  end
-}
-local function ai_plugins(name)
-  if name == 'windsurf' then
-    return windsurf
-  elseif name == 'copilot' then
-    return copilot
-  end
-end
 return {
   { 'equalsraf/neovim-gui-shim' },
   { 'mhinz/vim-signify' },
@@ -228,40 +192,23 @@ return {
       vim.keymap.set('n', '<F5>', dap.continue)
     end
   },
+  { 'olimorris/codecompanion.nvim', opts = { } },
   {
-    'olimorris/codecompanion.nvim',
-    opts = {
-      extensions = {
-        mcphub = {
-          callback = 'mcphub.extensions.codecompanion',
-          opts = {
-            show_result_in_chat = true,
-            make_vars = true,
-            make_slash_commands = true,
+    'Exafunction/windsurf.nvim',
+    config = function()
+      require('codeium').setup({
+        enable_cmp_source = false,
+        virtual_text =
+        {
+          enabled = true,
+          key_bindings =
+          {
+            accept = '<C-g>',
+            next = '<C-a>',
+            prev = '<C-S-a>',
           }
         }
-      },
-      adapters =
-      {
-        ollama = function()
-          return require('codecompanion.adapters').extend('ollama',
-            {
-              schema = { model = { default = 'gemma3:27b' }, }
-            })
-        end
-      },
-      strategies =
-      {
-        --  chat = { adapter = 'ollama' },
-        --  inline = { adapter = 'ollama' },
-        --  cmd = { adapter = 'ollama' }
-      }
-    }
-  },
-  {
-    'ravitemer/mcphub.nvim',
-    build = 'npm install -g mcp-hub@latest',
-    config = function() require('mcphub').setup({}) end
-  },
-  ai_plugins('windsurf')
+      })
+    end
+  }
 }
