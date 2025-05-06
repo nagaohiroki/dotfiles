@@ -47,6 +47,14 @@ vim.api.nvim_create_user_command('Wex', function()
     vim.fn.system('start explorer /select,' .. vim.api.nvim_buf_get_name(0))
   end
 end, {})
+vim.api.nvim_create_user_command('Cmd', function()
+  if vim.fn.has('mac') == 1 then
+    vim.fn.system('open -a iTerm.app')
+  end
+  if vim.fn.has('win32') == 1 then
+    vim.fn.system('start cmd')
+  end
+end, {})
 vim.api.nvim_create_user_command('Rc', function()
   vim.cmd.drop(vim.fs.joinpath(vim.env.HOME, 'dotfiles', 'nvim', 'init.lua'))
 end, {})

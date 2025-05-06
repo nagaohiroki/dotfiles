@@ -78,16 +78,19 @@ return {
       require('roslyn').setup({ filewatching = 'roslyn', })
     end
   },
-  { 'neovim/nvim-lspconfig',              lazy = true },
+  {
+    'neovim/nvim-lspconfig',
+    config = function()
+      local lspconfig = require('lspconfig')
+      lspconfig.ruff.setup({ cmd = { vim.fs.joinpath(vim.g.py_dir, 'ruff'), 'server' } })
+      lspconfig.basedpyright.setup({ cmd = { vim.fs.joinpath(vim.g.py_dir, 'basedpyright-langserver'), '--stdio' } })
+    end
+  },
   {
     'williamboman/mason-lspconfig.nvim',
     config = function()
       local mason_lspconfig = require('mason-lspconfig')
-      local lspconfig = require('lspconfig')
       mason_lspconfig.setup({ ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'jsonls' } })
-      mason_lspconfig.setup_handlers({ function(server_name) lspconfig[server_name].setup({}) end })
-      lspconfig.ruff.setup({ cmd = { vim.fs.joinpath(vim.g.py_dir, 'ruff'), 'server' } })
-      lspconfig.basedpyright.setup({ cmd = { vim.fs.joinpath(vim.g.py_dir, 'basedpyright-langserver'), '--stdio' } })
     end
   },
   {
@@ -192,7 +195,7 @@ return {
       vim.keymap.set('n', '<F5>', dap.continue)
     end
   },
-  { 'olimorris/codecompanion.nvim', opts = { } },
+  { 'olimorris/codecompanion.nvim', opts = {} },
   {
     'Exafunction/windsurf.nvim',
     config = function()
