@@ -84,17 +84,14 @@ return {
   {
     'neovim/nvim-lspconfig',
     config = function()
-      local lspconfig = require('lspconfig')
-      lspconfig.ruff.setup({ cmd = { vim.fs.joinpath(vim.g.py_dir, 'ruff'), 'server' } })
-      lspconfig.basedpyright.setup({ cmd = { vim.fs.joinpath(vim.g.py_dir, 'basedpyright-langserver'), '--stdio' } })
+      vim.lsp.config('basedpyright', { cmd = { vim.fs.joinpath(vim.g.py_dir, 'basedpyright-langserver'), '--stdio' } })
+      vim.lsp.config('ruff', { cmd = { vim.fs.joinpath(vim.g.py_dir, 'ruff'), 'server' } })
+      vim.lsp.enable({ 'ruff', 'basedpyright' })
     end
   },
   {
     'williamboman/mason-lspconfig.nvim',
-    config = function()
-      local mason_lspconfig = require('mason-lspconfig')
-      mason_lspconfig.setup({ ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'jsonls' } })
-    end
+    opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'jsonls' } }
   },
   {
     'williamboman/mason.nvim',
