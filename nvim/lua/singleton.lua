@@ -22,11 +22,11 @@ local function open_other_server(server)
     {
       once = true,
       callback = function()
-        local cmd = string.format(
-          '"%s" --server "%s" --remote-send "<Esc>:lua require(\'singleton\').edit_file([[%s]],%s,%s)<CR>"',
-          vim.v.progpath, server, vim.api.nvim_buf_get_name(0), vim.fn.line('.'), vim.fn.col('.'))
         vim.cmd('enew')
-        vim.fn.jobstart(cmd, { on_exit = function() vim.cmd('q') end })
+        local open_cmd = string.format('"<Esc>:lua require(\'singleton\').edit_file([[%s]],%s,%s)<CR>"',
+          vim.api.nvim_buf_get_name(0), vim.fn.line('.'), vim.fn.col('.'))
+        vim.system({ vim.v.progpath, '--server', server, '--remote-send', open_cmd }, nil,
+          function() vim.schedule(function() vim.cmd('q') end) end)
       end
     })
 end
