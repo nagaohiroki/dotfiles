@@ -8,11 +8,22 @@ local function already_server()
   local servers = global_serverlist()
   if #servers == 0 then return nil end
   for _, server in ipairs(servers) do
-    if server ~= vim.v.servername then
-      return server
-    end
+    if server ~= vim.v.servername then return server end
   end
   return nil
+end
+local function restore_session(server)
+  local session = vim.fs.joinpath(vim.fn.stdpath('data'), 'singleton', vim.fn.getpid() .. '.vim')
+  local session_dir = vim.fs.dirname(session)
+  local files = vim.fn.glob(session_dir .. '/*.vim', false, true)
+  if #files > 10 then
+    for _, file in ipairs(files) do vim.fn.delete(file) end
+  end
+  vim.fn.mkdir(session_dir, 'p')
+  vim.cmd('mksession! ' .. session .. ' | enew')
+  vim.api.nvim_buf_set_lines(vim.api.nvim_get_current_buf(), 0, -1, false, { 'wait for open...' })
+  vim.system({ vim.v.progpath, '--server', server, '--remote-send', ':source ' .. session .. '<CR>' }, nil,
+    function() vim.schedule(function() vim.cmd('q!') end) end)
 end
 local function open_other_server(server)
   vim.opt.swapfile = false
@@ -21,31 +32,14 @@ local function open_other_server(server)
   vim.api.nvim_create_autocmd('VimEnter',
     {
       once = true,
-      callback = function()
-        vim.cmd('enew')
-        local open_cmd = string.format('"<Esc>:lua require(\'singleton\').edit_file([[%s]],%s,%s)<CR>"',
-          vim.api.nvim_buf_get_name(0), vim.fn.line('.'), vim.fn.col('.'))
-        vim.system({ vim.v.progpath, '--server', server, '--remote-send', open_cmd }, nil,
-          function() vim.schedule(function() vim.cmd('q') end) end)
-      end
+      callback = function() restore_session(server) end
     })
 end
 local M = {}
 M.singleton = function()
   local my_server = already_server()
-  if my_server == nil then
-    return false
-  end
+  if my_server == nil then return false end
   open_other_server(my_server)
   return true
 end
-M.edit_file = function(fname, line, col)
-  if fname == '' then
-    vim.cmd('enew')
-  else
-    vim.cmd('drop ' .. vim.fn.fnameescape(fname))
-    vim.fn.cursor(line, col)
-  end
-end
-
 return M
