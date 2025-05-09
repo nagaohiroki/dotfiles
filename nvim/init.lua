@@ -1,6 +1,4 @@
-if require('singleton').singleton() then
-  return
-end
+if require('singleton').singleton() then return end
 vim.g.mapleader = ' '
 vim.g.py_bin_dir = 'bin'
 if vim.fn.has('win32') == 1 then vim.g.py_bin_dir = 'Scripts' end
