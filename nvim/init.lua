@@ -20,7 +20,6 @@ vim.opt.undofile = true
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.cmdheight = 2
-vim.opt.laststatus = 2
 vim.opt.mouse = 'a'
 vim.opt.listchars = { eol = '<', tab = '> ', extends = '<' }
 vim.opt.whichwrap = 'b,s,h,l,<,>,[,]'
