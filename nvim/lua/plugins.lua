@@ -1,7 +1,7 @@
 return {
-  { 'equalsraf/neovim-gui-shim' },
-  { 'mhinz/vim-signify' },
-  { 'junegunn/vim-easy-align' },
+  'equalsraf/neovim-gui-shim',
+  'mhinz/vim-signify',
+  'junegunn/vim-easy-align',
   {
     'beyondmarc/hlsl.vim',
     config = function()
@@ -21,8 +21,8 @@ return {
         'Classes/*/%.h')
     end
   },
-  { 'tpope/vim-rhubarb' },
-  { 'junegunn/gv.vim' },
+  'tpope/vim-rhubarb',
+  'junegunn/gv.vim',
   {
     'tpope/vim-fugitive',
     config = function()
@@ -90,11 +90,11 @@ return {
     end
   },
   {
-    'williamboman/mason-lspconfig.nvim',
+    'mason-org/mason-lspconfig.nvim',
     opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'jsonls' } }
   },
   {
-    'williamboman/mason.nvim',
+    'mason-org/mason.nvim',
     opts =
     {
       registries =
@@ -104,12 +104,12 @@ return {
       }
     }
   },
-  { 'hrsh7th/cmp-nvim-lsp' },
-  { 'hrsh7th/cmp-buffer' },
-  { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-  { 'hrsh7th/cmp-vsnip' },
-  { 'hrsh7th/vim-vsnip' },
-  { 'rafamadriz/friendly-snippets' },
+  'hrsh7th/cmp-nvim-lsp',
+  'hrsh7th/cmp-buffer',
+  'hrsh7th/cmp-nvim-lsp-signature-help',
+  'hrsh7th/cmp-vsnip',
+  'hrsh7th/vim-vsnip',
+  'rafamadriz/friendly-snippets',
   {
     'hrsh7th/nvim-cmp',
     config = function()
