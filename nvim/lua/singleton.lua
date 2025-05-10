@@ -34,7 +34,7 @@ local function restore_session()
     'please wait...'
   })
   vim.system({ vim.v.progpath, '--server', vim.g.NVIM_SINGLETON, '--remote-send', '<Esc>:source ' .. session .. '<CR>' },
-    nil, function() vim.schedule(function() vim.cmd('q!') end) end)
+    nil, function() vim.schedule(function() vim.cmd('qa!') end) end)
 end
 local function open_other_server()
   vim.opt.swapfile = false
