@@ -87,6 +87,24 @@ return {
       vim.lsp.config('basedpyright', { cmd = { vim.fs.joinpath(vim.g.py_dir, 'basedpyright-langserver'), '--stdio' } })
       vim.lsp.config('ruff', { cmd = { vim.fs.joinpath(vim.g.py_dir, 'ruff'), 'server' } })
       vim.lsp.enable({ 'ruff', 'basedpyright' })
+      vim.lsp.config('lua_ls', {
+        on_init = function(client)
+          client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+            runtime = {
+              version = 'LuaJIT',
+              path = {
+                'lua/?.lua',
+                'lua/?/init.lua',
+              },
+            },
+            workspace = {
+              checkThirdParty = false,
+              library = { vim.env.VIMRUNTIME }
+            }
+          })
+        end,
+        settings = { Lua = {} }
+      })
     end
   },
   {
