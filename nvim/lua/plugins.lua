@@ -9,7 +9,7 @@ return {
         {
           group = 'loading',
           pattern = { '*.usf', '*.ush', '*.cginc', '*.shader', '*.glslinc' },
-          command = 'setfiletype hlsl'
+          callback = function() vim.bo.filetype = 'hlsl' end,
         })
     end
   },
@@ -213,7 +213,7 @@ return {
       vim.keymap.set('n', '<F5>', dap.continue)
     end
   },
-  { 'stevearc/oil.nvim',  opts = {},  lazy = false },
+  { 'stevearc/oil.nvim', opts = {}, lazy = false },
   {
     'Exafunction/windsurf.nvim',
     config = function()
@@ -235,7 +235,7 @@ return {
   {
     'ravitemer/mcphub.nvim',
     build = 'npm install -g mcp-hub@latest',
-  --  opts = {}
+    --  opts = {}
   },
   {
     'olimorris/codecompanion.nvim',
