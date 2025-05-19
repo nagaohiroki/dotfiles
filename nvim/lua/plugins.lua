@@ -25,16 +25,12 @@ return {
   'junegunn/gv.vim',
   {
     'tpope/vim-fugitive',
-    config = function()
-      vim.keymap.set('n', '<leader>d', ':Gvdiffsplit<CR>')
-    end
+    config = function() vim.keymap.set('n', '<leader>d', ':Gvdiffsplit<CR>') end
   },
   { 'tyru/open-browser-github.vim', lazy = true },
   {
     'tyru/open-browser.vim',
-    config = function()
-      vim.keymap.set('n', '<leader>o', '<Plug>(openbrowser-smart-search)')
-    end
+    config = function() vim.keymap.set('n', '<leader>o', '<Plug>(openbrowser-smart-search)') end
   },
   {
     'iamcco/markdown-preview.nvim',
@@ -59,7 +55,8 @@ return {
     config = function()
       require('tokyonight').setup(
         {
-          styles = {
+          styles =
+          {
             comments = { italic = false },
             keywords = { italic = false },
             functions = { italic = false },
@@ -84,18 +81,12 @@ return {
   {
     'neovim/nvim-lspconfig',
     config = function()
-      vim.lsp.config('basedpyright', { cmd = { vim.fs.joinpath(vim.g.py_dir, 'basedpyright-langserver'), '--stdio' } })
-      vim.lsp.config('ruff', { cmd = { vim.fs.joinpath(vim.g.py_dir, 'ruff'), 'server' } })
-      vim.lsp.enable({ 'ruff', 'basedpyright' })
       vim.lsp.config('lua_ls', {
         on_init = function(client)
           client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
             runtime = {
               version = 'LuaJIT',
-              path = {
-                'lua/?.lua',
-                'lua/?/init.lua',
-              },
+              path = { 'lua/?.lua', 'lua/?/init.lua', },
             },
             workspace = {
               checkThirdParty = false,
@@ -109,7 +100,7 @@ return {
   },
   {
     'mason-org/mason-lspconfig.nvim',
-    opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'jsonls' } }
+    opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'jsonls', 'basedpyright', 'ruff' } }
   },
   {
     'mason-org/mason.nvim',
@@ -201,6 +192,7 @@ return {
     config = function()
       local dap    = require('dap')
       local widget = require('dap.ui.widgets')
+      vim.keymap.set('n', '<F5>', dap.continue)
       vim.keymap.set('n', '<C-F5>', dap.run_last)
       vim.keymap.set('n', '<F10>', dap.step_over)
       vim.keymap.set('n', '<F11>', dap.step_into)
@@ -210,7 +202,6 @@ return {
       vim.keymap.set('n', '<S-C-F9>', dap.clear_breakpoints)
       vim.keymap.set('n', '<F12>', widget.hover)
       vim.keymap.set('n', '<S-F5>', dap.disconnect)
-      vim.keymap.set('n', '<F5>', dap.continue)
     end
   },
   { 'stevearc/oil.nvim', opts = {}, lazy = false },
