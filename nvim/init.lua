@@ -137,6 +137,12 @@ vim.api.nvim_create_autocmd('TermOpen',
       vim.cmd('startinsert')
     end
   })
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' },
+  {
+    group = 'loading',
+    pattern = { '*.usf', '*.ush', '*.cginc', '*.shader', '*.glslinc' },
+    callback = function() vim.bo.filetype = 'hlsl' end,
+  })
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
 vim.keymap.set({ 'n', 'v' }, '<C-p>', '"0p')
 vim.keymap.set('n', '<leader>s', [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])

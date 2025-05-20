@@ -3,17 +3,6 @@ return {
   'mhinz/vim-signify',
   'junegunn/vim-easy-align',
   {
-    'beyondmarc/hlsl.vim',
-    config = function()
-      vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' },
-        {
-          group = 'loading',
-          pattern = { '*.usf', '*.ush', '*.cginc', '*.shader', '*.glslinc' },
-          callback = function() vim.bo.filetype = 'hlsl' end,
-        })
-    end
-  },
-  {
     'kana/vim-altr',
     config = function()
       vim.keymap.set('n', '<leader>a', '<Plug>(altr-forward)')
@@ -68,6 +57,16 @@ return {
     end
   },
   {
+    'nvim-treesitter/nvim-treesitter',
+    config = function()
+      require('nvim-treesitter.configs').setup({
+        highlight = { enable = true },
+        indent = { enable = true },
+        ensure_installed = { 'hlsl' },
+      })
+    end
+  },
+  {
     'seblj/roslyn.nvim',
     ft = 'cs',
     config = function()
@@ -81,6 +80,7 @@ return {
   {
     'neovim/nvim-lspconfig',
     config = function()
+      vim.lsp.config('slangd', { cmd = { 'slangd' } })
       vim.lsp.config('lua_ls', {
         on_init = function(client)
           client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
@@ -100,7 +100,7 @@ return {
   },
   {
     'mason-org/mason-lspconfig.nvim',
-    opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'jsonls', 'basedpyright', 'ruff' } }
+    opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'jsonls', 'basedpyright', 'ruff', 'slangd' } }
   },
   {
     'mason-org/mason.nvim',
