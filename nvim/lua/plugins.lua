@@ -58,6 +58,7 @@ return {
   },
   {
     'nvim-treesitter/nvim-treesitter',
+    ft = { 'hlsl' },
     config = function()
       require('nvim-treesitter.configs').setup({
         highlight = { enable = true },
@@ -80,7 +81,15 @@ return {
   {
     'neovim/nvim-lspconfig',
     config = function()
-      vim.lsp.config('slangd', { cmd = { 'slangd' } })
+      vim.lsp.set_log_level('debug')
+      vim.lsp.config('slangd', {
+        cmd = { 'slangd' },
+        settings = {
+          slang = {
+            additionalSearchPaths = { 'C:/Program Files/Unity/Hub/Editor/6000.1.1f1/Editor/Data/CGIncludes' }
+          }
+        }
+      })
       vim.lsp.config('lua_ls', {
         on_init = function(client)
           client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
