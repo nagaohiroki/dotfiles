@@ -58,12 +58,14 @@ return {
   },
   {
     'nvim-treesitter/nvim-treesitter',
-    ft = { 'hlsl' },
     config = function()
       require('nvim-treesitter.configs').setup({
-        highlight = { enable = true },
-        indent = { enable = true },
         ensure_installed = { 'hlsl' },
+        indent = { enable = true },
+        highlight = {
+          enable = true,
+          disable = { 'markdown', 'markdown_inline', 'lua' }
+        },
       })
     end
   },
@@ -81,15 +83,41 @@ return {
   {
     'neovim/nvim-lspconfig',
     config = function()
-      vim.lsp.set_log_level('debug')
-      vim.lsp.config('slangd', {
-        cmd = { 'slangd' },
-        settings = {
-          slang = {
-            additionalSearchPaths = { 'C:/Program Files/Unity/Hub/Editor/6000.1.1f1/Editor/Data/CGIncludes' }
-          }
-        }
+      vim.lsp.config('clangd', {
+        filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hlsl' },
+        settings = { clangd = { enableHLSL = true } }
       })
+      -- test shader-ls
+      -- vim.lsp.enable('shader-ls')
+      vim.lsp.config('shader-ls',
+        {
+          cmd = { 'C:/work/shader-sense/shader-language-server', '--stdio' },
+          filetypes = { 'hlsl' },
+          settings = {
+            ['shader-validator'] = {
+              validate          = true,
+              symbols           = true,
+              trace             = { server = 'off' },
+              pathRemapping     = { ['.'] = '.' },
+              includes          = { 'C:/Program Files/Unity/Hub/Editor/6000.1.1f1/Editor/Data/CGIncludes' },
+              defines           = { dummy = '' },
+              symbolDiagnostics = true,
+              serverPath        = 'C:/work/shader-sense/shader-language-server',
+              severity          = 'error',
+              hlsl              =
+              {
+                shaderModel = 'ShaderModel6_5',
+                version = 'V2021',
+                enable16bitTypes = true
+              },
+              glsl              =
+              {
+                targetClient = 'Vulkan1_3',
+                spirvVersion = 'SPIRV1_6',
+              }
+            },
+          }
+        })
       vim.lsp.config('lua_ls', {
         on_init = function(client)
           client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
@@ -109,7 +137,7 @@ return {
   },
   {
     'mason-org/mason-lspconfig.nvim',
-    opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'jsonls', 'basedpyright', 'ruff', 'slangd' } }
+    opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'jsonls', 'basedpyright', 'ruff' } }
   },
   {
     'mason-org/mason.nvim',
@@ -221,6 +249,11 @@ return {
         enable_cmp_source = false,
         virtual_text =
         {
+          filetypes =
+          {
+            markdown = false,
+            text = false
+          },
           enabled = true,
           key_bindings =
           {
