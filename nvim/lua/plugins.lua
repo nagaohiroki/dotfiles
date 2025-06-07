@@ -83,10 +83,6 @@ return {
   {
     'neovim/nvim-lspconfig',
     config = function()
-      vim.api.nvim_create_user_command('PyrightBaseline', function()
-        vim.system({ 'basedpyright', '--writebaseline' })
-      end, {})
-
       vim.lsp.config('clangd', {
         filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hlsl' },
         settings = { clangd = { enableHLSL = true } }
