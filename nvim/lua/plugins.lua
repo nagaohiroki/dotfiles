@@ -1,7 +1,6 @@
 return {
   'equalsraf/neovim-gui-shim',
   'mhinz/vim-signify',
-  'junegunn/vim-easy-align',
   {
     'kana/vim-altr',
     config = function()
@@ -35,7 +34,6 @@ return {
   { 'j-hui/fidget.nvim',           opts = {} },
   { 'uga-rosa/translate.nvim',     opts = {} },
   { 'nvim-lua/plenary.nvim',       lazy = true },
-  { 'echasnovski/mini.nvim',       lazy = true },
   { 'nvim-tree/nvim-web-devicons', opts = {},  lazy = true },
   {
     'folke/tokyonight.nvim',
@@ -265,28 +263,4 @@ return {
       })
     end
   },
- -- {
- --   'ravitemer/mcphub.nvim',
- --   build = 'npm install -g mcp-hub@latest',
- --   opts = {}
- -- },
- -- {
- --   'olimorris/codecompanion.nvim',
- --   opts =
- --   {
- --     extensions =
- --     {
- --       mcphub =
- --       {
- --         callback = 'mcphub.extensions.codecompanion',
- --         opts =
- --         {
- --           show_result_in_chat = true,
- --           make_vars = true,
- --           make_slash_commands = true,
- --         }
- --       }
- --     }
- --   }
- -- },
 }
