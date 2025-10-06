@@ -203,16 +203,6 @@ return {
     end
   },
   { 'nagaohiroki/unity.nvim', opts = {} },
-  {
-    'mfussenegger/nvim-dap-python',
-    config = function()
-      local dir = 'bin'
-      if vim.fn.has('win32') == 1 then
-        dir = 'Scripts'
-      end
-      require('dap-python').setup(vim.fs.joinpath('.venv', dir, 'python'))
-    end
-  },
   { 'nvim-neotest/nvim-nio',  lazy = true },
   {
     'rcarriga/nvim-dap-ui',
