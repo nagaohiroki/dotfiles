@@ -68,8 +68,7 @@ return {
     end
   },
   {
-    'seblj/roslyn.nvim',
-    ft = 'cs',
+    'seblyng/roslyn.nvim',
     config = function()
       local tbl = { 'Start', 'Restart', 'Stop' }
       for _, v in pairs(tbl) do
