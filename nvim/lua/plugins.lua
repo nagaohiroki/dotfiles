@@ -57,11 +57,7 @@ return {
   {
     'seblyng/roslyn.nvim',
     config = function()
-      local tbl = { 'Start', 'Restart', 'Stop' }
-      for _, v in pairs(tbl) do
-        vim.api.nvim_create_user_command('Lsp' .. v, function() vim.cmd('Roslyn ' .. string.lower(v)) end, {})
-      end
-      require('roslyn').setup({ filewatching = 'roslyn', })
+      require('roslyn').setup({ filewatching = 'roslyn' })
     end
   },
   {
