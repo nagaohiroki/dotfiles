@@ -181,24 +181,14 @@ return {
   },
   { 'stevearc/oil.nvim', opts = {}, lazy = false },
   {
-    'Exafunction/windsurf.nvim',
+    'supermaven-inc/supermaven-nvim',
     config = function()
-      require('codeium').setup({
-        enable_cmp_source = false,
-        virtual_text =
-        {
-          filetypes =
-          {
-            markdown = false,
-            text = false
-          },
-          enabled = true,
-          key_bindings =
-          {
-            accept = '<C-g>',
-            next = '<C-a>',
-            prev = '<C-S-a>',
-          }
+      require('supermaven-nvim').setup({
+        ignore_filetypes = { 'markdown', 'text' },
+        keymaps = {
+          accept_suggestion = "<C-g>",
+          clear_suggestion = "<C-q>",
+          accept_word = "<C-a>",
         }
       })
     end
