@@ -186,9 +186,9 @@ return {
       require('supermaven-nvim').setup({
         ignore_filetypes = { 'markdown', 'text' },
         keymaps = {
-          accept_suggestion = "<C-g>",
-          clear_suggestion = "<C-q>",
-          accept_word = "<C-a>",
+          accept_suggestion = '<C-g>',
+          clear_suggestion = '<C-q>',
+          accept_word = '<C-a>',
         }
       })
     end
