@@ -140,6 +140,15 @@ vim.api.nvim_create_autocmd('TermOpen',
 for _, ext in pairs({ 'usf', 'ush', 'cginc', 'shader', 'glslinc', 'fx', 'hlsl' }) do
   vim.filetype.add({ extension = { [ext] = 'hlsl' } })
 end
+
+vim.api.nvim_create_autocmd('BufWritePre',
+  {
+    group = 'loading',
+    pattern = { '*.cs', '*.py', '*.lua', '*.cpp', '*.h', '*.hpp' },
+    callback = function() vim.lsp.buf.format() end,
+    desc = 'Format code',
+  })
+
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
 vim.keymap.set({ 'n', 'v' }, '<C-p>', '"0p')
 vim.keymap.set('n', '<leader>s', [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
