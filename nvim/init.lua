@@ -144,9 +144,9 @@ end
 vim.api.nvim_create_autocmd('BufWritePre',
   {
     group = 'loading',
-    pattern = { '*.cs', '*.py', '*.lua', '*.cpp', '*.h', '*.hpp' },
-    callback = function() vim.lsp.buf.format() end,
-    desc = 'Format code',
+    callback = function()
+      vim.lsp.buf.format({ async = false, timeout_ms = 1000 })
+    end,
   })
 
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
