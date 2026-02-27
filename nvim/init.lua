@@ -145,7 +145,11 @@ vim.api.nvim_create_autocmd('BufWritePre',
   {
     group = 'loading',
     callback = function()
+      if not vim.bo.modified then return end
+      local view = vim.fn.winsaveview()
+      pcall(function() vim.cmd('undojoin') end)
       vim.lsp.buf.format({ async = false, timeout_ms = 1000 })
+      vim.fn.winrestview(view)
     end,
   })
 
