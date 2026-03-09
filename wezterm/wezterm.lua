@@ -31,15 +31,16 @@ config.window_padding =
   bottom = 0,
   left = 0
 }
--- config.background =
--- {
--- 	{
--- 		source = { File = 'C:/work/images/image1.jpg' },
--- 		hsb = { brightness = 0.1 },
--- 		opacity = 0.8,
--- 	},
--- }
 config.window_close_confirmation = 'NeverPrompt'
 config.initial_cols = 90
 config.initial_rows = 60
+local image1 =
+{
+  source = { File = 'C:/work/images/image1.jpg' },
+  hsb = { brightness = 0.1 },
+  opacity = 0.8,
+}
+if is_windows() then
+  config.background = { image1 }
+end
 return config
