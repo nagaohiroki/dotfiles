@@ -160,7 +160,9 @@ vim.keymap.set('n', '+', function() FontResize(1) end)
 vim.keymap.set('n', '-', function() FontResize(-1) end)
 vim.keymap.set('n', '<leader>g', vim.lsp.buf.definition)
 vim.keymap.set('n', '<leader>u', vim.lsp.buf.references)
-require('winctrl').setup()
+if vim.g.GuiLoaded == 1 then
+  require('winctrl').setup()
+end
 require('unrealengine').setup()
 local lazypath = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')
 if not vim.loop.fs_stat(lazypath) then

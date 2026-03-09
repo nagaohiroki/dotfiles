@@ -43,4 +43,18 @@ local image1 =
 if is_windows() then
   config.background = { image1 }
 end
+
+local add_size = 50
+local function window_resize(width, height)
+  return wezterm.action_callback(function(window, _)
+    local dims = window:get_dimensions()
+    window:set_inner_size(dims.pixel_width + width, dims.pixel_height + height)
+  end)
+end
+config.keys = {
+  { key = 'LeftArrow',  mods = 'ALT', action = window_resize(-add_size, 0) },
+  { key = 'RightArrow', mods = 'ALT', action = window_resize(add_size, 0) },
+  { key = 'UpArrow',    mods = 'ALT', action = window_resize(0, -add_size) },
+  { key = 'DownArrow',  mods = 'ALT', action = window_resize(0, add_size) },
+}
 return config
