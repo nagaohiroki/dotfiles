@@ -21,6 +21,7 @@ config.hide_tab_bar_if_only_one_tab = true
 config.text_background_opacity = 0.5
 config.window_background_opacity = 0.5
 config.macos_window_background_blur = 20
+config.win32_system_backdrop = 'Acrylic'
 config.window_frame =
 {
   inactive_titlebar_bg = 'none',
@@ -40,7 +41,7 @@ local image =
 {
   source = { File = wezterm.home_dir .. '/my_images/image1.jpg' },
   hsb = { brightness = 0.1 },
-  opacity = 0.8,
+  opacity = 0.5,
 }
 config.background = { image }
 
