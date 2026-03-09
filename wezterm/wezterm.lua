@@ -36,13 +36,13 @@ config.window_padding =
 config.window_close_confirmation = 'NeverPrompt'
 config.initial_cols = 90
 config.initial_rows = 60
-local image1 =
+local image =
 {
-  source = { File = 'C:/work/images/image1.jpg' },
+  source = { File = wezterm.home_dir .. '/my_images/image1.jpg' },
   hsb = { brightness = 0.1 },
   opacity = 0.8,
 }
-config.background = { image1 }
+config.background = { image }
 
 local function window_resize(width, height)
   return wezterm.action_callback(function(window, _)
