@@ -18,8 +18,9 @@ if is_mac() then
 end
 config.adjust_window_size_when_changing_font_size = false
 config.hide_tab_bar_if_only_one_tab = true
-config.text_background_opacity = 0.8
-config.window_background_opacity = 0.8
+config.text_background_opacity = 0.5
+config.window_background_opacity = 0.5
+config.macos_window_background_blur = 20
 config.window_frame =
 {
   inactive_titlebar_bg = 'none',
@@ -41,17 +42,15 @@ local image1 =
   hsb = { brightness = 0.1 },
   opacity = 0.8,
 }
-if is_windows() then
-  config.background = { image1 }
-end
+config.background = { image1 }
 
-local add_size = 50
 local function window_resize(width, height)
   return wezterm.action_callback(function(window, _)
     local dims = window:get_dimensions()
     window:set_inner_size(dims.pixel_width + width, dims.pixel_height + height)
   end)
 end
+local add_size = 50
 config.keys = {
   { key = 'LeftArrow',  mods = 'ALT', action = window_resize(-add_size, 0) },
   { key = 'RightArrow', mods = 'ALT', action = window_resize(add_size, 0) },
