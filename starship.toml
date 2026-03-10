@@ -1,0 +1,12 @@
+format = """
+$directory\
+$git_branch\
+$git_status\
+$dotnet\
+$fill\
+$cmd_duration
+$character"""
+
+[directory]
+truncation_length = 0
+truncate_to_repo = false

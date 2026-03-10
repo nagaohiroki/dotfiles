@@ -12,6 +12,7 @@ config.enable_scroll_bar = true
 config.font = wezterm.font_with_fallback({ [[HackGen Console NF]] })
 if is_windows() then
   config.font_size = 12
+  config.default_prog = { 'pwsh', '-NoLogo' }
 end
 if is_mac() then
   config.font_size = 14
@@ -52,10 +53,17 @@ local function window_resize(width, height)
   end)
 end
 local add_size = 50
-config.keys = {
+config.keys =
+{
   { key = 'LeftArrow',  mods = 'ALT', action = window_resize(-add_size, 0) },
   { key = 'RightArrow', mods = 'ALT', action = window_resize(add_size, 0) },
   { key = 'UpArrow',    mods = 'ALT', action = window_resize(0, -add_size) },
   { key = 'DownArrow',  mods = 'ALT', action = window_resize(0, add_size) },
 }
+config.set_environment_variables =
+{
+  STARSHIP_CONFIG = wezterm.home_dir .. '/dotfiles/starship.toml',
+}
+-- config.unix_domains = { { name = 'unix' } }
+-- config.default_gui_startup_args = { 'connect', 'unix' }
 return config
