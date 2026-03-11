@@ -43,6 +43,9 @@ local image =
   source = { File = wezterm.home_dir .. '/my_images/image10.jpg' },
   hsb = { brightness = 0.1 },
   opacity = 0.5,
+  vertical_align = 'Middle',
+  horizontal_align = 'Center',
+
 }
 config.background = { image }
 local function window_resize(width, height)
