@@ -3,6 +3,7 @@ $directory\
 $git_branch\
 $git_status\
 $dotnet\
+$python\
 $fill\
 $cmd_duration
 $character"""
