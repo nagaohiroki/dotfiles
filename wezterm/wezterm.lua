@@ -38,16 +38,16 @@ config.window_padding =
 config.window_close_confirmation = 'NeverPrompt'
 config.initial_cols = 90
 config.initial_rows = 60
-local image =
-{
-  source = { File = wezterm.home_dir .. '/my_images/image10.jpg' },
-  hsb = { brightness = 0.1 },
-  opacity = 0.5,
-  vertical_align = 'Middle',
-  horizontal_align = 'Center',
-
-}
-config.background = { image }
+local function get_image(name)
+  return {
+    source = { File = wezterm.home_dir .. '/my_images/' .. name },
+    hsb = { brightness = 0.1 },
+    opacity = 0.5,
+    vertical_align = 'Middle',
+    horizontal_align = 'Center',
+  }
+end
+config.background = { get_image('image10.jpg') }
 local function window_resize(width, height)
   return wezterm.action_callback(function(window, _)
     local dims = window:get_dimensions()
@@ -75,16 +75,9 @@ config.set_environment_variables =
 
 -- config.unix_domains = { { name = 'unix' } }
 -- config.default_gui_startup_args = { 'connect', 'unix' }
--- local function random_image()
---   return {
---     source = { File = wezterm.home_dir .. '/my_images/image' .. math.random(0, 10) .. '.jpg' },
---     hsb = { brightness = 0.1 },
---     opacity = 0.5,
---   }
--- end
 -- local function hsb_toggle(window, _)
 --   local overrides = window:get_config_overrides() or {}
---   overrides.background = { random_image() }
+--   overrides.background = { get_image('image' .. math.random(0, 10) .. '.jpg') }
 --   window:set_config_overrides(overrides)
 -- end
 -- wezterm.on('update-status', function(window, pane)
