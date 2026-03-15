@@ -52,6 +52,13 @@ vim.api.nvim_create_user_command('Cmd', function()
     vim.fn.system('start cmd')
   end
 end, {})
+
+vim.api.nvim_create_user_command('WezWin', function()
+  vim.fn.system({ 'wezterm', 'cli', 'spawn', '--cwd', vim.fn.expand('%:p:h'), '--new-window' })
+end, {})
+vim.api.nvim_create_user_command('WezRight', function()
+  vim.fn.system({ 'wezterm', 'cli', 'split-pane', '--right', '--percent', '20', '--cwd', vim.fn.expand('%:p:h') })
+end, {})
 vim.api.nvim_create_user_command('Rc', function()
   vim.cmd.drop(vim.fs.joinpath(vim.env.HOME, 'dotfiles', 'nvim', 'init.lua'))
 end, {})
@@ -163,7 +170,7 @@ vim.keymap.set('n', '<leader>u', vim.lsp.buf.references)
 if vim.g.GuiLoaded == 1 then
   require('winctrl').setup()
 end
-require('unrealengine').setup()
+-- require('unrealengine').setup()
 local lazypath = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
