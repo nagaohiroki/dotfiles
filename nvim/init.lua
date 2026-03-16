@@ -40,15 +40,6 @@ vim.api.nvim_create_user_command('Wex', function()
     vim.fn.system('start explorer /select,' .. vim.api.nvim_buf_get_name(0))
   end
 end, {})
-vim.api.nvim_create_user_command('Cmd', function()
-  if vim.fn.has('mac') == 1 then
-    vim.fn.system('open -a iTerm.app')
-  end
-  if vim.fn.has('win32') == 1 then
-    vim.fn.system('start cmd')
-  end
-end, {})
-
 vim.api.nvim_create_user_command('WezWin', function()
   vim.fn.system({ 'wezterm', 'cli', 'spawn', '--cwd', vim.fn.expand('%:p:h'), '--new-window' })
 end, {})
@@ -166,7 +157,6 @@ vim.keymap.set('n', '<leader>u', vim.lsp.buf.references)
 if vim.g.GuiLoaded == 1 then
   require('winctrl').setup()
 end
--- require('unrealengine').setup()
 local lazypath = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
