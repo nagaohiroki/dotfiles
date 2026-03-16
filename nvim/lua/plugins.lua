@@ -63,6 +63,8 @@ return {
   {
     'neovim/nvim-lspconfig',
     config = function()
+      vim.lsp.enable('basedpyright')
+      vim.lsp.enable('ruff')
       vim.lsp.config('clangd', {
         filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hlsl' },
       })
@@ -85,7 +87,7 @@ return {
   },
   {
     'mason-org/mason-lspconfig.nvim',
-    opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'jsonls', 'basedpyright', 'ruff' } }
+    opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'jsonls' } }
   },
   {
     'mason-org/mason.nvim',
