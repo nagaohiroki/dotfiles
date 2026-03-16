@@ -6,3 +6,5 @@ scoop install wezterm
 scoop install git
 scoop install ripgrep
 scoop install uv
+uv tool install basedpyright
+uv tool install ruff
