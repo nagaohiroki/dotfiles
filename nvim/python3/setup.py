@@ -7,6 +7,10 @@ import sys
 import typing
 
 
+DRY_RUN = "--dry-run" in sys.argv
+INTERACTIVE = "--interactive" in sys.argv
+
+
 def is_windows() -> bool:
     return platform.system() == "Windows"
 
@@ -30,6 +34,16 @@ def xdg() -> pathlib.Path:
 
 
 def remove_path(path: pathlib.Path):
+    if not path.exists():
+        return
+    if DRY_RUN:
+        print(f"remove {path} (dry run)")
+        return
+    if INTERACTIVE:
+        ans = input(f"remove {path}? [y/N] ")
+        if ans.lower() != "y":
+            print(f"skip {path}")
+            return
     if path.is_symlink() or path.is_file():
         path.unlink()
         print(f"remove file {path}")
@@ -57,7 +71,7 @@ def is_admin() -> bool:
 
 
 def relaunch_as_admin():
-    params = " ".join(sys.argv)
+    params = " ".join([f'"{arg}"' for arg in sys.argv])
     ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, params, None, 1)
 
 
@@ -76,7 +90,8 @@ def main():
             relaunch_as_admin()
             return
     symlinks()
-    _ = input("Press Enter to exit...")
+    if is_windows():
+        _ = input("Press Enter to exit...")
 
 
 if __name__ == "__main__":
