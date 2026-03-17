@@ -8,18 +8,22 @@ def is_windows() -> bool:
     return platform.system() == "Windows"
 
 
-def dotfiles(path: str) -> pathlib.Path:
-    return pathlib.Path.home() / "dotfiles" / path
+def home() -> pathlib.Path:
+    return pathlib.Path.home()
 
 
-def config(path: str) -> pathlib.Path:
-    return pathlib.Path.home() / ".config" / path
+def dotfiles() -> pathlib.Path:
+    return home() / "dotfiles"
 
 
-def xdg(path: str) -> pathlib.Path:
+def config() -> pathlib.Path:
+    return home() / ".config"
+
+
+def xdg() -> pathlib.Path:
     if is_windows():
-        return pathlib.Path(os.environ["LOCALAPPDATA"]) / path
-    return config(path)
+        return pathlib.Path(os.environ["LOCALAPPDATA"])
+    return config()
 
 
 def remove_path(path: pathlib.Path):
@@ -32,6 +36,8 @@ def remove_path(path: pathlib.Path):
 
 
 def symlink(src: pathlib.Path, dst: pathlib.Path):
+    if src.exists():
+        return
     if dst.exists():
         remove_path(dst)
     dst.parent.mkdir(parents=True, exist_ok=True)
@@ -40,8 +46,10 @@ def symlink(src: pathlib.Path, dst: pathlib.Path):
 
 
 def main():
-    symlink(dotfiles("nvim"), xdg("nvim"))
-    symlink(dotfiles("wezterm"), config("wezterm"))
+    symlink(dotfiles() / "nvim", xdg() / "nvim")
+    symlink(dotfiles() / "wezterm", config() / "wezterm")
+    symlink(dotfiles() / ".zshrc", home() / ".zshrc")
+    symlink(dotfiles() / ".zproflie", config() / "zproflie")
 
 
 if __name__ == "__main__":
