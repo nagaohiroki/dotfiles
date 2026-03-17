@@ -36,7 +36,8 @@ def remove_path(path: pathlib.Path):
 
 
 def symlink(src: pathlib.Path, dst: pathlib.Path):
-    if src.exists():
+    if not src.exists():
+        print(f"skip symlink {src} -> {dst}")
         return
     if dst.exists():
         remove_path(dst)
@@ -48,8 +49,10 @@ def symlink(src: pathlib.Path, dst: pathlib.Path):
 def main():
     symlink(dotfiles() / "nvim", xdg() / "nvim")
     symlink(dotfiles() / "wezterm", config() / "wezterm")
+    if is_windows():
+        return
     symlink(dotfiles() / ".zshrc", home() / ".zshrc")
-    symlink(dotfiles() / ".zproflie", config() / "zproflie")
+    symlink(dotfiles() / ".zprofile", home() / ".zprofile")
 
 
 if __name__ == "__main__":
