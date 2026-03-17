@@ -2,6 +2,9 @@ import os
 import platform
 import pathlib
 import shutil
+import ctypes
+import sys
+import typing
 
 
 def is_windows() -> bool:
@@ -46,13 +49,34 @@ def symlink(src: pathlib.Path, dst: pathlib.Path):
     print(f"symlink {src} -> {dst}")
 
 
-def main():
+def is_admin() -> bool:
+    try:
+        return typing.cast(bool, ctypes.windll.shell32.IsUserAnAdmin())
+    except Exception:
+        return False
+
+
+def relaunch_as_admin():
+    params = " ".join(sys.argv)
+    ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, params, None, 1)
+
+
+def symlinks():
     symlink(dotfiles() / "nvim", xdg() / "nvim")
     symlink(dotfiles() / "wezterm", config() / "wezterm")
     if is_windows():
         return
     symlink(dotfiles() / ".zshrc", home() / ".zshrc")
     symlink(dotfiles() / ".zprofile", home() / ".zprofile")
+
+
+def main():
+    if is_windows():
+        if not is_admin():
+            relaunch_as_admin()
+            return
+    symlinks()
+    _ = input("Press Enter to exit...")
 
 
 if __name__ == "__main__":
