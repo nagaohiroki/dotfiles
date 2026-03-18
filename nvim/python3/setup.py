@@ -34,8 +34,6 @@ def xdg() -> pathlib.Path:
 
 
 def remove_path(path: pathlib.Path):
-    if not path.exists():
-        return
     if DRY_RUN:
         print(f"remove {path} (dry run)")
         return
@@ -54,10 +52,18 @@ def remove_path(path: pathlib.Path):
 
 def symlink(src: pathlib.Path, dst: pathlib.Path):
     if not src.exists():
-        print(f"skip symlink {src} -> {dst}")
+        print(f"skip symlink {src} -> {dst} (not exists)")
         return
     if dst.exists():
         remove_path(dst)
+    if DRY_RUN:
+        print(f"symlink {src} -> {dst} (dry run)")
+        return
+    if INTERACTIVE:
+        ans = input(f"symlink {src} -> {dst}? [y/N] ")
+        if ans.lower() != "y":
+            print(f"skip {src} -> {dst}")
+            return
     dst.parent.mkdir(parents=True, exist_ok=True)
     os.symlink(src, dst, target_is_directory=src.is_dir())
     print(f"symlink {src} -> {dst}")
@@ -75,13 +81,18 @@ def relaunch_as_admin():
     ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, params, None, 1)
 
 
-def symlinks():
-    symlink(dotfiles() / "nvim", xdg() / "nvim")
-    symlink(dotfiles() / "wezterm", config() / "wezterm")
+def dotlink(dir: pathlib.Path, filename: str):
+    symlink(dotfiles() / filename, dir / filename)
+
+
+def dotfiles_symlink():
+    dotlink(xdg(), "nvim")
+    dotlink(config(), "wezterm")
     if is_windows():
+        dotlink(home() / "Documents" / "PowerShell", "Microsoft.PowerShell_profile.ps1")
         return
-    symlink(dotfiles() / ".zshrc", home() / ".zshrc")
-    symlink(dotfiles() / ".zprofile", home() / ".zprofile")
+    dotlink(home(), ".zshrc")
+    dotlink(home(), ".zprofile")
 
 
 def main():
@@ -89,7 +100,7 @@ def main():
         if not is_admin():
             relaunch_as_admin()
             return
-    symlinks()
+    dotfiles_symlink()
     if is_windows():
         _ = input("Press Enter to exit...")
 
