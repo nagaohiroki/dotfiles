@@ -87,7 +87,7 @@ return {
   },
   {
     'mason-org/mason-lspconfig.nvim',
-    opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'jsonls' } }
+    opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'taplo' } }
   },
   {
     'mason-org/mason.nvim',
