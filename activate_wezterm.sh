@@ -1,2 +1,2 @@
 #!/bin/zsh
-osascript -e 'tell application "WezTerm" to activate'
+osascript -e 'tell application "wezterm" to activate'
