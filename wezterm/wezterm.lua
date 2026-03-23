@@ -23,6 +23,7 @@ config.text_background_opacity = 0.5
 config.window_background_opacity = 0.5
 config.macos_window_background_blur = 20
 config.win32_system_backdrop = 'Acrylic'
+config.color_scheme = 'Tokyo Night'
 config.window_frame =
 {
   inactive_titlebar_bg = 'none',
@@ -94,7 +95,7 @@ config.background = { {
 --     end
 --   end
 -- end
--- local max = 12
+-- local max = 15
 -- local interval_time = 5
 -- config.background = set_background_image_list(max)
 -- local init_random = math.random(0, max)
