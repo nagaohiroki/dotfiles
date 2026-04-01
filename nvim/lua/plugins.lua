@@ -15,7 +15,7 @@ return {
     'tpope/vim-fugitive',
     config = function() vim.keymap.set('n', '<leader>d', ':Gvdiffsplit<CR>') end
   },
-  { 'tyru/open-browser-github.vim' },
+  { 'tyru/open-browser-github.vim', dependencies = { 'tyru/open-browser.vim' } },
   {
     'tyru/open-browser.vim',
     config = function() vim.keymap.set('n', '<leader>o', '<Plug>(openbrowser-smart-search)') end
@@ -31,10 +31,10 @@ return {
     ft = { 'markdown' },
     opts = { completions = { lsp = { enabled = true } } }
   },
-  { 'j-hui/fidget.nvim',           opts = {} },
-  { 'uga-rosa/translate.nvim',     opts = {} },
-  { 'nvim-lua/plenary.nvim',       lazy = true },
-  { 'nvim-tree/nvim-web-devicons', opts = {},  lazy = true },
+  { 'j-hui/fidget.nvim',            opts = {} },
+  { 'uga-rosa/translate.nvim',      opts = {} },
+  { 'nvim-lua/plenary.nvim',        lazy = true },
+  { 'nvim-tree/nvim-web-devicons',  opts = {},                                 lazy = true },
   {
     'folke/tokyonight.nvim',
     lazy = false,
@@ -53,6 +53,12 @@ return {
       )
       vim.cmd.colorscheme('tokyonight-night')
     end
+  },
+  {
+    'folke/trouble.nvim',
+    opts = {},
+    cmd = 'Trouble',
+    keys = { { '<leader>u', '<cmd>Trouble lsp<CR>' } }
   },
   {
     'seblyng/roslyn.nvim',
