@@ -1,6 +1,6 @@
 local M = {}
 function M.setup()
-  vim.cmd('rshada')
+  vim.cmd('silent! rshada')
   if vim.fn.filereadable(vim.g.NVIM_SINGLETON) == 0 or vim.g.NVIM_SINGLETON == vim.v.servername then
     vim.g.NVIM_SINGLETON = vim.v.servername
     vim.cmd('wshada')
