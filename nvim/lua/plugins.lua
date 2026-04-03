@@ -58,7 +58,6 @@ return {
     'folke/trouble.nvim',
     opts = {},
     cmd = 'Trouble',
-    keys = { { '<leader>u', '<cmd>Trouble lsp<CR>' } }
   },
   {
     'seblyng/roslyn.nvim',

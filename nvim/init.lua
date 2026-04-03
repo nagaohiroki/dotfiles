@@ -157,6 +157,7 @@ vim.keymap.set('n', '<leader>s', [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
 vim.keymap.set('n', '+', function() FontResize(1) end)
 vim.keymap.set('n', '-', function() FontResize(-1) end)
 vim.keymap.set('n', '<leader>g', vim.lsp.buf.definition)
+vim.keymap.set('n', '<leader>u', vim.lsp.buf.references)
 if vim.g.GuiLoaded == 1 then
   require('winctrl').setup()
 end
