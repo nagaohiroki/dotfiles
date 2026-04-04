@@ -65,7 +65,7 @@ config.set_environment_variables =
 
 local unclear_opacity = 0.5
 config.background = { {
-  source = { File = wezterm.home_dir .. '/my_images/image10.jpg' },
+  source = { File = wezterm.home_dir .. '/my_images/image.jpg' },
   hsb = { brightness = 0.1 },
   opacity = unclear_opacity,
   vertical_align = 'Middle',
