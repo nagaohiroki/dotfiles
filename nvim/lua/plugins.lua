@@ -68,8 +68,7 @@ return {
   {
     'neovim/nvim-lspconfig',
     config = function()
-      vim.lsp.enable('basedpyright')
-      vim.lsp.enable('ruff')
+      vim.lsp.enable({ 'basedpyright', 'ruff' })
       vim.lsp.config('clangd', {
         filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hlsl' },
       })
@@ -186,18 +185,12 @@ return {
       vim.keymap.set('n', '<S-F5>', dap.disconnect)
     end
   },
-  { 'stevearc/oil.nvim', opts = {}, lazy = false },
+  { 'stevearc/oil.nvim', opts = {} },
   {
     'supermaven-inc/supermaven-nvim',
-    config = function()
-      require('supermaven-nvim').setup({
-        ignore_filetypes = { 'markdown', 'text' },
-        keymaps = {
-          accept_suggestion = '<C-g>',
-          clear_suggestion = '<C-q>',
-          accept_word = '<C-a>',
-        }
-      })
-    end
+    opts = {
+      ignore_filetypes = { 'markdown', 'text' },
+      keymaps = { accept_suggestion = '<C-g>', }
+    },
   },
 }
