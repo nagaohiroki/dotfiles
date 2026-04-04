@@ -53,9 +53,9 @@ config.keys =
   { key = 'UpArrow',    mods = 'ALT', action = window_resize(0, -add_size) },
   { key = 'DownArrow',  mods = 'ALT', action = window_resize(0, add_size) },
   {
-    key = 'r',
-    mods = 'ALT',
-    action = wezterm.action.ReloadConfiguration
+    key = ' ',
+    mods = 'CTRL',
+    action = wezterm.action.SendKey({ key = ' ', mods = 'CTRL' })
   },
 }
 config.set_environment_variables =
