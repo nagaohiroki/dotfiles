@@ -60,7 +60,9 @@
 				<dict>
 					<key>COMMAND_STRING</key>
 					<string>export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
-wezterm start -- nvim "$@"</string>
+wezterm start -- nvim "$@" &gt; /dev/null 2&gt;&amp;1 &amp;
+disown
+exit 0</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>
@@ -69,22 +71,6 @@ wezterm start -- nvim "$@"</string>
 					<string>/bin/zsh</string>
 					<key>source</key>
 					<string></string>
-				</dict>
-				<key>ActionRuntimeParameters</key>
-				<dict>
-					<key>COMMAND_STRING</key>
-					<string>export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
-wezterm start -- nvim "$@"</string>
-					<key>CheckedForUserDefaultShell</key>
-					<true/>
-					<key>inputMethod</key>
-					<integer>1</integer>
-					<key>shell</key>
-					<string>/bin/zsh</string>
-					<key>source</key>
-					<string></string>
-					<key>temporary items path</key>
-					<string>/var/folders/xm/xg4krkvd2_g9jndjyfy_r_880000gn/T/B4276C9E-AA21-4077-8955-E712F2BDEF14/1/com.apple.RunShellScript</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.RunShellScript</string>
@@ -186,8 +172,6 @@ wezterm start -- nvim "$@"</string>
 						<string>4</string>
 					</dict>
 				</dict>
-				<key>conversionLabel</key>
-				<integer>0</integer>
 				<key>isViewVisible</key>
 				<integer>1</integer>
 				<key>location</key>
