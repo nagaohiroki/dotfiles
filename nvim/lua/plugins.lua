@@ -187,6 +187,15 @@ return {
   },
   { 'stevearc/oil.nvim', opts = {} },
   {
+    'dstein64/nvim-scrollview',
+    opts =
+    {
+      current_only = true,
+      signs_on_startup = { 'all' },
+      diagnostics_severities = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN }
+    }
+  },
+  {
     'supermaven-inc/supermaven-nvim',
     opts = {
       ignore_filetypes = { 'markdown', 'text' },
