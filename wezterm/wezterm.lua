@@ -71,45 +71,5 @@ config.background = { {
   vertical_align = 'Middle',
   horizontal_align = 'Center',
 } }
--- local function set_background_image_list(count)
---   local image_list = {}
---   for i = 0, count do
---     local image = {
---       source = { File = string.format('%s/my_images/image%d.jpg', wezterm.home_dir, i) },
---       hsb = { brightness = 0.1 },
---       opacity = 0.0,
---       vertical_align = 'Middle',
---       horizontal_align = 'Center',
---     }
---     table.insert(image_list, image)
---   end
---   return image_list
--- end
---
--- local function update_bg_opacity(in_overrides, index)
---   for i, images in ipairs(in_overrides.background) do
---     if i == index + 1 then
---       images.opacity = unclear_opacity
---     else
---       images.opacity = 0.0
---     end
---   end
--- end
--- local max = 15
--- local interval_time = 5
--- config.background = set_background_image_list(max)
--- local init_random = math.random(0, max)
--- update_bg_opacity(config, init_random)
--- local last_time = os.time()
--- wezterm.on('update-status', function(window, _)
---   local now = os.time()
---   local delta = now - last_time
---   if delta < interval_time then return end
---   last_time = now
---   local new_random = math.random(0, max)
---   local overrides = window:get_config_overrides() or {}
---   overrides.background = overrides.background or config.background
---   update_bg_opacity(overrides, new_random)
---   window:set_config_overrides(overrides)
--- end)
+-- require('random_background').setup(wezterm, config, 5, 5)
 return config

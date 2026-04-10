@@ -195,11 +195,11 @@ return {
       diagnostics_severities = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN }
     }
   },
-  {
-    'supermaven-inc/supermaven-nvim',
-    opts = {
-      ignore_filetypes = { 'markdown', 'text' },
-      keymaps = { accept_suggestion = '<C-g>', }
-    },
-  },
+  -- {
+  --   'supermaven-inc/supermaven-nvim',
+  --   opts = {
+  --     ignore_filetypes = { 'markdown', 'text' },
+  --     keymaps = { accept_suggestion = '<C-g>', }
+  --   },
+  -- },
 }
