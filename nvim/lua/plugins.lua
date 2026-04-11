@@ -55,11 +55,6 @@ return {
     end
   },
   {
-    'folke/trouble.nvim',
-    opts = {},
-    cmd = 'Trouble',
-  },
-  {
     'seblyng/roslyn.nvim',
     config = function()
       require('roslyn').setup({ filewatching = 'roslyn' })
@@ -185,16 +180,21 @@ return {
       vim.keymap.set('n', '<S-F5>', dap.disconnect)
     end
   },
-  { 'stevearc/oil.nvim', opts = {} },
-  {
-    'dstein64/nvim-scrollview',
-    opts =
-    {
-      current_only = true,
-      signs_on_startup = { 'all' },
-      diagnostics_severities = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN }
-    }
-  },
+  -- { 'stevearc/oil.nvim', opts = {} },
+  -- {
+  --   'folke/trouble.nvim',
+  --   opts = {},
+  --   cmd = 'Trouble',
+  -- },
+  -- {
+  --   'dstein64/nvim-scrollview',
+  --   opts =
+  --   {
+  --     current_only = true,
+  --     signs_on_startup = { 'all' },
+  --     diagnostics_severities = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN }
+  --   }
+  -- },
   -- {
   --   'supermaven-inc/supermaven-nvim',
   --   opts = {
