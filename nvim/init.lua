@@ -62,42 +62,6 @@ vim.api.nvim_create_user_command('Utf8bomLF', function()
   vim.opt.fileformat = 'unix'
 end, {})
 vim.api.nvim_create_augroup('loading', {})
-
-local function FontResize(inc)
-  vim.g.fontSize = math.max(1, vim.g.fontSize + inc)
-  if vim.g.GuiLoaded == 1 then
-    vim.cmd('Guifont! ' .. vim.g.fontName .. ':h' .. vim.g.fontSize)
-  end
-  if vim.g.neovide then
-    vim.opt.guifont = vim.g.fontName .. ':h' .. vim.g.fontSize
-  end
-end
-
-vim.api.nvim_create_autocmd('UIEnter', {
-  group = 'loading',
-  once = true,
-  callback = function()
-    local fontTable =
-    {
-      { os = 'unix',  font = [[HackGen Console NF]], size = 14 },
-      { os = 'win32', font = [[HackGen Console NF]], size = 12 }
-    }
-    for _, f in pairs(fontTable) do
-      if vim.fn.has(f.os) == 1 then
-        vim.g.fontName = f.font
-        vim.g.fontSize = f.size
-      end
-    end
-    FontResize(0)
-    if vim.g.GuiLoaded == 1 then
-      vim.cmd('GuiWindowOpacity 0.95')
-      vim.cmd('GuiScrollBar 1')
-    end
-    if vim.g.neovide then
-      vim.g.neovide_transparency = 0.95
-    end
-  end
-})
 vim.api.nvim_create_autocmd('QuickFixCmdPost',
   {
     group = 'loading',
@@ -155,8 +119,7 @@ vim.keymap.set('n', '<leader>s', [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
 vim.keymap.set('n', '<leader>g', vim.lsp.buf.definition)
 vim.keymap.set('n', '<leader>u', vim.lsp.buf.references)
 if vim.g.GuiLoaded == 1 then
-  vim.keymap.set('n', '+', function() FontResize(1) end)
-  vim.keymap.set('n', '-', function() FontResize(-1) end)
+  require('fontresize').setup()
   require('winctrl').setup()
 end
 local lazypath = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')
