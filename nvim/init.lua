@@ -122,6 +122,7 @@ if vim.g.GuiLoaded == 1 then
   require('fontresize').setup()
   require('winctrl').setup()
 end
+require('vim._core.ui2').enable({})
 local lazypath = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
