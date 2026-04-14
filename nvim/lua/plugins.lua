@@ -17,13 +17,7 @@ return {
   },
   {
     'tyru/open-browser-github.vim',
-    cmd = {
-      'OpenGithubCommit',
-      'OpenGithubFile',
-      'OpenGithubProject',
-      'OpenGithubPullReq',
-      'OpenGithubPullIssue',
-    }
+    cmd = { 'OpenGithubCommit', 'OpenGithubFile', 'OpenGithubProject', 'OpenGithubPullReq', 'OpenGithubPullIssue' }
   },
   {
     'tyru/open-browser.vim',
@@ -189,21 +183,7 @@ return {
       vim.keymap.set('n', '<S-F5>', dap.disconnect)
     end
   },
-  -- { 'stevearc/oil.nvim', opts = {} },
-  -- {
-  --   'folke/trouble.nvim',
-  --   opts = {},
-  --   cmd = 'Trouble',
-  -- },
-  -- {
-  --   'dstein64/nvim-scrollview',
-  --   opts =
-  --   {
-  --     current_only = true,
-  --     signs_on_startup = { 'all' },
-  --     diagnostics_severities = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN }
-  --   }
-  -- },
+  { 'stevearc/oil.nvim', opts = {} },
   -- {
   --   'supermaven-inc/supermaven-nvim',
   --   opts = {
