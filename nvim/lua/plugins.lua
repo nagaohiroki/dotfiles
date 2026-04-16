@@ -33,7 +33,7 @@ return {
     ft = { 'markdown' },
     opts = { completions = { lsp = { enabled = true } } }
   },
-  { 'j-hui/fidget.nvim',           opts = {} },
+  { 'j-hui/fidget.nvim',           opts = {},  event = 'LspAttach' },
   { 'uga-rosa/translate.nvim',     opts = {},  cmd = { 'Translate' } },
   { 'nvim-lua/plenary.nvim',       lazy = true },
   { 'nvim-tree/nvim-web-devicons', opts = {},  lazy = true },
