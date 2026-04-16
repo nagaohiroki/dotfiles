@@ -1,6 +1,10 @@
 return {
   'equalsraf/neovim-gui-shim',
-  'mhinz/vim-signify',
+  {
+    'mhinz/vim-signify',
+    event = { 'BufReadPre', 'BufNewFile' },
+    init = function() vim.g.signify_update_on_bufenter = 1 end,
+  },
   {
     'kana/vim-altr',
     config = function()
