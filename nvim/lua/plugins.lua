@@ -9,8 +9,6 @@ return {
     end,
     keys = { { '<leader>a', '<Plug>(altr-forward)' } }
   },
-  'tpope/vim-rhubarb',
-  'junegunn/gv.vim',
   {
     'tpope/vim-fugitive',
     cmd = { 'G' },
@@ -80,8 +78,8 @@ return {
   },
   {
     'hrsh7th/nvim-cmp',
-    dependencies =
-    {
+    event = { 'InsertEnter', 'CmdlineEnter' },
+    dependencies = {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-nvim-lsp-signature-help',
@@ -145,9 +143,7 @@ return {
       'rcarriga/nvim-dap-ui',
       'nvim-neotest/nvim-nio',
     },
-    config = function()
-      require('dapui').setup()
-    end,
+    config = function() require('dapui').setup() end,
     keys = {
       { '<F5>',     function() require('dap').continue() end },
       { '<C-F5>',   function() require('dap').run_last() end },
@@ -157,8 +153,8 @@ return {
       { '<F9>',     function() require('dap').toggle_breakpoint() end },
       { '<C-F9>',   function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end },
       { '<S-C-F9>', function() require('dap').clear_breakpoints() end },
-      { '<F12>',    function() require('dap.ui.widgets').hover() end },
       { '<S-F5>',   function() require('dap').disconnect() end },
+      { '<F12>',    function() require('dap.ui.widgets').hover() end },
       { '<F6>',     function() require('dapui').toggle() end },
     },
   },
