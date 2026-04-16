@@ -34,7 +34,7 @@ return {
     opts = { completions = { lsp = { enabled = true } } }
   },
   { 'j-hui/fidget.nvim',           opts = {} },
-  { 'uga-rosa/translate.nvim',     opts = {} },
+  { 'uga-rosa/translate.nvim',     opts = {},  cmd = { 'Translate' } },
   { 'nvim-lua/plenary.nvim',       lazy = true },
   { 'nvim-tree/nvim-web-devicons', opts = {},  lazy = true },
   {
@@ -63,10 +63,12 @@ return {
   { 'neovim/nvim-lspconfig', },
   {
     'mason-org/mason-lspconfig.nvim',
+    event = 'VeryLazy',
     opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'taplo' } }
   },
   {
     'mason-org/mason.nvim',
+    cmd = { 'Mason', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonLog', 'MasonUpdate' },
     opts =
     {
       registries =
@@ -136,7 +138,7 @@ return {
       { '<leader>m', function() require('telescope').extensions.frecency.frecency({ hidden = true }) end },
     }
   },
-  { 'nagaohiroki/unity.nvim', opts = {} },
+  { 'nagaohiroki/unity.nvim', ft = { 'cs' }, opts = {} },
   {
     'mfussenegger/nvim-dap',
     dependencies = {
