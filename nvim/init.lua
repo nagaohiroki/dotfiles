@@ -118,6 +118,23 @@ vim.keymap.set({ 'n', 'v' }, '<C-p>', '"0p')
 vim.keymap.set('n', '<leader>s', [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
 vim.keymap.set('n', '<leader>g', vim.lsp.buf.definition)
 vim.keymap.set('n', '<leader>u', vim.lsp.buf.references)
+vim.lsp.enable({ 'basedpyright', 'ruff' })
+vim.lsp.config('clangd', { filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hlsl' }, })
+vim.lsp.config('lua_ls', {
+  on_init = function(client)
+    client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+      runtime = {
+        version = 'LuaJIT',
+        path = { 'lua/?.lua', 'lua/?/init.lua', },
+      },
+      workspace = {
+        checkThirdParty = false,
+        library = { vim.env.VIMRUNTIME }
+      }
+    })
+  end,
+  settings = { Lua = {} }
+})
 if vim.g.GuiLoaded == 1 then
   require('fontresize').setup()
   require('winctrl').setup()

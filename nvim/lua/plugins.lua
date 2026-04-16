@@ -4,16 +4,17 @@ return {
   {
     'kana/vim-altr',
     config = function()
-      vim.keymap.set('n', '<leader>a', '<Plug>(altr-forward)')
       vim.fn['altr#define']('Private/%.cpp', 'Private/*/%.cpp', 'Public/%.h', 'Public/*/%.h', 'Classes/%.h',
         'Classes/*/%.h')
-    end
+    end,
+    keys = { { '<leader>a', '<Plug>(altr-forward)' } }
   },
   'tpope/vim-rhubarb',
   'junegunn/gv.vim',
   {
     'tpope/vim-fugitive',
-    config = function() vim.keymap.set('n', '<leader>d', ':Gvdiffsplit<CR>') end
+    cmd = { 'G' },
+    keys = { { '<leader>d', ':Gvdiffsplit<CR>' } }
   },
   {
     'tyru/open-browser-github.vim',
@@ -21,7 +22,7 @@ return {
   },
   {
     'tyru/open-browser.vim',
-    config = function() vim.keymap.set('n', '<leader>o', '<Plug>(openbrowser-smart-search)') end
+    keys = { { '<leader>o', '<Plug>(openbrowser-smart-search)' } }
   },
   {
     'iamcco/markdown-preview.nvim',
@@ -59,34 +60,9 @@ return {
   },
   {
     'seblyng/roslyn.nvim',
-    config = function()
-      require('roslyn').setup({ filewatching = 'roslyn' })
-    end
+    opts = { filewatching = 'roslyn' }
   },
-  {
-    'neovim/nvim-lspconfig',
-    config = function()
-      vim.lsp.enable({ 'basedpyright', 'ruff' })
-      vim.lsp.config('clangd', {
-        filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hlsl' },
-      })
-      vim.lsp.config('lua_ls', {
-        on_init = function(client)
-          client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-            runtime = {
-              version = 'LuaJIT',
-              path = { 'lua/?.lua', 'lua/?/init.lua', },
-            },
-            workspace = {
-              checkThirdParty = false,
-              library = { vim.env.VIMRUNTIME }
-            }
-          })
-        end,
-        settings = { Lua = {} }
-      })
-    end
-  },
+  { 'neovim/nvim-lspconfig', },
   {
     'mason-org/mason-lspconfig.nvim',
     opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'taplo' } }
@@ -102,14 +78,17 @@ return {
       }
     }
   },
-  'hrsh7th/cmp-nvim-lsp',
-  'hrsh7th/cmp-buffer',
-  'hrsh7th/cmp-nvim-lsp-signature-help',
-  'hrsh7th/cmp-vsnip',
-  'hrsh7th/vim-vsnip',
-  'rafamadriz/friendly-snippets',
   {
     'hrsh7th/nvim-cmp',
+    dependencies =
+    {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+      'hrsh7th/cmp-vsnip',
+      'hrsh7th/vim-vsnip',
+      'rafamadriz/friendly-snippets',
+    },
     config = function()
       local cmp = require('cmp')
       cmp.setup({
@@ -135,55 +114,55 @@ return {
       vim.keymap.set('i', '<C-s>', function() return [[<Plug>(vsnip-expand)]] or [[<C-s>]] end, { expr = true })
     end
   },
-  { 'nvim-telescope/telescope-file-browser.nvim',   lazy = true },
-  { 'nvim-telescope/telescope-frecency.nvim',       lazy = true },
-  { 'nvim-telescope/telescope-live-grep-args.nvim', lazy = true },
   {
     'nvim-telescope/telescope.nvim',
+    dependencies = {
+      'nvim-telescope/telescope-file-browser.nvim',
+      'nvim-telescope/telescope-frecency.nvim',
+      'nvim-telescope/telescope-live-grep-args.nvim',
+    },
     config = function()
       local telescope = require('telescope')
       telescope.setup { defaults = { preview = false }, }
       telescope.load_extension('frecency')
       telescope.load_extension('file_browser')
       telescope.load_extension('live_grep_args')
-      local builtin = require('telescope.builtin')
-      local ext = telescope.extensions
-      vim.keymap.set('n', '<leader>f', function() builtin.find_files({ hidden = true }) end)
-      vim.keymap.set('n', '<leader>r', function() builtin.grep_string({ hidden = true }) end)
-      vim.keymap.set('n', '<leader>t', function() builtin.resume({ hidden = true }) end)
-      vim.keymap.set('n', '<leader>n', function() ext.file_browser.file_browser({ hidden = true }) end)
-      vim.keymap.set('n', '<leader>i', function() ext.live_grep_args.live_grep_args({ hidden = true }) end)
-      vim.keymap.set('n', '<leader>m', function() ext.frecency.frecency({ hidden = true }) end)
-    end
+    end,
+    keys =
+    {
+      { '<leader>f', function() require('telescope.builtin').find_files({ hidden = true }) end },
+      { '<leader>r', function() require('telescope.builtin').grep_string({ hidden = true }) end },
+      { '<leader>t', function() require('telescope.builtin').resume({ hidden = true }) end },
+      { '<leader>n', function() require('telescope').extensions.file_browser.file_browser({ hidden = true }) end },
+      { '<leader>i', function() require('telescope').extensions.live_grep_args.live_grep_args({ hidden = true }) end },
+      { '<leader>m', function() require('telescope').extensions.frecency.frecency({ hidden = true }) end },
+    }
   },
   { 'nagaohiroki/unity.nvim', opts = {} },
-  { 'nvim-neotest/nvim-nio',  lazy = true },
-  {
-    'rcarriga/nvim-dap-ui',
-    config = function()
-      local dapui = require('dapui')
-      dapui.setup()
-      vim.keymap.set('n', '<F6>', dapui.toggle)
-    end
-  },
   {
     'mfussenegger/nvim-dap',
+    dependencies = {
+      'rcarriga/nvim-dap-ui',
+      'nvim-neotest/nvim-nio',
+    },
     config = function()
-      local dap    = require('dap')
-      local widget = require('dap.ui.widgets')
-      vim.keymap.set('n', '<F5>', dap.continue)
-      vim.keymap.set('n', '<C-F5>', dap.run_last)
-      vim.keymap.set('n', '<F10>', dap.step_over)
-      vim.keymap.set('n', '<F11>', dap.step_into)
-      vim.keymap.set('n', '<S-F11>', dap.step_out)
-      vim.keymap.set('n', '<F9>', dap.toggle_breakpoint)
-      vim.keymap.set('n', '<C-F9>', function() dap.set_breakpoint(vim.fn.input(''), nil, nil) end)
-      vim.keymap.set('n', '<S-C-F9>', dap.clear_breakpoints)
-      vim.keymap.set('n', '<F12>', widget.hover)
-      vim.keymap.set('n', '<S-F5>', dap.disconnect)
-    end
+      require('dapui').setup()
+    end,
+    keys = {
+      { '<F5>',     function() require('dap').continue() end },
+      { '<C-F5>',   function() require('dap').run_last() end },
+      { '<F10>',    function() require('dap').step_over() end },
+      { '<F11>',    function() require('dap').step_into() end },
+      { '<S-F11>',  function() require('dap').step_out() end },
+      { '<F9>',     function() require('dap').toggle_breakpoint() end },
+      { '<C-F9>',   function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end },
+      { '<S-C-F9>', function() require('dap').clear_breakpoints() end },
+      { '<F12>',    function() require('dap.ui.widgets').hover() end },
+      { '<S-F5>',   function() require('dap').disconnect() end },
+      { '<F6>',     function() require('dapui').toggle() end },
+    },
   },
-  { 'stevearc/oil.nvim', opts = {} },
+  { 'stevearc/oil.nvim', opts = {}, cmd = 'Oil' },
   -- {
   --   'supermaven-inc/supermaven-nvim',
   --   opts = {
