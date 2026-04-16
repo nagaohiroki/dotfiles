@@ -16,7 +16,7 @@ return {
   {
     'tpope/vim-fugitive',
     cmd = { 'G' },
-    keys = { { '<leader>d', ':Gvdiffsplit<CR>' } }
+    keys = { { '<leader>d', '<cmd>Gvdiffsplit<CR>' } }
   },
   {
     'tyru/open-browser-github.vim',
@@ -37,10 +37,10 @@ return {
     ft = { 'markdown' },
     opts = { completions = { lsp = { enabled = true } } }
   },
-  { 'j-hui/fidget.nvim',           opts = {},  event = 'LspAttach' },
-  { 'uga-rosa/translate.nvim',     opts = {},  cmd = { 'Translate' } },
-  { 'nvim-lua/plenary.nvim',       lazy = true },
-  { 'nvim-tree/nvim-web-devicons', opts = {},  lazy = true },
+  { 'j-hui/fidget.nvim',           opts = {}, event = 'LspAttach' },
+  { 'uga-rosa/translate.nvim',     opts = {}, cmd = { 'Translate' } },
+  { 'nvim-lua/plenary.nvim' },
+  { 'nvim-tree/nvim-web-devicons', opts = {}, lazy = true },
   {
     'folke/tokyonight.nvim',
     lazy = false,
@@ -64,7 +64,7 @@ return {
     'seblyng/roslyn.nvim',
     opts = { filewatching = 'roslyn' }
   },
-  { 'neovim/nvim-lspconfig', },
+  { 'neovim/nvim-lspconfig' },
   {
     'mason-org/mason-lspconfig.nvim',
     event = 'VeryLazy',
@@ -125,21 +125,35 @@ return {
       'nvim-telescope/telescope-frecency.nvim',
       'nvim-telescope/telescope-live-grep-args.nvim',
     },
-    config = function()
-      local telescope = require('telescope')
-      telescope.setup { defaults = { preview = false }, }
-      telescope.load_extension('frecency')
-      telescope.load_extension('file_browser')
-      telescope.load_extension('live_grep_args')
-    end,
+    opts = { defaults = { preview = false } },
     keys =
     {
       { '<leader>f', function() require('telescope.builtin').find_files({ hidden = true }) end },
       { '<leader>r', function() require('telescope.builtin').grep_string({ hidden = true }) end },
       { '<leader>t', function() require('telescope.builtin').resume({ hidden = true }) end },
-      { '<leader>n', function() require('telescope').extensions.file_browser.file_browser({ hidden = true }) end },
-      { '<leader>i', function() require('telescope').extensions.live_grep_args.live_grep_args({ hidden = true }) end },
-      { '<leader>m', function() require('telescope').extensions.frecency.frecency({ hidden = true }) end },
+      {
+        '<leader>n',
+        function()
+          local telescope = require('telescope')
+          telescope.load_extension('file_browser')
+          telescope.extensions.file_browser.file_browser({ hidden = true })
+        end },
+      {
+        '<leader>i',
+        function()
+          local telescope = require('telescope')
+          telescope.telescopeload_extension('live_grep_args')
+          telescope.telescopeextensions.live_grep_args.live_grep_args({ hidden = true })
+        end
+      },
+      {
+        '<leader>m',
+        function()
+          local telescope = require('telescope')
+          telescope.load_extension('frecency')
+          telescope.extensions.frecency.frecency({ hidden = true })
+        end
+      },
     }
   },
   { 'nagaohiroki/unity.nvim', ft = { 'cs' }, opts = {} },
