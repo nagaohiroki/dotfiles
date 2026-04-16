@@ -1,5 +1,5 @@
 return {
-  'equalsraf/neovim-gui-shim',
+  { 'equalsraf/neovim-gui-shim' },
   {
     'mhinz/vim-signify',
     event = { 'BufReadPre', 'BufNewFile' },
@@ -99,14 +99,15 @@ return {
         snippet = {
           expand = function(args) vim.fn['vsnip#anonymous'](args.body) end,
         },
-        mapping = {
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<CR>'] = cmp.mapping.confirm(),
-          ['<Tab>'] = cmp.mapping.select_next_item(),
-          ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-          ['<Down>'] = cmp.mapping.select_next_item(),
-          ['<Up>'] = cmp.mapping.select_prev_item(),
-        },
+        mapping =
+            cmp.mapping.preset.insert({
+              ['<C-Space>'] = cmp.mapping.complete(),
+              ['<CR>'] = cmp.mapping.confirm(),
+              ['<Tab>'] = cmp.mapping.select_next_item(),
+              ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+              ['<Down>'] = cmp.mapping.select_next_item(),
+              ['<Up>'] = cmp.mapping.select_prev_item(),
+            }),
         sources = {
           { name = 'nvim_lsp' },
           { name = 'vsnip' },
@@ -115,8 +116,8 @@ return {
           { name = 'render-markdown' },
         }
       })
-      vim.keymap.set('i', '<C-s>', function() return [[<Plug>(vsnip-expand)]] or [[<C-s>]] end, { expr = true })
-    end
+    end,
+    keys = { { '<C-s>', function() return '<Plug>(vsnip-expand)' end, mode = 'i', expr = true } }
   },
   {
     'nvim-telescope/telescope.nvim',
@@ -142,8 +143,8 @@ return {
         '<leader>i',
         function()
           local telescope = require('telescope')
-          telescope.telescopeload_extension('live_grep_args')
-          telescope.telescopeextensions.live_grep_args.live_grep_args({ hidden = true })
+          telescope.load_extension('live_grep_args')
+          telescope.extensions.live_grep_args.live_grep_args({ hidden = true })
         end
       },
       {
