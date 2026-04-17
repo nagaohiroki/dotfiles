@@ -15,7 +15,7 @@ return {
   },
   {
     'tpope/vim-fugitive',
-    cmd = { 'G' },
+    cmd = { 'G', 'Gread' },
     keys = { { '<leader>d', '<cmd>Gvdiffsplit<CR>' } }
   },
   {
