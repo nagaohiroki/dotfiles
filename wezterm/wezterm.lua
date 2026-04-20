@@ -1,29 +1,23 @@
 local wezterm = require 'wezterm'
-local function is_windows()
-  return wezterm.target_triple == 'x86_64-pc-windows-msvc'
-end
-local function is_mac()
-  return wezterm.target_triple == 'aarch64-apple-darwin'
-end
 local config = {}
 config = wezterm.config_builder()
+if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
+  config.font_size = 12
+  config.default_prog = { 'pwsh', '-NoLogo' }
+  config.win32_system_backdrop = 'Acrylic'
+end
+if wezterm.target_triple == 'aarch64-apple-darwin' then
+  config.font_size = 14
+  config.macos_forward_to_ime_modifier_mask = 'SHIFT|CTRL'
+  config.macos_window_background_blur = 20
+end
 config.use_ime = true
 config.enable_scroll_bar = true
 config.font = wezterm.font_with_fallback({ [[HackGen Console NF]] })
-if is_windows() then
-  config.font_size = 12
-  config.default_prog = { 'pwsh', '-NoLogo' }
-end
-if is_mac() then
-  config.font_size = 14
-end
 config.adjust_window_size_when_changing_font_size = false
 config.hide_tab_bar_if_only_one_tab = true
 config.text_background_opacity = 0.5
 config.window_background_opacity = 0.5
-config.macos_forward_to_ime_modifier_mask = 'SHIFT|CTRL'
-config.macos_window_background_blur = 20
-config.win32_system_backdrop = 'Acrylic'
 config.color_scheme = 'Tokyo Night'
 config.window_frame =
 {

@@ -6,7 +6,6 @@ brew install git
 brew install ripgrep
 brew install zoxide
 brew install fzf
-brew install atuin
 brew install --cask wezterm
 brew install --cask blender
 brew install --cask krita
