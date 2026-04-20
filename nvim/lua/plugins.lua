@@ -24,7 +24,7 @@ return {
   },
   {
     'tyru/open-browser.vim',
-    keys = { { '<leader>o', '<Plug>(openbrowser-smart-search)' } }
+    keys = { { '<leader>b', '<Plug>(openbrowser-smart-search)' } }
   },
   {
     'iamcco/markdown-preview.nvim',
@@ -183,7 +183,12 @@ return {
       { '<F6>',     function() require('dapui').toggle() end },
     },
   },
-  { 'stevearc/oil.nvim',      opts = {},     cmd = 'Oil' },
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    cmd = 'Oil',
+    keys = { { '<leader>o', '<cmd>Oil<CR>' } }
+  },
   -- {
   --   'supermaven-inc/supermaven-nvim',
   --   opts = {
