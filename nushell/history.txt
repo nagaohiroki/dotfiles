@@ -1,0 +1,87 @@
+ls
+z do
+z d
+nvim
+ls
+nu config
+config nu
+exit
+nvimt
+nvim
+exit
+ls
+nvim
+exit
+ls
+tree
+z ..
+cd ..
+cd AppData\
+cd Roaming\
+cd nushell\
+starship init nu | starship/init.nu
+starship init nu
+starship init nu | save -f starship.nu
+atuin init nu | save -f atuin.nu
+zoxide init nu | save -f zoxide.nu
+nvim
+exit
+exit
+zi
+fzf
+z d
+nu --version
+rm zoxide.nu
+zoxide init nushell | save -f zoxide.nu
+nvim
+exit
+exit
+z d
+ls
+git diff .
+git pull
+nvim
+ls
+update_app.ps1
+pwsh update_app.ps1
+ls
+starship
+nvim
+exit
+ls
+nvim
+exit
+ls
+fzf
+cd ..
+cd work
+cd Dice
+fzf
+zi
+ls
+zi
+nvim --startuptime time.txt
+rm time.txt
+nvim
+/opt/homebrew/bin/brew shellenv | save -f brew_env.nu
+nvim --startuptime time.txt
+exit
+z d
+zi
+nvim env.nu
+exit
+nvim
+exit
+his
+history
+nvim
+scoop unistall atuin
+scoop uninstall atuin
+nvim
+ls
+nvim
+exit
+nvim
+exit
+z d
+ls

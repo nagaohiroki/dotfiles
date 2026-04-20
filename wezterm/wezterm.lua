@@ -4,12 +4,14 @@ config = wezterm.config_builder()
 if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
   config.font_size = 12
   config.default_prog = { 'pwsh', '-NoLogo' }
+  -- config.default_prog = { 'nu' }
   config.win32_system_backdrop = 'Acrylic'
 end
 if wezterm.target_triple == 'aarch64-apple-darwin' then
   config.font_size = 14
   config.macos_forward_to_ime_modifier_mask = 'SHIFT|CTRL'
   config.macos_window_background_blur = 20
+  -- config.default_prog = { '/opt/homebrew/bin/nu' }
 end
 config.use_ime = true
 config.enable_scroll_bar = true
