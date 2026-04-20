@@ -8,5 +8,8 @@ scoop install ripgrep
 scoop install uv
 scoop install blender
 scoop install krita
+scoop install fzf
+scoop install zoxide
+scoop install atuin
 uv tool install basedpyright
 uv tool install ruff

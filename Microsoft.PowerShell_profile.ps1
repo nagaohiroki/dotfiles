@@ -1,4 +1,4 @@
 import-Module PSReadLine
 Invoke-Expression (&'starship' init powershell)
-Set-PSReadLineOption -PredictionSource History
-Set-PSReadLineKeyHandler -Key Ctrl+r -Function ReverseSearchHistory
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+Invoke-Expression (& { (atuin init powershell | Out-String) })

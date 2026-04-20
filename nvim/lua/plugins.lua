@@ -37,10 +37,10 @@ return {
     ft = { 'markdown' },
     opts = { completions = { lsp = { enabled = true } } }
   },
-  { 'j-hui/fidget.nvim',           opts = {}, event = 'LspAttach' },
-  { 'uga-rosa/translate.nvim',     opts = {}, cmd = { 'Translate' } },
-  { 'nvim-lua/plenary.nvim' },
-  { 'nvim-tree/nvim-web-devicons', opts = {}, lazy = true },
+  { 'j-hui/fidget.nvim',           opts = {},  event = 'LspAttach' },
+  { 'uga-rosa/translate.nvim',     opts = {},  cmd = { 'Translate' } },
+  { 'nvim-lua/plenary.nvim',       lazy = true },
+  { 'nvim-tree/nvim-web-devicons', opts = {},  lazy = true },
   {
     'folke/tokyonight.nvim',
     lazy = false,
@@ -60,10 +60,7 @@ return {
       vim.cmd.colorscheme('tokyonight-night')
     end
   },
-  {
-    'seblyng/roslyn.nvim',
-    opts = { filewatching = 'roslyn' }
-  },
+  { 'seblyng/roslyn.nvim',  ft = { 'cs' } },
   { 'neovim/nvim-lspconfig' },
   {
     'mason-org/mason-lspconfig.nvim',
@@ -122,9 +119,11 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     dependencies = {
+      'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-file-browser.nvim',
       'nvim-telescope/telescope-frecency.nvim',
       'nvim-telescope/telescope-live-grep-args.nvim',
+      'jvgrootveld/telescope-zoxide'
     },
     opts = { defaults = { preview = false } },
     keys =
@@ -135,26 +134,31 @@ return {
       {
         '<leader>n',
         function()
-          local telescope = require('telescope')
-          telescope.load_extension('file_browser')
-          telescope.extensions.file_browser.file_browser({ hidden = true })
+          require('telescope').load_extension('file_browser')
+          require('telescope').extensions.file_browser.file_browser({ hidden = true })
         end },
       {
         '<leader>i',
         function()
-          local telescope = require('telescope')
-          telescope.load_extension('live_grep_args')
-          telescope.extensions.live_grep_args.live_grep_args({ hidden = true })
+          require('telescope').load_extension('live_grep_args')
+          require('telescope').extensions.live_grep_args.live_grep_args({ hidden = true })
         end
       },
       {
         '<leader>m',
         function()
-          local telescope = require('telescope')
-          telescope.load_extension('frecency')
-          telescope.extensions.frecency.frecency({ hidden = true })
+          require('telescope').load_extension('frecency')
+          require('telescope').extensions.frecency.frecency({ hidden = true })
         end
       },
+      {
+        '<leader>z',
+        function()
+          local telescope = require('telescope')
+          telescope.load_extension('zoxide')
+          telescope.extensions.zoxide.list()
+        end
+      }
     }
   },
   { 'nagaohiroki/unity.nvim', ft = { 'cs' }, opts = {} },
@@ -179,7 +183,7 @@ return {
       { '<F6>',     function() require('dapui').toggle() end },
     },
   },
-  { 'stevearc/oil.nvim', opts = {}, cmd = 'Oil' },
+  { 'stevearc/oil.nvim',      opts = {},     cmd = 'Oil' },
   -- {
   --   'supermaven-inc/supermaven-nvim',
   --   opts = {

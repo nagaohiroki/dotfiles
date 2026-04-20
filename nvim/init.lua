@@ -120,6 +120,7 @@ vim.keymap.set('n', '<leader>g', vim.lsp.buf.definition)
 vim.keymap.set('n', '<leader>u', vim.lsp.buf.references)
 vim.lsp.enable({ 'basedpyright', 'ruff' })
 vim.lsp.config('clangd', { filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hlsl' }, })
+vim.lsp.config('roslyn', { capabilities = { workspace = { didChangeWatchedFiles = { dynamicRegistration = false } } } })
 vim.lsp.config('lua_ls', {
   on_init = function(client)
     client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
