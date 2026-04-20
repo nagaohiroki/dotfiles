@@ -187,7 +187,7 @@ return {
     'stevearc/oil.nvim',
     opts = { view_options = { show_hidden = true } },
     cmd = { 'Oil' },
-    keys = { { '-', '<cmd>Oil<CR>' } }
+    keys = { { '<leader>o', '<cmd>Oil<CR>' } }
   },
   -- {
   --   'supermaven-inc/supermaven-nvim',
