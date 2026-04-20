@@ -15,6 +15,10 @@ def is_windows() -> bool:
     return platform.system() == "Windows"
 
 
+def is_macos() -> bool:
+    return platform.system() == "Darwin"
+
+
 def home() -> pathlib.Path:
     return pathlib.Path.home()
 
@@ -30,6 +34,14 @@ def config() -> pathlib.Path:
 def xdg() -> pathlib.Path:
     if is_windows():
         return pathlib.Path(os.environ["LOCALAPPDATA"])
+    return config()
+
+
+def xdg_config() -> pathlib.Path:
+    if is_windows():
+        return pathlib.Path(os.environ["APPDATA"])
+    if is_macos():
+        return home() / "Library" / "Application Support"
     return config()
 
 
@@ -87,6 +99,7 @@ def dotlink(dir: pathlib.Path, filename: str):
 
 def dotfiles_symlink():
     dotlink(xdg(), "nvim")
+    dotlink(xdg_config(), "nushell")
     dotlink(config(), "wezterm")
     if is_windows():
         dotlink(home() / "Documents" / "PowerShell", "Microsoft.PowerShell_profile.ps1")
