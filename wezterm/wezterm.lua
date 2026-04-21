@@ -1,25 +1,23 @@
 local wezterm = require 'wezterm'
 local config = {}
 config = wezterm.config_builder()
-local nu = 'nu'
 local dot_dir = wezterm.home_dir .. '/dotfiles'
+config.set_environment_variables =
+{
+  STARSHIP_CONFIG = dot_dir .. '/starship.toml',
+  XDG_CONFIG_HOME = dot_dir
+}
 if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
   config.font_size = 12
-  -- config.default_prog = { 'pwsh', '-NoLogo' }
   config.win32_system_backdrop = 'Acrylic'
+  config.default_prog = { 'nu' }
 end
 if wezterm.target_triple == 'aarch64-apple-darwin' then
   config.font_size = 14
   config.macos_forward_to_ime_modifier_mask = 'SHIFT|CTRL'
   config.macos_window_background_blur = 20
-  nu = '/opt/homebrew/bin/nu'
+  config.default_prog = { '/opt/homebrew/bin/nu' }
 end
-config.default_prog =
-{
-  nu,
-  '--config', dot_dir .. '/nushell/config.nu',
-  '--env-config', dot_dir .. '/nushell/env.nu'
-}
 config.use_ime = true
 config.enable_scroll_bar = true
 config.font = wezterm.font_with_fallback({ [[HackGen Console NF]] })
@@ -62,16 +60,11 @@ config.keys =
     action = wezterm.action.SendKey({ key = ' ', mods = 'CTRL' })
   },
 }
-config.set_environment_variables =
-{
-  STARSHIP_CONFIG = dot_dir .. '/starship.toml',
-  XDG_CONFIG_HOME = dot_dir
-}
-local unclear_opacity = 0.5
-config.background = { {
+config.background =
+{ {
   source = { File = wezterm.home_dir .. '/my_images/image.jpg' },
   hsb = { brightness = 0.1 },
-  opacity = unclear_opacity,
+  opacity = 0.5,
   vertical_align = 'Middle',
   horizontal_align = 'Center',
 } }
