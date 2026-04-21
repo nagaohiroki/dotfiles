@@ -75,8 +75,11 @@ def symlink(src: pathlib.Path, dst: pathlib.Path):
             print(f"skip {src} -> {dst}")
             return
     dst.parent.mkdir(parents=True, exist_ok=True)
-    os.symlink(src, dst, target_is_directory=src.is_dir())
-    print(f"symlink {src} -> {dst}")
+    try:
+        dst.symlink_to(src, target_is_directory=src.is_dir())
+        print(f"symlink {src} -> {dst}")
+    except OSError as e:
+        print(f"Error {e}")
 
 
 def is_admin() -> bool:
