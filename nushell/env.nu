@@ -21,3 +21,5 @@ if ($nu.os-info.name == "macos") {
     $env.PATH = ($env.PATH | prepend "/opt/homebrew/bin")
     $env.HOMEBREW_PREFIX = "/opt/homebrew"
 }
+$env.EDITOR = "nvim"
+$env.buffer_editor = "nvim"

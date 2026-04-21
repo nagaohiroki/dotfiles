@@ -7,10 +7,6 @@ import sys
 import typing
 
 
-DRY_RUN = "--dry-run" in sys.argv
-INTERACTIVE = "--interactive" in sys.argv
-
-
 def is_windows() -> bool:
     return platform.system() == "Windows"
 
@@ -45,11 +41,11 @@ def xdg_config() -> pathlib.Path:
     return config()
 
 
-def remove_path(path: pathlib.Path):
-    if DRY_RUN:
+def remove_path(path: pathlib.Path, dry_run: bool, interactive: bool):
+    if dry_run:
         print(f"remove {path} (dry run)")
         return
-    if INTERACTIVE:
+    if interactive:
         ans = input(f"remove {path}? [y/N] ")
         if ans.lower() != "y":
             print(f"skip {path}")
@@ -63,15 +59,17 @@ def remove_path(path: pathlib.Path):
 
 
 def symlink(src: pathlib.Path, dst: pathlib.Path):
+    dry_run: bool = "--dry-run" in sys.argv
+    interactive: bool = "--interactive" in sys.argv
     if not src.exists():
         print(f"skip symlink {src} -> {dst} (not exists)")
         return
     if dst.exists():
-        remove_path(dst)
-    if DRY_RUN:
+        remove_path(dst, dry_run, interactive)
+    if dry_run:
         print(f"symlink {src} -> {dst} (dry run)")
         return
-    if INTERACTIVE:
+    if interactive:
         ans = input(f"symlink {src} -> {dst}? [y/N] ")
         if ans.lower() != "y":
             print(f"skip {src} -> {dst}")
