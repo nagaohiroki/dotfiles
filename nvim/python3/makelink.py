@@ -99,8 +99,6 @@ def dotlink(dir: pathlib.Path, filename: str):
 
 
 def dotfiles_symlink():
-    dotlink(xdg(), "nvim")
-    dotlink(xdg_config(), "nushell")
     dotlink(config(), "wezterm")
     if is_windows():
         dotlink(home() / "Documents" / "PowerShell", "Microsoft.PowerShell_profile.ps1")
