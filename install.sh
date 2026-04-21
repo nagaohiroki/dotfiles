@@ -1,4 +1,6 @@
 #!/bin/zsh
+ln -s ~/dotfiles/.zprofile ~/.zprofile
+ln -s ~/dotfiles/wezterm ~/.config/wezterm
 brew install neovim
 brew install uv
 brew install starship

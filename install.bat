@@ -1,4 +1,4 @@
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+mklink /j "%USERPROFILE%\.config\wezterm" "%USERPROFILE%\dotfiles\wezterm" 
 scoop bucket add extras
 scoop install neovim
 scoop install starship
