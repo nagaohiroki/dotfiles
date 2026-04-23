@@ -8,19 +8,18 @@ function M.setup()
   end
   vim.opt.swapfile = false
   vim.opt.writebackup = false
-  vim.opt.loadplugins = false
   vim.opt.shadafile = ''
-  vim.api.nvim_create_autocmd('VimEnter',
-    {
-      once = true,
-      callback = function()
-        vim.cmd('wshada')
-        vim.api.nvim_buf_set_lines(0, 0, -1, false, { 'server: ' .. vim.g.NVIM_SINGLETON, 'please wait...' })
-        vim.system(
-          { vim.v.progpath, '--server', vim.g.NVIM_SINGLETON, '--remote-send', '<Esc>:rshada | normal! `0<CR>' },
-          nil, function() vim.schedule(function() vim.cmd('qa!') end) end)
-      end
-    })
+  vim.api.nvim_create_autocmd('VimEnter', {
+    once = true,
+    callback = function()
+      vim.cmd('wshada')
+      vim.api.nvim_buf_set_lines(0, 0, -1, false, { 'server: ' .. vim.g.NVIM_SINGLETON, 'please wait...' })
+      local open = '<Esc>:rshada | normal! `0<CR>'
+      if vim.api.nvim_buf_get_name(0) == '' then open = '<Esc>:enew<CR>' end
+      local cmd = { vim.v.progpath, '--server', vim.g.NVIM_SINGLETON, '--remote-send', open }
+      vim.system(cmd, nil, function() vim.schedule(function() vim.cmd('qa!') end) end)
+    end
+  })
   return true
 end
 
