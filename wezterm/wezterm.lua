@@ -23,7 +23,6 @@ config.window_background_opacity = 0.5
 config.color_scheme = 'Tokyo Night'
 config.window_frame = { inactive_titlebar_bg = 'none', active_titlebar_bg = 'none', }
 config.window_padding = { top = 0, right = 0, bottom = 0, left = 0 }
-config.window_close_confirmation = 'NeverPrompt'
 config.initial_cols = 90
 config.initial_rows = 60
 local function window_resize(width, height)
