@@ -20,8 +20,7 @@ vim.opt.whichwrap = 'b,s,h,l,<,>,[,]'
 vim.opt.clipboard = { 'unnamed', 'unnamedplus' }
 vim.opt.fileencodings = { 'ucs-bom', 'iso-2022-jp-3', 'euc-jisx0213', 'cp932', 'sjis', 'euc-jp', 'utf-8' }
 vim.opt.statusline =
-    '%<%f%m%r%h%w%y[%{&fenc}%{(&bomb?"_bom":"")}][%{&ff}]' ..
-    '%=%c,%l/%L%{exists("*FugitiveStatusline")?FugitiveStatusline():""}'
+'%<%f%m%r%h%w%y[%{&fenc}%{(&bomb?"_bom":"")}][%{&ff}]%=%c,%l/%L%{exists("*FugitiveStatusline")?FugitiveStatusline():""}'
 vim.diagnostic.config({ virtual_text = true })
 vim.api.nvim_create_user_command('Errors', function() vim.diagnostic.setqflist() end, {})
 vim.api.nvim_create_user_command('CodeAction', function() vim.lsp.buf.code_action() end, {})
@@ -33,12 +32,8 @@ vim.api.nvim_create_user_command('CopyPathLine', function()
   vim.fn.setreg('*', vim.fn.expand('%:p') .. '#L' .. vim.fn.line('.'))
 end, {})
 vim.api.nvim_create_user_command('Wex', function()
-  if vim.fn.has('mac') == 1 then
-    vim.fn.system('open ' .. vim.fn.expand('%:h'))
-  end
-  if vim.fn.has('win32') == 1 then
-    vim.fn.system('start explorer /select,' .. vim.api.nvim_buf_get_name(0))
-  end
+  if vim.fn.has('mac') == 1 then vim.fn.system('open ' .. vim.fn.expand('%:h')) end
+  if vim.fn.has('win32') == 1 then vim.fn.system('start explorer /select,' .. vim.api.nvim_buf_get_name(0)) end
 end, {})
 local function OpenWez(pos, percent)
   vim.fn.system({ 'wezterm', 'cli', 'split-pane', pos, '--percent', percent, '--cwd', vim.fn.expand('%:p:h') })
@@ -62,11 +57,8 @@ vim.api.nvim_create_user_command('Utf8bomLF', function()
   vim.opt.fileformat = 'unix'
 end, {})
 vim.api.nvim_create_augroup('loading', {})
-vim.api.nvim_create_autocmd('QuickFixCmdPost',
-  {
-    group = 'loading',
-    command = 'cwindow'
-  })
+vim.api.nvim_create_autocmd('QuickFixCmdPost', { group = 'loading', command = 'cwindow' })
+vim.api.nvim_create_autocmd('TermOpen', { group = 'loading', command = 'startinsert' })
 vim.api.nvim_create_autocmd('FileType',
   {
     group = 'loading',
@@ -90,13 +82,6 @@ vim.api.nvim_create_autocmd('BufRead',
       if line > 0 and line <= vim.fn.line("$") then
         vim.fn.cursor(line, vim.fn.col("'\""))
       end
-    end
-  })
-vim.api.nvim_create_autocmd('TermOpen',
-  {
-    group = 'loading',
-    callback = function()
-      vim.cmd('startinsert')
     end
   })
 for _, ext in pairs({ 'usf', 'ush', 'cginc', 'shader', 'glslinc', 'fx', 'hlsl' }) do
@@ -136,7 +121,7 @@ vim.lsp.config('lua_ls', {
 })
 require('vim._core.ui2').enable({})
 local lazypath = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     'git',
     'clone',
