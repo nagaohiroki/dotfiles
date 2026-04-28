@@ -1,5 +1,4 @@
 return {
-  { 'equalsraf/neovim-gui-shim' },
   {
     'mhinz/vim-signify',
     event = { 'BufReadPre', 'BufNewFile' },
@@ -189,11 +188,4 @@ return {
     cmd = { 'Oil' },
     keys = { { '<leader>o', '<cmd>Oil<CR>' } }
   },
-  -- {
-  --   'supermaven-inc/supermaven-nvim',
-  --   opts = {
-  --     ignore_filetypes = { 'markdown', 'text' },
-  --     keymaps = { accept_suggestion = '<C-g>', }
-  --   },
-  -- },
 }

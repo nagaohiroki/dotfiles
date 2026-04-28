@@ -102,7 +102,6 @@ vim.api.nvim_create_autocmd('TermOpen',
 for _, ext in pairs({ 'usf', 'ush', 'cginc', 'shader', 'glslinc', 'fx', 'hlsl' }) do
   vim.filetype.add({ extension = { [ext] = 'hlsl' } })
 end
-
 vim.api.nvim_create_autocmd('BufWritePre',
   {
     group = 'loading',
@@ -112,7 +111,6 @@ vim.api.nvim_create_autocmd('BufWritePre',
       vim.fn.winrestview(view)
     end,
   })
-
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
 vim.keymap.set({ 'n', 'v' }, '<C-p>', '"0p')
 vim.keymap.set('n', '<leader>s', [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
@@ -136,10 +134,6 @@ vim.lsp.config('lua_ls', {
   end,
   settings = { Lua = {} }
 })
-if vim.g.GuiLoaded == 1 then
-  require('fontresize').setup()
-  require('winctrl').setup()
-end
 require('vim._core.ui2').enable({})
 local lazypath = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')
 if not vim.loop.fs_stat(lazypath) then
