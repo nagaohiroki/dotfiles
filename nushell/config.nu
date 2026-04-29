@@ -20,3 +20,17 @@ $env.config = { show_banner: false }
 $env.config.shell_integration.osc133 = false
 source starship.nu
 source zoxide.nu
+def "update-all" [] {
+    if ($nu.os-info.name == "windows") {
+      scoop update
+      scoop update "*"
+      scoop cleanup "*"
+    } else if ($nu.os-info.name == "macos") {
+      brew update
+      brew upgrade
+      brew cleanup
+    }
+    if (which uv | is-not-empty) {
+        uv tool upgrade --all
+    }
+}
