@@ -1,15 +1,15 @@
-mklink /j "%USERPROFILE%\.config\wezterm" "%USERPROFILE%\dotfiles\wezterm" 
-scoop bucket add extras
-scoop install neovim
-scoop install starship
-scoop install wezterm
-scoop install git
-scoop install ripgrep
-scoop install uv
-scoop install blender
-scoop install krita
-scoop install fzf
-scoop install zoxide
-scoop install nu
-uv tool install basedpyright
-uv tool install ruff
+call mklink /j "%USERPROFILE%\.config\wezterm" "%USERPROFILE%\dotfiles\wezterm" 
+call scoop bucket add extras
+call scoop install neovim
+call scoop install starship
+call scoop install wezterm
+call scoop install git
+call scoop install ripgrep
+call scoop install uv
+call scoop install blender
+call scoop install krita
+call scoop install fzf
+call scoop install zoxide
+call scoop install nu
+call uv tool install basedpyright
+call uv tool install ruff
