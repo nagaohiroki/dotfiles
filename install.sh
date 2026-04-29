@@ -1,7 +1,7 @@
 #!/bin/zsh
 mkdir -p ~/.config
-ln -s ~/dotfiles/wezterm ~/.config/wezterm
-ln -s ~/dotfiles/.zshenv ~/.zshenv
+ln -sf ~/dotfiles/wezterm ~/.config/wezterm
+ln -sf ~/dotfiles/.zshenv ~/.zshenv
 brew install neovim
 brew install uv
 brew install starship
