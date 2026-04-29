@@ -1,4 +1,5 @@
-call mklink /j "%USERPROFILE%\.config\wezterm" "%USERPROFILE%\dotfiles\wezterm" 
+mkdir "%USERPROFILE%\.config"
+mklink /j "%USERPROFILE%\.config\wezterm" "%USERPROFILE%\dotfiles\wezterm"
 call scoop bucket add extras
 call scoop install neovim
 call scoop install starship

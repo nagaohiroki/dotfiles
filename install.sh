@@ -1,4 +1,5 @@
 #!/bin/zsh
+mkdir -p ~/.config
 ln -s ~/dotfiles/wezterm ~/.config/wezterm
 ln -s ~/dotfiles/.zshenv ~/.zshenv
 brew install neovim
