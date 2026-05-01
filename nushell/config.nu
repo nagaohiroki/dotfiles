@@ -21,13 +21,12 @@ $env.config.shell_integration.osc133 = false
 source starship.nu
 source zoxide.nu
 def "update-all" [] {
+    git -C ("~/dotfiles" | path expand) pull
     if ($nu.os-info.name == "windows") {
-      ^git -C ($env.USERPROFILE | path join "dotfiles") pull
       scoop update
       scoop update "*"
       scoop cleanup "*"
     } else if ($nu.os-info.name == "macos") {
-      ^git -C ($env.HOME | path join "dotfiles") pull
       brew update
       brew upgrade
       brew cleanup
