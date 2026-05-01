@@ -124,6 +124,7 @@ return {
       'nvim-telescope/telescope-live-grep-args.nvim',
       'jvgrootveld/telescope-zoxide'
     },
+    cmd = { 'Telescope' },
     opts = { defaults = { preview = false } },
     keys =
     {

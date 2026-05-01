@@ -22,10 +22,12 @@ source starship.nu
 source zoxide.nu
 def "update-all" [] {
     if ($nu.os-info.name == "windows") {
+      ^git -C ($env.USERPROFILE | path join "dotfiles") pull
       scoop update
       scoop update "*"
       scoop cleanup "*"
     } else if ($nu.os-info.name == "macos") {
+      ^git -C ($env.HOME | path join "dotfiles") pull
       brew update
       brew upgrade
       brew cleanup
