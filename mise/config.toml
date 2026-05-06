@@ -1,0 +1,8 @@
+[tools]
+"aqua:nushell/nushell" = "latest"
+neovim = "latest"
+uv = "latest"
+starship = "latest"
+ripgrep = "latest"
+zoxide = "latest"
+fzf = "latest"
