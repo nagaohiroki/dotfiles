@@ -18,8 +18,8 @@ config.enable_scroll_bar = true
 config.font = wezterm.font_with_fallback({ [[HackGen Console NF]] })
 config.adjust_window_size_when_changing_font_size = false
 config.hide_tab_bar_if_only_one_tab = true
-config.text_background_opacity = 0.5
-config.window_background_opacity = 0.5
+config.text_background_opacity = 0.4
+config.window_background_opacity = 0.4
 config.color_scheme = 'Tokyo Night'
 config.window_frame = { inactive_titlebar_bg = 'none', active_titlebar_bg = 'none', }
 config.window_padding = { top = 0, right = 0, bottom = 0, left = 0 }
@@ -44,13 +44,13 @@ config.keys =
     action = wezterm.action.SendKey({ key = ' ', mods = 'CTRL' })
   },
 }
-config.background =
-{ {
-  source = { File = wezterm.home_dir .. '/my_images/image.jpg' },
-  hsb = { brightness = 0.1 },
-  opacity = 0.5,
-  vertical_align = 'Middle',
-  horizontal_align = 'Center',
-} }
+-- config.background =
+-- { {
+--   source = { File = wezterm.home_dir .. '/my_images/image.jpg' },
+--   hsb = { brightness = 0.1 },
+--   opacity = 0.5,
+--   vertical_align = 'Middle',
+--   horizontal_align = 'Center',
+-- } }
 -- require('random_background').setup(wezterm, config, 5, 5)
 return config
