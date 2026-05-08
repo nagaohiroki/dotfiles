@@ -1,7 +1,7 @@
 local M = {}
 local function open_buffer()
-  vim.api.nvim_buf_set_lines(0, 0, -1, false, { 'server: ' .. vim.g.NVIM_SINGLETON, 'please wait...' })
   vim.cmd('wshada')
+  vim.api.nvim_buf_set_lines(0, 0, -1, false, { 'server: ' .. vim.g.NVIM_SINGLETON, 'please wait...' })
   local open = '<Esc>:rshada | normal! `0<CR>'
   if vim.api.nvim_buf_get_name(0) == '' then open = '<Esc>:enew<CR>' end
   local cmd = { vim.v.progpath, '--server', vim.g.NVIM_SINGLETON, '--remote-send', open }
