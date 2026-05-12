@@ -18,10 +18,6 @@ return {
     keys = { { '<leader>d', '<cmd>Gvdiffsplit<CR>' } }
   },
   {
-    'tyru/open-browser-github.vim',
-    cmd = { 'OpenGithubCommit', 'OpenGithubFile', 'OpenGithubProject', 'OpenGithubPullReq', 'OpenGithubPullIssue' }
-  },
-  {
     'tyru/open-browser.vim',
     keys = { { '<leader>b', '<Plug>(openbrowser-smart-search)' } }
   },
@@ -69,14 +65,7 @@ return {
   {
     'mason-org/mason.nvim',
     cmd = { 'Mason', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonLog', 'MasonUpdate' },
-    opts =
-    {
-      registries =
-      {
-        'github:mason-org/mason-registry',
-        'github:Crashdummyy/mason-registry'
-      }
-    }
+    opts = { registries = { 'github:mason-org/mason-registry', 'github:Crashdummyy/mason-registry' } }
   },
   {
     'hrsh7th/nvim-cmp',
