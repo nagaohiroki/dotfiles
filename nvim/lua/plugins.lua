@@ -60,7 +60,7 @@ return {
   {
     'mason-org/mason-lspconfig.nvim',
     event = 'VeryLazy',
-    opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'taplo' } }
+    opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'taplo', 'rust_analyzer' } }
   },
   {
     'mason-org/mason.nvim',
@@ -99,7 +99,8 @@ return {
           { name = 'buffer' },
           { name = 'nvim_lsp_signature_help' },
           { name = 'render-markdown' },
-        }
+        },
+        completion = { completeopt = vim.o.completeopt }
       })
     end,
     keys = { { '<C-s>', function() return '<Plug>(vsnip-expand)' end, mode = 'i', expr = true } }
