@@ -20,6 +20,7 @@ $env.config = { show_banner: false }
 $env.config.shell_integration.osc133 = false
 source starship.nu
 source zoxide.nu
+source cargo.nu
 def "update-all" [] {
     git -C ("~/dotfiles" | path expand) pull
     if ($nu.os-info.name == "windows") {
@@ -35,4 +36,3 @@ def "update-all" [] {
         uv tool upgrade --all
     }
 }
-source "~/.cargo/env.nu"
