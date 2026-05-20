@@ -12,5 +12,6 @@ call scoop install krita
 call scoop install fzf
 call scoop install zoxide
 call scoop install nu
+call scoop install rustup
 call uv tool install basedpyright
 call uv tool install ruff
