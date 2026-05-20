@@ -35,3 +35,4 @@ def "update-all" [] {
         uv tool upgrade --all
     }
 }
+source "~/.cargo/env.nu"
