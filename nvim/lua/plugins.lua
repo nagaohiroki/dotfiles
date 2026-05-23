@@ -60,12 +60,16 @@ return {
   {
     'mason-org/mason-lspconfig.nvim',
     event = 'VeryLazy',
-    opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'taplo', 'rust_analyzer' } }
+    opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'taplo', 'rust_analyzer', 'wgsl_analyzer' } },
   },
   {
     'mason-org/mason.nvim',
     cmd = { 'Mason', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonLog', 'MasonUpdate' },
     opts = { registries = { 'github:mason-org/mason-registry', 'github:Crashdummyy/mason-registry' } }
+  },
+  {
+    'nvim-treesitter/nvim-treesitter',
+    cmd = { 'TSInstall' }
   },
   {
     'hrsh7th/nvim-cmp',

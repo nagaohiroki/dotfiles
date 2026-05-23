@@ -13,5 +13,6 @@ call scoop install fzf
 call scoop install zoxide
 call scoop install nu
 call scoop install rustup
+call scoop install tree-sitter
 call uv tool install basedpyright
 call uv tool install ruff
