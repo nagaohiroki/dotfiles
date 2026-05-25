@@ -11,7 +11,6 @@ brew install zoxide
 brew install fzf
 brew install nushell
 brew install rustup
-brew install tree-sitter-cli
 brew install --cask wezterm
 brew install --cask blender
 brew install --cask krita

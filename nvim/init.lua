@@ -76,14 +76,6 @@ vim.api.nvim_create_autocmd('FileType',
       vim.opt.foldmarker = { '<details>', '</details>' }
     end
   })
-vim.api.nvim_create_autocmd('FileType',
-  {
-    group = 'loading',
-    pattern = { 'wgsl' },
-    callback = function()
-      pcall(vim.treesitter.start)
-    end
-  })
 vim.api.nvim_create_autocmd('BufRead',
   {
     group = 'loading',

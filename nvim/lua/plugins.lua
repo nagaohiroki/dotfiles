@@ -12,6 +12,7 @@ return {
     end,
     keys = { { '<leader>a', '<Plug>(altr-forward)' } }
   },
+  { 'DingDean/wgsl.vim',           ft = { 'wgsl' } },
   {
     'tpope/vim-fugitive',
     cmd = { 'G', 'Gread' },
@@ -32,10 +33,10 @@ return {
     ft = { 'markdown' },
     opts = { completions = { lsp = { enabled = true } } }
   },
-  { 'j-hui/fidget.nvim',           opts = {},  event = 'LspAttach' },
-  { 'uga-rosa/translate.nvim',     opts = {},  cmd = { 'Translate' } },
+  { 'j-hui/fidget.nvim',           opts = {},      event = 'LspAttach' },
+  { 'uga-rosa/translate.nvim',     opts = {},      cmd = { 'Translate' } },
   { 'nvim-lua/plenary.nvim',       lazy = true },
-  { 'nvim-tree/nvim-web-devicons', opts = {},  lazy = true },
+  { 'nvim-tree/nvim-web-devicons', opts = {},      lazy = true },
   {
     'folke/tokyonight.nvim',
     lazy = false,
@@ -66,10 +67,6 @@ return {
     'mason-org/mason.nvim',
     cmd = { 'Mason', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonLog', 'MasonUpdate' },
     opts = { registries = { 'github:mason-org/mason-registry', 'github:Crashdummyy/mason-registry' } }
-  },
-  {
-    'nvim-treesitter/nvim-treesitter',
-    cmd = { 'TSInstall' }
   },
   {
     'hrsh7th/nvim-cmp',
