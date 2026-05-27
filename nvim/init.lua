@@ -111,6 +111,7 @@ vim.lsp.config('roslyn', {
   capabilities = { workspace = { didChangeWatchedFiles = { dynamicRegistration = false } } }
 })
 vim.lsp.config('lua_ls', {
+  filetypes = { 'lua' },
   on_init = function(client)
     client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
       runtime = {
