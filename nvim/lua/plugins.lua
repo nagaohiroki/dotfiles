@@ -56,7 +56,7 @@ return {
       vim.cmd.colorscheme('tokyonight-night')
     end
   },
-  { 'seblyng/roslyn.nvim',  ft = { 'cs' }, opts = { extensions = { razor = { enabled = false } } } },
+  { 'seblyng/roslyn.nvim',  ft = { 'cs' } },
   { 'neovim/nvim-lspconfig' },
   {
     'mason-org/mason-lspconfig.nvim',
