@@ -4,14 +4,12 @@ config = wezterm.config_builder()
 if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
   config.font_size = 12
   config.win32_system_backdrop = 'Acrylic'
-  config.window_background_opacity = 0
   config.default_prog = { 'nu' }
 end
 if wezterm.target_triple == 'aarch64-apple-darwin' or wezterm.target_triple == 'x86_64-apple-darwin' then
   config.font_size = 14
   config.macos_window_background_blur = 20
   config.macos_forward_to_ime_modifier_mask = 'SHIFT|CTRL'
-  config.window_background_opacity = 0.5
   config.default_prog = { '/opt/homebrew/bin/nu' }
 end
 config.set_environment_variables = { XDG_CONFIG_HOME = wezterm.home_dir .. '/dotfiles' }
@@ -24,6 +22,7 @@ config.text_background_opacity = 0.4
 config.color_scheme = 'Tokyo Night'
 config.window_frame = { inactive_titlebar_bg = 'none', active_titlebar_bg = 'none', }
 config.window_padding = { top = 0, right = 0, bottom = 0, left = 0 }
+config.window_background_opacity = 0.4
 config.initial_cols = 90
 config.initial_rows = 60
 local function window_resize(width, height)
