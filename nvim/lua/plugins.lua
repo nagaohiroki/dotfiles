@@ -69,42 +69,29 @@ return {
     opts = { registries = { 'github:mason-org/mason-registry', 'github:Crashdummyy/mason-registry' } }
   },
   {
-    'hrsh7th/nvim-cmp',
+    'saghen/blink.cmp',
+    version = '1.*',
+    dependencies = { 'rafamadriz/friendly-snippets' },
     event = { 'InsertEnter', 'CmdlineEnter' },
-    dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-nvim-lsp-signature-help',
-      'hrsh7th/cmp-vsnip',
-      'hrsh7th/vim-vsnip',
-      'rafamadriz/friendly-snippets',
+    opts = {
+      keymap = {
+        preset        = 'none',
+        ['<C-Space>'] = { 'show', 'fallback' },
+        ['<CR>']      = { 'accept', 'fallback' },
+        ['<Tab>']     = { 'select_next', 'fallback' },
+        ['<S-Tab>']   = { 'select_prev', 'fallback' },
+        ['<Down>']    = { 'select_next', 'fallback' },
+        ['<Up>']      = { 'select_prev', 'fallback' },
+        ['<C-s>']     = { 'show_signature', 'fallback' },
+      },
+      sources = { default = { 'lsp', 'snippets', 'buffer' }, },
+      signature = { enabled = true },
+      fuzzy = { implementation = 'lua' },
+      completion = {
+        documentation = { auto_show = true },
+        ghost_text = { enabled = true },
+      },
     },
-    config = function()
-      local cmp = require('cmp')
-      cmp.setup({
-        snippet = {
-          expand = function(args) vim.fn['vsnip#anonymous'](args.body) end,
-        },
-        mapping =
-            cmp.mapping.preset.insert({
-              ['<C-Space>'] = cmp.mapping.complete(),
-              ['<CR>'] = cmp.mapping.confirm(),
-              ['<Tab>'] = cmp.mapping.select_next_item(),
-              ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-              ['<Down>'] = cmp.mapping.select_next_item(),
-              ['<Up>'] = cmp.mapping.select_prev_item(),
-            }),
-        sources = {
-          { name = 'nvim_lsp' },
-          { name = 'vsnip' },
-          { name = 'buffer' },
-          { name = 'nvim_lsp_signature_help' },
-          { name = 'render-markdown' },
-        },
-        completion = { completeopt = vim.o.completeopt }
-      })
-    end,
-    keys = { { '<C-s>', function() return '<Plug>(vsnip-expand)' end, mode = 'i', expr = true } }
   },
   {
     'nvim-telescope/telescope.nvim',
