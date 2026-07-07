@@ -94,50 +94,22 @@ return {
     },
   },
   {
-    'nvim-telescope/telescope.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope-file-browser.nvim',
-      'nvim-telescope/telescope-frecency.nvim',
-      'nvim-telescope/telescope-live-grep-args.nvim',
-      'jvgrootveld/telescope-zoxide'
+    'folke/snacks.nvim',
+    priority = 1000,
+    lazy = false,
+    opts = {
+      picker = { enabled = true, layout = { preview = false } },
+      explorer = { enabled = true },
     },
-    cmd = { 'Telescope' },
-    opts = { defaults = { preview = false } },
-    keys =
-    {
-      { '<leader>f', function() require('telescope.builtin').find_files({ hidden = true }) end },
-      { '<leader>r', function() require('telescope.builtin').grep_string({ hidden = true }) end },
-      { '<leader>t', function() require('telescope.builtin').resume({ hidden = true }) end },
-      {
-        '<leader>n',
-        function()
-          require('telescope').load_extension('file_browser')
-          require('telescope').extensions.file_browser.file_browser({ hidden = true })
-        end },
-      {
-        '<leader>i',
-        function()
-          require('telescope').load_extension('live_grep_args')
-          require('telescope').extensions.live_grep_args.live_grep_args({ hidden = true })
-        end
-      },
-      {
-        '<leader>m',
-        function()
-          require('telescope').load_extension('frecency')
-          require('telescope').extensions.frecency.frecency({ hidden = true })
-        end
-      },
-      {
-        '<leader>z',
-        function()
-          local telescope = require('telescope')
-          telescope.load_extension('zoxide')
-          telescope.extensions.zoxide.list()
-        end
-      }
-    }
+    keys = {
+      { '<leader>f', function() Snacks.picker.files({ hidden = true }) end, },
+      { '<leader>r', function() Snacks.picker.grep_word({ hidden = true }) end, },
+      { '<leader>i', function() Snacks.picker.grep({ hidden = true }) end, },
+      { '<leader>t', function() Snacks.picker.resume() end, },
+      { '<leader>n', function() Snacks.explorer() end, },
+      { '<leader>m', function() Snacks.picker.recent({ hidden = true }) end, },
+      { '<leader>z', function() Snacks.picker.zoxide() end, },
+    },
   },
   { 'nagaohiroki/unity.nvim', ft = { 'cs' }, opts = {} },
   {

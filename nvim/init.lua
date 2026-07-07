@@ -124,7 +124,13 @@ vim.lsp.config('lua_ls', {
       }
     })
   end,
-  settings = { Lua = {} }
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { 'vim', 'Snacks' },
+      },
+    }
+  }
 })
 require('vim._core.ui2').enable({})
 local lazypath = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')
