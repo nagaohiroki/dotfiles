@@ -6,6 +6,7 @@ return {
   },
   {
     'kana/vim-altr',
+    ft = { 'c', 'cpp' },
     config = function()
       vim.fn['altr#define'](
         'Private/%.cpp', 'Private/*/%.cpp', 'Public/%.h', 'Public/*/%.h', 'Classes/%.h', 'Classes/*/%.h'
