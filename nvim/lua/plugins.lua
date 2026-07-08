@@ -7,20 +7,18 @@ return {
   {
     'kana/vim-altr',
     config = function()
-      vim.fn['altr#define']('Private/%.cpp', 'Private/*/%.cpp', 'Public/%.h', 'Public/*/%.h', 'Classes/%.h',
-        'Classes/*/%.h')
+      vim.fn['altr#define'](
+        'Private/%.cpp', 'Private/*/%.cpp', 'Public/%.h', 'Public/*/%.h', 'Classes/%.h', 'Classes/*/%.h'
+      )
     end,
     keys = { { '<leader>a', '<Plug>(altr-forward)' } }
   },
-  { 'DingDean/wgsl.vim',           ft = { 'wgsl' } },
+  { 'DingDean/wgsl.vim',     ft = { 'wgsl' } },
+  { 'tyru/open-browser.vim', keys = { { '<leader>b', '<Plug>(openbrowser-smart-search)' } } },
   {
     'tpope/vim-fugitive',
     cmd = { 'G', 'Gread' },
     keys = { { '<leader>d', '<cmd>Gvdiffsplit<CR>' } }
-  },
-  {
-    'tyru/open-browser.vim',
-    keys = { { '<leader>b', '<Plug>(openbrowser-smart-search)' } }
   },
   {
     'iamcco/markdown-preview.nvim',
@@ -33,9 +31,9 @@ return {
     ft = { 'markdown' },
     opts = { completions = { lsp = { enabled = true } } }
   },
-  { 'j-hui/fidget.nvim',           opts = {},      event = 'LspAttach' },
-  { 'uga-rosa/translate.nvim',     opts = {},      cmd = { 'Translate' } },
-  { 'nvim-tree/nvim-web-devicons', opts = {},      lazy = true },
+  { 'j-hui/fidget.nvim',           opts = {}, event = 'LspAttach' },
+  { 'uga-rosa/translate.nvim',     opts = {}, cmd = { 'Translate' } },
+  { 'nvim-tree/nvim-web-devicons', opts = {}, lazy = true },
   {
     'folke/tokyonight.nvim',
     lazy = false,
