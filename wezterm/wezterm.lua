@@ -14,7 +14,6 @@ if wezterm.target_triple == 'aarch64-apple-darwin' or wezterm.target_triple == '
 end
 config.set_environment_variables = { XDG_CONFIG_HOME = wezterm.home_dir .. '/dotfiles' }
 config.use_ime = true
-config.enable_scroll_bar = true
 config.font = wezterm.font_with_fallback({ [[HackGen Console NF]] })
 config.adjust_window_size_when_changing_font_size = false
 config.hide_tab_bar_if_only_one_tab = true
@@ -34,23 +33,10 @@ end
 local add_size = 50
 config.keys =
 {
-  { key = 'LeftArrow',  mods = 'ALT', action = window_resize(-add_size, 0) },
-  { key = 'RightArrow', mods = 'ALT', action = window_resize(add_size, 0) },
-  { key = 'UpArrow',    mods = 'ALT', action = window_resize(0, -add_size) },
-  { key = 'DownArrow',  mods = 'ALT', action = window_resize(0, add_size) },
-  {
-    key = ' ',
-    mods = 'CTRL',
-    action = wezterm.action.SendKey({ key = ' ', mods = 'CTRL' })
-  },
+  { key = 'LeftArrow',  mods = 'ALT',  action = window_resize(-add_size, 0) },
+  { key = 'RightArrow', mods = 'ALT',  action = window_resize(add_size, 0) },
+  { key = 'UpArrow',    mods = 'ALT',  action = window_resize(0, -add_size) },
+  { key = 'DownArrow',  mods = 'ALT',  action = window_resize(0, add_size) },
+  { key = ' ',          mods = 'CTRL', action = wezterm.action.SendKey({ key = ' ', mods = 'CTRL' }) },
 }
--- config.background =
--- { {
---   source = { File = wezterm.home_dir .. '/my_images/image.jpg' },
---   hsb = { brightness = 0.1 },
---   opacity = 0.5,
---   vertical_align = 'Middle',
---   horizontal_align = 'Center',
--- } }
--- require('random_background').setup(wezterm, config, 5, 5)
 return config
