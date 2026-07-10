@@ -120,17 +120,14 @@ vim.lsp.config('lua_ls', {
       },
       workspace = {
         checkThirdParty = false,
-        library = { vim.env.VIMRUNTIME }
+        library = {
+          vim.env.VIMRUNTIME,
+          '${3rd}/luv/library',
+          vim.fn.stdpath('data') .. '/lazy/snacks.nvim',
+        }
       }
     })
   end,
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = { 'vim', 'Snacks' },
-      },
-    }
-  }
 })
 require('vim._core.ui2').enable({})
 local lazypath = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')
