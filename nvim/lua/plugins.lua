@@ -93,12 +93,7 @@ return {
   },
   {
     'folke/snacks.nvim',
-    priority = 1000,
-    lazy = false,
-    opts = {
-      picker = { enabled = true, layout = { preview = false } },
-      explorer = { enabled = true },
-    },
+    opts = { picker = { layout = { preview = false } } },
     keys = {
       { '<leader>f', function() Snacks.picker.files({ hidden = true }) end, },
       { '<leader>r', function() Snacks.picker.grep_word({ hidden = true }) end, },
