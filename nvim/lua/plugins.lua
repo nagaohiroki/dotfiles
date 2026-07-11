@@ -27,11 +27,6 @@ return {
     ft = { 'markdown' },
     build = function() vim.fn['mkdp#util#install']() end,
   },
-  {
-    'MeanderingProgrammer/render-markdown.nvim',
-    ft = { 'markdown' },
-    opts = { completions = { lsp = { enabled = true } } }
-  },
   { 'j-hui/fidget.nvim',           opts = {}, event = 'LspAttach' },
   { 'uga-rosa/translate.nvim',     opts = {}, cmd = { 'Translate' } },
   { 'nvim-tree/nvim-web-devicons', opts = {}, lazy = true },
