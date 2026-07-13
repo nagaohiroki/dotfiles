@@ -1,12 +1,14 @@
 local wezterm = require 'wezterm'
 local config = {}
 config = wezterm.config_builder()
-if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
+local is_windows = wezterm.target_triple == 'x86_64-pc-windows-msvc'
+local is_mac = wezterm.target_triple:find('apple-darwin') ~= nil
+if is_windows then
   config.font_size = 12
   config.win32_system_backdrop = 'Acrylic'
   config.default_prog = { 'nu' }
 end
-if wezterm.target_triple == 'aarch64-apple-darwin' or wezterm.target_triple == 'x86_64-apple-darwin' then
+if is_mac then
   config.font_size = 14
   config.macos_window_background_blur = 20
   config.macos_forward_to_ime_modifier_mask = 'SHIFT|CTRL'
