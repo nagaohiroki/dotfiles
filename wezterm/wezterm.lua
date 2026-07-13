@@ -2,7 +2,7 @@ local wezterm = require 'wezterm'
 local config = {}
 config = wezterm.config_builder()
 local is_windows = wezterm.target_triple == 'x86_64-pc-windows-msvc'
-local is_mac = wezterm.target_triple:find('apple-darwin') ~= nil
+local is_mac = wezterm.target_triple:find('apple') ~= nil
 if is_windows then
   config.font_size = 12
   config.win32_system_backdrop = 'Acrylic'
