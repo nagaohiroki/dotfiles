@@ -58,18 +58,18 @@ vim.api.nvim_create_user_command('Utf8bomLF', function()
   vim.opt.bomb = true
   vim.opt.fileformat = 'unix'
 end, {})
-vim.api.nvim_create_augroup('loading', { clear = true })
+local loading = vim.api.nvim_create_augroup('loading', { clear = true })
 vim.api.nvim_create_autocmd('QuickFixCmdPost', { group = 'loading', command = 'cwindow' })
 vim.api.nvim_create_autocmd('TermOpen', { group = 'loading', command = 'startinsert' })
 vim.api.nvim_create_autocmd('FileType',
   {
-    group = 'loading',
+    group = loading,
     pattern = { 'gitcommit' },
     command = 'set fenc=utf-8'
   })
 vim.api.nvim_create_autocmd('FileType',
   {
-    group = 'loading',
+    group = loading,
     pattern = { 'markdown' },
     callback = function()
       vim.opt.foldmethod = 'marker'
@@ -78,7 +78,7 @@ vim.api.nvim_create_autocmd('FileType',
   })
 vim.api.nvim_create_autocmd('BufRead',
   {
-    group = 'loading',
+    group = loading,
     callback = function()
       local line = vim.fn.line("'\"")
       if line > 0 and line <= vim.fn.line("$") then
@@ -90,7 +90,7 @@ for _, ext in pairs({ 'usf', 'ush', 'cginc', 'shader', 'glslinc', 'fx', 'hlsl' }
   vim.filetype.add({ extension = { [ext] = 'hlsl' } })
 end
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = 'loading',
+  group = loading,
   callback = function(ev)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     if client == nil then return end
@@ -117,7 +117,6 @@ vim.keymap.set({ 'n', 'v' }, '<C-p>', '"0p')
 vim.keymap.set('n', '<leader>s', [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
 vim.keymap.set('n', '<leader>g', vim.lsp.buf.definition)
 vim.keymap.set('n', '<leader>u', vim.lsp.buf.references)
-vim.lsp.enable({ 'basedpyright', 'ruff' })
 vim.lsp.config('clangd', { filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hlsl' }, })
 vim.lsp.config('roslyn', {
   filetypes = { 'cs' },
@@ -127,6 +126,7 @@ vim.lsp.config('roslyn', {
 vim.lsp.config('lua_ls', {
   filetypes = { 'lua' },
   on_init = function(client)
+    client.config.settings = client.config.settings or {}
     client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
       runtime = {
         version = 'LuaJIT',
@@ -143,6 +143,7 @@ vim.lsp.config('lua_ls', {
     })
   end,
 })
+vim.lsp.enable({ 'basedpyright', 'ruff' })
 require('vim._core.ui2').enable({})
 local lazypath = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')
 if not vim.uv.fs_stat(lazypath) then
