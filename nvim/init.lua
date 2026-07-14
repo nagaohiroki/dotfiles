@@ -58,7 +58,7 @@ vim.api.nvim_create_user_command('Utf8bomLF', function()
   vim.opt.bomb = true
   vim.opt.fileformat = 'unix'
 end, {})
-vim.api.nvim_create_augroup('loading', {})
+vim.api.nvim_create_augroup('loading', { clear = true })
 vim.api.nvim_create_autocmd('QuickFixCmdPost', { group = 'loading', command = 'cwindow' })
 vim.api.nvim_create_autocmd('TermOpen', { group = 'loading', command = 'startinsert' })
 vim.api.nvim_create_autocmd('FileType',
@@ -89,15 +89,29 @@ vim.api.nvim_create_autocmd('BufRead',
 for _, ext in pairs({ 'usf', 'ush', 'cginc', 'shader', 'glslinc', 'fx', 'hlsl' }) do
   vim.filetype.add({ extension = { [ext] = 'hlsl' } })
 end
-vim.api.nvim_create_autocmd('BufWritePre',
-  {
-    group = 'loading',
-    callback = function()
-      local view = vim.fn.winsaveview()
-      vim.lsp.buf.format({ async = false, timeout_ms = 1000 })
-      vim.fn.winrestview(view)
-    end,
-  })
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = 'loading',
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if client == nil then return end
+    if client:supports_method('textDocument/formatting') then
+      vim.api.nvim_create_autocmd('BufWritePre',
+        {
+          buffer = ev.buf,
+          callback = function()
+            local view = vim.fn.winsaveview()
+            vim.lsp.buf.format({
+              bufnr = ev.buf,
+              id = client.id,
+              async = false,
+              timeout_ms = 1000
+            })
+            vim.fn.winrestview(view)
+          end,
+        })
+    end
+  end
+})
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
 vim.keymap.set({ 'n', 'v' }, '<C-p>', '"0p')
 vim.keymap.set('n', '<leader>s', [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
