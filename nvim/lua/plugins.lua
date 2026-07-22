@@ -14,8 +14,12 @@ return {
     end,
     keys = { { '<leader>a', '<Plug>(altr-forward)' } }
   },
-  { 'DingDean/wgsl.vim',     ft = { 'wgsl' } },
-  { 'tyru/open-browser.vim', keys = { { '<leader>b', '<Plug>(openbrowser-smart-search)' } } },
+  { 'DingDean/wgsl.vim',           ft = { 'wgsl' } },
+  {
+    'tyru/open-browser.vim',
+    cmd = { 'OpenBrowser', 'OpenBrowserSearch', 'OpenBrowserSmartSearch' },
+    keys = { { '<leader>b', '<Plug>(openbrowser-smart-search)' } }
+  },
   {
     'tpope/vim-fugitive',
     cmd = { 'G', 'Gread' },
@@ -27,9 +31,9 @@ return {
     ft = { 'markdown' },
     build = function() vim.fn['mkdp#util#install']() end,
   },
-  { 'j-hui/fidget.nvim',           opts = {}, event = 'LspAttach' },
-  { 'uga-rosa/translate.nvim',     opts = {}, cmd = { 'Translate' } },
-  { 'nvim-tree/nvim-web-devicons', opts = {}, lazy = true },
+  { 'j-hui/fidget.nvim',           opts = {},      event = 'LspAttach' },
+  { 'uga-rosa/translate.nvim',     opts = {},      cmd = { 'Translate' } },
+  { 'nvim-tree/nvim-web-devicons', opts = {},      lazy = true },
   {
     'folke/tokyonight.nvim',
     lazy = false,
@@ -83,10 +87,7 @@ return {
       { '<leader>f', function() Snacks.picker.files({ hidden = true }) end, },
       { '<leader>r', function() Snacks.picker.grep_word({ hidden = true }) end, },
       { '<leader>i', function() Snacks.picker.grep({ hidden = true }) end, },
-      { '<leader>t', function() Snacks.picker.resume() end, },
-      { '<leader>n', function() Snacks.explorer() end, },
       { '<leader>m', function() Snacks.picker.recent({ hidden = true }) end, },
-      { '<leader>z', function() Snacks.picker.zoxide() end, },
     },
   },
   { 'nagaohiroki/unity.nvim', ft = { 'cs' }, opts = {} },
