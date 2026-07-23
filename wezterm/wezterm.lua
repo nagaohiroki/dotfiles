@@ -35,10 +35,9 @@ end
 local add_size = 50
 config.keys =
 {
-  { key = 'LeftArrow',  mods = 'ALT',  action = window_resize(-add_size, 0) },
-  { key = 'RightArrow', mods = 'ALT',  action = window_resize(add_size, 0) },
-  { key = 'UpArrow',    mods = 'ALT',  action = window_resize(0, -add_size) },
-  { key = 'DownArrow',  mods = 'ALT',  action = window_resize(0, add_size) },
-  { key = ' ',          mods = 'CTRL', action = wezterm.action.SendKey({ key = ' ', mods = 'CTRL' }) },
+  { key = 'LeftArrow',  mods = 'ALT', action = window_resize(-add_size, 0) },
+  { key = 'RightArrow', mods = 'ALT', action = window_resize(add_size, 0) },
+  { key = 'UpArrow',    mods = 'ALT', action = window_resize(0, -add_size) },
+  { key = 'DownArrow',  mods = 'ALT', action = window_resize(0, add_size) },
 }
 return config
