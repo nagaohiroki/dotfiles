@@ -31,9 +31,18 @@ return {
     ft = { 'markdown' },
     build = function() vim.fn['mkdp#util#install']() end,
   },
+  {
+    'stevearc/oil.nvim',
+    opts = { view_options = { show_hidden = true } },
+    cmd = { 'Oil' },
+    keys = { { '<leader>o', '<cmd>Oil<CR>' } }
+  },
   { 'j-hui/fidget.nvim',           opts = {},      event = 'LspAttach' },
   { 'uga-rosa/translate.nvim',     opts = {},      cmd = { 'Translate' } },
   { 'nvim-tree/nvim-web-devicons', opts = {},      lazy = true },
+  { 'nagaohiroki/unity.nvim',      ft = { 'cs' },  opts = {} },
+  { 'seblyng/roslyn.nvim',         ft = { 'cs' } },
+  { 'neovim/nvim-lspconfig' },
   {
     'folke/tokyonight.nvim',
     lazy = false,
@@ -43,8 +52,6 @@ return {
       vim.cmd.colorscheme('tokyonight-night')
     end
   },
-  { 'seblyng/roslyn.nvim',  ft = { 'cs' } },
-  { 'neovim/nvim-lspconfig' },
   {
     'mason-org/mason-lspconfig.nvim',
     event = 'VeryLazy',
@@ -90,7 +97,6 @@ return {
       { '<leader>m', function() Snacks.picker.recent({ hidden = true }) end, },
     },
   },
-  { 'nagaohiroki/unity.nvim', ft = { 'cs' }, opts = {} },
   {
     'mfussenegger/nvim-dap',
     dependencies = {
@@ -111,11 +117,5 @@ return {
       { '<F12>',    function() require('dap.ui.widgets').hover() end },
       { '<F6>',     function() require('dapui').toggle() end },
     },
-  },
-  {
-    'stevearc/oil.nvim',
-    opts = { view_options = { show_hidden = true } },
-    cmd = { 'Oil' },
-    keys = { { '<leader>o', '<cmd>Oil<CR>' } }
   },
 }
