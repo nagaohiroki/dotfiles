@@ -35,7 +35,7 @@ return {
     'stevearc/oil.nvim',
     opts = { view_options = { show_hidden = true } },
     cmd = { 'Oil' },
-    keys = { { '<leader>n', '<cmd>Oil<CR>' } }
+    keys = { { '<leader>o', '<cmd>Oil<CR>' } }
   },
   { 'j-hui/fidget.nvim',           opts = {},      event = 'LspAttach' },
   { 'uga-rosa/translate.nvim',     opts = {},      cmd = { 'Translate' } },
