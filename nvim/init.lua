@@ -33,13 +33,11 @@ vim.api.nvim_create_user_command('Wex', function()
   if vim.fn.has('mac') == 1 then vim.fn.system('open ' .. vim.fn.expand('%:h')) end
   if vim.fn.has('win32') == 1 then vim.fn.system('start explorer /select,' .. vim.api.nvim_buf_get_name(0)) end
 end, {})
-local function OpenWez(pos)
-  vim.fn.system({ 'wezterm', 'cli', 'split-pane', pos, '--percent', '20', '--cwd', vim.fn.chdir('.') })
+for _, arrow in ipairs({ 'Left', 'Right', 'Top', 'Bottom' }) do
+  vim.api.nvim_create_user_command('Wez' .. arrow, function()
+    vim.fn.system({ 'wezterm', 'cli', 'split-pane', '--' .. arrow:lower(), '--percent', '20', '--cwd', vim.fn.chdir('.') })
+  end, {})
 end
-vim.api.nvim_create_user_command('WezRight', function() OpenWez('--right') end, {})
-vim.api.nvim_create_user_command('WezLeft', function() OpenWez('--left') end, {})
-vim.api.nvim_create_user_command('WezTop', function() OpenWez('--top') end, {})
-vim.api.nvim_create_user_command('WezBottom', function() OpenWez('--bottom') end, {})
 vim.api.nvim_create_user_command('WezWin', function()
   vim.fn.system({ 'wezterm', 'cli', 'spawn', '--cwd', vim.fn.chdir('.'), '--new-window' })
 end, {})
