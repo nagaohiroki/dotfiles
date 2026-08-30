@@ -40,7 +40,6 @@ return {
   { 'j-hui/fidget.nvim',           opts = {},      event = 'LspAttach' },
   { 'uga-rosa/translate.nvim',     opts = {},      cmd = { 'Translate' } },
   { 'nvim-tree/nvim-web-devicons', opts = {},      lazy = true },
-  { 'nagaohiroki/unity.nvim',      ft = { 'cs' },  opts = {} },
   { 'seblyng/roslyn.nvim',         ft = { 'cs' } },
   { 'neovim/nvim-lspconfig' },
   {
@@ -118,4 +117,13 @@ return {
       { '<F6>',     function() require('dapui').toggle() end },
     },
   },
+  { 'nagaohiroki/unity.nvim', ft = { 'cs' }, opts = {} },
+  {
+    'JaneySprings/DotRush',
+    ft = { 'cs' },
+    build = 'dotnet publish src/DotRush.Debugging.Mono -c Release',
+    config = function(plugin)
+      vim.g.unitydbg = vim.fs.joinpath(plugin.dir, 'extension', 'bin', 'DebuggerMono', 'monodbg')
+    end
+  }
 }
