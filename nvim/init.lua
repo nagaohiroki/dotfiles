@@ -35,14 +35,14 @@ vim.api.nvim_create_user_command('Wex', function()
 end, {})
 for _, arrow in ipairs({ 'Left', 'Right', 'Top', 'Bottom' }) do
   vim.api.nvim_create_user_command('Wez' .. arrow, function()
-    vim.fn.system({ 'wezterm', 'cli', 'split-pane', '--' .. arrow:lower(), '--percent', '20', '--cwd', vim.fn.chdir('.') })
+    vim.fn.system({ 'wezterm', 'cli', 'split-pane', '--' .. arrow:lower(), '--percent', '20', '--cwd', vim.fn.getcwd() })
   end, {})
 end
 vim.api.nvim_create_user_command('WezWin', function()
-  vim.fn.system({ 'wezterm', 'cli', 'spawn', '--cwd', vim.fn.chdir('.'), '--new-window' })
+  vim.fn.system({ 'wezterm', 'cli', 'spawn', '--cwd', vim.fn.getcwd(), '--new-window' })
 end, {})
 vim.api.nvim_create_user_command('WezTab', function()
-  vim.fn.system({ 'wezterm', 'cli', 'spawn', '--cwd', vim.fn.chdir('.') })
+  vim.fn.system({ 'wezterm', 'cli', 'spawn', '--cwd', vim.fn.getcwd() })
 end, {})
 vim.api.nvim_create_user_command('Rc', function()
   vim.cmd.drop(vim.fs.joinpath(vim.env.HOME, 'dotfiles', 'nvim', 'init.lua'))
@@ -83,9 +83,15 @@ vim.api.nvim_create_autocmd('BufRead',
       end
     end
   })
-for _, ext in pairs({ 'usf', 'ush', 'cginc', 'shader', 'glslinc', 'fx', 'hlsl' }) do
-  vim.filetype.add({ extension = { [ext] = 'hlsl' } })
-end
+vim.filetype.add({
+  usf = 'hlsl',
+  ush = 'hlsl',
+  cginc = 'hlsl',
+  shader = 'hlsl',
+  glslinc = 'hlsl',
+  fx = 'hlsl',
+  hlsl = 'hlsl'
+})
 vim.api.nvim_create_autocmd('LspAttach', {
   group = loading,
   callback = function(ev)
