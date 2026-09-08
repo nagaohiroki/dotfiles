@@ -41,11 +41,11 @@ return {
   { 'uga-rosa/translate.nvim',     opts = {},      cmd = { 'Translate' } },
   { 'nvim-tree/nvim-web-devicons', opts = {},      lazy = true },
   { 'seblyng/roslyn.nvim',         ft = { 'cs' } },
-  { 'neovim/nvim-lspconfig' },
   {
     'folke/tokyonight.nvim',
-    lazy = false,
+    lazy = true,
     priority = 1000,
+    event = 'UIEnter',
     config = function()
       require('tokyonight').setup({ styles = { comments = { italic = false }, keywords = { italic = false } } })
       vim.cmd.colorscheme('tokyonight-night')
@@ -53,6 +53,7 @@ return {
   },
   {
     'mason-org/mason-lspconfig.nvim',
+    dependencies = { 'mason-org/mason.nvim', 'neovim/nvim-lspconfig' },
     event = 'VeryLazy',
     opts = { ensure_installed = { 'lua_ls', 'clangd', 'marksman', 'taplo', 'rust_analyzer', 'wgsl_analyzer' } },
   },
@@ -99,10 +100,9 @@ return {
   {
     'mfussenegger/nvim-dap',
     dependencies = {
-      'rcarriga/nvim-dap-ui',
-      'nvim-neotest/nvim-nio',
+      { 'rcarriga/nvim-dap-ui', opts = {} },
+      'nvim-neotest/nvim-nio'
     },
-    config = function() require('dapui').setup() end,
     keys = {
       { '<F5>',     function() require('dap').continue() end },
       { '<C-F5>',   function() require('dap').run_last() end },

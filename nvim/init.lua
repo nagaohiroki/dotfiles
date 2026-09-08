@@ -1,5 +1,7 @@
 if require('singleton').setup() then return end
 vim.g.mapleader = ' '
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 vim.opt.writebackup = false
 vim.opt.swapfile = false
 vim.opt.fixeol = false
