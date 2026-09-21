@@ -95,6 +95,7 @@ return {
       { '<leader>r', function() Snacks.picker.grep_word({ hidden = true }) end, },
       { '<leader>i', function() Snacks.picker.grep({ hidden = true }) end, },
       { '<leader>m', function() Snacks.picker.recent({ hidden = true }) end, },
+      { '<leader>n', function() Snacks.picker.explorer({ hidden = true }) end, },
     },
   },
   {
