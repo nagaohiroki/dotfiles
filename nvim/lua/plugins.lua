@@ -96,6 +96,7 @@ return {
       { '<leader>i', function() Snacks.picker.grep({ hidden = true }) end, },
       { '<leader>m', function() Snacks.picker.recent({ hidden = true }) end, },
       { '<leader>n', function() Snacks.picker.explorer({ hidden = true }) end, },
+      { '<leader>z', function() Snacks.picker.zoxide() end, },
     },
   },
   {
