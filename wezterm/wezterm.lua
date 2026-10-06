@@ -14,6 +14,7 @@ if is_mac then
   config.macos_forward_to_ime_modifier_mask = 'SHIFT|CTRL'
   config.default_prog = { '/opt/homebrew/bin/nu' }
 end
+config.set_environment_variables = { XDG_CONFIG_HOME = wezterm.home_dir .. '/dotfiles' }
 config.use_ime = true
 config.font = wezterm.font_with_fallback({ [[HackGen Console NF]] })
 config.adjust_window_size_when_changing_font_size = false
