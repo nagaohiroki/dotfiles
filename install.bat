@@ -1,5 +1,4 @@
-mkdir "%USERPROFILE%\.config"
-mklink /j "%USERPROFILE%\.config\wezterm" "%USERPROFILE%\dotfiles\wezterm"
+setx XDG_CONFIG_HOME "%USERPROFILE%\dotfiles"
 call scoop bucket add extras
 call scoop install neovim
 call scoop install starship
