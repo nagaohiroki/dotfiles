@@ -59,7 +59,6 @@ vim.api.nvim_create_user_command('Utf8bomLF', function()
 end, {})
 local loading = vim.api.nvim_create_augroup('loading', { clear = true })
 vim.api.nvim_create_autocmd('QuickFixCmdPost', { group = loading, command = 'cwindow' })
-vim.api.nvim_create_autocmd('TermOpen', { group = loading, command = 'startinsert' })
 vim.api.nvim_create_autocmd('FileType',
   {
     group = loading,

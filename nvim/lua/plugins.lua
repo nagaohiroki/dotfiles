@@ -26,6 +26,11 @@ return {
     keys = { { '<leader>d', '<cmd>Gvdiffsplit<CR>' } }
   },
   {
+    'akinsho/toggleterm.nvim',
+    opts = { shell = 'nu' },
+    cmd = { 'ToggleTerm' },
+  },
+  {
     'iamcco/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
     ft = { 'markdown' },
