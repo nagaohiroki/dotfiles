@@ -14,7 +14,6 @@ return {
     end,
     keys = { { '<leader>a', '<Plug>(altr-forward)' } }
   },
-  { 'DingDean/wgsl.vim',           ft = { 'wgsl' } },
   {
     'tyru/open-browser.vim',
     cmd = { 'OpenBrowser', 'OpenBrowserSearch', 'OpenBrowserSmartSearch' },
@@ -42,9 +41,9 @@ return {
     cmd = { 'Oil' },
     keys = { { '<leader>o', '<cmd>Oil<CR>' } }
   },
-  { 'j-hui/fidget.nvim',           opts = {},      event = 'LspAttach' },
-  { 'uga-rosa/translate.nvim',     opts = {},      cmd = { 'Translate' } },
-  { 'nvim-tree/nvim-web-devicons', opts = {},      lazy = true },
+  { 'j-hui/fidget.nvim',           opts = {},    event = 'LspAttach' },
+  { 'uga-rosa/translate.nvim',     opts = {},    cmd = { 'Translate' } },
+  { 'nvim-tree/nvim-web-devicons', opts = {},    lazy = true },
   { 'seblyng/roslyn.nvim',         ft = { 'cs' } },
   {
     'folke/tokyonight.nvim',
@@ -103,6 +102,22 @@ return {
       { '<leader>n', function() Snacks.picker.explorer({ hidden = true }) end, },
       { '<leader>z', function() Snacks.picker.zoxide() end, },
     },
+  },
+  {
+    'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    build = ':TSUpdate',
+    config = function()
+      local ts = require('nvim-treesitter')
+      local langs = { 'wgsl' }
+      ts.install(langs)
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = langs,
+        callback = function(args)
+          pcall(vim.treesitter.start, args.buf)
+        end
+      })
+    end
   },
   {
     'mfussenegger/nvim-dap',
