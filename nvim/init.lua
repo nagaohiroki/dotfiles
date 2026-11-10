@@ -127,26 +127,6 @@ vim.lsp.config('roslyn', {
   cmd = { 'roslyn-language-server', '--stdio' },
   capabilities = { workspace = { didChangeWatchedFiles = { dynamicRegistration = false } } }
 })
-vim.lsp.config('lua_ls', {
-  filetypes = { 'lua' },
-  on_init = function(client)
-    client.config.settings = client.config.settings or {}
-    client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-      runtime = {
-        version = 'LuaJIT',
-        path = { 'lua/?.lua', 'lua/?/init.lua', },
-      },
-      workspace = {
-        checkThirdParty = false,
-        library = {
-          vim.env.VIMRUNTIME,
-          '${3rd}/luv/library',
-          vim.fn.stdpath('data') .. '/lazy/snacks.nvim',
-        }
-      }
-    })
-  end,
-})
 vim.lsp.enable({ 'basedpyright', 'ruff' })
 require('vim._core.ui2').enable({})
 local lazypath = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')

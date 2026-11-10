@@ -25,6 +25,17 @@ return {
     keys = { { '<leader>d', '<cmd>Gvdiffsplit<CR>' } }
   },
   {
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {
+      library = {
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+        { path = 'snacks.nvim',        words = { 'Snacks' } },
+        { path = 'wezterm-types',      mods = { 'wezterm' } },
+      }
+    }
+  },
+  {
     'akinsho/toggleterm.nvim',
     opts = { shell = 'nu' },
     cmd = { 'ToggleTerm' },
@@ -51,7 +62,14 @@ return {
     priority = 1000,
     event = 'UIEnter',
     config = function()
-      require('tokyonight').setup({ styles = { comments = { italic = false }, keywords = { italic = false } } })
+      require('tokyonight').setup({
+        styles = {
+          comments = { italic = false },
+          keywords = { italic = false }
+        },
+        on_colors = function(_) end,
+        on_highlights = function(_, _) end
+      })
       vim.cmd.colorscheme('tokyonight-night')
     end
   },
