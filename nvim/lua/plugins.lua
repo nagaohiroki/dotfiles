@@ -100,7 +100,10 @@ return {
         ['<Up>']      = { 'select_prev', 'fallback' },
         ['<C-s>']     = { 'show_signature', 'fallback' },
       },
-      sources = { default = { 'lsp', 'snippets', 'buffer' }, },
+      sources = {
+        default = { 'lsp', 'snippets', 'buffer' },
+        providers = { snippets = { opts = { extended_filetypes = { cs = { 'unity' } } } } }
+      },
       signature = { enabled = true },
       fuzzy = { implementation = 'lua' },
       completion = {
@@ -113,13 +116,13 @@ return {
     'folke/snacks.nvim',
     opts = { picker = { layout = { preview = false } } },
     keys = {
-      { '<leader>f', function() Snacks.picker.files({ hidden = true }) end, },
-      { '<leader>r', function() Snacks.picker.grep_word({ hidden = true }) end, },
-      { '<leader>i', function() Snacks.picker.grep({ hidden = true }) end, },
-      { '<leader>m', function() Snacks.picker.recent({ hidden = true }) end, },
-      { '<leader>n', function() Snacks.picker.explorer({ hidden = true }) end, },
-      { '<leader>z', function() Snacks.picker.zoxide() end, },
-    },
+      { '<leader>f', function() Snacks.picker.files({ hidden = true }) end },
+      { '<leader>r', function() Snacks.picker.grep_word({ hidden = true }) end },
+      { '<leader>i', function() Snacks.picker.grep({ hidden = true }) end },
+      { '<leader>m', function() Snacks.picker.recent({ hidden = true }) end },
+      { '<leader>n', function() Snacks.picker.explorer({ hidden = true }) end },
+      { '<leader>z', function() Snacks.picker.zoxide() end },
+    }
   },
   {
     'nvim-treesitter/nvim-treesitter',
