@@ -20,6 +20,8 @@ if ($nu.os-info.name == "macos") {
     $env.PATH = ($env.PATH | split row (char esep) | prepend ($env.HOME | path join ".local" "bin"))
     $env.PATH = ($env.PATH | prepend "/opt/homebrew/bin")
     $env.HOMEBREW_PREFIX = "/opt/homebrew"
+    $env.PATH = ($env.PATH | split row (char esep) | prepend ($env.HOME | path join ".unity" "bin"))
+    $env.PATH = ($env.PATH | split row (char esep) | prepend ($env.HOME | path join ".cargo" "bin"))
 }
 $env.EDITOR = "nvim"
 $env.buffer_editor = "nvim"
