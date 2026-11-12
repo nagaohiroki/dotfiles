@@ -16,12 +16,15 @@
 #
 # You can remove these comments if you want or leave
 # them for future reference.
+use std/util "path add"
 if ($nu.os-info.name == "macos") {
-    $env.PATH = ($env.PATH | split row (char esep) | prepend ($env.HOME | path join ".local" "bin"))
-    $env.PATH = ($env.PATH | prepend "/opt/homebrew/bin")
     $env.HOMEBREW_PREFIX = "/opt/homebrew"
-    $env.PATH = ($env.PATH | split row (char esep) | prepend ($env.HOME | path join ".unity" "bin"))
-    $env.PATH = ($env.PATH | split row (char esep) | prepend ($env.HOME | path join ".cargo" "bin"))
+    path add [
+        "/opt/homebrew/bin"
+        ($nu.home-dir | path join ".cargo" "bin")
+        ($nu.home-dir | path join ".unity" "bin")
+        ($nu.home-dir | path join ".local" "bin")
+    ]
 }
 $env.EDITOR = "nvim"
 $env.buffer_editor = "nvim"

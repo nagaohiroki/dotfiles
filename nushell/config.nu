@@ -17,7 +17,6 @@
 # options using:
 #     config nu --doc | nu-highlight | less -R
 $env.config = { show_banner: false }
-$env.config.shell_integration.osc133 = false
 source starship.nu
 source zoxide.nu
 source cargo.nu
