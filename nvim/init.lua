@@ -122,6 +122,10 @@ vim.keymap.set('n', '<leader>s', [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
 vim.keymap.set('n', '<leader>g', vim.lsp.buf.definition)
 vim.keymap.set('n', '<leader>u', vim.lsp.buf.references)
 vim.lsp.config('clangd', { filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'hlsl' }, })
+vim.lsp.config('roslyn', {
+  filetypes = { 'cs' },
+  capabilities = { workspace = { didChangeWatchedFiles = { dynamicRegistration = false } } }
+})
 vim.lsp.enable({ 'basedpyright', 'ruff' })
 require('vim._core.ui2').enable({})
 local lazypath = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy', 'lazy.nvim')
