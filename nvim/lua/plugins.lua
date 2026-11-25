@@ -104,7 +104,7 @@ return {
         ["<C-s>"]     = { "show_signature", "fallback" },
       },
       sources = {
-        default = { "lazydev", "lsp", "snippets", "buffer" },
+        default = { "lsp", "snippets", "buffer" },
         providers = { snippets = { opts = { extended_filetypes = { cs = { "unity" } } } } }
       },
       signature = { enabled = true },
